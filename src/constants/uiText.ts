@@ -12,9 +12,7 @@ export const UI_TEXT = {
   NAVIGATION: {
     DASHBOARD: 'ダッシュボード',
     MEMBER_MANAGEMENT: '利用者管理',
-    MEMBER_LIST: '利用者一覧',
     STAFF_MANAGEMENT: '職員管理',
-    STAFF_LIST: '職員一覧',
   },
   // セクションなどの見出し
   HEADINGS: {
@@ -28,9 +26,8 @@ export const UI_TEXT = {
     ARTICLE_TITLE: '記事名称',
     DATES: '作成日 - 最終更新日',
     AUTHOR: '著作者',
-    MEMBER_NAME: '利用者名',
+    FULL_NAME: '氏名', // ★ 追加
     CONTRACT_STATUS: '契約ステータス',
-    STAFF_NAME: '職員名',
     JOB_TITLE: '職種',
     OPERATION: '操作',
   },
@@ -46,6 +43,7 @@ export const UI_TEXT = {
     ADD: '追加',
     SAVE: '保存',
     DETAILS: '詳細',
+    ADD_MEMBER: '利用者追加',
   },
   ROLES: {
     ADMIN: '管理者',

@@ -4,7 +4,7 @@
 import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMembers } from '@/features/member/hooks';
-import { ResourceList, ColumnDefinition } from '@/components/ui/ResourceList';
+import { ResourceList, ColumnDefinition } from '@/components/ui/ResourceList'; // 変更
 import { UI_TEXT } from '@/constants';
 
 // APIから返ってくる加工済みメンバーの型
@@ -20,7 +20,7 @@ export const MemberList = () => {
 
   // 列の定義
   const columns: ColumnDefinition<ProcessedMember>[] = [
-    { header: UI_TEXT.LABELS.FULL_NAME, accessor: (member) => member.name }, // ★ 変更
+    { header: UI_TEXT.LABELS.MEMBER_NAME, accessor: (member) => member.name },
     { header: UI_TEXT.LABELS.CONTRACT_STATUS, accessor: (member) => member.status },
   ];
 

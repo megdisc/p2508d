@@ -19,7 +19,7 @@ export const StaffList = () => {
   const { staff, isLoading, error } = useStaff();
 
   const columns: ColumnDefinition<ProcessedStaff>[] = [
-    { header: UI_TEXT.LABELS.STAFF_NAME, accessor: (s) => s.name },
+    { header: UI_TEXT.LABELS.FULL_NAME, accessor: (s) => s.name }, // ★ 変更
     { header: UI_TEXT.LABELS.JOB_TITLE, accessor: (s) => s.role },
     { header: '雇用形態', accessor: (s) => s.employmentType },
   ];

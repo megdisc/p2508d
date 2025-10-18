@@ -11,9 +11,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <head>
-        <meta name="robots" content="noindex, nofollow" />
-      </head>
       <body>
         <AppProvider>{children}</AppProvider>
       </body>
