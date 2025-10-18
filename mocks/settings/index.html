@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>設定 - p2508d</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 4px var(--color-shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .card a {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+        .card-icon {
+            font-size: 2.5rem; /* 40px */
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+        .card-content h3 {
+            font-size: var(--font-size-lg);
+            margin-bottom: 0.5rem;
+        }
+        .card-content p {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            line-height: 1.4;
+        }
+        /* Material Icons用 */
+        .material-icons {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -moz-osx-font-smoothing: grayscale;
+            font-feature-settings: 'liga';
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="mockup-container">
+        <header class="header">
+            <div class="header-logo"><a href="../dashboard/index.html">p2508d</a></div>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="../dashboard/index.html" class="nav-link">ダッシュボード</a></li>
+                    <li><a href="../records/index.html" class="nav-link">日々の記録</a></li>
+                    <li><a href="../members/index.html" class="nav-link">利用者管理</a></li>
+                    <li><a href="../staff/index.html" class="nav-link">職員管理</a></li>
+                    <li><a href="../projects/index.html" class="nav-link">生産活動管理</a></li>
+                    <li><a href="../partners/index.html" class="nav-link">取引先管理</a></li>
+                    <li><a href="../accounting/index.html" class="nav-link">会計管理</a></li>
+                    <li><a href="../analytics/index.html" class="nav-link">データ分析</a></li>
+                    <li><a href="../corporation/index.html" class="nav-link">法人運営</a></li>
+                    <li><a href="../my-page/index.html" class="nav-link">マイページ</a></li>
+                    <li><a href="./index.html" class="nav-link active">設定</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="mockup-main">
+            <div class="list-page-header">
+                <h1 class="page-title">設定</h1>
+            </div>
+            <p>システム全体の動作や表示に関する設定を管理します。</p>
+
+            <div class="section">
+                <div class="card-grid">
+                    <div class="card">
+                        <a href="#">
+                            <div class="card-icon"><i class="material-icons">payments</i></div>
+                            <div class="card-content">
+                                <h3>工賃体系設定</h3>
+                                <p>工賃計算の基本単価、手当、控除項目などを設定します。</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="card">
+                        <a href="../corporation/index.html">
+                             <div class="card-icon"><i class="material-icons">apartment</i></div>
+                            <div class="card-content">
+                                <h3>事業所設定</h3>
+                                <p>事業所の基本情報、加算サービスなどを設定します。</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="card">
+                        <a href="#">
+                             <div class="card-icon"><i class="material-icons">storage</i></div>
+                            <div class="card-content">
+                                <h3>マスタ管理</h3>
+                                <p>支出費目など、システム内で使用する選択肢を一元管理します。</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="card">
+                        <a href="#">
+                            <div class="card-icon"><i class="material-icons">schedule</i></div>
+                            <div class="card-content">
+                                <h3>職員勤怠設定</h3>
+                                <p>勤務時間、休憩、休暇などの勤怠ルールを設定します。</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="card">
+                        <a href="#">
+                            <div class="card-icon"><i class="material-icons">manage_accounts</i></div>
+                            <div class="card-content">
+                                <h3>アカウント管理</h3>
+                                <p>職員アカウントの権限などを設定します。</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

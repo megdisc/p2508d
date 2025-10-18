@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p2508d - 記録・書類管理モックアップ</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="mockup-container">
+        <header class="header">
+            <div>
+                <h1 class="header-logo"><a href="#daily-logs">p2508d</a></h1>
+            </div>
+            <nav class="nav" id="side-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <details class="nav-accordion" open>
+                            <summary class="nav-link">
+                                <span>記録・書類管理</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-arrow"><path d="m9 18 6-6-6-6"></path></svg>
+                            </summary>
+                            <ul class="nav-sub-list">
+                                <li><a href="#daily-logs" class="nav-link">業務日誌</a></li>
+                                <li><a href="#incident-reports" class="nav-link">ヒヤリハット・事故報告</a></li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+                <ul class="nav-list">
+                    <li><a href="../index.html">画面一覧へ戻る</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="mockup-main">
+            <div id="daily-logs" class="mockup-page active">
+                <div class="list-page-header">
+                    <h1 class="page-title">業務日誌</h1>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <label for="log-date">対象日:</label>
+                        <input type="date" id="log-date" value="2025-10-15" style="padding: 0.5rem;">
+                    </div>
+                </div>
+                <div class="section">
+                    <h2 class="section-title">今日の特記事項</h2>
+                    <div class="section-content">
+                        <textarea rows="5">- 青木様、新しい作業工程「検品」のトレーニングを開始。順調な滑り出し。
+- 午後、株式会社Aの鈴木部長が来所。</textarea>
+                    </div>
+                </div>
+                <div class="section">
+                    <h2 class="section-title">利用者様の様子</h2>
+                    <div class="section-content">
+                        <dl class="detail-grid" style="grid-template-columns: 100px 1fr;">
+                            <dt>五十嵐様</dt>
+                            <dd><input type="text" value="集中して作業に取り組めていた。"></dd>
+                            <dt>遠藤様</dt>
+                            <dd><input type="text" value="午後から少し疲れが見られたため、休憩を促した。"></dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="section-footer" style="display: flex; justify-content: space-between; align-items: center;">
+                     <div>
+                        <label for="log-author">記録者:</label>
+                        <select id="log-author" style="padding: 0.5rem;">
+                            <option>管理者 太郎</option>
+                            <option selected>支援員 次郎</option>
+                        </select>
+                    </div>
+                    <button class="button button-primary">日誌を保存</button>
+                </div>
+            </div>
+
+            <div id="incident-reports" class="mockup-page">
+                <div class="list-page-header">
+                    <h1 class="page-title">ヒヤリハット・事故報告一覧</h1>
+                    <button class="button button-primary">＋ 新規報告作成</button>
+                </div>
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>発生日時</th>
+                                <th>種別</th>
+                                <th>報告者</th>
+                                <th>状況</th>
+                                <th class="col-actions">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2025/10/14 11:00</td>
+                                <td>ヒヤリハット</td>
+                                <td>支援員 次郎</td>
+                                <td>確認済</td>
+                                <td class="col-actions">
+                                    <div class="table-button-group">
+                                        <button class="button button-primary">詳細</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2025/09/20 15:30</td>
+                                <td>事故報告</td>
+                                <td>管理者 太郎</td>
+                                <td>対応完了</td>
+                                <td class="col-actions">
+                                    <div class="table-button-group">
+                                        <button class="button button-primary">詳細</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        // ページ読み込み時にURLにハッシュ(#)がなければ、#daily-logsをデフォルトとして設定する
+        if (!location.hash) {
+            location.hash = '#daily-logs';
+        }
+    </script>
+</body>
+</html>

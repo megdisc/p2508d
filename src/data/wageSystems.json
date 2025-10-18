@@ -1,0 +1,11 @@
+[
+  {
+    "id": "ws-1",
+    "calculationType": "hourly",
+    "timeUnit": "hour",
+    "rounding": {
+      "method": "round_down",
+      "unit": 1
+    }
+  }
+]

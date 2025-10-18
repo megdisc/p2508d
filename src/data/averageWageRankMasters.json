@@ -1,0 +1,14 @@
+[
+  {
+    "id": "avg-wage-rank-1",
+    "name": "1万円以上"
+  },
+  {
+    "id": "avg-wage-rank-2",
+    "name": "5千円以上1万円未満"
+  },
+  {
+    "id": "avg-wage-rank-3",
+    "name": "5千円未満"
+  }
+]

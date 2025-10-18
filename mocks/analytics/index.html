@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p2508d - 法人運営モックアップ</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="mockup-container">
+        <header class="header">
+            <div>
+                <h1 class="header-logo"><a href="#analytics">p2508d</a></h1>
+            </div>
+            <nav class="nav" id="side-nav">
+                <ul class="nav-list">
+                    <li><a href="#analytics" class="nav-link">データ分析</a></li>
+                </ul>
+                <ul class="nav-list">
+                    <li><a href="../index.html" class="nav-link">画面一覧へ戻る</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="mockup-main">
+            <div id="analytics" class="mockup-page">
+                <div class="list-page-header">
+                    <h1 class="page-title">データ分析</h1>
+                     <div>
+                        <label for="analysis-period">期間:</label>
+                        <select id="analysis-period" style="padding: 0.5rem;">
+                            <option selected>2025年度</option>
+                            <option>2024年度</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="section">
+                    <h2 class="section-title">収支推移</h2>
+                    <div class="section-content">
+                        <p style="text-align:center; padding: 4rem; background-color: #f8f9fa;">（月ごとの売上・支出・損益の推移を示す棒グラフ/折れ線グラフ）</p>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                    <div class="section">
+                         <h2 class="section-title">売上内訳</h2>
+                         <div class="section-content">
+                             <p style="text-align:center; padding: 4rem; background-color: #f8f9fa;">（給付費/売上の円グラフ）</p>
+                         </div>
+                    </div>
+                     <div class="section">
+                         <h2 class="section-title">支出内訳</h2>
+                         <div class="section-content">
+                            <p style="text-align:center; padding: 4rem; background-color: #f8f9fa;">（人件費/工賃/経費の円グラフ）</p>
+                         </div>
+                    </div>
+                     <div class="section">
+                         <h2 class="section-title">平均工賃</h2>
+                         <div class="section-content">
+                            <p style="text-align:center; padding: 4rem; background-color: #f8f9fa;">（推移グラフ）</p>
+                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="calendar-settings" class="mockup-page">
+                <div class="list-page-header">
+                    <h1 class="page-title">営業日設定 (2025年)</h1>
+                    <button class="button button-primary">祝日適用</button>
+                </div>
+                <div class="section">
+                     <div class="calendar-header" style="justify-content: center; margin-bottom: 1rem;">
+                        <button class="button button-secondary">&lt;</button>
+                        <h3 style="margin: 0 1rem; font-size: 1.2rem;">2025年 10月</h3>
+                        <button class="button button-secondary">&gt;</button>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="table calendar-table" style="text-align: center;">
+                            <thead>
+                                <tr>
+                                    <th style="color: red;">日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th style="color: blue;">土</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td><td></td><td></td><td>1</td><td>2</td><td>3</td><td style="background-color: #fde2e2;">4</td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #fde2e2;">5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td style="background-color: #fde2e2;">11</td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #fde2e2;">12</td><td style="background-color: #ffe8cc;">13</td><td>14</td><td>15</td><td>16</td><td>17</td><td style="background-color: #fde2e2;">18</td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #fde2e2;">19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td style="background-color: #fde2e2;">25</td>
+                                </tr>
+                                 <tr>
+                                    <td style="background-color: #fde2e2;">26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td><td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="text-align: center; margin-top: 1rem; font-size: var(--font-size-sm);">※日付をクリックすると、営業日/休業日を切り替えることができます。</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const nav = document.getElementById('side-nav');
+        const links = nav.querySelectorAll('a.nav-link, a.nav-sublink');
+        const accordionButtons = nav.querySelectorAll('.nav-accordion-button');
+        const pages = document.querySelectorAll('.mockup-page');
+
+        function showPage(targetId) {
+            // すべてのページを非表示に
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            // ターゲットのページを表示
+            const targetPage = document.getElementById(targetId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // ナビゲーションのアクティブ状態を更新
+            links.forEach(link => {
+                if (link.getAttribute('href') === '#' + targetId) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+             // アクティブなリンクが含まれるアコーディオンを開く
+            accordionButtons.forEach(button => {
+                const submenuId = button.dataset.submenuId;
+                const submenu = document.getElementById(submenuId);
+                if (submenu && submenu.querySelector('a.active')) {
+                    button.classList.add('open');
+                    submenu.classList.add('open');
+                }
+            });
+        }
+
+        // リンククリック時の処理
+        links.forEach(link => {
+            link.addEventListener('click', function(event) {
+                const href = this.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    event.preventDefault();
+                    const targetId = href.substring(1);
+                    showPage(targetId);
+                    window.location.hash = targetId;
+                }
+            });
+        });
+
+        // アコーディオンメニューの開閉処理
+        accordionButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                this.classList.toggle('open');
+                const submenuId = this.dataset.submenuId;
+                const submenu = document.getElementById(submenuId);
+                if (submenu) {
+                    submenu.classList.toggle('open');
+                }
+            });
+        });
+
+        // 初期表示
+        const initialPageId = window.location.hash ? window.location.hash.substring(1) : 'analytics';
+        showPage(initialPageId);
+    });
+</script>
+</body>
+</html>

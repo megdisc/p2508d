@@ -1,0 +1,52 @@
+[
+  {
+    "id": "addr-corp-1",
+    "postalCode": "100-0001",
+    "prefecture": "東京都",
+    "city": "千代田区",
+    "street": "千代田1-1"
+  },
+  {
+    "id": "addr-office-1",
+    "postalCode": "220-0004",
+    "prefecture": "神奈川県",
+    "city": "横浜市西区",
+    "street": "北幸1-1-8",
+    "building": "エキニア横浜ビル 5F"
+  },
+  {
+    "id": "addr-member-1",
+    "postalCode": "221-0835",
+    "prefecture": "神奈川県",
+    "city": "横浜市神奈川区",
+    "street": "鶴屋町2-24-2"
+  },
+  {
+    "id": "addr-member-2",
+    "postalCode": "220-0073",
+    "prefecture": "神奈川県",
+    "city": "横浜市西区",
+    "street": "岡野1-12-15"
+  },
+  {
+    "id": "addr-staff-1",
+    "postalCode": "231-0062",
+    "prefecture": "神奈川県",
+    "city": "横浜市中区",
+    "street": "桜木町1-1"
+  },
+  {
+    "id": "addr-client-1",
+    "postalCode": "105-0000",
+    "prefecture": "東京都",
+    "city": "港区",
+    "street": "虎ノ門1-1-1"
+  },
+  {
+    "id": "addr-supplier-1",
+    "postalCode": "231-0023",
+    "prefecture": "神奈川県",
+    "city": "横浜市中区",
+    "street": "山下町1"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "sp-1",
+    "memberId": "mem-1",
+    "creationDate": "2025-09-15",
+    "authorStaffId": "staff-2",
+    "userAspirations": "PCを使った仕事ができるようになりたい。将来はデータ入力の仕事で在宅ワークを目指したい。",
+    "longTermGoals": "データ入力の案件を一人で正確かつスピーディに担当できるようになる。",
+    "shortTermGoals": "・タイピングの正確性を上げる（ミス率5%以下）。\n・報告・連絡・相談を適切なタイミングで自ら行うことができる。",
+    "statusId": "master-support-plan-status-active"
+  },
+  {
+    "id": "sp-2-archived",
+    "memberId": "mem-1",
+    "creationDate": "2025-03-15",
+    "authorStaffId": "staff-2",
+    "userAspirations": "まずは事業所に慣れたい。",
+    "longTermGoals": "週5日、安定して通所できるようになる。",
+    "shortTermGoals": "・毎日決まった時間に起床し、身支度を整える。\n・作業に集中できる時間を30分維持する。",
+    "statusId": "master-support-plan-status-archived"
+  }
+]

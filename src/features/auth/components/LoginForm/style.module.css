@@ -1,0 +1,42 @@
+/* src/features/auth/components/SigninForm/style.module.css */
+
+.title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+}
+
+.title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* 24px */
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 2rem; /* 32px */
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background-color: var(--color-background);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* 8px */
+}
+
+.field label {
+  font-weight: 500;
+  font-size: var(--font-size-sm);
+}
+
+.error {
+  color: var(--color-danger);
+  font-size: var(--font-size-xs);
+}

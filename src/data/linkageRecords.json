@@ -1,0 +1,18 @@
+[
+  {
+    "id": "linkage-1",
+    "memberId": "mem-1",
+    "recordDate": "2025-10-05",
+    "counterpart": "母・花子様",
+    "authorStaffId": "staff-1",
+    "content": "ご自宅での様子についてお電話にて情報共有。PCへの興味が強く、自宅でもタイピング練習をしているとのこと。今後の支援の参考にさせていただく。"
+  },
+  {
+    "id": "linkage-2",
+    "memberId": "mem-2",
+    "recordDate": "2025-09-20",
+    "counterpart": "〇〇クリニック 主治医",
+    "authorStaffId": "staff-2",
+    "content": "定期的な情報共有のため、主治医と面談。最近の事業所での様子を報告し、支援上の留意点について助言をいただいた。"
+  }
+]

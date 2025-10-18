@@ -1,0 +1,39 @@
+[
+  { "id": "master-member-status-1", "category": "MEMBER_STATUS", "key": "pending", "value": "利用調整中", "order": 1 },
+  { "id": "master-member-status-2", "category": "MEMBER_STATUS", "key": "active", "value": "利用中", "order": 2 },
+  { "id": "master-member-status-3", "category": "MEMBER_STATUS", "key": "suspended", "value": "休止中", "order": 3 },
+  { "id": "master-member-status-4", "category": "MEMBER_STATUS", "key": "terminated", "value": "契約終了", "order": 4 },
+
+  { "id": "master-employment-type-1", "category": "EMPLOYMENT_TYPE", "key": "full-time", "value": "常勤", "order": 1 },
+  { "id": "master-employment-type-2", "category": "EMPLOYMENT_TYPE", "key": "part-time", "value": "非常勤", "order": 2 },
+
+  { "id": "master-project-status-1", "category": "PROJECT_STATUS", "key": "not-started", "value": "未着手", "order": 1 },
+  { "id": "master-project-status-2", "category": "PROJECT_STATUS", "key": "in-progress", "value": "作業中", "order": 2 },
+  { "id": "master-project-status-3", "category": "PROJECT_STATUS", "key": "completed", "value": "完了", "order": 3 },
+  { "id": "master-project-status-4", "category": "PROJECT_STATUS", "key": "delivered", "value": "納品済", "order": 4 },
+  { "id": "master-project-status-5", "category": "PROJECT_STATUS", "key": "canceled", "value": "キャンセル", "order": 5 },
+  
+  { "id": "master-report-type-near-miss", "category": "REPORT_TYPE", "key": "near-miss", "value": "ヒヤリハット", "order": 1 },
+  { "id": "master-report-type-accident", "category": "REPORT_TYPE", "key": "accident", "value": "事故報告", "order": 2 },
+
+  { "id": "master-report-status-pending", "category": "REPORT_STATUS", "key": "pending", "value": "確認中", "order": 1 },
+  { "id": "master-report-status-checked", "category": "REPORT_STATUS", "key": "checked", "value": "確認済", "order": 2 },
+  { "id": "master-report-status-completed", "category": "REPORT_STATUS", "key": "completed", "value": "対応完了", "order": 3 },
+  
+  { "id": "master-attendance-present", "category": "ATTENDANCE_STATUS", "key": "present", "value": "利用", "order": 1 },
+  { "id": "master-attendance-absent", "category": "ATTENDANCE_STATUS", "key": "absent", "value": "欠席", "order": 2 },
+  { "id": "master-attendance-hospital", "category": "ATTENDANCE_STATUS", "key": "hospital", "value": "通院", "order": 3 },
+
+  { "id": "master-user-role-admin", "category": "USER_ROLE", "key": "admin", "value": "管理者", "order": 1 },
+  { "id": "master-user-role-editor", "category": "USER_ROLE", "key": "editor", "value": "編集者", "order": 2 },
+  { "id": "master-user-role-viewer", "category": "USER_ROLE", "key": "viewer", "value": "閲覧者", "order": 3 },
+  
+  { "id": "master-prof-level-1", "category": "PROFICIENCY_LEVEL", "key": "not-learned", "value": "未習得", "order": 1 },
+  { "id": "master-prof-level-2", "category": "PROFICIENCY_LEVEL", "key": "training", "value": "トレーニング中", "order": 2 },
+  { "id": "master-prof-level-3", "category": "PROFICIENCY_LEVEL", "key": "learned", "value": "習得済", "order": 3 },
+  { "id": "master-prof-level-4", "category": "PROFICIENCY_LEVEL", "key": "instructor", "value": "指導可", "order": 4 },
+
+  { "id": "master-billing-status-1", "category": "BILLING_STATUS", "key": "pending", "value": "計算中", "order": 1 },
+  { "id": "master-billing-status-2", "category": "BILLING_STATUS", "key": "confirmed", "value": "確定済", "order": 2 },
+  { "id": "master-billing-status-3", "category": "BILLING_STATUS", "key": "invoiced", "value": "請求済", "order": 3 }
+]

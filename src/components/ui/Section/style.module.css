@@ -1,0 +1,20 @@
+/* src/components/ui/Section/style.module.css */
+
+.section {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border); /* 罫線の太さを2pxから1pxに変更 */
+}
+
+.content {
+  margin-top: 1rem;
+}

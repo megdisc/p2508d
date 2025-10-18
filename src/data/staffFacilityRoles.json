@@ -1,0 +1,23 @@
+[
+  {
+    "id": "sfr-1",
+    "staffId": "staff-1",
+    "roleId": "fac-role-1",
+    "officeId": "office-1",
+    "startDate": "2023-04-01"
+  },
+  {
+    "id": "sfr-2",
+    "staffId": "staff-2",
+    "roleId": "fac-role-2",
+    "officeId": "office-1",
+    "startDate": "2023-04-01"
+  },
+  {
+    "id": "sfr-3",
+    "staffId": "staff-3",
+    "roleId": "fac-role-3",
+    "officeId": "office-1",
+    "startDate": "2024-08-01"
+  }
+]

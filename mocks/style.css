@@ -1,0 +1,534 @@
+/* ==========================================================================
+   CSS Variables (Design Tokens)
+   ========================================================================== */
+:root {
+    /* ============================================= */
+    /* 第1層：グローバル・パレット (Global Palette)   */
+    /* プロジェクトで利用するすべての色を定義します。    */
+    /* ============================================= */
+    /* --- ブランドカラー --- */
+    --palette-navy-main: #000066;        /* メインカラー */
+    --palette-navy-sub: #000099;         /* サブカラー */
+    --palette-orange-accent: #FF9900;    /* アクセントカラー */
+
+    /* --- ニュートラルカラー --- */
+    --palette-white: #FFFFFF;            /* ホワイト */
+    --palette-gray-dark: #333333;         /* ダークグレー（主に文字） */
+    --palette-gray-medium: #6c757d;       /* ミディアムグレー（補助的な要素） */
+    --palette-gray-light: #CCCCCC;       /* ライトグレー（薄い罫線など） */
+    --palette-gray-border: #e0e0e0;       /* ボーダー専用グレー */
+    --palette-gray-bg-light: #f1f3f5;    /* 明るい背景グレー */
+    --palette-gray-bg-dark: #e9ecef;     /* やや濃い背景グレー */
+    --palette-gray-bg-very-light: #f8f9fa;/* 非常に明るい背景グレー */
+
+    /* --- セマンティックカラー --- */
+    --palette-green-success: #28a745;    /* 成功 */
+    --palette-yellow-alert: #ffc107;     /* 警告 */
+    --palette-red-error: #FF0000;         /* エラー・危険 */
+
+
+    /* ============================================= */
+    /* 第2層：セマンティック・トークン (Semantic Tokens) */
+    /* 色やサイズに「意味」を与えます。アプリでは主にこの層を使います。 */
+    /* ============================================= */
+
+    /* --- 基本色 --- */
+    --color-background: var(--palette-gray-bg-very-light); /* 基本の背景色 */
+    --color-surface: var(--palette-white);                /* カードなどの表面色 */
+    --color-text-primary: var(--palette-gray-dark);       /* 基本の文字色 */
+    --color-text-secondary: var(--palette-gray-medium);   /* 補助的な文字色 */
+    --color-border: var(--palette-gray-border);           /* 基本の境界線色 */
+    --color-shadow: rgba(0, 0, 0, 0.05);                  /* 影の色 */
+
+    /* --- ブランドカラー --- */
+    --color-primary: var(--palette-navy-main);            /* プライマリ（メイン） */
+    --color-primary-hover: var(--palette-navy-sub);       /* プライマリ（ホバー時など） */
+    --color-accent: var(--palette-orange-accent);         /* アクセント */
+
+    /* --- 意味を持つ色 (Semantic Colors) --- */
+    --color-danger: var(--palette-red-error);             /* 危険・エラー */
+    --color-success: var(--palette-green-success);        /* 成功 */
+    --color-alert: var(--palette-yellow-alert);           /* 警告・注意 */
+
+    /* --- UI要素 --- */
+    --color-hover-bg: var(--palette-gray-bg-light);       /* ホバー時の背景色 */
+    --color-active-bg: var(--palette-gray-bg-dark);       /* アクティブ時の背景色 */
+    --color-button-text: var(--palette-white);            /* ボタンの文字色 */
+
+    /* --- フォント --- */
+    --font-family-base: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "游ゴシック Medium", "Yu Gothic Medium", "メイリオ", Meiryo, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-size-xs: 0.75rem;     /* 12px */
+    --font-size-sm: 0.875rem;    /* 14px */
+    --font-size-base: 1rem;      /* 16px */
+    --font-size-lg: 1.25rem;     /* 20px */
+    --font-size-xl: 1.875rem;    /* 30px */
+
+    /* --- その他 --- */
+    --border-radius: 0.375rem;
+}
+
+/* ==========================================================================
+   Base & Reset
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+body, h1, h2, h3, h4, p, ul, ol, table, dl {
+    margin: 0;
+}
+ul, ol {
+    padding: 0;
+    list-style: none;
+}
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    line-height: 1.5;
+}
+button,
+a.button {
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+.mockup-container {
+    display: flex;
+}
+.mockup-main {
+    margin-left: 240px;
+    padding: 2rem;
+    width: calc(100% - 240px);
+}
+.mockup-page {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+.mockup-page.active {
+    display: block;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ==========================================================================
+   Components
+   ========================================================================== */
+
+/* --- Header --- */
+.header {
+    width: 240px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--color-surface);
+    border-right: 1px solid var(--color-border);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    z-index: 1000;
+}
+.header-logo {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    text-align: center;
+}
+.header-logo a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* --- Navigation --- */
+.nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    overflow-y: auto;
+}
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+}
+.nav-link {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    color: var(--color-text-primary);
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+    text-align: left;
+}
+.nav-link:hover {
+    background-color: var(--color-hover-bg);
+}
+.nav-link.active {
+    font-weight: 700;
+    background-color: var(--color-active-bg);
+    color: var(--color-primary);
+}
+.nav-logout-section {
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+/* --- Button --- */
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-button-text);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    text-decoration: none;
+}
+.button-primary {
+    background-color: var(--color-primary);
+}
+.button-secondary {
+    background-color: var(--color-text-secondary);
+}
+.button-danger {
+    background-color: var(--color-danger);
+}
+.button-clear {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+}
+
+/* --- Page Structure --- */
+.page-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+}
+.list-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+/* --- Section --- */
+.section {
+    width: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-top: 1rem;
+    background-color: var(--color-surface);
+}
+.section-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+.section-content {
+    margin-top: 1rem;
+}
+.section-footer {
+    margin-top: 1.5rem;
+    text-align: right;
+}
+
+/* --- Table --- */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-surface);
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.table th,
+.table td {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--font-size-sm);
+    text-align: center;
+}
+.table thead th {
+    font-weight: 600;
+    background-color: #f9f9f9; /* Note: This is a one-off color */
+}
+.table tbody td {
+    text-align: center;
+}
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+.table-button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+.table input[type="text"],
+.table input[type="number"],
+.table input[type="date"] {
+    width: 100%;
+    padding: 0.375rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+}
+
+/* --- Tabs --- */
+.tabs {
+    display: flex;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: -1px;
+}
+.tab-item {
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-bottom: none;
+    margin-bottom: -1px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}
+.tab-item.active {
+    border-color: var(--color-border);
+    border-bottom-color: var(--color-surface);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    font-weight: 600;
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+}
+.tab-content-wrapper {
+    border: 1px solid var(--color-border);
+    border-radius: 0 var(--border-radius) var(--border-radius) var(--border-radius);
+    padding: 1.5rem;
+    background-color: var(--color-surface);
+}
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s;
+}
+.tab-content.active {
+    display: block;
+}
+
+/* --- Detail Page --- */
+.detail-grid {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 1rem 1.5rem;
+    align-items: center;
+}
+.detail-grid dt {
+    font-weight: 600;
+    text-align: right;
+    color: #495057; /* Note: This is a one-off color */
+}
+.detail-grid dd {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.detail-grid input,
+.detail-grid select,
+.detail-grid textarea {
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: var(--font-size-base);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+}
+textarea.work-content {
+    font-family: inherit;
+    min-height: 120px;
+    resize: vertical;
+}
+.memo-content {
+    white-space: pre-wrap;
+    background-color: var(--color-background);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+}
+
+/* --- Calendar --- */
+.calendar {
+    width: 100%;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+}
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+}
+.calendar-day-name {
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+}
+.calendar-day {
+    padding: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.calendar-day:hover {
+    background-color: var(--color-active-bg);
+}
+
+/* --- Modal --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+    animation: fadeIn 0.3s;
+}
+.modal-content {
+    background-color: #fefefe; /* Note: This is a one-off color */
+    margin: 10% auto;
+    padding: 2rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    width: 60%;
+    max-width: 700px;
+    position: relative;
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+.modal-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+}
+.modal-close {
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: #aaa; /* Note: This is a one-off color */
+}
+.modal-close:hover,
+.modal-close:focus {
+    color: black;
+}
+.modal-body .form-group {
+    margin-bottom: 1rem;
+}
+.modal-body label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+.modal-body input,
+.modal-body textarea,
+.modal-body select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+}
+.modal-body .time-input-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.modal-body .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.modal-body .checkbox-group input {
+    width: auto;
+}
+.modal-footer {
+    text-align: right;
+    margin-top: 2rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 1rem;
+}
+
+/* ==========================================================================
+   Custom/Fixes
+   ========================================================================== */
+.col-actions {
+    width: 120px; /* ボタンが収まるように幅を固定 */
+    white-space: nowrap; /* セル内での改行を防ぐ */
+}
+
+
+
+
+
+
+
+
+
+
+
+/* --- Accordion Styles --- */
+/* Add this to the end of your existing style.css */
+
+.accordion-toggle::after {
+    content: '▶';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.accordion-toggle.active::after {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+/* 矢印の位置を修正するためのスタイル */
+        .nav-link.accordion-toggle {
+            position: relative;
+        }

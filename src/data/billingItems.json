@@ -1,0 +1,34 @@
+[
+  {
+    "id": "bi-base-1",
+    "name": "就労継続支援B型サービス費(Ⅰ) 7.5:1 区分6",
+    "type": "base_reward",
+    "unit": 610
+  },
+  {
+    "id": "bi-base-2",
+    "name": "就労継続支援B型サービス費(Ⅰ) 10:1 区分5",
+    "type": "base_reward",
+    "unit": 523
+  },
+  {
+    "id": "bi-addition-1",
+    "name": "欠席時対応加算",
+    "type": "addition",
+    "unit": 94,
+    "description": "利用予定日に欠席した際に、連絡調整や相談援助を行った場合に月4回まで算定可能。"
+  },
+  {
+    "id": "bi-addition-2",
+    "name": "福祉専門職員配置等加算(Ⅰ)",
+    "type": "addition",
+    "unit": 15
+  },
+  {
+    "id": "bi-deduction-1",
+    "name": "人員欠如減算",
+    "type": "deduction",
+    "unit": 0,
+    "description": "人員配置基準を満たさない場合に、基本報酬から30%または50%を減算する。"
+  }
+]

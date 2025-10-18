@@ -1,0 +1,20 @@
+[
+  {
+    "id": "md-1",
+    "memberId": "mem-1",
+    "disabilityName": "自閉症スペクトラム障害",
+    "diagnosisDate": "2018-05-10"
+  },
+  {
+    "id": "md-2",
+    "memberId": "mem-2",
+    "disabilityName": "統合失調症",
+    "diagnosisDate": "2020-02-01"
+  },
+  {
+    "id": "md-3",
+    "memberId": "mem-3",
+    "disabilityName": "ダウン症候群",
+    "diagnosisDate": "2002-08-20"
+  }
+]

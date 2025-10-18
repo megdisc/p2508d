@@ -1,0 +1,86 @@
+[
+  {
+    "id": "term-1",
+    "officeId": "office-1",
+    "systemKey": "term_member",
+    "customValue": "メンバー"
+  },
+  {
+    "id": "term-2",
+    "officeId": "office-1",
+    "systemKey": "term_staff",
+    "customValue": "スタッフ"
+  },
+  {
+    "id": "term-3",
+    "officeId": "office-1",
+    "systemKey": "term_client",
+    "customValue": "クライアント"
+  },
+  {
+    "id": "term-4",
+    "officeId": "office-1",
+    "systemKey": "term_partner",
+    "customValue": "パートナー"
+  },
+  {
+    "id": "term-5",
+    "officeId": "office-1",
+    "systemKey": "term_project",
+    "customValue": "プロジェクト"
+  },
+  {
+    "id": "term-6",
+    "officeId": "office-1",
+    "systemKey": "term_wage",
+    "customValue": "工賃"
+  },
+  {
+    "id": "term-7",
+    "officeId": "office-1",
+    "systemKey": "term_base_wage",
+    "customValue": "ベース"
+  },
+  {
+    "id": "term-8",
+    "officeId": "office-1",
+    "systemKey": "term_addition",
+    "customValue": "加算"
+  },
+  {
+    "id": "term-9",
+    "officeId": "office-1",
+    "systemKey": "term_deduction",
+    "customValue": "控除"
+  },
+  {
+    "id": "term-10",
+    "officeId": "office-1",
+    "systemKey": "term_support_plan",
+    "customValue": "パーソナルプラン"
+  },
+  {
+    "id": "term-11",
+    "officeId": "office-1",
+    "systemKey": "term_daily_log",
+    "customValue": "支援記録"
+  },
+  {
+    "id": "term-12",
+    "officeId": "office-1",
+    "systemKey": "term_incident_report",
+    "customValue": "インシデントレポート"
+  },
+  {
+    "id": "term-13",
+    "officeId": "office-1",
+    "systemKey": "term_support_consultant",
+    "customValue": "ケースワーカー"
+  },
+  {
+    "id": "term-14",
+    "officeId": "office-1",
+    "systemKey": "term_office",
+    "customValue": "センター"
+  }
+]

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p2508d - 取引先管理モックアップ</title>
+    <link rel="stylesheet" href="../style.css"></head>
+</head>
+<body>
+    <div class="mockup-container">
+        <header class="header">
+            <div>
+                <h1 class="header-logo"><a href="#contacts">p2508d</a></h1>
+            </div>
+            <nav class="nav" id="side-nav">
+                <ul class="nav-list">
+                    <li><a href="#contacts" class="nav-link">取引先管理</a></li>
+                </ul>
+                <ul class="nav-list">
+                    <li><a href="../index.html">画面一覧へ戻る</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="mockup-main">
+            <div id="contacts" class="mockup-page">
+                <div class="list-page-header">
+                    <h1 class="page-title">取引先一覧</h1>
+                    <button class="button button-primary">＋ 新規作成</button>
+                </div>
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>会社名</th>
+                                <th>種別</th>
+                                <th>電話番号</th>
+                                <th>最終取引日</th>
+                                <th class="col-actions">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>株式会社A</td>
+                                <td>顧客</td>
+                                <td>03-XXXX-XXXX</td>
+                                <td>2025.10.31</td>
+                                <td class="col-actions"><div class="table-button-group"><a href="#contact-detail" class="button button-primary">詳細</a></div></td>
+                            </tr>
+                            <tr>
+                                <td>有限会社B</td>
+                                <td>顧客</td>
+                                <td>045-XXX-XXXX</td>
+                                <td>2025.09.30</td>
+                                <td class="col-actions"><div class="table-button-group"><a href="#contact-detail" class="button button-primary">詳細</a></div></td>
+                            </tr>
+                            <tr>
+                                <td>○○印刷</td>
+                                <td>外注先</td>
+                                <td>03-YYYY-YYYY</td>
+                                <td>2025.10.31</td>
+                                <td class="col-actions"><div class="table-button-group"><a href="#contact-detail" class="button button-primary">詳細</a></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="contact-detail" class="mockup-page">
+                <div class="list-page-header">
+                    <h1 class="page-title">&lt; 株式会社A &gt;</h1>
+                    <div>
+                        <a href="#contacts" class="button button-secondary">一覧へ戻る</a>
+                    </div>
+                </div>
+                <div class="tabs" id="contact-detail-tabs">
+                    <div class="tab-item active" data-tab="tab-company-info">取引先情報</div>
+                    <div class="tab-item" data-tab="tab-trade-history">取引履歴</div>
+                    <div class="tab-item" data-tab="tab-memo">メモ</div>
+                </div>
+                <div class="tab-content-wrapper">
+                    <div id="tab-company-info" class="tab-content active">
+                        <div class="section">
+                            <h2 class="section-title">基本情報</h2>
+                            <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>会社名</dt><dd><input type="text" value="株式会社A"></dd>
+                                    <dt>住所</dt><dd><input type="text" value="〒XXX-XXXX 東京都..."></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div class="list-page-header" style="margin-bottom: 1rem;">
+                                <h2 class="section-title" style="margin: 0; border: none;">担当者一覧</h2>
+                                <button class="button button-primary" id="add-contact-row">＋ 担当者を追加</button>
+                            </div>
+                            <div class="table-wrapper">
+                                <table class="table" id="contact-person-table">
+                                    <thead>
+                                        <tr>
+                                            <th>氏名</th><th>部署/役職</th><th>メールアドレス</th><th>電話番号</th><th class="col-actions">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" value="鈴木 一郎"></td>
+                                            <td><input type="text" value="営業部/部長"></td>
+                                            <td><input type="text" value="suzuki@a-corp.jp"></td>
+                                            <td><input type="text" value="090-XXXX-XXXX"></td>
+                                            <td class="col-actions"><div class="table-button-group"><button class="button button-danger">削除</button></div></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="section-footer">
+                            <button class="button button-primary">変更を保存</button>
+                        </div>
+                    </div>
+                    <div id="tab-trade-history" class="tab-content">
+                        <div class="table-wrapper">
+                            <table class="table">
+                                <thead><tr><th>案件名</th><th>ステータス</th><th>納期</th><th>受注金額</th></tr></thead>
+                                <tbody>
+                                    <tr>
+                                        <td>A社 DM封入作業</td>
+                                        <td>作業中</td>
+                                        <td>2025.10.31</td>
+                                        <td>100,000円</td>
+                                    </tr>
+                                    <tr>
+                                        <td>(過去の案件)</td>
+                                        <td>納品済み</td>
+                                        <td>2025.05.20</td>
+                                        <td>50,000円</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tab-memo" class="tab-content">
+                        <div class="list-page-header" style="margin-bottom: 1rem;">
+                            <h2 class="section-title" style="margin: 0; border: none;">メモ</h2>
+                            <button class="button button-primary">＋ 新規メモ</button>
+                        </div>
+                        <div class="section">
+                            <p class="memo-content">2025.09.25: 鈴木部長よりDM封入作業の打診あり。仕様書を受領。...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+[
+  {
+    "id": "ps-1",
+    "staffId": "staff-1",
+    "targetMonth": "2025-09",
+    "paymentDate": "2025-10-25",
+    "details": [
+      { "name": "基本給", "type": "earning", "amount": 300000 },
+      { "name": "役職手当", "type": "earning", "amount": 50000 },
+      { "name": "健康保険料", "type": "deduction", "amount": 18000 },
+      { "name": "厚生年金保険料", "type": "deduction", "amount": 32000 },
+      { "name": "雇用保険料", "type": "deduction", "amount": 2100 },
+      { "name": "所得税", "type": "deduction", "amount": 8000 }
+    ],
+    "totalEarnings": 350000,
+    "totalDeductions": 60100,
+    "netPayment": 289900
+  },
+  {
+    "id": "ps-2",
+    "staffId": "staff-2",
+    "targetMonth": "2025-09",
+    "paymentDate": "2025-10-25",
+    "details": [
+      { "name": "基本給", "type": "earning", "amount": 280000 },
+      { "name": "資格手当", "type": "earning", "amount": 30000 },
+      { "name": "健康保険料", "type": "deduction", "amount": 16000 },
+      { "name": "厚生年金保険料", "type": "deduction", "amount": 28000 },
+      { "name": "雇用保険料", "type": "deduction", "amount": 1860 },
+      { "name": "所得税", "type": "deduction", "amount": 7000 }
+    ],
+    "totalEarnings": 310000,
+    "totalDeductions": 52860,
+    "netPayment": 257140
+  }
+]

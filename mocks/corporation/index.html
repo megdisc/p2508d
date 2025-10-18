@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p2508d - 法人運営</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="mockup-container">
+        <header class="header">
+            <div>
+                <h1 class="header-logo"><a href="#legal">p2508d</a></h1>
+            </div>
+            <nav class="nav" id="side-nav">
+                <ul class="nav-list">
+                    <li><a href="#legal" class="nav-link">法人情報</a></li>
+                    <li><a href="#offices" class="nav-link">事業所一覧</a></li>
+                </ul>
+                <ul class="nav-list">
+                    <li><a href="../index.html" class="nav-link">画面一覧へ戻る</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="mockup-main">
+            <div id="legal" class="mockup-page">
+                <div class="list-page-header">
+                    <h1 class="page-title">法人情報</h1>
+                </div>
+                <div class="tabs" id="corporation-detail-tabs">
+                    <div class="tab-item active" data-tab="tab-basic-info">法人情報</div>
+                </div>
+                <div class="tab-content-wrapper">
+                    <div id="tab-basic-info" class="tab-content active">
+                        <div class="section">
+                            <h2 class="section-title">基本情報</h2>
+                            <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>法人名</dt><dd><input type="text" value="社会福祉法人 p2508d"></dd>
+                                    <dt>法人番号</dt><dd><input type="text" value="1234-56-789012"></dd>
+                                    <dt>代表者名</dt><dd><input type="text" value="法人 太郎"></dd>
+                                    <dt>設立年月日</dt><dd><input type="date" value="2020-04-01"></dd>
+                                    <dt>所在地</dt><dd><input type="text" value="〒100-0001 東京都千代田区千代田1-1"></dd>
+                                    <dt>電話番号</dt><dd><input type="text" value="03-1234-5678"></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="section-footer">
+                            <button class="button button-primary">変更を保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="offices" class="mockup-page">
+                 <div class="list-page-header">
+                    <h1 class="page-title">事業所一覧</h1>
+                    <button class="button button-primary">＋ 新規作成</button>
+                </div>
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>事業所名</th>
+                                <th>所在地</th>
+                                <th>電話番号</th>
+                                <th>ステータス</th>
+                                <th class="col-actions">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>〇〇事業所</td>
+                                <td>神奈川県横浜市...</td>
+                                <td>045-111-2222</td>
+                                <td>運営中</td>
+                                <td class="col-actions"><div class="table-button-group"><a href="#office-detail" class="button button-primary">詳細</a></div></td>
+                            </tr>
+                            <tr>
+                                <td>△△事業所</td>
+                                <td>東京都渋谷区...</td>
+                                <td>03-9876-5432</td>
+                                <td>運営中</td>
+                                <td class="col-actions"><div class="table-button-group"><a href="#office-detail" class="button button-primary">詳細</a></div></td>
+                            </tr>
+                             <tr>
+                                <td>(新規開設準備室)</td>
+                                <td>東京都新宿区...</td>
+                                <td>(未設定)</td>
+                                <td>準備中</td>
+                                <td class="col-actions"><div class="table-button-group"><a href="#office-detail" class="button button-primary">詳細</a></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="office-detail" class="mockup-page">
+                <div class="list-page-header">
+                    <h1 class="page-title">〇〇事業所</h1>
+                     <div>
+                        <a href="#offices" class="button button-secondary">一覧へ戻る</a>
+                    </div>
+                </div>
+                <div class="tabs" id="office-detail-tabs">
+                    <div class="tab-item active" data-tab="tab-office-info">事業所情報</div>
+                    <div class="tab-item" data-tab="tab-office-calendar">営業日設定</div>
+                </div>
+
+                <div class="tab-content-wrapper">
+                    <div id="tab-office-info" class="tab-content active">
+                         <div class="section">
+                            <h2 class="section-title">基本情報</h2>
+                             <div class="section-content">
+                                 <dl class="detail-grid">
+                                     <dt>事業所名</dt><dd><input type="text" value="〇〇事業所"></dd>
+                                    <dt>事業所番号</dt><dd><input type="text" value="1312345678"></dd>
+                                    <dt>サービス種別</dt><dd><input type="text" value="就労継続支援B型"></dd>
+                                    <dt>所在地</dt><dd><input type="text" value="〒220-0004 神奈川県横浜市西区北幸１丁目"></dd>
+                                    <dt>電話番号</dt><dd><input type="text" value="045-111-2222"></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="section-footer">
+                            <button class="button button-primary">変更を保存</button>
+                        </div>
+                    </div>
+
+                     <div id="tab-office-calendar" class="tab-content">
+                        <div class="section">
+                            <div class="list-page-header" style="margin-bottom: 1rem;">
+                                 <h2 class="section-title" style="margin: 0; border: none;">営業日設定 (2025年度)</h2>
+                                <button class="button button-secondary">祝日を休業日にする</button>
+                            </div>
+                            <div class="calendar">
+                                <div class="calendar-header">
+                                    <button class="button button-clear">&lt;</button>
+                                    <h3 style="font-size: 1.2rem;">2025年 10月</h3>
+                                    <button class="button button-clear">&gt;</button>
+                                </div>
+                                <div class="calendar-body">
+                                    <div class="calendar-day-name">日</div>
+                                    <div class="calendar-day-name">月</div>
+                                    <div class="calendar-day-name">火</div>
+                                    <div class="calendar-day-name">水</div>
+                                    <div class="calendar-day-name">木</div>
+                                    <div class="calendar-day-name">金</div>
+                                    <div class="calendar-day-name">土</div>
+                                    <div class="calendar-day"></div><div class="calendar-day"></div><div class="calendar-day"></div>
+                                    <div class="calendar-day">1</div><div class="calendar-day">2</div><div class="calendar-day">3</div><div class="calendar-day">4</div>
+                                    <div class="calendar-day">5</div><div class="calendar-day">6</div><div class="calendar-day">7</div><div class="calendar-day">8</div><div class="calendar-day">9</div><div class="calendar-day">10</div><div class="calendar-day">11</div>
+                                    <div class="calendar-day">12</div><div class="calendar-day">13</div><div class="calendar-day">14</div><div class="calendar-day">15</div><div class="calendar-day">16</div><div class="calendar-day">17</div><div class="calendar-day">18</div>
+                                    <div class="calendar-day">19</div><div class="calendar-day">20</div><div class="calendar-day">21</div><div class="calendar-day">22</div><div class="calendar-day">23</div><div class="calendar-day">24</div><div class="calendar-day">25</div>
+                                    <div class="calendar-day">26</div><div class="calendar-day">27</div><div class="calendar-day">28</div><div class="calendar-day">29</div><div class="calendar-day">30</div><div class="calendar-day">31</div><div class="calendar-day"></div>
+                                </div>
+                            </div>
+                            <p style="text-align: right; margin-top: 1rem; font-size: var(--font-size-sm);">※ 日付をクリックすると、営業日/休業日を切り替えられます。</p>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

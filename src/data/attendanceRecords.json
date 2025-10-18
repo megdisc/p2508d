@@ -1,0 +1,36 @@
+[
+  {
+    "id": "ar-1",
+    "memberId": "mem-1",
+    "officeId": "office-1",
+    "date": "2025-10-01",
+    "statusId": "master-attendance-present",
+    "actualStartTime": "10:00",
+    "actualEndTime": "15:00",
+    "breakDuration": "60",
+    "hasLunch": true,
+    "healthStatus": "良好",
+    "notes": "新しい作業にも意欲的に取り組んでいた。"
+  },
+  {
+    "id": "ar-2",
+    "memberId": "mem-2",
+    "officeId": "office-1",
+    "date": "2025-10-01",
+    "statusId": "master-attendance-present",
+    "actualStartTime": "09:55",
+    "actualEndTime": "15:05",
+    "breakDuration": "60",
+    "hasLunch": true,
+    "healthStatus": "普通"
+  },
+  {
+    "id": "ar-3",
+    "memberId": "mem-1",
+    "officeId": "office-1",
+    "date": "2025-10-02",
+    "statusId": "master-attendance-absent",
+    "hasLunch": false,
+    "notes": "体調不良のため欠席（本人より連絡あり）"
+  }
+]

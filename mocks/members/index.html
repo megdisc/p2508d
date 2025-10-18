@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p2508d - アプリケーションモックアップ (詳細版)</title>
+    <link rel="stylesheet" href="../style.css"></head>
+<body>
+
+    <div class="mockup-container">
+        <header class="header">
+            <div>
+                <h1 class="header-logo"><a href="#members">p2508d</a></h1>
+            </div>
+            <nav class="nav" id="side-nav">
+                <ul class="nav-list">
+                    <li><a href="#members" class="nav-link">利用者管理</a></li>
+                </ul>
+                <ul class="nav-list">
+                    <li><a href="../index.html">画面一覧へ戻る</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="mockup-main">
+            <div id="members" class="mockup-page">
+                <div class="list-page-header">
+                    <h1 class="page-title">利用者一覧</h1>
+                    <button class="button button-primary">＋ 新規作成</button>
+                </div>
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>利用者名</th>
+                                <th>契約日</th>
+                                <th>担当職員</th>
+                                <th>契約ステータス</th>
+                                <th class="col-actions">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>青木 誠</td>
+                                <td>2024.04.01</td>
+                                <td>支援員 次郎</td>
+                                <td>利用中</td>
+                                <td class="col-actions">
+                                    <div class="table-button-group">
+                                        <a href="#member-detail" class="button button-primary">詳細</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="member-detail" class="mockup-page">
+                <div class="list-page-header">
+                    <h1 class="page-title">青木 誠 様</h1>
+                    <div>
+                        <a href="#members" class="button button-secondary" style="margin-right: 0.5rem;">一覧へ戻る</a>
+                    </div>
+                </div>
+                <div class="tabs" id="member-detail-tabs">
+                    <div class="tab-item active" data-tab="tab-basic-info">利用者情報</div>
+                    <div class="tab-item" data-tab="tab-service-record">サービス提供記録</div>
+                    <div class="tab-item" data-tab="tab-support-plan">個別支援計画</div>
+                    <div class="tab-item" data-tab="tab-wage-history">工賃履歴</div>
+                    <div class="tab-item" data-tab="tab-interview">面談記録</div>
+                    <div class="tab-item" data-tab="tab-linkage">連携記録</div>
+                </div>
+                <div class="tab-content-wrapper">
+                    <div id="tab-basic-info" class="tab-content active">
+                        <div class="section">
+                            <h2 class="section-title">基本情報</h2>
+                            <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>氏名</dt><dd><input type="text" value="青木 誠"></dd>
+                                    <dt>フリガナ</dt><dd><input type="text" value="アオキ マコト"></dd>
+                                    <dt>利用者番号</dt><dd><input type="text" value="A001"></dd>
+                                    <dt>生年月日</dt><dd><input type="date" value="2000-04-01"></dd>
+                                    <dt>契約状況</dt><dd>
+                                        <select>
+                                            <option value="利用中" selected>利用中</option>
+                                            <option value="休止中">休止中</option>
+                                            <option value="契約終了">契約終了</option>
+                                        </select>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <h2 class="section-title">連絡先</h2>
+                             <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>住所</dt><dd><input type="text" value="〒123-4567 東京都渋谷区..."></dd>
+                                    <dt>電話番号</dt><dd><input type="text" value="090-XXXX-XXXX"></dd>
+                                    <dt>緊急連絡先</dt><dd><input type="text" value="青木 花子 (母) 080-XXXX-XXXX"></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <h2 class="section-title">受給者証情報</h2>
+                             <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>支給決定期間</dt><dd><input type="date" value="2025-04-01"> 〜 <input type="date" value="2026-03-31"></dd>
+                                    <dt>利用者負担割合</dt><dd><input type="text" value="1割"></dd>
+                                    <dt>負担上限月額</dt><dd><input type="text" value="0 円"></dd>
+                                </dl>
+                            </div>
+                        </div>
+                         <div class="section-footer">
+                            <button class="button button-primary">変更を保存</button>
+                        </div>
+                    </div>
+                    <div id="tab-service-record" class="tab-content">
+                        <div class="section">
+                            <h2 class="section-title">2025年 10月</h2>
+                            <div class="section-content">
+                                <div class="calendar">
+                                    <div class="calendar-header">
+                                        <button>&lt;</button>
+                                        <h3>2025年 10月</h3>
+                                        <button>&gt;</button>
+                                    </div>
+                                    <div class="calendar-body">
+                                        <div class="calendar-day-name">日</div><div class="calendar-day-name">月</div><div class="calendar-day-name">火</div><div class="calendar-day-name">水</div><div class="calendar-day-name">木</div><div class="calendar-day-name">金</div><div class="calendar-day-name">土</div>
+                                        <div class="calendar-day" onclick="openModal('service-record-modal')">1</div>
+                                        <div class="calendar-day" onclick="openModal('service-record-modal')">2</div>
+                                        <div class="calendar-day" onclick="openModal('service-record-modal')">3</div>
+                                    </div>
+                                    <p style="text-align: center; margin-top: 1rem; font-size: var(--font-size-sm);">日付をクリックして記録を追加・編集します。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-support-plan" class="tab-content">
+                         <div class="list-page-header" style="margin-bottom: 1rem;">
+                            <h2 class="section-title" style="margin: 0; border: none;">個別支援計画</h2>
+                            <button class="button button-primary" onclick="openModal('support-plan-modal')">＋ 新規計画作成</button>
+                        </div>
+                        <div style="display: flex; gap: 1.5rem;">
+                            <div style="width: 30%;">
+                                <div class="section">
+                                    <h3 style="font-size: 1.1rem;">計画一覧</h3>
+                                    <div class="section-content">
+                                        <ul class="nav-list">
+                                            <li><a href="#" class="nav-link active">2025.09.15 作成</a></li>
+                                            <li><a href="#" class="nav-link">2025.03.15 作成</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 70%;">
+                                <div class="section">
+                                     <h3 style="font-size: 1.1rem;">計画詳細 (2025.09.15版)</h3>
+                                     <div class="section-content">
+                                        <dl class="detail-grid">
+                                            <dt>本人の希望</dt><dd>PCを使った仕事ができるようになりたい。</dd>
+                                            <dt>長期目標</dt><dd>データ入力の案件を一人で担当できるようになる。</dd>
+                                            <dt>短期目標</dt><dd>タイピングの正確性を上げる。</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                                 <div class="section">
+                                    <div class="list-page-header" style="margin-bottom: 1rem;">
+                                        <h3 style="font-size: 1.1rem; margin:0;">モニタリング記録</h3>
+                                        <button class="button button-primary" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;" onclick="openModal('monitoring-modal')">＋ モニタリング追加</button>
+                                    </div>
+                                    <div class="section-content">
+                                        <p><strong>2025.12.20 (支援員 次郎)</strong></p>
+                                        <p>短期目標Aについて達成度80%。本人の意欲も高く、来月から次のステップに進むことを検討。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-wage-history" class="tab-content">
+                         <div class="table-wrapper">
+                            <table class="table">
+                                <thead>
+                                    <tr><th>対象月</th><th>利用日数</th><th>支払工賃</th><th>操作</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>2025年9月</td><td>20日</td><td>15,000円</td><td><button class="button button-primary" onclick="openModal('wage-detail-modal')">明細</button></td></tr>
+                                    <tr><td>2025年8月</td><td>22日</td><td>16,500円</td><td><button class="button button-primary" onclick="openModal('wage-detail-modal')">明細</button></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tab-interview" class="tab-content">
+                        <div class="list-page-header" style="margin-bottom: 1rem;">
+                             <h2 class="section-title" style="margin: 0; border: none;">面談記録一覧</h2>
+                             <button class="button button-primary" onclick="openModal('interview-modal')">＋ 新規記録作成</button>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="table">
+                                <thead>
+                                    <tr><th>面談日</th><th>種別</th><th>対応者</th><th>操作</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>2025.10.10</td><td>定期面談</td><td>支援員 次郎</td><td><button class="button button-primary" onclick="openModal('interview-modal')">表示</button></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                     <div id="tab-linkage" class="tab-content">
+                        <div class="list-page-header" style="margin-bottom: 1rem;">
+                             <h2 class="section-title" style="margin: 0; border: none;">連携記録一覧</h2>
+                             <button class="button button-primary" onclick="openModal('linkage-modal')">＋ 新規記録作成</button>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="table">
+                                <thead>
+                                    <tr><th>日時</th><th>対象者/機関</th><th>対応者</th><th>操作</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>2025.10.05</td><td>母・花子様</td><td>管理者 太郎</td><td><button class="button button-primary" onclick="openModal('linkage-modal')">表示</button></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    
+    <div id="service-record-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">サービス提供記録 (2025/10/01)</h2>
+                <span class="modal-close" onclick="closeModal('service-record-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>利用状況</label>
+                    <select><option selected>利用</option><option>欠席</option><option>通院</option></select>
+                </div>
+                 <div class="form-group">
+                    <label>利用時間</label>
+                    <div class="time-input-group">
+                        <input type="time" value="10:00">
+                        <span>〜</span>
+                        <input type="time" value="15:00">
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label>休憩時間</label>
+                    <input type="text" value="1時間00分">
+                </div>
+                 <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="lunch-check" checked>
+                        <label for="lunch-check">給食利用</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>体調</label>
+                    <textarea rows="3">特に問題なし</textarea>
+                </div>
+                <div class="form-group">
+                    <label>特記事項</label>
+                    <textarea rows="4"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('service-record-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="support-plan-modal" class="modal">
+        <div class="modal-content">
+             <div class="modal-header"><h2 class="modal-title">個別支援計画作成</h2><span class="modal-close" onclick="closeModal('support-plan-modal')">&times;</span></div>
+             <div class="modal-body"><p>個別支援計画を作成するためのフォーム</p></div>
+             <div class="modal-footer"><button class="button button-secondary" onclick="closeModal('support-plan-modal')">閉じる</button></div>
+        </div>
+    </div>
+    <div id="monitoring-modal" class="modal">
+        <div class="modal-content">
+             <div class="modal-header"><h2 class="modal-title">モニタリング記録追加</h2><span class="modal-close" onclick="closeModal('monitoring-modal')">&times;</span></div>
+             <div class="modal-body"><p>モニタリング記録を追加するためのフォーム</p></div>
+             <div class="modal-footer"><button class="button button-secondary" onclick="closeModal('monitoring-modal')">閉じる</button></div>
+        </div>
+    </div>
+    <div id="wage-detail-modal" class="modal">
+        <div class="modal-content">
+             <div class="modal-header"><h2 class="modal-title">工賃明細 (2025年9月)</h2><span class="modal-close" onclick="closeModal('wage-detail-modal')">&times;</span></div>
+             <div class="modal-body"><p>工賃の計算根拠となる明細情報を表示</p></div>
+             <div class="modal-footer"><button class="button button-secondary" onclick="closeModal('wage-detail-modal')">閉じる</button></div>
+        </div>
+    </div>
+    <div id="interview-modal" class="modal">
+        <div class="modal-content">
+             <div class="modal-header"><h2 class="modal-title">面談記録</h2><span class="modal-close" onclick="closeModal('interview-modal')">&times;</span></div>
+             <div class="modal-body"><p>面談記録の詳細内容を表示・編集するためのフォーム</p></div>
+             <div class="modal-footer"><button class="button button-secondary" onclick="closeModal('interview-modal')">閉じる</button></div>
+        </div>
+    </div>
+     <div id="linkage-modal" class="modal">
+        <div class="modal-content">
+             <div class="modal-header"><h2 class="modal-title">連携記録</h2><span class="modal-close" onclick="closeModal('linkage-modal')">&times;</span></div>
+             <div class="modal-body"><p>連携記録の詳細内容を表示・編集するためのフォーム</p></div>
+             <div class="modal-footer"><button class="button button-secondary" onclick="closeModal('linkage-modal')">閉じる</button></div>
+        </div>
+    </div>
+
+
+    <script src="../script.js"></script>
+
+</body>
+</html>

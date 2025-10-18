@@ -1,0 +1,64 @@
+[
+  {
+    "id": "contact-corp-1",
+    "name": "社会福祉法人 p2508d",
+    "nameKana": "シャカイフクシホウジン ピーニーゴゼロハチディー",
+    "phoneNumber": "03-1234-5678",
+    "faxNumber": "03-1234-5679",
+    "email": "info@p2508d.example.com",
+    "addressId": "addr-corp-1"
+  },
+  {
+    "id": "contact-office-1",
+    "name": "〇〇事業所",
+    "nameKana": "マルマルジギョウショ",
+    "phoneNumber": "045-111-2222",
+    "faxNumber": "045-111-2223",
+    "email": "yokohama-office@p2508d.example.com",
+    "addressId": "addr-office-1"
+  },
+  {
+    "id": "contact-member-1",
+    "name": "青木 誠",
+    "nameKana": "アオキ マコト",
+    "phoneNumber": "090-1234-5678",
+    "email": "member_aoki@example.com",
+    "addressId": "addr-member-1"
+  },
+  {
+    "id": "contact-member-2",
+    "name": "五十嵐 直人",
+    "nameKana": "イガラシ ナオト",
+    "phoneNumber": "090-8765-4321",
+    "addressId": "addr-member-2"
+  },
+  {
+    "id": "contact-emergency-1",
+    "name": "青木 花子",
+    "nameKana": "アオキ ハナコ",
+    "phoneNumber": "080-1111-2222"
+  },
+  {
+    "id": "contact-staff-1",
+    "name": "管理者 太郎",
+    "nameKana": "カンリシャ タロウ",
+    "phoneNumber": "090-0000-1111",
+    "email": "admin@example.com",
+    "addressId": "addr-staff-1"
+  },
+  {
+    "id": "contact-client-1",
+    "name": "株式会社A",
+    "nameKana": "カブシキガイシャエー",
+    "phoneNumber": "03-1111-2222",
+    "email": "contact@a-corp.example.com",
+    "addressId": "addr-client-1"
+  },
+  {
+    "id": "contact-supplier-1",
+    "name": "横浜パッケージング",
+    "nameKana": "ヨコハマパッケージング",
+    "phoneNumber": "045-999-8888",
+    "addressId": "addr-supplier-1"
+  }
+]

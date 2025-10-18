@@ -1,0 +1,29 @@
+/* src/components/layout/Header/style.module.css */
+
+.header {
+  width: auto; /* 幅を自動に */
+  min-width: 240px; /* 最小幅を設定 */
+  max-width: 16ch; /* 最大幅を全角16文字分に設定 */
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--color-background);
+  border-right: 1px solid var(--color-border);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  z-index: 1000;
+  text-align: center; /* 中の要素を中央揃え */
+}
+
+.logo {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+}
+
+.logoLink {
+  color: inherit;
+  text-decoration: none;
+}

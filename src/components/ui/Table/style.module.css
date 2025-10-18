@@ -1,0 +1,43 @@
+/* src/components/ui/Table/style.module.css */
+
+.wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.table th,
+.table td {
+  padding: 0.5rem 1rem;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--font-size-sm);
+  height: 3.375rem;
+  text-align: center; /* すべてのセルを中央揃えに */
+}
+
+.table thead th {
+  font-weight: 600;
+  background-color: #f9f9f9;
+}
+
+.table tbody tr {
+  transition: background-color 0.25s ease-in-out;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/*
+.table tbody tr:hover {
+  background-color: var(--color-table-hover-bg);
+}
+*/

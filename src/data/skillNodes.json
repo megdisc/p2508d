@@ -1,0 +1,35 @@
+[
+  {
+    "id": "skill-node-pc",
+    "name": "PC作業",
+    "parentId": null
+  },
+  {
+    "id": "skill-node-light-work",
+    "name": "軽作業",
+    "parentId": null
+  },
+  {
+    "id": "skill-node-pc-data-entry",
+    "name": "データ入力",
+    "parentId": "skill-node-pc"
+  },
+  {
+    "id": "skill-node-pc-typing",
+    "name": "タイピング",
+    "parentId": "skill-node-pc-data-entry",
+    "definedLevelIds": ["master-prof-level-1", "master-prof-level-2", "master-prof-level-3", "master-prof-level-4"]
+  },
+  {
+    "id": "skill-node-light-packing",
+    "name": "梱包",
+    "parentId": "skill-node-light-work",
+    "definedLevelIds": ["master-prof-level-1", "master-prof-level-2", "master-prof-level-3"]
+  },
+  {
+    "id": "skill-node-light-inspection",
+    "name": "検品",
+    "parentId": "skill-node-light-work",
+    "definedLevelIds": ["master-prof-level-1", "master-prof-level-2", "master-prof-level-3"]
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "id": "str-1",
+    "staffId": "staff-2",
+    "trainingName": "サービス管理責任者等基礎研修",
+    "completionDate": "2023-02-15",
+    "trainingTypeId": "master-training-type-external"
+  },
+  {
+    "id": "str-2",
+    "staffId": "staff-1",
+    "trainingName": "虐待防止研修",
+    "completionDate": "2025-08-10",
+    "trainingTypeId": "master-training-type-internal",
+    "notes": "全職員参加"
+  }
+]

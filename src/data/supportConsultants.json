@@ -1,0 +1,20 @@
+[
+  {
+    "id": "sc-1",
+    "officeName": "相談支援センターみなと",
+    "contact": {
+      "id": "contact-sc-1",
+      "name": "相談 支援員",
+      "phoneNumber": "045-222-3333"
+    }
+  },
+  {
+    "id": "sc-2",
+    "officeName": "サポートネットさいたま",
+    "contact": {
+      "id": "contact-sc-2",
+      "name": "ケアプラン 太郎",
+      "phoneNumber": "048-111-2222"
+    }
+  }
+]

@@ -1,0 +1,68 @@
+[
+  {
+    "id": "mem-1",
+    "authUserId": "auth-user-member-1",
+    "memberNumber": "A001",
+    "birthday": "2000-04-01",
+    "statusId": "master-member-status-2",
+    "contractDate": "2024-04-01",
+    "assignedStaffId": "staff-2",
+    "wageLevelId": "wl-2",
+    "contact": {
+      "id": "contact-member-1",
+      "name": "青木 誠",
+      "nameKana": "アオキ マコト",
+      "phoneNumber": "090-1234-5678",
+      "email": "member_aoki@example.com",
+      "addressId": "addr-member-1"
+    },
+    "disabilityInfo": {
+      "disabilityCategoryIds": ["dc-2", "dc-4"],
+      "specialConsiderations": "・音に敏感なため、イヤーマフの使用を許可しています。\n・初めての作業には不安を感じやすいため、手順書と丁寧な説明が必要です。",
+      "medications": "朝食後に〇〇を服用",
+      "allergies": "なし"
+    }
+  },
+  {
+    "id": "mem-2",
+    "authUserId": null,
+    "memberNumber": "A002",
+    "birthday": "1998-11-15",
+    "statusId": "master-member-status-2",
+    "contractDate": "2024-05-10",
+    "assignedStaffId": "staff-2",
+    "wageLevelId": "wl-1",
+    "contact": {
+      "id": "contact-member-2",
+      "name": "五十嵐 直人",
+      "nameKana": "イガラシ ナオト",
+      "phoneNumber": "090-8765-4321",
+      "addressId": "addr-member-2"
+    },
+    "disabilityInfo": {
+      "disabilityCategoryIds": ["dc-2"],
+      "specialConsiderations": "午後に疲れが出やすいため、適宜休憩を促してください。",
+      "medications": "就寝前に△△を服用"
+    }
+  },
+  {
+    "id": "mem-3",
+    "authUserId": null,
+    "memberNumber": "B001",
+    "birthday": "2002-08-20",
+    "statusId": "master-member-status-3",
+    "contractDate": "2023-10-01",
+    "assignedStaffId": "staff-1",
+    "wageLevelId": "wl-1",
+    "contact": {
+      "id": "contact-member-3",
+      "name": "遠藤 雅彦",
+      "nameKana": "エンドウ マサヒコ",
+      "phoneNumber": "090-5555-6666"
+    },
+    "disabilityInfo": {
+      "disabilityCategoryIds": ["dc-1"],
+      "specialConsiderations": "図や絵を使った指示が伝わりやすいです。"
+    }
+  }
+]

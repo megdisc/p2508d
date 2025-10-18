@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p2508d - 案件管理モックアップ</title>
+    <link rel="stylesheet" href="../style.css"></head>
+</head>
+<body>
+    <div class="mockup-container">
+        <header class="header">
+            <div>
+                <h1 class="header-logo"><a href="#projects">p2508d</a></h1>
+            </div>
+            <nav class="nav" id="side-nav">
+                <ul class="nav-list">
+                    <li><a href="#projects" class="nav-link">生産活動管理</a></li>
+                </ul>
+                <ul class="nav-list">
+                    <li><a href="../index.html">画面一覧へ戻る</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="mockup-main">
+            <div id="projects" class="mockup-page">
+                <div class="list-page-header">
+                    <h1 class="page-title">案件一覧</h1>
+                    <button class="button button-primary">＋ 新規作成</button>
+                </div>
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>案件名</th>
+                                <th>クライアント名</th>
+                                <th>ステータス</th>
+                                <th>納期</th>
+                                <th class="col-actions">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>A社 DM封入作業</td>
+                                <td>株式会社A</td>
+                                <td>作業中</td>
+                                <td>2025.10.31</td>
+                                <td class="col-actions">
+                                    <div class="table-button-group">
+                                        <a href="#project-detail" class="button button-primary">詳細</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>B社 部品組み立て</td>
+                                <td>有限会社B</td>
+                                <td>完了</td>
+                                <td>2025.09.30</td>
+                                <td class="col-actions">
+                                    <div class="table-button-group">
+                                        <a href="#project-detail" class="button button-primary">詳細</a>
+                                    </div>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td>C社 データ入力</td>
+                                <td>C-Tech</td>
+                                <td>納品済み</td>
+                                <td>2025.09.15</td>
+                                <td class="col-actions">
+                                    <div class="table-button-group">
+                                        <a href="#project-detail" class="button button-primary">詳細</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="project-detail" class="mockup-page">
+                <div class="list-page-header">
+                    <h1 class="page-title">A社 DM封入作業 </h1>
+                    <div>
+                        <a href="#projects" class="button button-secondary" style="margin-right: 0.5rem;">一覧へ戻る</a>
+                    </div>
+                </div>
+                <div class="tabs" id="project-detail-tabs">
+                    <div class="tab-item active" data-tab="tab-project-overview">案件情報</div>
+                    <div class="tab-item" data-tab="tab-project-process">工程管理</div>
+                    <div class="tab-item" data-tab="tab-project-finance">収支管理</div>
+                    <div class="tab-item" data-tab="tab-project-delivery">納品・請求</div>
+                    <div class="tab-item" data-tab="tab-project-files">関連ファイル</div>
+                </div>
+                <div class="tab-content-wrapper">
+                    <div id="tab-project-overview" class="tab-content active">
+                        <div class="section">
+                            <h2 class="section-title">基本情報</h2>
+                            <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>案件名</dt><dd><input type="text" value="A社 DM封入作業"></dd>
+                                    <dt>顧客</dt><dd><input type="text" value="株式会社A"></dd>
+                                    <dt>ステータス</dt><dd>
+                                        <select>
+                                            <option>未着手</option>
+                                            <option selected>作業中</option>
+                                            <option>完了</option>
+                                            <option>納品済</option>
+                                            <option>キャンセル</option>
+                                        </select>
+                                    </dd>
+                                    <dt>担当職員</dt><dd><input type="text" value="支援員 次郎"></dd>
+                                    <dt>受注日</dt><dd><input type="date" value="2025-10-01"></dd>
+                                    <dt>納期</dt><dd><input type="date" value="2025-10-31"></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <h2 class="section-title">作業内容</h2>
+                            <div class="section-content">
+                                <textarea class="work-content" rows="4">チラシ、挨拶状、返信用封筒の3点をまとめて封入する。宛名ラベルを貼付後、指定の箱に500部ずつ梱包する。</textarea>
+                            </div>
+                        </div>
+                         <div class="section-footer">
+                            <button class="button button-primary">変更を保存</button>
+                        </div>
+                    </div>
+                    <div id="tab-project-process" class="tab-content">
+                        <div class="list-page-header" style="margin-bottom: 1rem;">
+                            <h2 class="section-title" style="margin: 0; border: none;">工程一覧</h2>
+                            <button class="button button-primary" id="add-process-row">＋ 工程を追加</button>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="table" id="process-table">
+                                <thead>
+                                    <tr><th>No</th><th>工程名</th><th>担当者</th><th>進捗</th><th>予定/実績</th><th class="col-actions">操作</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td><input type="text" value="チラシ折り"></td>
+                                        <td><input type="text" value="青木, 五十嵐"></td>
+                                        <td><input type="text" value="完了"></td>
+                                        <td><input type="text" value="20h / 18.5h"></td>
+                                        <td class="col-actions"><div class="table-button-group"><button class="button button-danger">削除</button></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td><input type="text" value="封入"></td>
+                                        <td><input type="text" value="遠藤"></td>
+                                        <td><input type="text" value="作業中 50%"></td>
+                                        <td><input type="text" value="40h / 25h"></td>
+                                        <td class="col-actions"><div class="table-button-group"><button class="button button-danger">削除</button></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td><input type="text" value="宛名貼り"></td>
+                                        <td><input type="text" value="-"></td>
+                                        <td><input type="text" value="未着手"></td>
+                                        <td><input type="text" value="15h / -"></td>
+                                        <td class="col-actions"><div class="table-button-group"><button class="button button-danger">削除</button></div></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="section-footer">
+                            <button class="button button-primary">変更を保存</button>
+                        </div>
+                    </div>
+                    <div id="tab-project-finance" class="tab-content">
+                         <div class="section">
+                            <h2 class="section-title">収益</h2>
+                            <div class="section-content">
+                                 <dl class="detail-grid" style="grid-template-columns: 100px 1fr;">
+                                    <dt>受注金額</dt><dd><input type="number" value="100000"> 円</dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div class="list-page-header" style="margin-bottom: 1rem;">
+                                <h2 class="section-title" style="margin: 0; border: none;">経費</h2>
+                                <button class="button button-primary" id="add-expense-row">＋ 経費を追加</button>
+                            </div>
+                            <div class="table-wrapper">
+                                <table class="table" id="expense-table">
+                                    <thead><tr><th>日付</th><th>費目</th><th>内容</th><th>金額(円)</th><th class="col-actions">操作</th></tr></thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="date" value="2025-10-02"></td>
+                                            <td><input type="text" value="材料費"></td>
+                                            <td><input type="text" value="封筒・ラベル代"></td>
+                                            <td><input type="number" value="5000"></td>
+                                            <td class="col-actions"><div class="table-button-group"><button class="button button-danger">削除</button></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="date" value="2025-10-31"></td>
+                                            <td><input type="text" value="外注費"></td>
+                                            <td><input type="text" value="印刷（○○社）"></td>
+                                            <td><input type="number" value="10000"></td>
+                                            <td class="col-actions"><div class="table-button-group"><button class="button button-danger">削除</button></div></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <h2 class="section-title">収支サマリー</h2>
+                            <p><strong>受注金額:</strong> 100,000 円</p>
+                            <p><strong>経費合計:</strong> 15,000 円</p>
+                            <p><strong>利益:</strong> 85,000 円</p>
+                        </div>
+                        <div class="section-footer">
+                            <button class="button button-primary">変更を保存</button>
+                        </div>
+                    </div>
+                    <div id="tab-project-delivery" class="tab-content">
+                         <div class="section">
+                            <h2 class="section-title">納品情報</h2>
+                             <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>納品日</dt>
+                                    <dd>
+                                        <input type="date" id="delivery-date">
+                                        <button class="button button-clear" id="clear-delivery-date">クリア</button>
+                                    </dd>
+                                    <dt>納品ステータス</dt>
+                                    <dd><span id="delivery-status-text">未納品</span></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <h2 class="section-title">請求情報</h2>
+                             <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>請求日</dt>
+                                    <dd>
+                                        <input type="date" id="billing-date">
+                                        <button class="button button-clear" id="clear-billing-date">クリア</button>
+                                    </dd>
+                                    <dt>入金ステータス</dt>
+                                    <dd><span id="payment-status-text">未請求</span></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="section-footer">
+                            <button class="button button-primary">変更を保存</button>
+                        </div>
+                    </div>
+                    <div id="tab-project-files" class="tab-content">
+                        <div class="list-page-header" style="margin-bottom: 1rem;">
+                            <h2 class="section-title" style="margin: 0; border: none;">ファイル一覧</h2>
+                            <button class="button button-primary">＋ アップロード</button>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="table">
+                                <thead><tr><th>ファイル名</th><th>更新日時</th><th class="col-actions">操作</th></tr></thead>
+                                <tbody>
+                                    <tr>
+                                        <td>仕様書_rev2.pdf</td>
+                                        <td>2025/10/01 10:30</td>
+                                        <td class="col-actions">
+                                            <div class="table-button-group">
+                                                <button class="button button-secondary">ダウンロード</button> 
+                                                <button class="button button-danger">削除</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>宛名リスト.xlsx</td>
+                                        <td>2025/10/05 14:00</td>
+                                        <td class="col-actions">
+                                            <div class="table-button-group">
+                                                <button class="button button-secondary">ダウンロード</button> 
+                                                <button class="button button-danger">削除</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../script.js"></script>
+
+</body>
+</html>

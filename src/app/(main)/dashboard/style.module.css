@@ -1,0 +1,20 @@
+/* src/app/dashboard/style.module.css */
+
+.gridContainer {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr; /* ★ 常に1カラムに */
+}
+
+/* ★ 以下のメディアクエリを削除 */
+/*
+@media (min-width: 1024px) {
+  .gridContainer {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .gridContainer > *:last-child {
+    grid-column: 1 / -1;
+  }
+}
+*/

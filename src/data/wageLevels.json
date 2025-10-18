@@ -1,0 +1,26 @@
+[
+  {
+    "id": "wl-1",
+    "officeId": "office-1",
+    "level": 1,
+    "name": "研修生",
+    "hourlyRate": 200,
+    "description": "基本的な作業手順を学習中の段階です。"
+  },
+  {
+    "id": "wl-2",
+    "officeId": "office-1",
+    "level": 2,
+    "name": "標準",
+    "hourlyRate": 250,
+    "description": "一人で安定して作業を遂行できる段階です。"
+  },
+  {
+    "id": "wl-3",
+    "officeId": "office-1",
+    "level": 3,
+    "name": "リーダー",
+    "hourlyRate": 300,
+    "description": "他の利用者への指導やサポートも行える段階です。"
+  }
+]

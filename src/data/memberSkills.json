@@ -1,0 +1,34 @@
+[
+  {
+    "id": "ms-1",
+    "memberId": "mem-1",
+    "skillId": "skill-node-pc-typing",
+    "currentLevelId": "master-prof-level-4",
+    "acquisitionDate": "2025-08-01",
+    "memo": "特にタイピング速度が速く、他の利用者への指導も可能。"
+  },
+  {
+    "id": "ms-2",
+    "memberId": "mem-1",
+    "skillId": "skill-node-light-packing",
+    "currentLevelId": "master-prof-level-2",
+    "acquisitionDate": null,
+    "memo": "現在トレーニング中。丁寧さはあるが、速度に課題。"
+  },
+  {
+    "id": "ms-3",
+    "memberId": "mem-2",
+    "skillId": "skill-node-light-packing",
+    "currentLevelId": "master-prof-level-3",
+    "acquisitionDate": "2025-09-15",
+    "memo": ""
+  },
+  {
+    "id": "ms-4",
+    "memberId": "mem-3",
+    "skillId": "skill-node-light-inspection",
+    "currentLevelId": "master-prof-level-3",
+    "acquisitionDate": "2025-07-20",
+    "memo": "検品作業の正確性に定評あり。"
+  }
+]

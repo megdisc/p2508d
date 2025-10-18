@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p2508d - スキル管理モックアップ</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="mockup-container">
+        <header class="header">
+            <div>
+                <h1 class="header-logo"><a href="#skills">p2508d</a></h1>
+            </div>
+            <nav class="nav" id="side-nav">
+                <ul class="nav-list">
+                    <li>
+                        <button class="nav-link accordion-toggle">スキル管理</button>
+                        <ul class="nav-list accordion-content" style="display: none;">
+                            <li><a href="#skills" class="nav-link">スキル一覧・定義</a></li>
+                            <li><a href="#skill-map" class="nav-link">スキルマップ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav-list">
+                    <li><a href="../index.html">画面一覧へ戻る</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="mockup-main">
+            <div id="skills" class="mockup-page">
+                <div class="list-page-header">
+                    <h1 class="page-title">スキル一覧・定義</h1>
+                    <button class="button button-primary">＋ 新規スキル作成</button>
+                </div>
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ジャンル</th>
+                                <th>カテゴリ</th>
+                                <th>スキル</th>
+                                <th>習熟度レベル</th>
+                                <th class="col-actions">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PC作業</td>
+                                <td>データ入力</td>
+                                <td>PCデータ入力</td>
+                                <td>未習得, トレーニング中, 習得済, 指導可</td>
+                                <td class="col-actions">
+                                    <div class="table-button-group">
+                                        <button class="button button-secondary">編集</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>軽作業</td>
+                                <td>梱包</td>
+                                <td>丁寧な梱包</td>
+                                <td>未習得, トレーニング中, 習得済</td>
+                                <td class="col-actions">
+                                    <div class="table-button-group">
+                                        <button class="button button-secondary">編集</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>軽作業</td>
+                                <td>検品</td>
+                                <td>検品作業</td>
+                                <td>未習得, トレーニング中, 習得済</td>
+                                 <td class="col-actions">
+                                    <div class="table-button-group">
+                                        <button class="button button-secondary">編集</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="skill-map" class="mockup-page">
+                <div class="list-page-header">
+                    <h1 class="page-title">スキルマップ</h1>
+                </div>
+                 <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>利用者名</th>
+                                <th>データ入力</th>
+                                <th>文字校正</th>
+                                <th>丁寧な梱包</th>
+                                <th>検品作業</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>青木 誠</td>
+                                <td onclick="openModal('skill-modal')">● (指導可)</td>
+                                <td onclick="openModal('skill-modal')">● (習得)</td>
+                                <td onclick="openModal('skill-modal')">○ (訓練中)</td>
+                                <td onclick="openModal('skill-modal')">- (未)</td>
+                            </tr>
+                            <tr>
+                                <td>五十嵐 直人</td>
+                                <td onclick="openModal('skill-modal')">● (習得)</td>
+                                <td onclick="openModal('skill-modal')">○ (訓練中)</td>
+                                <td onclick="openModal('skill-modal')">● (習得)</td>
+                                <td onclick="openModal('skill-modal')">○ (訓練中)</td>
+                            </tr>
+                            <tr>
+                                <td>遠藤 雅彦</td>
+                                <td onclick="openModal('skill-modal')">- (未)</td>
+                                <td onclick="openModal('skill-modal')">- (未)</td>
+                                <td onclick="openModal('skill-modal')">● (習得)</td>
+                                <td onclick="openModal('skill-modal')">● (習得)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                 <p style="text-align: right; margin-top: 1rem; font-size: var(--font-size-sm);">※セルをクリックすると、個別の評価や習得日を記録できます。</p>
+            </div>
+        </main>
+    </div>
+
+    <div id="skill-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">スキル評価編集 (青木 誠 - データ入力)</h2>
+                <span class="modal-close" onclick="closeModal('skill-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="skill-level">習熟度レベル</label>
+                    <select id="skill-level">
+                        <option>未習得</option>
+                        <option>トレーニング中</option>
+                        <option>習得済</option>
+                        <option selected>指導可</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="acquisition-date">習得日</label>
+                    <input type="date" id="acquisition-date" value="2025-08-01">
+                </div>
+                <div class="form-group">
+                    <label for="skill-memo">メモ</label>
+                    <textarea id="skill-memo" rows="4">特にタイピング速度が速く、他の利用者への指導も可能。</textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('skill-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

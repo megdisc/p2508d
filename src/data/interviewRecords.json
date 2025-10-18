@@ -1,0 +1,18 @@
+[
+  {
+    "id": "interview-1",
+    "memberId": "mem-1",
+    "interviewDate": "2025-10-10",
+    "interviewerStaffId": "staff-2",
+    "interviewType": "定期面談",
+    "content": "最近の作業の様子や、今後の目標についてヒアリング。PC作業への意欲が非常に高いことを確認。来月の個別支援計画見直しに向けて、具体的な目標設定を行うことで合意。"
+  },
+  {
+    "id": "interview-2",
+    "memberId": "mem-2",
+    "interviewDate": "2025-10-12",
+    "interviewerStaffId": "staff-2",
+    "interviewType": "随時面談",
+    "content": "作業の集中力が途切れがちであることについて相談を受ける。作業環境の調整（座席の変更）を試すことになった。"
+  }
+]

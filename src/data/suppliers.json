@@ -1,0 +1,13 @@
+[
+  {
+    "id": "sup-1",
+    "lastTransactionDate": "2025-10-15",
+    "contact": {
+      "id": "contact-supplier-1",
+      "name": "横浜パッケージング",
+      "nameKana": "ヨコハマパッケージング",
+      "phoneNumber": "045-999-8888",
+      "addressId": "addr-supplier-1"
+    }
+  }
+]

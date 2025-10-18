@@ -1,0 +1,21 @@
+[
+  {
+    "id": "mmc-1",
+    "memberId": "mem-1",
+    "medicalContactId": "med-1",
+    "role": "主治医"
+  },
+  {
+    "id": "mmc-2",
+    "memberId": "mem-2",
+    "medicalContactId": "med-1",
+    "role": "主治医"
+  },
+  {
+    "id": "mmc-3",
+    "memberId": "mem-2",
+    "medicalContactId": "med-2",
+    "role": "専門医",
+    "notes": "半年に一度の定期通院"
+  }
+]

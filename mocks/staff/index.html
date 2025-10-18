@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p2508d - 職員管理モックアップ</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="mockup-container">
+        <header class="header">
+            <div>
+                <h1 class="header-logo"><a href="#staff">p2508d</a></h1>
+            </div>
+            <nav class="nav" id="side-nav">
+                <ul class="nav-list">
+                    <li><a href="#staff" class="nav-link">職員管理</a></li>
+                </ul>
+                <ul class="nav-list">
+                    <li><a href="../index.html">画面一覧へ戻る</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="mockup-main">
+            <div id="staff" class="mockup-page">
+                <div class="list-page-header">
+                    <h1 class="page-title">職員一覧</h1>
+                    <button class="button button-primary">＋ 新規作成</button>
+                </div>
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>職員名</th>
+                                <th>役職</th>
+                                <th>雇用形態</th>
+                                <th class="col-actions">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>管理者 太郎</td>
+                                <td>管理者</td>
+                                <td>常勤</td>
+                                <td class="col-actions">
+                                    <div class="table-button-group">
+                                        <a href="#staff-detail" class="button button-primary">詳細</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>支援員 次郎</td>
+                                <td>サービス管理責任者</td>
+                                <td>常勤</td>
+                                <td class="col-actions">
+                                    <div class="table-button-group">
+                                        <a href="#staff-detail" class="button button-primary">詳細</a>
+                                    </div>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td>職業指導員 三郎</td>
+                                <td>職業指導員</td>
+                                <td>非常勤</td>
+                                <td class="col-actions">
+                                    <div class="table-button-group">
+                                        <a href="#staff-detail" class="button button-primary">詳細</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="staff-detail" class="mockup-page">
+                <div class="list-page-header">
+                    <h1 class="page-title">管理者 太郎</h1>
+                    <div>
+                        <a href="#staff" class="button button-secondary" style="margin-right: 0.5rem;">一覧へ戻る</a>
+                    </div>
+                </div>
+                <div class="tabs" id="staff-detail-tabs">
+                    <div class="tab-item active" data-tab="tab-basic-info">基本情報</div>
+                    <div class="tab-item" data-tab="tab-schedule">シフト・勤怠</div>
+                    <div class="tab-item" data-tab="tab-payroll">給与情報</div>
+                    <div class="tab-item" data-tab="tab-training">研修記録</div>
+                </div>
+                <div class="tab-content-wrapper">
+                    <div id="tab-basic-info" class="tab-content active">
+                        <div class="section">
+                            <h2 class="section-title">職員情報</h2>
+                            <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>氏名</dt><dd><input type="text" value="管理者 太郎"></dd>
+                                    <dt>役職</dt><dd>
+                                        <select>
+                                            <option selected>管理者</option>
+                                            <option>サービス管理責任者</option>
+                                            <option>職業指導員</option>
+                                        </select>
+                                    </dd>
+                                    <dt>雇用形態</dt><dd>
+                                        <select>
+                                            <option selected>常勤</option>
+                                            <option>非常勤</option>
+                                        </select>
+                                    </dd>
+                                    <dt>入社日</dt><dd><input type="date" value="2023-04-01"></dd>
+                                </dl>
+                            </div>
+                        </div>
+                         <div class="section-footer">
+                            <button class="button button-primary">変更を保存</button>
+                        </div>
+                    </div>
+                    <div id="tab-schedule" class="tab-content">
+                        <div class="section">
+                            <h2 class="section-title">2025年 10月</h2>
+                            <div class="section-content">
+                                <p>日ごとのシフト（早番/遅番/休み）や出退勤時刻、休憩時間を記録するためのカレンダーUIをここに配置します。</p>
+                                </div>
+                        </div>
+                    </div>
+                    <div id="tab-payroll" class="tab-content">
+                         <div class="section">
+                            <h2 class="section-title">給与設定</h2>
+                            <div class="section-content">
+                                 <dl class="detail-grid" style="grid-template-columns: 100px 1fr;">
+                                    <dt>基本給</dt><dd><input type="number" value="300000"> 円</dd>
+                                    <dt>役職手当</dt><dd><input type="number" value="50000"> 円</dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <h2 class="section-title">給与明細履歴</h2>
+                            <div class="table-wrapper">
+                                <table class="table">
+                                    <thead><tr><th>対象月</th><th>総支給額</th><th>控除額合計</th><th>差引支給額</th><th class="col-actions">操作</th></tr></thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2025年9月</td>
+                                            <td>350,000円</td>
+                                            <td>50,000円</td>
+                                            <td>300,000円</td>
+                                            <td class="col-actions"><div class="table-button-group"><button class="button button-secondary">明細</button></div></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-training" class="tab-content">
+                        <div class="list-page-header" style="margin-bottom: 1rem;">
+                            <h2 class="section-title" style="margin: 0; border: none;">研修受講履歴</h2>
+                            <button class="button button-primary">＋ 研修を追加</button>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="table">
+                                <thead><tr><th>研修名</th><th>実施日</th><th>種別</th><th class="col-actions">操作</th></tr></thead>
+                                <tbody>
+                                    <tr>
+                                        <td>虐待防止研修</td>
+                                        <td>2025/08/10</td>
+                                        <td>内部研修</td>
+                                        <td class="col-actions">
+                                            <div class="table-button-group">
+                                                <button class="button button-secondary">詳細</button>
+                                                <button class="button button-danger">削除</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>サービス管理責任者研修</td>
+                                        <td>2025/06/01</td>
+                                        <td>外部研修</td>
+                                        <td class="col-actions">
+                                            <div class="table-button-group">
+                                                <button class="button button-secondary">詳細</button>
+                                                <button class="button button-danger">削除</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../script.js"></script>
+
+</body>
+</html>

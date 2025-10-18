@@ -1,0 +1,11 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem; /* PageTitleのデフォルトマージンをこちらに移動 */
+}
+
+/* PageTitleコンポーネントのデフォルトマージンを上書き */
+.header > h1 {
+  margin-bottom: 0;
+}

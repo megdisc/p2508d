@@ -1,0 +1,22 @@
+[
+  {
+    "id": "med-1",
+    "hospitalName": "〇〇クリニック",
+    "specialty": "精神科",
+    "contact": {
+      "id": "contact-med-1",
+      "name": "山田 医師",
+      "phoneNumber": "045-333-4444"
+    }
+  },
+  {
+    "id": "med-2",
+    "hospitalName": "△△総合病院",
+    "specialty": "内科",
+    "contact": {
+      "id": "contact-med-2",
+      "name": "佐藤 医師",
+      "phoneNumber": "045-555-6666"
+    }
+  }
+]

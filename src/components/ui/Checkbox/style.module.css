@@ -1,0 +1,7 @@
+/* src/components/ui/Checkbox/style.module.css */
+
+.customCheckbox {
+  /* 変更点: calc()を使って高さを計算し、widthも同じ値に設定 */
+  width: calc(0.625rem * 2 + 0.875rem + 2px);
+  height: calc(0.625rem * 2 + 0.875rem + 2px);
+}
