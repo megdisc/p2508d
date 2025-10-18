@@ -1,15 +1,32 @@
+// src/app/(main)/members/[id]/page.tsx
 'use client';
 
-import { MemberList } from '@/features/member';
-import { ListPageLayout } from '@/components/layout/ListPageLayout';
-import { UI_TEXT } from '@/constants';
+import { useParams, useRouter } from 'next/navigation';
+import { useMember } from '@/features/member';
+import { MemberDetail } from '@/features/member';
+import { PageTitle, Button } from '@/components/ui';
+import styles from './style.module.css';
 
-const MembersPage = () => {
+const MemberDetailPage = () => {
+  const params = useParams();
+  const router = useRouter();
+  const id = Array.isArray(params.id) ? params.id[0] : params.id;
+  
+  const { member, isLoading, error } = useMember(id);
+
+  if (isLoading) return <p>読み込み中...</p>;
+  if (error) return <p>エラー: {error}</p>;
+  if (!member) return <p>利用者が見つかりません。</p>;
+
   return (
-    <ListPageLayout pageTitle={UI_TEXT.PAGE_TITLES.MEMBER_LIST}>
-      <MemberList />
-    </ListPageLayout>
+    <div>
+      <div className={styles.header}>
+        <PageTitle>{member.name} 様</PageTitle>
+        <Button onClick={() => router.push('/members')}>一覧へ戻る</Button>
+      </div>
+      <MemberDetail member={member} />
+    </div>
   );
 };
 
-export default MembersPage;
+export default MemberDetailPage;

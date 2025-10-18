@@ -151,3 +151,16 @@ body {
 .page-transition {
   transition: opacity 0.5s ease-in-out;
 }
+
+/* スクリーンリーダーのためだけの要素を視覚的に隠す */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
