@@ -1,5 +1,5 @@
-// src/features/member/components/MemberDetail/tabs/BasicInfoTab.tsx
-import { DefinitionList, Section } from '@/components/ui'; // ★ Section をインポート
+// src/features/member/components/MemberDetail/sections/BasicInfoSection.tsx
+import { DefinitionList, Section } from '@/components/ui';
 
 // モックデータ（実際にはpropsでデータを受け取ります）
 const mockMember = {
@@ -10,7 +10,8 @@ const mockMember = {
   status: '利用中'
 };
 
-export const BasicInfoTab = () => {
+// ★ 修正点: コンポーネント名を変更
+export const BasicInfoSection = () => { 
   const items = [
     { term: '氏名', description: mockMember.name },
     { term: 'フリガナ', description: mockMember.nameKana },
@@ -20,7 +21,6 @@ export const BasicInfoTab = () => {
   ];
 
   return (
-    // ★ Sectionコンポーネントでラップし、見出しを設定
     <Section title="基本情報">
       <DefinitionList items={items} />
     </Section>
