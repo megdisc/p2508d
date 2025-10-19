@@ -1,4 +1,4 @@
 // src/utils/index.ts
 
 export * from './format';
-export * from './validation';
+export * from './createEntitySlice'; // ← この行があることを確認

@@ -6,7 +6,6 @@
   justify-content: center;
   align-items: center;
   height: 100vh; /* 画面全体の高さを使用 */
-  /* ★ 変更点: 背景色にターシャリーベースカラーを指定 */
   background-color: var(--palette-gray-light);
 }
 

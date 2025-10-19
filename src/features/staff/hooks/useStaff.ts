@@ -1,17 +1,18 @@
 // src/features/staff/hooks/useStaff.ts
-import { useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '@/store/hooks';
+
+import { useEntities } from '@/hooks';
 import { fetchStaff } from '../store/staffSlice';
+import type { Staff } from '@/entities';
+
+type ProcessedStaff = Staff & {
+  name: string;
+  role: string;
+  employmentType: string;
+};
 
 export const useStaff = () => {
-  const dispatch = useAppDispatch();
-  const { staff, status, error } = useAppSelector((state) => state.staff);
+  // 汎用フックを呼び出す
+  const { data: staff, isLoading, error } = useEntities<ProcessedStaff>('staff', fetchStaff);
 
-  useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchStaff());
-    }
-  }, [status, dispatch]);
-
-  return { staff, isLoading: status === 'loading', error };
+  return { staff, isLoading, error };
 };
