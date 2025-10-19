@@ -17,11 +17,11 @@ export const Navigation = () => {
     { href: '/dashboard', label: UI_TEXT.NAVIGATION.DASHBOARD },
     {
       href: '/members',
-      label: `${t('term_member', '利用者')}管理`, // 修正点
+      label: `${t('term_member', '利用者')}管理`,
     },
     {
       href: '/staff',
-      label: `${t('term_staff', '職員')}管理`, // 修正点
+      label: `${t('term_staff', '職員')}管理`,
     },
   ];
 
@@ -41,8 +41,9 @@ export const Navigation = () => {
       </ul>
 
       <div className={styles.logoutSection}>
+        {/* ★ 変更点: ラベルを定数に置き換え */}
         <button onClick={signOut} className={styles.logoutButton}>
-          {UI_TEXT.BUTTONS.SIGN_OUT}
+          {UI_TEXT.BUTTONS.LOGOUT}
         </button>
       </div>
     </nav>

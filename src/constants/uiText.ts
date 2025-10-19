@@ -26,15 +26,17 @@ export const UI_TEXT = {
     ARTICLE_TITLE: '記事名称',
     DATES: '作成日 - 最終更新日',
     AUTHOR: '著作者',
-    FULL_NAME: '氏名', // ★ 追加
+    FULL_NAME: '氏名',
     CONTRACT_STATUS: '契約ステータス',
     JOB_TITLE: '職種',
     OPERATION: '操作',
   },
   BUTTONS: {
     LOGIN: 'ログイン',
+    LOGOUT: 'ログアウト',
+    SIGN_IN: 'サインイン',
     SIGN_OUT: 'サインアウト',
-    CREATE: '作成',
+    CREATE: '作成', // 「+ 作成」から「作成」に変更済み
     EDIT: '編集',
     SAVE_DRAFT: '下書き保存',
     PUBLISH: '公開',
@@ -44,6 +46,7 @@ export const UI_TEXT = {
     SAVE: '保存',
     DETAILS: '詳細',
     ADD_MEMBER: '利用者追加',
+    BACK: '戻る', // ★ 新しく追加
   },
   ROLES: {
     ADMIN: '管理者',

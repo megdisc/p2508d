@@ -43,11 +43,13 @@ export const ResourceList = <T extends { id: string }>({
             ))}
             <td>
               <div className={styles.buttonGroup}>
+                {/* ★ 変更点: "詳細" を定数に置き換え */}
                 <Button onClick={() => onViewDetails(item.id)}>
                   {UI_TEXT.BUTTONS.DETAILS}
                 </Button>
                 {/* onDeleteプロパティが渡された時だけ削除ボタンを表示 */}
                 {onDelete && (
+                  // ★ 変更点: "削除" を定数に置き換え
                   <Button variant="danger" onClick={() => onDelete(item.id)}>
                     {UI_TEXT.BUTTONS.DELETE}
                   </Button>

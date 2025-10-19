@@ -69,17 +69,17 @@ table {
   /* 第1層：グローバル・パレット (Global Palette)   */
   /* プロジェクトで利用するすべての色を定義します。   */
   /* ============================================= */
-  --palette-navy-main: #000066;        /* メインカラー */
-  --palette-navy-sub: #000099;         /* サブカラー */
-  --palette-orange-accent: #FF9900;    /* アクセントカラー */
+  --palette-navy-main: #000033;        /* メインカラー */
+  --palette-navy-sub: #000000;         /* サブカラー */
+  --palette-orange-accent: #FFCC00;    /* アクセントカラー */
 
   --palette-white: #FFFFFF;            /* プライマリーベースカラー */
   --palette-gray-dark: #333333;        /* セカンダリーベースカラー */
   --palette-gray-light: #CCCCCC;       /* ターシャリーベースカラー */
 
-  --palette-green-success: #00FF00;    /* セマンティックサクセスカラー */
-  --palette-yellow-alert: #FFFF00;     /* セマンティックアラートカラー */
-  --palette-red-error: #FF0000;        /* セマンティックエラーカラー */
+  --palette-green-success: #009933;    /* セマンティックサクセスカラー */
+  --palette-yellow-alert: #FFCC00;     /* セマンティックアラートカラー */
+  --palette-red-error: #CC3333;        /* セマンティックエラーカラー */
 
 
   /* ============================================= */

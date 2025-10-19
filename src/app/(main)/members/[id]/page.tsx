@@ -6,6 +6,8 @@ import { useMember } from '@/features/member';
 import { Button, Section } from '@/components/ui';
 import { DetailPageLayout } from '@/components/layout';
 import { BasicInfoSection } from '@/features/member/components/MemberDetail/sections/BasicInfoSection';
+// ★ UI_TEXT をインポート
+import { UI_TEXT } from '@/constants';
 
 const MemberDetailPage = () => {
   const params = useParams();
@@ -39,7 +41,6 @@ const MemberDetailContent = ({ id }: { id: string }) => {
   ];
 
   const sections = {
-    // ★ 修正点: key={member.id} を追加する
     基本情報: <BasicInfoSection key={member.id} member={member} />,
     サービス記録: <Section title="サービス記録">サービス記録の内容</Section>,
     支援計画: <Section title="支援計画">支援計画の内容</Section>,
@@ -57,7 +58,8 @@ const MemberDetailContent = ({ id }: { id: string }) => {
       menuItems={menuItems}
       sections={sections}
       headerActions={
-        <Button onClick={() => router.push('/members')}>一覧へ戻る</Button>
+        // ★ 変更点: ハードコーディングされていた '戻る' を定数に置き換え
+        <Button onClick={() => router.push('/members')}>{UI_TEXT.BUTTONS.BACK}</Button>
       }
     />
   );

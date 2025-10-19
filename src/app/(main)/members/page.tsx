@@ -2,17 +2,22 @@
 
 import { MemberList } from '@/features/member';
 import { ListPageLayout } from '@/components/layout/ListPageLayout';
-import { useTerminology } from '@/features/terminology'; // 追加
+import { useTerminology } from '@/features/terminology';
 import { UI_TEXT } from '@/constants';
+// ★ Buttonコンポーネントをインポート
+import { Button } from '@/components/ui';
 
 const MembersPage = () => {
-  const { t } = useTerminology(); // 追加
+  const { t } = useTerminology();
 
-  // term_memberキーから「メンバー一覧」のようなタイトルを生成
   const pageTitle = `${t('term_member', '利用者')}一覧`;
 
   return (
-    <ListPageLayout pageTitle={pageTitle}>
+    // ★ 変更点: headerActions プロパティで作成ボタンを渡す
+    <ListPageLayout
+      pageTitle={pageTitle}
+      headerActions={<Button>{UI_TEXT.BUTTONS.CREATE}</Button>}
+    >
       <MemberList />
     </ListPageLayout>
   );

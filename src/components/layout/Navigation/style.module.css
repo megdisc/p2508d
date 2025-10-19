@@ -19,16 +19,19 @@
   padding: 0.75rem 1.5rem;
   border-radius: var(--border-radius);
   text-decoration: none;
-  color: var(--color-text-primary);
+  /* ★ 変更点: 文字色をプライマリーベースカラー（白）に */
+  color: var(--palette-white);
   font-weight: 500;
   transition: background-color 0.2s, color 0.2s;
 }
 
 .active {
   composes: link;
-  color: var(--color-primary);
+  /* ★ 変更点: 文字色をプライマリーベースカラー（白）に */
+  color: var(--palette-white);
   font-weight: 700;
-  background-color: #e9ecef;
+  /* ★ 変更点: 背景色をサブカラーに */
+  background-color: var(--palette-navy-sub);
 }
 
 .logoutSection {

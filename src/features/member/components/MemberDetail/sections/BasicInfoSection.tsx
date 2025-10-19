@@ -5,6 +5,8 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Section, Button, FormField } from '@/components/ui';
 import { FormActionsLayout, FormGrid } from '@/components/layout';
 import { Member } from '@/entities';
+// ★ UI_TEXT をインポート
+import { UI_TEXT } from '@/constants';
 
 interface BasicInfoSectionProps {
   member: Member & { name: string; status: string };
@@ -19,18 +21,15 @@ type Inputs = {
 };
 
 export const BasicInfoSection = ({ member }: BasicInfoSectionProps) => {
-  // ★ useFormにdefaultValuesを渡すだけのシンプルな形に戻す
   const { register, handleSubmit } = useForm<Inputs>({
     defaultValues: {
       name: member.name,
       nameKana: member.contact.nameKana || '',
       memberNumber: member.memberNumber || '',
-      birthday: member.contact.birthday || '',
+      birthday: member.birthday ? new Date(member.birthday).toISOString().split('T')[0] : '',
       status: member.status,
     },
   });
-
-  // useEffectは不要なので完全に削除
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
@@ -72,7 +71,8 @@ export const BasicInfoSection = ({ member }: BasicInfoSectionProps) => {
       </Section>
 
       <FormActionsLayout>
-        <Button type="submit">保存</Button>
+        {/* ★ 変更点: ラベルを定数に置き換え */}
+        <Button type="submit">{UI_TEXT.BUTTONS.SAVE}</Button>
       </FormActionsLayout>
     </form>
   );

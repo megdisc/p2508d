@@ -5,7 +5,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button, Input } from '@/components/ui';
-import { useAuth } from '@/features/auth'; // index.ts経由でのインポートは維持
+import { useAuth } from '@/features/auth';
 import { UI_TEXT } from '@/constants';
 import styles from './style.module.css';
 
@@ -23,11 +23,10 @@ export const LoginForm = () => {
     formState: { errors, isSubmitting },
   } = useForm<LoginFormInputs>();
 
-  // ログインボタンを押せば、入力内容に関わらず必ずダッシュボードへ遷移するようにします
   const onSubmit: SubmitHandler<LoginFormInputs> = () => {
-    const mockUserEmail = 'admin@example.com'; // ログインするテストユーザー
-    login(mockUserEmail); // ログイン状態をReduxストアに保存
-    router.push('/dashboard'); // ダッシュボードへ強制的に遷移
+    const mockUserEmail = 'admin@example.com';
+    login(mockUserEmail);
+    router.push('/dashboard');
   };
 
   return (
@@ -58,6 +57,7 @@ export const LoginForm = () => {
         {errors.password && <p className={styles.error}>{errors.password.message}</p>}
       </div>
 
+      {/* ★ 変更点: ラベルを定数に置き換え */}
       <Button type="submit" disabled={isSubmitting}>
         {UI_TEXT.BUTTONS.LOGIN}
       </Button>
