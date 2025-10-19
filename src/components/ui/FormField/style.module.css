@@ -1,0 +1,8 @@
+/* src/components/ui/FormField/style.module.css */
+.label {
+  /* ★ 修正: ラベルのスタイルを以前のものに戻します */
+  font-weight: 600;
+  text-align: right;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}

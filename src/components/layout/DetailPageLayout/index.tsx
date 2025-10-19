@@ -2,14 +2,14 @@
 'use client';
 
 import { useState, ReactNode } from 'react';
-import { PageTitle, SubNav } from '@/components/ui';
-import styles from './style.module.css';
+import { SubNav } from '@/components/ui';
+import { PageHeader } from '../PageHeader'; // ★ PageHeaderをインポート
 
 interface DetailPageLayoutProps {
   pageTitle: string;
   menuItems: string[];
-  sections: Record<string, ReactNode>; // メニュー項目と表示コンポーネントをマッピングするオブジェクト
-  headerActions?: ReactNode; // ヘッダー右側に表示するボタンなど
+  sections: Record<string, ReactNode>;
+  headerActions?: ReactNode;
 }
 
 export const DetailPageLayout = ({
@@ -22,10 +22,7 @@ export const DetailPageLayout = ({
 
   return (
     <div>
-      <div className={styles.header}>
-        <PageTitle>{pageTitle}</PageTitle>
-        {headerActions && <div className={styles.actions}>{headerActions}</div>}
-      </div>
+      <PageHeader title={pageTitle}>{headerActions}</PageHeader>
 
       <SubNav
         items={menuItems}
@@ -33,7 +30,7 @@ export const DetailPageLayout = ({
         onSelectItem={setActiveItem}
       />
 
-      <div>{sections[activeItem]}</div>
+      <main>{sections[activeItem]}</main>
     </div>
   );
 };

@@ -1,7 +1,8 @@
+// src/components/layout/ListPageLayout/index.tsx
 import { ReactNode } from 'react';
-import { Button, PageTitle } from '@/components/ui';
+import { Button } from '@/components/ui';
 import { UI_TEXT } from '@/constants';
-import styles from './style.module.css';
+import { PageHeader } from '../PageHeader'; // ★ PageHeaderをインポート
 
 interface ListPageLayoutProps {
   pageTitle: string;
@@ -14,11 +15,10 @@ export const ListPageLayout = ({
 }: ListPageLayoutProps) => {
   return (
     <div>
-      <div className={styles.header}>
-        <PageTitle>{pageTitle}</PageTitle>
-        <Button>{UI_TEXT.BUTTONS.ADD}</Button>
-      </div>
-      {children}
+      <PageHeader title={pageTitle}>
+        <Button>{`＋ ${UI_TEXT.BUTTONS.CREATE}`}</Button>
+      </PageHeader>
+      <main>{children}</main>
     </div>
   );
 };

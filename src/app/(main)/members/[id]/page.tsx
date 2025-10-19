@@ -4,14 +4,22 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useMember } from '@/features/member';
 import { Button, Section } from '@/components/ui';
-import { DetailPageLayout } from '@/components/layout'; // ★ 新しいレイアウトをインポート
+import { DetailPageLayout } from '@/components/layout';
 import { BasicInfoSection } from '@/features/member/components/MemberDetail/sections/BasicInfoSection';
 
 const MemberDetailPage = () => {
   const params = useParams();
-  const router = useRouter();
-  const id = Array.isArray(params.id) ? params.id[0] : params.id;
+  const id = typeof params.id === 'string' ? params.id : undefined;
 
+  if (!id) {
+    return <p>利用者IDが無効です。</p>;
+  }
+
+  return <MemberDetailContent id={id} />;
+};
+
+const MemberDetailContent = ({ id }: { id: string }) => {
+  const router = useRouter();
   const { member, isLoading, error } = useMember(id);
 
   if (isLoading) return <p>読み込み中...</p>;
@@ -31,7 +39,8 @@ const MemberDetailPage = () => {
   ];
 
   const sections = {
-    基本情報: <BasicInfoSection />,
+    // ★ 修正点: key={member.id} を追加する
+    基本情報: <BasicInfoSection key={member.id} member={member} />,
     サービス記録: <Section title="サービス記録">サービス記録の内容</Section>,
     支援計画: <Section title="支援計画">支援計画の内容</Section>,
     コミュニケーション: <Section title="コミュニケーション">コミュニケーションの内容</Section>,

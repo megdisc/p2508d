@@ -10,4 +10,4 @@ export * from './Textarea';
 export * from './DefinitionList';
 export * from './Card';
 export * from './SubNav'; // ★ 追加
-// export * from './Tabs'; // ← 不要になったのでコメントアウトまたは削除
+export * from './FormField'; // ★ 追加

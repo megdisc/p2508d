@@ -1,7 +1,12 @@
-/* src/app/(main)/members/[id]/style.module.css */
+/* src/components/layout/PageHeader/style.module.css */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
 }
