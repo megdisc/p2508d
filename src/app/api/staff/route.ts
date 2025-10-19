@@ -34,6 +34,7 @@ export async function GET() {
       return {
         ...staff,
         name: contact?.name || '名前不明',
+        nameKana: contact?.nameKana || '', // ★ 追加
         role: facilityRole?.name || '役職未設定', // B型事業所としての役職名
         employmentType: employmentType?.value || '不明',
       };

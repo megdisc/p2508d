@@ -2,8 +2,11 @@
 
 export interface Contact {
   id: string;
-  name: string;
-  nameKana?: string;
+  // 🔽 name を firstName と lastName に分割
+  firstName: string;
+  lastName: string;
+  firstNameKana?: string;
+  lastNameKana?: string;
   birthday?: string; // ★ 追加
   genderId?: string;
   phone?: string;

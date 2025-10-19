@@ -6,6 +6,7 @@ import type { Staff } from '@/entities';
 
 type ProcessedStaff = Staff & {
   name: string;
+  nameKana: string; // ★ 追加
   role: string;
   employmentType: string;
 };
