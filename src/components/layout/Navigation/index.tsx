@@ -1,29 +1,27 @@
 // src/components/layout/Navigation/index.tsx
-'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useAuth } from '@/features/auth';
-import { useTerminology } from '@/features/terminology';
-import { UI_TEXT } from '@/constants';
-import styles from './style.module.css';
+"use client";
+
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import styles from "./style.module.css";
+
+// ナビゲーションの項目を定義
+const navItems = [
+  { href: "/dashboard", label: "ダッシュボード" },
+  { href: "/members", label: "メンバー管理" },
+  { href: "/staff", label: "スタッフ管理" },
+  // 他のナビゲーション項目...
+];
 
 export const Navigation = () => {
   const pathname = usePathname();
   const { signOut } = useAuth();
-  const { t } = useTerminology();
 
-  const navItems = [
-    { href: '/dashboard', label: UI_TEXT.NAVIGATION.DASHBOARD },
-    {
-      href: '/members',
-      label: `${t('term_member', '利用者')}管理`,
-    },
-    {
-      href: '/staff',
-      label: `${t('term_staff', '職員')}管理`,
-    },
-  ];
+  const handleLogout = () => {
+    signOut();
+  };
 
   return (
     <nav className={styles.nav}>
@@ -32,6 +30,7 @@ export const Navigation = () => {
           <li key={item.href}>
             <Link
               href={item.href}
+              // ★ 変更点: `pathname === item.href` を `pathname.startsWith(item.href)` に修正
               className={pathname.startsWith(item.href) ? styles.active : styles.link}
             >
               {item.label}
@@ -39,11 +38,9 @@ export const Navigation = () => {
           </li>
         ))}
       </ul>
-
       <div className={styles.logoutSection}>
-        {/* ★ 変更点: ラベルを定数に置き換え */}
-        <button onClick={signOut} className={styles.logoutButton}>
-          {UI_TEXT.BUTTONS.LOGOUT}
+        <button onClick={handleLogout} className={styles.logoutButton}>
+          ログアウト
         </button>
       </div>
     </nav>

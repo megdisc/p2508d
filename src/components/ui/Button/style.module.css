@@ -8,7 +8,7 @@
   border-radius: var(--border-radius);
   font-size: var(--font-size-sm);
   font-weight: 500;
-  color: var(--color-white);
+  color: var(--color-text-inverted);
   border: none;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
@@ -22,11 +22,11 @@
 
 /* Variants */
 .primary {
-  background-color: var(--color-primary);
+  background-color: var(--color-brand-primary);
 }
 
 /* 削除: .primary:not(:disabled):hover のスタイル指定を削除 */
 
 .danger {
-  background-color: var(--color-danger);
+  background-color: var(--color-status-danger);
 }

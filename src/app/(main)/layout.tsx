@@ -1,25 +1,23 @@
 // src/app/(main)/layout.tsx
-'use client'; 
 
-import { Header } from '@/components';
-import { useAuth } from '@/features/auth';
-import { redirect } from 'next/navigation';
-// ★ usePathname と useEffect を削除
-import { useRef, useLayoutEffect, useState } from 'react';
+"use client";
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const { isAuthenticated } = useAuth();
+import { Header } from "@/components";
+import React, {
+  useState,
+  useLayoutEffect,
+  useRef,
+  ReactNode,
+  CSSProperties,
+} from "react";
+
+type Props = {
+  children: ReactNode;
+};
+
+const MainLayout = ({ children }: Props) => {
   const headerRef = useRef<HTMLElement>(null);
-  const [marginLeft, setMarginLeft] = useState(240); 
-  // ★ opacity と pathname の state を削除
-
-  if (!isAuthenticated) {
-    redirect('/login');
-  }
+  const [marginLeft, setMarginLeft] = useState(0);
 
   useLayoutEffect(() => {
     const updateMargin = () => {
@@ -27,27 +25,38 @@ export default function DashboardLayout({
         setMarginLeft(headerRef.current.offsetWidth);
       }
     };
-    updateMargin();
-    window.addEventListener('resize', updateMargin);
-    return () => window.removeEventListener('resize', updateMargin);
+
+    // ResizeObserverを使用して、headerのサイズ変更を監視
+    const resizeObserver = new ResizeObserver(updateMargin);
+    if (headerRef.current) {
+      resizeObserver.observe(headerRef.current);
+    }
+
+    updateMargin(); // 初期マウント時にも実行
+
+    return () => {
+      if (headerRef.current) {
+        resizeObserver.unobserve(headerRef.current);
+      }
+    };
   }, []);
 
-  // ★ opacity を変更する useEffect を削除
-
-  // ★ layoutStyle から opacity と transition を削除
-  const layoutStyle: React.CSSProperties = {
+  // メインコンテンツのスタイルを定義
+  const layoutStyle: CSSProperties = {
     marginLeft: `${marginLeft}px`,
-    padding: '2rem',
+    padding: "2rem",
+    // ★ 変更点: widthの計算を元に戻す
     width: `calc(100% - ${marginLeft}px)`,
+    // ★ 変更点: box-sizingプロパティを追加
+    boxSizing: "border-box",
   };
 
   return (
     <>
       <Header ref={headerRef} />
-      {/* ★ id を削除 */}
-      <main style={layoutStyle}>
-        {children}
-      </main>
+      <main style={layoutStyle}>{children}</main>
     </>
   );
-}
+};
+
+export default MainLayout;

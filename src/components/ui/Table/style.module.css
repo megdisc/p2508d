@@ -26,7 +26,7 @@
 .table thead th {
   font-weight: 600;
   /* ★ 背景色をターシャリーベースカラーに変更 */
-  background-color: var(--palette-gray-light);
+  background-color: var(--color-background-subtle);
 }
 
 .table tbody tr {

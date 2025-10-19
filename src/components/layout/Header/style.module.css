@@ -1,23 +1,24 @@
 /* src/components/layout/Header/style.module.css */
 
 .header {
-  width: auto; /* 幅を自動に */
-  min-width: 240px; /* 最小幅を設定 */
-  max-width: 16ch; /* 最大幅を全角16文字分に設定 */
+  /* ★ 変更点: 幅をコンテンツに合わせる */
+  width: auto;
+  /* ★ 変更点: min-widthを削除（または適切な最小値に設定） */
+  /* min-width: 240px; */ /* ← この行を削除 */
+
+  max-width: 160ch; /* 最大幅を全角16文字分に設定 */
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  /* ★ 変更点: 背景色をメインカラーに */
-  background-color: var(--color-primary);
-  /* ★ 変更点: 右の罫線を削除 */
-  /* border-right: 1px solid var(--color-border); */
+  background-color: var(--color-header-background);
   padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 3rem;
   z-index: 1000;
-  text-align: center; /* 中の要素を中央揃え */
+  text-align: center;
+  box-sizing: border-box; /* paddingを幅の内側に含める */
 }
 
 .logo {
@@ -26,7 +27,6 @@
 }
 
 .logoLink {
-  /* ★ 変更点: サイトタイトルの文字色をアクセントカラーに */
-  color: var(--color-accent);
+  color: var(--color-text-brand);
   text-decoration: none;
 }

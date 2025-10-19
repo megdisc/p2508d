@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh; /* 画面全体の高さを使用 */
-  background-color: var(--palette-gray-light);
+  background-color: var(--color-login-background);
 }
 
 .loggedInMessage {

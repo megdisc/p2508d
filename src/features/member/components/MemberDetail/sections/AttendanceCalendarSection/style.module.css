@@ -17,25 +17,25 @@
   padding: 0.2em 0.5em;
   border-radius: var(--border-radius);
   text-align: center;
-  color: var(--palette-white);
+  color: var(--color-text-inverted);
   font-weight: 500;
 }
 
 /* 利用状況に応じた背景色 */
 .master-attendance-present {
-  background-color: var(--color-success);
+  background-color: var(--color-status-success);
 }
 
 .master-attendance-absent {
-  background-color: var(--color-danger);
+  background-color: var(--color-status-danger);
 }
 
 .master-attendance-hospital {
-  background-color: var(--color-alert);
-  color: var(--palette-gray-dark);
+  background-color: var(--color-status-alert);
+  color: var(--color-text-secondary);
 }
 
 .default {
   background-color: var(--color-border);
-  color: var(--palette-gray-dark);
+  color: var(--color-text-secondary);
 }

@@ -37,6 +37,6 @@
 }
 
 .error {
-  color: var(--color-danger);
+  color: var(--color-status-danger);
   font-size: var(--font-size-xs);
 }

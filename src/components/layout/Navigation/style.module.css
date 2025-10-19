@@ -12,6 +12,9 @@
   flex-direction: column;
   gap: 0.5rem;
   text-align: center;
+  /* ★ 変更点: 以下2行を追加 */
+  list-style: none; /* リストマーカーを非表示 */
+  padding: 0; /* ブラウザ標準の余白を削除 */
 }
 
 .link {
@@ -19,19 +22,23 @@
   padding: 0.75rem 1.5rem;
   border-radius: var(--border-radius);
   text-decoration: none;
-  /* ★ 変更点: 文字色をプライマリーベースカラー（白）に */
-  color: var(--palette-white);
+  color: var(--color-text-inverted);
   font-weight: 500;
   transition: background-color 0.2s, color 0.2s;
 }
 
 .active {
-  composes: link;
-  /* ★ 変更点: 文字色をプライマリーベースカラー（白）に */
-  color: var(--palette-white);
+  /* .linkのスタイルを継承 */
+  display: block;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+
+  /* .active固有のスタイル */
+  color: var(--color-text-inverted);
   font-weight: 700;
-  /* ★ 変更点: 背景色をサブカラーに */
-  background-color: var(--palette-navy-sub);
+  background-color: var(--color-brand-secondary);
 }
 
 .logoutSection {
@@ -39,7 +46,16 @@
 }
 
 .logoutButton {
-  composes: link;
+  /* .linkのスタイルを継承 */
+  display: block;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  color: var(--color-text-inverted);
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+
+  /* .logoutButton固有のスタイル */
   width: 100%;
   background: none;
   border: none;

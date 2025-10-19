@@ -1,7 +1,80 @@
-/* src/components/ui/Checkbox/style.module.css */
+/* src/components/ui/Calendar/style.module.css */
+.calendar {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+}
 
-.customCheckbox {
-  /* 変更点: calc()を使って高さを計算し、widthも同じ値に設定 */
-  width: calc(0.625rem * 2 + 0.875rem + 2px);
-  height: calc(0.625rem * 2 + 0.875rem + 2px);
+.weekdays,
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.weekdays {
+  border-bottom: 1px solid var(--color-border);
+  /* ★ 曜日の背景色を変更 */
+  background-color: var(--color-background-subtle);
+}
+
+.weekday {
+  text-align: center;
+  padding: 0.75rem 0;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+}
+
+.grid {
+  min-height: 500px;
+}
+
+.dayCell,
+.emptyCell {
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  padding: 0.5rem;
+}
+
+.dayCell:nth-last-child(-n + 7) {
+  border-bottom: none;
+}
+.emptyCell:nth-last-child(-n + 7) {
+  border-bottom: none;
+}
+
+.dayCell:nth-child(7n),
+.emptyCell:nth-child(7n) {
+  border-right: none;
+}
+
+.dayCell {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dayCell:hover {
+  /* ★ ホバー時の色を少し薄いグレーに（変数がなければ直接指定） */
+  background-color: var(--color-background-subtle);
+}
+
+.dayNumber {
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+}
+
+.today .dayNumber {
+  /* ★ 本日の日付の背景色を変更 */
+  background-color: var(--color-brand-accent);
+  color: var(--color-text-secondary); /* 文字色を濃いグレーに変更 */
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eventsContainer {
+  margin-top: 0.25rem;
+  font-size: var(--font-size-xs);
 }

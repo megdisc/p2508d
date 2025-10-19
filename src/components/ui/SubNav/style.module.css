@@ -32,11 +32,11 @@
 }
 
 .navItem:hover {
-  color: var(--color-primary);
+  color: var(--color-brand-primary);
 }
 
 .navItem.active {
   font-weight: 600;
-  color: var(--color-primary);
-  border-bottom-color: var(--color-primary);
+  color: var(--color-brand-primary);
+  border-bottom-color: var(--color-brand-primary);
 }
