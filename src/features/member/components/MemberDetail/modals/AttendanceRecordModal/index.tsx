@@ -1,21 +1,27 @@
 // src/features/member/components/MemberDetail/modals/AttendanceRecordModal/index.tsx
 'use client';
 
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { Modal, FormField, Select, Textarea, Button } from '@/components/ui';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import {
+  Modal,
+  FormField,
+  Select,
+  Textarea,
+  Button,
+  Checkbox,
+} from '@/components/ui';
 import { FormGrid, FormActionsLayout } from '@/components/layout';
 import type { AttendanceRecord } from '@/entities';
+import styles from './style.module.css';
 
-// モーダルが受け取るプロパティ
 interface AttendanceRecordModalProps {
   isOpen: boolean;
   onClose: () => void;
   memberId: string;
   targetDate: string | null;
-  record?: AttendanceRecord; // 既存の記録データ（新規作成時はundefined）
+  record?: AttendanceRecord;
 }
 
-// フォームの入力値の型
 type Inputs = {
   statusId: string;
   actualStartTime: string;
@@ -32,8 +38,7 @@ export const AttendanceRecordModal = ({
   targetDate,
   record,
 }: AttendanceRecordModalProps) => {
-  const { register, handleSubmit } = useForm<Inputs>({
-    // recordが存在すればその値を、なければ初期値をセット
+  const { register, handleSubmit, control } = useForm<Inputs>({
     defaultValues: {
       statusId: record?.statusId || 'master-attendance-present',
       actualStartTime: record?.actualStartTime || '',
@@ -51,7 +56,7 @@ export const AttendanceRecordModal = ({
       ...data,
     });
     alert('保存処理を実行しました（詳細はコンソールを確認）');
-    onClose(); // 保存後モーダルを閉じる
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -88,7 +93,25 @@ export const AttendanceRecordModal = ({
             type="time"
             registration={register('actualEndTime')}
           />
-          
+
+          {/* ★ 修正: Checkboxの記述をシンプルに */}
+          <label htmlFor="hasLunch" className={styles.label}>
+            昼食
+          </label>
+          <Controller
+            name="hasLunch"
+            control={control}
+            render={({ field }) => (
+              <div className={styles.checkboxWrapper}>
+                <Checkbox
+                  id="hasLunch"
+                  checked={field.value}
+                  onChange={field.onChange}
+                />
+              </div>
+            )}
+          />
+
           <FormField
             id="healthStatus"
             label="体調"

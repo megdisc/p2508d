@@ -6,9 +6,7 @@ import { useMember } from '@/features/member';
 import { Button, Section } from '@/components/ui';
 import { DetailPageLayout } from '@/components/layout';
 import { BasicInfoSection } from '@/features/member/components/MemberDetail/sections/BasicInfoSection';
-// ★ UI_TEXT をインポート
 import { UI_TEXT } from '@/constants';
-// ★ AttendanceCalendarSection をインポート
 import { AttendanceCalendarSection } from '@/features/member/components/MemberDetail/sections/AttendanceCalendarSection';
 
 const MemberDetailPage = () => {
@@ -32,7 +30,7 @@ const MemberDetailContent = ({ id }: { id: string }) => {
 
   const menuItems = [
     '基本情報',
-    'カレンダー', // ★ 'サービス記録'から変更
+    'カレンダー',
     '支援計画',
     'コミュニケーション',
     '健康・医療',
@@ -44,8 +42,12 @@ const MemberDetailContent = ({ id }: { id: string }) => {
 
   const sections = {
     基本情報: <BasicInfoSection key="basic-info" member={member} />,
-    // ★ 'サービス記録'を'カレンダー'に変更し、新しいコンポーネントを割り当てる
-    カレンダー: <AttendanceCalendarSection key="calendar" memberId={member.id} />,
+    // ★ ここでSectionコンポーネントでラップする
+    カレンダー: (
+      <Section title="カレンダー">
+        <AttendanceCalendarSection key="calendar" memberId={member.id} />
+      </Section>
+    ),
     支援計画: <Section title="支援計画">支援計画の内容</Section>,
     コミュニケーション: <Section title="コミュニケーション">コミュニケーションの内容</Section>,
     '健康・医療': <Section title="健康・医療">健康・医療の内容</Section>,

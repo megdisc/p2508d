@@ -20,12 +20,13 @@
   border-bottom: 1px solid var(--color-border);
   font-size: var(--font-size-sm);
   height: 3.375rem;
-  text-align: center; /* すべてのセルを中央揃えに */
+  text-align: center;
 }
 
 .table thead th {
   font-weight: 600;
-  background-color: #f9f9f9;
+  /* ★ 背景色をターシャリーベースカラーに変更 */
+  background-color: var(--palette-gray-light);
 }
 
 .table tbody tr {
@@ -35,9 +36,3 @@
 .table tbody tr:last-child td {
   border-bottom: none;
 }
-
-/*
-.table tbody tr:hover {
-  background-color: var(--color-table-hover-bg);
-}
-*/

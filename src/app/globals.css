@@ -73,11 +73,16 @@ table {
   --palette-navy-sub: #000000;         /* サブカラー */
   --palette-orange-accent: #FFCC00;    /* アクセントカラー */
 
-  --palette-white: #FFFFFF;            /* プライマリーベースカラー */
-  --palette-gray-dark: #333333;        /* セカンダリーベースカラー */
-  --palette-gray-light: #CCCCCC;       /* ターシャリーベースカラー */
+  --palette-white: #FFFFFF;             /* プライマリーベースカラー */
+  --palette-gray-ash: #E6E6E6;          /* クォータリーベースカラー */
+  --palette-gray-light: #CCCCCC;        /* タ―シャリーベースカラー */
+  --palette-gray-steel: #999999;        /* ベースカラー */
+  --palette-gray-dark: #666666;         /* ベースカラー */
+  --palette-gray-slate: #333333;        /* セカンダリーベースカラー */
+  --palette-gray-charcoal: #1A1A1A;     /* ベースカラー */
+  --palette-black: #000000;             /* ベースカラー */
 
-  --palette-teal-success: #006699;    /* セマンティックサクセスカラー */
+  --palette-teal-success: #006699;     /* セマンティックサクセスカラー */
   --palette-yellow-alert: #FFCC00;     /* セマンティックアラートカラー */
   --palette-red-error: #CC3333;        /* セマンティックエラーカラー */
 
@@ -89,7 +94,7 @@ table {
 
   /* --- 基本色 --- */
   --color-background: var(--palette-white);          /* 基本の背景色 */
-  --color-text-primary: var(--palette-gray-dark);    /* 基本の文字色 */
+  --color-text-primary: var(--palette-gray-slate);    /* 基本の文字色 */
   --color-border: var(--palette-gray-light);         /* 基本の境界線色 */
   --color-shadow: rgba(0, 0, 0, 0.05);             /* 影の色 */
 

@@ -41,7 +41,6 @@ export const AttendanceCalendarSection = ({
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedDate(null);
-    // モーダルを閉じた後にデータを再取得してカレンダーを更新
     refetch();
   };
 
@@ -60,7 +59,6 @@ export const AttendanceCalendarSection = ({
     }));
   }, [records]);
 
-  // 選択された日付の利用実績を探す
   const selectedRecord = useMemo(() => {
     if (!selectedDate) return undefined;
     return records.find((r) => r.date === selectedDate);
@@ -69,6 +67,7 @@ export const AttendanceCalendarSection = ({
   if (error) return <p>エラー: {error}</p>;
 
   return (
+    // ★ Sectionコンポーネントを削除し、divでラップする
     <div>
       <header className={styles.header}>
         <Button onClick={handlePrevMonth}>&lt; 前の月</Button>
