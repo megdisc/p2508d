@@ -77,7 +77,7 @@ table {
   --palette-gray-dark: #333333;        /* セカンダリーベースカラー */
   --palette-gray-light: #CCCCCC;       /* ターシャリーベースカラー */
 
-  --palette-green-success: #009933;    /* セマンティックサクセスカラー */
+  --palette-teal-success: #006699;    /* セマンティックサクセスカラー */
   --palette-yellow-alert: #FFCC00;     /* セマンティックアラートカラー */
   --palette-red-error: #CC3333;        /* セマンティックエラーカラー */
 
@@ -100,7 +100,7 @@ table {
 
   /* --- 意味を持つ色 (Semantic Colors) --- */
   --color-danger: var(--palette-red-error);          /* 危険・エラー */
-  --color-success: var(--palette-green-success);     /* 成功 */
+  --color-success: var(--palette-teal-success);     /* 成功 */
   --color-alert: var(--palette-yellow-alert);        /* 警告・注意 */
 
   /* --- UI要素 --- */

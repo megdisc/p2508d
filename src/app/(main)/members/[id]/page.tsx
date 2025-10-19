@@ -8,6 +8,8 @@ import { DetailPageLayout } from '@/components/layout';
 import { BasicInfoSection } from '@/features/member/components/MemberDetail/sections/BasicInfoSection';
 // ★ UI_TEXT をインポート
 import { UI_TEXT } from '@/constants';
+// ★ AttendanceCalendarSection をインポート
+import { AttendanceCalendarSection } from '@/features/member/components/MemberDetail/sections/AttendanceCalendarSection';
 
 const MemberDetailPage = () => {
   const params = useParams();
@@ -30,7 +32,7 @@ const MemberDetailContent = ({ id }: { id: string }) => {
 
   const menuItems = [
     '基本情報',
-    'サービス記録',
+    'カレンダー', // ★ 'サービス記録'から変更
     '支援計画',
     'コミュニケーション',
     '健康・医療',
@@ -41,8 +43,9 @@ const MemberDetailContent = ({ id }: { id: string }) => {
   ];
 
   const sections = {
-    基本情報: <BasicInfoSection key={member.id} member={member} />,
-    サービス記録: <Section title="サービス記録">サービス記録の内容</Section>,
+    基本情報: <BasicInfoSection key="basic-info" member={member} />,
+    // ★ 'サービス記録'を'カレンダー'に変更し、新しいコンポーネントを割り当てる
+    カレンダー: <AttendanceCalendarSection key="calendar" memberId={member.id} />,
     支援計画: <Section title="支援計画">支援計画の内容</Section>,
     コミュニケーション: <Section title="コミュニケーション">コミュニケーションの内容</Section>,
     '健康・医療': <Section title="健康・医療">健康・医療の内容</Section>,
@@ -58,7 +61,6 @@ const MemberDetailContent = ({ id }: { id: string }) => {
       menuItems={menuItems}
       sections={sections}
       headerActions={
-        // ★ 変更点: ハードコーディングされていた '戻る' を定数に置き換え
         <Button onClick={() => router.push('/members')}>{UI_TEXT.BUTTONS.BACK}</Button>
       }
     />

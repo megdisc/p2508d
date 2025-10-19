@@ -1,0 +1,79 @@
+/* src/components/ui/Calendar/style.module.css */
+.calendar {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+}
+
+.weekdays,
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.weekdays {
+  border-bottom: 1px solid var(--color-border);
+  background-color: #f9f9f9;
+}
+
+.weekday {
+  text-align: center;
+  padding: 0.75rem 0;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+}
+
+.grid {
+  min-height: 500px;
+}
+
+.dayCell,
+.emptyCell {
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  padding: 0.5rem;
+}
+
+/* 最後の行のセルの下線を消す */
+.dayCell:nth-last-child(-n + 7) {
+  border-bottom: none;
+}
+.emptyCell:nth-last-child(-n + 7) {
+  border-bottom: none;
+}
+
+/* 各行の最後のセルの右線を消す */
+.dayCell:nth-child(7n),
+.emptyCell:nth-child(7n) {
+  border-right: none;
+}
+
+.dayCell {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dayCell:hover {
+  background-color: #f0f8ff;
+}
+
+.dayNumber {
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+}
+
+.today .dayNumber {
+  background-color: var(--color-primary);
+  color: var(--palette-white);
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eventsContainer {
+  margin-top: 0.25rem;
+  font-size: var(--font-size-xs);
+}

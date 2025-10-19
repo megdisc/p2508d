@@ -1,0 +1,41 @@
+/* src/features/member/components/MemberDetail/sections/AttendanceCalendarSection/style.module.css */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.monthTitle {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin: 0;
+}
+
+.eventLabel {
+  display: block;
+  padding: 0.2em 0.5em;
+  border-radius: var(--border-radius);
+  text-align: center;
+  color: var(--palette-white);
+  font-weight: 500;
+}
+
+/* 利用状況に応じた背景色 */
+.master-attendance-present {
+  background-color: var(--color-success);
+}
+
+.master-attendance-absent {
+  background-color: var(--color-danger);
+}
+
+.master-attendance-hospital {
+  background-color: var(--color-alert);
+  color: var(--palette-gray-dark);
+}
+
+.default {
+  background-color: var(--color-border);
+  color: var(--palette-gray-dark);
+}
