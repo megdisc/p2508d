@@ -13,6 +13,7 @@ const navItems = [
   { href: "/members", label: "メンバー管理" },
   { href: "/staff", label: "スタッフ管理" },
   // 他のナビゲーション項目...
+  { href: "/settings", label: "設定" }, // ← この行を追加
 ];
 
 export const Navigation = () => {
@@ -30,7 +31,6 @@ export const Navigation = () => {
           <li key={item.href}>
             <Link
               href={item.href}
-              // ★ 変更点: `pathname === item.href` を `pathname.startsWith(item.href)` に修正
               className={pathname.startsWith(item.href) ? styles.active : styles.link}
             >
               {item.label}

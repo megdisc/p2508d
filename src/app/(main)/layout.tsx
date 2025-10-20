@@ -26,13 +26,12 @@ const MainLayout = ({ children }: Props) => {
       }
     };
 
-    // ResizeObserverを使用して、headerのサイズ変更を監視
     const resizeObserver = new ResizeObserver(updateMargin);
     if (headerRef.current) {
       resizeObserver.observe(headerRef.current);
     }
 
-    updateMargin(); // 初期マウント時にも実行
+    updateMargin();
 
     return () => {
       if (headerRef.current) {
@@ -41,18 +40,17 @@ const MainLayout = ({ children }: Props) => {
     };
   }, []);
 
-  // メインコンテンツのスタイルを定義
   const layoutStyle: CSSProperties = {
     marginLeft: `${marginLeft}px`,
     padding: "2rem",
-    // ★ 変更点: widthの計算を元に戻す
     width: `calc(100% - ${marginLeft}px)`,
-    // ★ 変更点: box-sizingプロパティを追加
     boxSizing: "border-box",
   };
 
   return (
     <>
+      {/* Material Icons の読み込みを追加 */}
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
       <Header ref={headerRef} />
       <main style={layoutStyle}>{children}</main>
     </>
