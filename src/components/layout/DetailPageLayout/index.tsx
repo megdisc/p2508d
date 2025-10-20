@@ -1,36 +1,27 @@
-// src/components/layout/DetailPageLayout/index.tsx
 'use client';
 
 import { useState, ReactNode } from 'react';
+import { PageLayout } from '../PageLayout';
 import { SubNav } from '@/components/ui';
-import { PageHeader } from '../PageHeader'; // ★ PageHeaderをインポート
 
 interface DetailPageLayoutProps {
   pageTitle: string;
+  headerActions?: ReactNode;
   menuItems: string[];
   sections: Record<string, ReactNode>;
-  headerActions?: ReactNode;
 }
 
-export const DetailPageLayout = ({
-  pageTitle,
-  menuItems,
-  sections,
-  headerActions,
-}: DetailPageLayoutProps) => {
+export const DetailPageLayout = ({ pageTitle, headerActions, menuItems, sections }: DetailPageLayoutProps) => {
   const [activeItem, setActiveItem] = useState(menuItems[0]);
 
   return (
-    <div>
-      <PageHeader title={pageTitle}>{headerActions}</PageHeader>
-
+    <PageLayout pageTitle={pageTitle} headerActions={headerActions}>
       <SubNav
         items={menuItems}
         activeItem={activeItem}
         onSelectItem={setActiveItem}
       />
-
-      <main>{sections[activeItem]}</main>
-    </div>
+      <div>{sections[activeItem]}</div>
+    </PageLayout>
   );
 };
