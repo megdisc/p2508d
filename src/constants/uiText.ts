@@ -1,5 +1,5 @@
 export const UI_TEXT = {
-  SYSTEM_NAME: 'p2508d',
+  SYSTEM_NAME: 'Compath',
   // ページタイトル
   PAGE_TITLES: {
     DASHBOARD: 'ダッシュボード',
