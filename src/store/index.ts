@@ -11,6 +11,7 @@ export const store = configureStore({
     auth: authReducer,
     member: memberReducer,
     staff: staffReducer,
+    project: projectReducer,
     terminology: terminologyReducer, // 追加
   },
 });
