@@ -6,13 +6,11 @@ import styles from './style.module.css';
 interface SectionProps {
   title: string;
   children: ReactNode;
-  className?: string; // classNameを受け取れるようにする
 }
 
-export const Section = ({ title, children, className }: SectionProps) => {
-  const sectionClasses = [styles.section, className].filter(Boolean).join(' ');
+export const Section = ({ title, children }: SectionProps) => {
   return (
-    <section className={sectionClasses}>
+    <section className={styles.section}>
       <h2 className={styles.title}>{title}</h2>
       <div className={styles.content}>{children}</div>
     </section>
