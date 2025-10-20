@@ -9,12 +9,7 @@
     "assignedStaffId": "staff-2",
     "wageLevelId": "wl-2",
     "contact": {
-      "id": "contact-member-1",
-      "name": "青木 誠",
-      "nameKana": "アオキ マコト",
-      "phoneNumber": "090-1234-5678",
-      "email": "member_aoki@example.com",
-      "addressId": "addr-member-1"
+      "id": "c-1"
     },
     "disabilityInfo": {
       "disabilityCategoryIds": ["dc-2", "dc-4"],
@@ -33,11 +28,7 @@
     "assignedStaffId": "staff-2",
     "wageLevelId": "wl-1",
     "contact": {
-      "id": "contact-member-2",
-      "name": "五十嵐 直人",
-      "nameKana": "イガラシ ナオト",
-      "phoneNumber": "090-8765-4321",
-      "addressId": "addr-member-2"
+      "id": "c-2"
     },
     "disabilityInfo": {
       "disabilityCategoryIds": ["dc-2"],
@@ -55,10 +46,7 @@
     "assignedStaffId": "staff-1",
     "wageLevelId": "wl-1",
     "contact": {
-      "id": "contact-member-3",
-      "name": "遠藤 雅彦",
-      "nameKana": "エンドウ マサヒコ",
-      "phoneNumber": "090-5555-6666"
+      "id": "c-3"
     },
     "disabilityInfo": {
       "disabilityCategoryIds": ["dc-1"],
