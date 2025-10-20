@@ -2,7 +2,7 @@
 'use client';
 
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Section, Button, FormField } from '@/components/ui';
+import { Section, Button, FormField, Input } from '@/components/ui';
 import { FormActionsLayout, FormGrid } from '@/components/layout';
 import { Member } from '@/entities';
 // ★ UI_TEXT をインポート
