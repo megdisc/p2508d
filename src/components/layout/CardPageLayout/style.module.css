@@ -1,3 +1,7 @@
+.container {
+  padding: 24px;
+}
+
 .cardGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
