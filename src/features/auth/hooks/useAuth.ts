@@ -1,22 +1,28 @@
 // src/features/auth/hooks/useAuth.ts
 
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
-import { login as loginAction, signOut as signOutAction } from '../store/authSlice';
+import { login as loginAction, signOut as signOutAction, setAuthError } from '../store/authSlice';
 import type { AuthUser } from '@/entities';
-// API Clientのインポートを削除し、JSONデータのインポートに戻します
 import authUsersData from '@/data/authUsers.json';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
-  const { user, isAuthenticated } = useAppSelector((state) => state.auth);
+  // ストアからstatusとerrorも取得
+  const { user, isAuthenticated, status, error } = useAppSelector((state) => state.auth);
 
-  // ログイン処理を元のモック用の処理に戻します
-  const login = (email: string) => {
-    const foundUser = (authUsersData as AuthUser[]).find(u => u.email === email);
-    if (foundUser) {
-      dispatch(loginAction(foundUser));
+  /**
+   * 開発用のログイン処理。
+   */
+  const login = () => {
+    const defaultUser = authUsersData[0] as AuthUser;
+    if (defaultUser) {
+      dispatch(loginAction(defaultUser));
       return true;
     }
+    // ユーザーが見つからない場合はエラーとして扱う
+    const errorMessage = 'Default user for development login not found.';
+    console.error(errorMessage);
+    dispatch(setAuthError(errorMessage));
     return false;
   };
 
@@ -24,5 +30,8 @@ export const useAuth = () => {
     dispatch(signOutAction());
   };
 
-  return { user, isAuthenticated, login, signOut };
+  // statusが'loading'の場合にisLoadingをtrueにする
+  const isLoading = status === 'loading';
+
+  return { user, isAuthenticated, login, signOut, isLoading, error };
 };

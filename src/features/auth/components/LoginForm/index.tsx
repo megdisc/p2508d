@@ -1,43 +1,30 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import React from 'react'; // Reactをインポート
 import { Button, FormField, Input } from '@/components/ui';
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import styles from './style.module.css';
 import { UI_TEXT } from '@/constants';
 
-const loginSchema = z.object({
-  email: z.string().email('有効なメールアドレスを入力してください'),
-  password: z.string().min(1, 'パスワードを入力してください'),
-});
-
-type LoginFormInputs = z.infer<typeof loginSchema>;
-
 export const LoginForm = () => {
   const { login, isLoading, error } = useAuth();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormInputs>({
-    resolver: zodResolver(loginSchema),
-  });
 
-  const onSubmit = (data: LoginFormInputs) => {
-    login(data.email, data.password);
+  // フォーム送信時の処理
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // デフォルトのフォーム送信をキャンセル
+    login(); // 引数なしでlogin関数を呼び出す
   };
 
   return (
     <div className={styles.formContainer}>
       <h1 className={styles.title}>{UI_TEXT.SYSTEM_NAME}</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <FormField label={UI_TEXT.LABELS.EMAIL} error={errors.email?.message}>
-          <Input id="email" type="email" {...register('email')} />
+      <form onSubmit={handleSubmit} className={styles.form}>
+        {/* メールアドレスとパスワードの入力欄は残しますが、入力は不要です */}
+        <FormField label={UI_TEXT.LABELS.EMAIL}>
+          <Input id="email" type="email" placeholder="（入力不要）" />
         </FormField>
-        <FormField label={UI_TEXT.LABELS.PASSWORD} error={errors.password?.message}>
-          <Input id="password" type="password" {...register('password')} />
+        <FormField label={UI_TEXT.LABELS.PASSWORD}>
+          <Input id="password" type="password" placeholder="（入力不要）" />
         </FormField>
         {error && <p className={styles.errorMessage}>{error}</p>}
         <Button type="submit" disabled={isLoading} variant="primary">
