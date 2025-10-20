@@ -1,27 +1,24 @@
-'use client';
-
-import { useState, ReactNode } from 'react';
-import { PageLayout } from '../PageLayout';
-import { SubNav } from '@/components/ui';
+import { ReactNode } from 'react';
+import { PageHeader } from '../PageHeader';
 
 interface DetailPageLayoutProps {
-  pageTitle: string;
+  title: string;
   headerActions?: ReactNode;
-  menuItems: string[];
-  sections: Record<string, ReactNode>;
+  subnav?: ReactNode;
+  children: ReactNode;
 }
 
-export const DetailPageLayout = ({ pageTitle, headerActions, menuItems, sections }: DetailPageLayoutProps) => {
-  const [activeItem, setActiveItem] = useState(menuItems[0]);
-
+export const DetailPageLayout = ({
+  title,
+  headerActions,
+  subnav,
+  children,
+}: DetailPageLayoutProps) => {
   return (
-    <PageLayout pageTitle={pageTitle} headerActions={headerActions}>
-      <SubNav
-        items={menuItems}
-        activeItem={activeItem}
-        onSelectItem={setActiveItem}
-      />
-      <div>{sections[activeItem]}</div>
-    </PageLayout>
+    <>
+      <PageHeader title={title}>{headerActions}</PageHeader>
+      {subnav}
+      <div>{children}</div>
+    </>
   );
 };

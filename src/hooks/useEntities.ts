@@ -1,39 +1,63 @@
-// src/hooks/useEntities.ts
-
-import { useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '@/store/hooks';
+import { useEffect, useCallback } from 'react';
+import { useAppDispatch, useAppSelector } from '@/store/hooks'; // 修正: 正しいフックをインポート
+import { RootState } from '@/store'; // 追加: RootStateの型をインポート
 import { AsyncThunk } from '@reduxjs/toolkit';
-import { RootState } from '@/store';
-import { GenericState } from '@/utils';
+
+// useEntitiesフックの引数の型定義
+interface UseEntitiesParams<T> {
+  fetch: AsyncThunk<T, string, any>;
+  fetchAll: AsyncThunk<T[], void, any>;
+  selectors: {
+    selectAll: (state: RootState) => T[]; // 修正: stateの型を定義
+    selectById: (state: RootState, id: string) => T | undefined; // 修正: stateの型を定義
+  };
+  endpoint: string;
+  id?: string;
+}
 
 /**
- * 汎用的なデータ取得と状態選択を行うカスタムフック
- * @param featureName - featuresのキー (例: 'member', 'staff')
- * @param fetchThunk - データ取得用のAsyncThunk
+ * Reduxストアと連携し、単一または複数のエンティティを取得・管理する汎用フック
  */
-export const useEntities = <T>(
-  featureName: keyof RootState,
-  fetchThunk: AsyncThunk<T[], void, {}>
-) => {
+export const useEntities = <T extends { id: string }>({
+  fetch,
+  fetchAll,
+  selectors,
+  id,
+}: UseEntitiesParams<T>) => {
   const dispatch = useAppDispatch();
+  const entities = useAppSelector(selectors.selectAll);
+  const entity = id ? useAppSelector((state: RootState) => selectors.selectById(state, id)) : undefined;
 
-  // ★ 修正点: stateのスライスが存在しない場合も考慮し、安全にアクセスする
-  const stateSlice = useAppSelector(
-    (state) => state[featureName] as GenericState<T> | undefined
+  const loadAll = useCallback(() => {
+    if (entities.length === 0) {
+      dispatch(fetchAll());
+    }
+  }, [dispatch, fetchAll, entities.length]);
+
+  const loadById = useCallback(
+    (fetchId: string) => {
+      if (!entities.find((e) => e.id === fetchId)) {
+        dispatch(fetch(fetchId));
+      }
+    },
+    [dispatch, fetch, entities]
   );
 
-  // ★ 修正点: stateSliceが未定義の場合、初期値を設定する
-  const entities = stateSlice?.entities ?? [];
-  const status = stateSlice?.status ?? 'idle';
-  const error = stateSlice?.error ?? null;
-
   useEffect(() => {
-    // 既に取得済み、または取得中の場合は再取得しない
-    if (status === 'idle') {
-      dispatch(fetchThunk());
+    if (id) {
+      loadById(id);
+    } else {
+      loadAll();
     }
-  }, [status, dispatch, fetchThunk]);
+  }, [id, loadById, loadAll]);
 
-  // コンポーネント側で使いやすいように名前を調整して返す
-  return { data: entities, isLoading: status === 'loading', error };
+  const sliceName = fetch.typePrefix.split('/')[0] as keyof RootState;
+
+  return {
+    entities,
+    entity,
+    loading: useAppSelector((state: RootState) => state[sliceName].status === 'loading'), // 修正: stateの型を定義
+    error: useAppSelector((state: RootState) => state[sliceName].error), // 修正: stateの型を定義
+    refetch: id ? () => loadById(id) : loadAll,
+  };
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ResourceList, Text } from "@/components/ui";
+import { ResourceList } from "@/components/ui";
 import { ROUTES } from "@/constants";
 import { Project } from "@/entities";
 import { useProjects } from "../../hooks/useProjects";
@@ -19,7 +19,7 @@ export const ProjectList = () => {
         {
           field: "name",
           headerName: "案件名",
-          renderCell: ({ row }) => <Text isLink>{row.name}</Text>,
+          renderCell: ({ row }) => <span>{row.name}</span>,
         },
         {
           field: "clientName",
