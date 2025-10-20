@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react'; // Reactをインポート
-import { Button, FormField, Input } from '@/components/ui';
+import { Button, FormField, Input, Section } from '@/components/ui';
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import styles from './style.module.css';
 import { UI_TEXT } from '@/constants';
@@ -16,21 +16,19 @@ export const LoginForm = () => {
   };
 
   return (
-    <div className={styles.formContainer}>
-      <h1 className={styles.title}>{UI_TEXT.SYSTEM_NAME}</h1>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        {/* メールアドレスとパスワードの入力欄は残しますが、入力は不要です */}
-        <FormField label={UI_TEXT.LABELS.EMAIL}>
-          <Input id="email" type="email" placeholder="（入力不要）" />
-        </FormField>
-        <FormField label={UI_TEXT.LABELS.PASSWORD}>
-          <Input id="password" type="password" placeholder="（入力不要）" />
-        </FormField>
-        {error && <p className={styles.errorMessage}>{error}</p>}
-        <Button type="submit" disabled={isLoading} variant="primary">
-          {isLoading ? 'ログイン中...' : UI_TEXT.BUTTONS.LOGIN}
-        </Button>
-      </form>
-    </div>
+    <Section title={UI_TEXT.SYSTEM_NAME} className={styles.loginSection}>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <FormField label={UI_TEXT.LABELS.EMAIL}>
+            <Input id="email" type="email" placeholder="（入力不要）" />
+          </FormField>
+          <FormField label={UI_TEXT.LABELS.PASSWORD}>
+            <Input id="password" type="password" placeholder="（入力不要）" />
+          </FormField>
+          {error && <p className={styles.errorMessage}>{error}</p>}
+          <Button type="submit" disabled={isLoading} variant="primary">
+            {isLoading ? 'ログイン中...' : UI_TEXT.BUTTONS.LOGIN}
+          </Button>
+        </form>
+    </Section>
   );
 };
