@@ -1,14 +1,13 @@
-import { ListPageLayout } from "@/components/layout";
-import { ProjectList } from "@/features/project";
-import { ROUTES } from "@/constants";
+// src/app/(main)/projects/page.tsx
+'use client';
+
+// インポートパスを修正
+import { ProjectList } from '@/features/project';
+import { ListPageLayout } from '@/components/layout';
 
 const ProjectsPage = () => {
   return (
-    <ListPageLayout
-      title="案件一覧"
-      // TODO: 新規作成ページのパスを修正
-      // createPath={`${ROUTES.PROJECTS}/new`}
-    >
+    <ListPageLayout pageTitle="案件一覧">
       <ProjectList />
     </ListPageLayout>
   );

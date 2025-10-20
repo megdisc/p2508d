@@ -1,3 +1,4 @@
+// src/app/(main)/production-activities/page.tsx
 'use client';
 
 import Link from 'next/link';
@@ -10,7 +11,7 @@ const ProductionActivitiesPage = () => {
       icon: 'work',
       title: '案件管理',
       description: '顧客からの請負案件の進捗や収支を管理します。',
-      href: '/projects',
+      href: '/projects', // 案件一覧ページへのリンク
     },
     {
       icon: 'groups',
@@ -29,6 +30,7 @@ const ProductionActivitiesPage = () => {
   return (
     <CardPageLayout pageTitle="生産活動">
       {items.map((item) => (
+        // カード全体をリンクで囲む
         <Link href={item.href} key={item.title} style={{ textDecoration: 'none' }}>
           <Card>
             <CardContent>
@@ -46,4 +48,3 @@ const ProductionActivitiesPage = () => {
 };
 
 export default ProductionActivitiesPage;
-
