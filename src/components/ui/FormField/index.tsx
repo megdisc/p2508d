@@ -1,39 +1,40 @@
-// src/components/ui/FormField/index.tsx
-import { ComponentType, InputHTMLAttributes } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
-import { Input } from '../Input';
+'use client';
+
+import React, { Children, cloneElement, ReactElement, ReactNode, useId } from 'react';
 import styles from './style.module.css';
 
-interface FormFieldProps
-  extends InputHTMLAttributes<
-    HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-  > {
-  id: string;
+interface FormFieldProps {
   label: string;
-  registration: Partial<UseFormRegisterReturn>;
-  as?: ComponentType<any>;
-  children?: React.ReactNode;
+  error?: string;
+  children: ReactNode;
 }
 
-export const FormField = ({
-  id,
-  label,
-  registration,
-  as: Component = Input,
-  children,
-  ...props
-}: FormFieldProps) => {
+export const FormField = ({ label, error, children }: FormFieldProps) => {
+  const autoId = useId();
+  // We expect a single React element as a child (e.g., <Input />, <Textarea />)
+  const child = Children.only(children) as ReactElement<any>;
+  
+  // Use the child's id if it exists, otherwise use the auto-generated one
+  const id = child.props.id || autoId;
+
+  // Clone the child element to add necessary accessibility props
+  const childWithProps = cloneElement(child, {
+    id: id,
+    'aria-invalid': !!error,
+    'aria-describedby': error ? `${id}-error` : undefined,
+  });
+
   return (
-    // シンプルなFragmentを返し、labelとComponentをFormGridの直接の子要素にする
-    <>
+    <div className={styles.formField}>
       <label htmlFor={id} className={styles.label}>
         {label}
       </label>
-      <Component id={id} {...registration} {...props}>
-        {children}
-      </Component>
-    </>
+      {childWithProps}
+      {error && (
+        <p id={`${id}-error`} className={styles.errorMessage} role="alert">
+          {error}
+        </p>
+      )}
+    </div>
   );
 };
-
-FormField.displayName = 'FormField';

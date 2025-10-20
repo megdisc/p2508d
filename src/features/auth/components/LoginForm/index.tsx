@@ -1,66 +1,49 @@
-// src/features/auth/components/LoginForm/index.tsx
 'use client';
 
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { Button, Input } from '@/components/ui';
-import { useAuth } from '@/features/auth';
-import { UI_TEXT } from '@/constants';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { Button, FormField, Input } from '@/components/ui';
+import { useAuth } from '@/features/auth/hooks/useAuth';
 import styles from './style.module.css';
+import { UI_TEXT } from '@/constants';
 
-type LoginFormInputs = {
-  email: string;
-  password: string;
-};
+const loginSchema = z.object({
+  email: z.string().email('有効なメールアドレスを入力してください'),
+  password: z.string().min(1, 'パスワードを入力してください'),
+});
+
+type LoginFormInputs = z.infer<typeof loginSchema>;
 
 export const LoginForm = () => {
-  const { login } = useAuth();
-  const router = useRouter();
+  const { login, isLoading, error } = useAuth();
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<LoginFormInputs>();
+    formState: { errors },
+  } = useForm<LoginFormInputs>({
+    resolver: zodResolver(loginSchema),
+  });
 
-  const onSubmit: SubmitHandler<LoginFormInputs> = () => {
-    const mockUserEmail = 'admin@example.com';
-    login(mockUserEmail);
-    router.push('/dashboard');
+  const onSubmit = (data: LoginFormInputs) => {
+    login(data.email, data.password);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-      <h1 className={styles.title}>
-        <Link href="/login">{UI_TEXT.SYSTEM_NAME}</Link>
-      </h1>
-
-      <div className={styles.field}>
-        <label htmlFor="email">{UI_TEXT.LABELS.EMAIL}</label>
-        <Input
-          id="email"
-          type="email"
-          placeholder={UI_TEXT.PLACEHOLDERS.EMAIL}
-          {...register('email')}
-        />
-        {errors.email && <p className={styles.error}>{errors.email.message}</p>}
-      </div>
-
-      <div className={styles.field}>
-        <label htmlFor="password">{UI_TEXT.LABELS.PASSWORD}</label>
-        <Input
-          id="password"
-          type="password"
-          placeholder={UI_TEXT.PLACEHOLDERS.PASSWORD}
-          {...register('password')}
-        />
-        {errors.password && <p className={styles.error}>{errors.password.message}</p>}
-      </div>
-
-      {/* ★ 変更点: ラベルを定数に置き換え */}
-      <Button type="submit" disabled={isSubmitting}>
-        {UI_TEXT.BUTTONS.LOGIN}
-      </Button>
-    </form>
+    <div className={styles.formContainer}>
+      <h1 className={styles.title}>{UI_TEXT.SYSTEM_NAME}</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <FormField label={UI_TEXT.LABELS.EMAIL} error={errors.email?.message}>
+          <Input id="email" type="email" {...register('email')} />
+        </FormField>
+        <FormField label={UI_TEXT.LABELS.PASSWORD} error={errors.password?.message}>
+          <Input id="password" type="password" {...register('password')} />
+        </FormField>
+        {error && <p className={styles.errorMessage}>{error}</p>}
+        <Button type="submit" disabled={isLoading} variant="primary">
+          {isLoading ? 'ログイン中...' : UI_TEXT.BUTTONS.LOGIN}
+        </Button>
+      </form>
+    </div>
   );
 };
