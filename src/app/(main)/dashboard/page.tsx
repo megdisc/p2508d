@@ -1,17 +1,15 @@
 // src/app/(main)/dashboard/page.tsx
 'use client';
 
-import { PageHeader } from '@/components/layout/PageHeader';
+import { SectionPageLayout } from '@/components/layout';
 import { Section } from '@/components/ui/Section';
 import Link from 'next/link';
 import styles from './style.module.css';
 
 const DashboardPage = () => {
   return (
-    <div>
-      <PageHeader title="ダッシュボード" />
+    <SectionPageLayout pageTitle="ダッシュボード">
       <div className={styles.grid}>
-        {/* ↓ classNameから styles.card を削除 */}
         <div className={styles.announcements}>
           <Section title="お知らせ">
             <ul className={styles.list}>
@@ -22,7 +20,6 @@ const DashboardPage = () => {
           </Section>
         </div>
 
-        {/* ↓ classNameから styles.card を削除 */}
         <div className={styles.schedule}>
           <Section title="今日の予定">
             <ul className={styles.list}>
@@ -35,7 +32,6 @@ const DashboardPage = () => {
           </Section>
         </div>
 
-        {/* ↓ classNameから styles.card を削除 */}
         <div className={styles.quickLinks}>
           <Section title="クイックリンク">
             <div className={styles.linkGrid}>
@@ -59,7 +55,6 @@ const DashboardPage = () => {
           </Section>
         </div>
 
-        {/* ↓ classNameから styles.card を削除 */}
         <div className={styles.activity}>
           <Section title="最近のアクティビティ">
             <ul className={styles.list}>
@@ -70,7 +65,7 @@ const DashboardPage = () => {
           </Section>
         </div>
       </div>
-    </div>
+    </SectionPageLayout>
   );
 };
 
