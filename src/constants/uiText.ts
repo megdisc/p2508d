@@ -29,6 +29,11 @@ export const UI_TEXT = {
     MEMBER_NAME: '利用者名',
     STAFF_NAME: '職員名',
     STATUS: 'ステータス',
+    FULL_NAME: '氏名',
+    JOB_TITLE: '役職',
+    EMPLOYMENT_TYPE: '雇用形態',
+    CONTRACT_STATUS: '契約状況',
+    OPERATION: '操作',
   },
   // 通知メッセージ
   MESSAGES: {

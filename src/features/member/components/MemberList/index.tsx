@@ -20,8 +20,8 @@ export const MemberList = () => {
 
   // 列の定義
   const columns: ColumnDefinition<ProcessedMember>[] = [
-    { header: UI_TEXT.LABELS.FULL_NAME, accessor: (member) => member.name }, // ★ 変更
-    { header: UI_TEXT.LABELS.CONTRACT_STATUS, accessor: (member) => member.status },
+    { header: UI_TEXT.TABLE_HEADERS.FULL_NAME, accessor: (member) => member.name }, // ★ 変更
+    { header: UI_TEXT.TABLE_HEADERS.CONTRACT_STATUS, accessor: (member) => member.status },
   ];
 
   // 詳細ボタンがクリックされたときの処理

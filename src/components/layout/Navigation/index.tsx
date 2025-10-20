@@ -11,8 +11,8 @@ import styles from "./style.module.css";
 const navItems = [
   { href: "/dashboard", label: "ダッシュボード" },
   { href: "/records", label: "日々の記録" },
-  { href: "/members", label: "利用者一覧" },
-  { href: "/staff", label: "職員一覧" },
+  { href: "/members", label: "利用者支援" },
+  { href: "/staff", label: "職員管理" },
   { href: "/production-activities", label: "生産活動" },
   { href: "/accounting", label: "会計管理" },
   { href: "/kokuhoren-billing", label: "国保連請求" },

@@ -29,17 +29,17 @@ export const ResourceList = <T extends { id: string }>({
     <Table>
       <thead>
         <tr>
-          {columns.map((col) => (
-            <th key={col.header}>{col.header}</th>
+          {columns.map((col, index) => (
+            <th key={index}>{col.header}</th>
           ))}
-          <th>{UI_TEXT.LABELS.OPERATION}</th>
+          <th>{UI_TEXT.TABLE_HEADERS.OPERATION}</th>
         </tr>
       </thead>
       <tbody>
         {items.map((item) => (
           <tr key={item.id}>
-            {columns.map((col) => (
-              <td key={col.header}>{col.accessor(item)}</td>
+            {columns.map((col, index) => (
+              <td key={index}>{col.accessor(item)}</td>
             ))}
             <td>
               <div className={styles.buttonGroup}>
