@@ -3,73 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>p2508d - 工賃体系設定 (操作可能版)</title>
-    <style>
-        /* globals.cssの内容 (省略) */
-        :root {
-            --palette-navy-main: #000066;
-            --palette-navy-sub: #000099;
-            --palette-orange-accent: #FF9900;
-            --palette-white: #FFFFFF;
-            --palette-gray-dark: #333333;
-            --palette-gray-light: #CCCCCC;
-            --palette-red-error: #FF0000;
-            --color-background: var(--palette-white);
-            --color-text-primary: var(--palette-gray-dark);
-            --color-border: #e0e0e0;
-            --color-shadow: rgba(0, 0, 0, 0.05);
-            --color-primary: var(--palette-navy-main);
-            --color-primary-hover: var(--palette-navy-sub);
-            --color-danger: var(--palette-red-error);
-            --color-button-text: var(--palette-white);
-            --font-family-base: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "游ゴシック Medium", "Yu Gothic Medium", "メイリオ", Meiryo, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            --font-size-xs: 0.75rem;
-            --font-size-sm: 0.875rem;
-            --font-size-base: 1rem;
-            --font-size-lg: 1.25rem;
-            --font-size-xl: 1.875rem;
-            --border-radius: 0.375rem;
-        }
-        *, *::before, *::after { box-sizing: border-box; }
-        body, h1, h2, h3, h4, p, ul, ol, table { margin: 0; }
-        ul, ol { padding: 0; list-style: none; }
-        body { font-family: var(--font-family-base); background-color: #f8f9fa; color: var(--color-text-primary); line-height: 1.5; }
-        button, input, select, textarea { font-family: inherit; font-size: 100%; margin: 0; }
-        button { background: none; border: none; cursor: pointer; padding: 0; }
-        table { border-collapse: collapse; border-spacing: 0; }
+    <title>p2508d - 工賃体系設定</title>
 
-        /* --- モックアップ用の全体レイアウト --- */
-        .mockup-container { display: flex; }
-        .mockup-main { margin-left: 240px; padding: 2rem; width: calc(100% - 240px); }
-        .mockup-page { display: block; }
-        
-        /* --- 各コンポーネントのスタイル (省略) --- */
-        .header { width: 240px; height: 100vh; position: fixed; top: 0; left: 0; background-color: var(--color-background); border-right: 1px solid var(--color-border); padding: 1.5rem; display: flex; flex-direction: column; gap: 2rem; z-index: 1000; }
-        .header-logo { font-size: var(--font-size-lg); font-weight: 700; text-align: center; }
-        .header-logo a { color: inherit; text-decoration: none; }
-        .nav { display: flex; flex-direction: column; justify-content: space-between; height: 100%; overflow-y: auto; }
-        .nav-list { display: flex; flex-direction: column; gap: 0.5rem; text-align: left; }
-        .nav-link { display: block; width: 100%; padding: 0.75rem 1rem; border-radius: var(--border-radius); text-decoration: none; color: var(--color-text-primary); font-weight: 500; transition: background-color 0.2s, color 0.2s; text-align: left; }
-        .nav-link:hover { background-color: #f1f3f5; }
-        .nav-link.active { font-weight: 700; background-color: #e9ecef; color: var(--color-primary); }
-        .nav-logout-section { margin-top: auto; padding-top: 1rem; }
-        .button { display: inline-flex; align-items: center; justify-content: center; padding: 0.5rem 1rem; border-radius: var(--border-radius); font-size: var(--font-size-sm); font-weight: 500; color: var(--color-button-text); border: none; cursor: pointer; transition: background-color 0.2s ease-in-out; }
-        .button-primary { background-color: var(--color-primary); }
-        .page-title { font-size: var(--font-size-xl); font-weight: 700; }
-        .list-page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-        .section { width: 100%; border: 1px solid var(--color-border); border-radius: var(--border-radius); padding: 1.5rem; margin-top: 1rem; background-color: #fff; }
-        .section-title { font-size: var(--font-size-lg); font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--color-border); }
-        .section-content { margin-top: 1rem; }
-        
-        /* Form (for detail page) */
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+        /* --- Form Grid (style.cssにないため) --- */
         .detail-form { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
         .form-group { display: flex; flex-direction: column; gap: 0.25rem; }
-        .form-group-full { grid-column: 1 / -1; }
         .form-label { font-size: var(--font-size-sm); font-weight: 500; }
         .form-control { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--color-border); border-radius: var(--border-radius); font-size: var(--font-size-sm); }
         .form-actions { display: flex; justify-content: flex-end; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border); }
-        
+
+        /* --- テーブル内のフォーム要素 (案件管理画面のスタイルに合わせる) --- */
+        .table .form-control {
+            width: 100%;
+            padding: 0.375rem 0.5rem; /* テーブル内は少し小さく */
+            font-size: var(--font-size-sm);
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -101,54 +54,217 @@
 
         <main class="mockup-main">
             
-            <div id="wage-system-detail" class="mockup-page">
+            <div id="wage-system-detail" class="mockup-page active"> 
+                
                 <div class="list-page-header">
                      <h1 class="page-title">工賃体系設定</h1>
+                     <div>
+                        <a href="../settings/index.html" class="button button-secondary">設定TOPへ戻る</a>
+                     </div>
                 </div>
 
                 <form class="detail-form">
-                    <div class="section">
-                        <h2 class="section-title">基本設定</h2>
-                        <div class="section-content form-grid">
-                            <div class="form-group">
-                                <label for="wage-base-type" class="form-label">基本工賃体系</label>
-                                <select id="wage-base-type" class="form-control">
-                                    <option value="hourly">時給制</option>
-                                    <option value="daily">日給制</option>
-                                    <option value="piecework">歩合制</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="wage-default-hourly" class="form-label">基本時給（円）</label>
-                                <input type="number" id="wage-default-hourly" class="form-control" value="250">
-                            </div>
-                            <div class="form-group">
-                                <label for="wage-default-daily" class="form-label">基本日給（円）</label>
-                                <input type="number" id="wage-default-daily" class="form-control" value="1000">
-                            </div>
-                        </div>
+
+                    <div class="tabs" id="wage-system-tabs">
+                        <div class="tab-item active" data-tab="tab-wage-basic">基本工賃</div>
+                        <div class="tab-item" data-tab="tab-wage-attendance">精勤・皆勤手当</div>
+                        <div class="tab-item" data-tab="tab-wage-other-allowance">その他加算手当</div>
+                        <div class="tab-item" data-tab="tab-wage-deduction">控除</div>
                     </div>
 
-                    <div class="section">
-                        <h2 class="section-title">等級別設定（オプション）</h2>
-                        <div class="section-content form-grid">
-                            <div class="form-group">
-                                <label for="wage-rank-a" class="form-label">A等級（時給）</label>
-                                <input type="number" id="wage-rank-a" class="form-control" value="350">
+                    <div class="tab-content-wrapper">
+                        
+                        <div id="tab-wage-basic" class="tab-content active">
+                            <div class="section">
+                                <h2 class="section-title">基本設定</h2>
+                                <div class="section-content form-grid" style="grid-template-columns: repeat(3, 1fr);">
+                                    <div class="form-group">
+                                        <label for="wage-base-type" class="form-label">基本工賃体系</label>
+                                        <select id="wage-base-type" class="form-control">
+                                            <option value="hourly" selected>時給制</option>
+                                            <option value="daily">日給制</option>
+                                            </select>
+                                    </div>
+                                    
+                                    <div class="form-group" id="hourly-calc-unit-group">
+                                        <label for="hourly-calc-unit" class="form-label">計算単位時間 (分)</label>
+                                        <input type="number" id="hourly-calc-unit" class="form-control" value="60">
+                                    </div>
+                                    <div class="form-group" id="hourly-rounding-group">
+                                        <label for="hourly-rounding" class="form-label">端数処理</label>
+                                        <select id="hourly-rounding" class="form-control">
+                                            <option value="round_down">1円未満切り捨て</option>
+                                            <option value="round_up">1円未満繰り上げ</option>
+                                            <option value="round_off">四捨五入</option>
+                                        </select>
+                                    </div>
+                                    </div>
                             </div>
-                            <div class="form-group">
-                                <label for="wage-rank-b" class="form-label">B等級（時給）</label>
-                                <input type="number" id="wage-rank-b" class="form-control" value="300">
-                            </div>
-                            <div class="form-group">
-                                <label for="wage-rank-c" class="form-label">C等級（時給）</label>
-                                <input type="number" id="wage-rank-c" class="form-control" value="250">
+        
+                            <div class="section">
+                                <div class="list-page-header" style="margin-bottom: 1rem;">
+                                    <h2 class="section-title" style="margin: 0; border: none;">等級別設定</h2>
+                                    <button type="button" class="button button-primary" id="add-rank-row">＋ 等級を追加</button>
+                                </div>
+                                <div class="table-wrapper">
+                                    <table class="table" id="rank-table">
+                                        <thead>
+                                            <tr>
+                                                <th>等級名</th>
+                                                <th style="width: 150px;" id="rank-amount-header">時給(円)</th> 
+                                                <th class="col-actions">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="rank-table-body">
+                                            <tr>
+                                                <td><input type="text" class="form-control" value="A等級"></td>
+                                                <td><input type="number" class="form-control" value="350"></td>
+                                                <td class="col-actions">
+                                                    <div class="table-button-group">
+                                                        <button type="button" class="button button-danger">削除</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" class="form-control" value="B等級"></td>
+                                                <td><input type="number" class="form-control" value="300"></td>
+                                                <td class="col-actions">
+                                                    <div class="table-button-group">
+                                                        <button type="button" class="button button-danger">削除</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
+                        <div id="tab-wage-attendance" class="tab-content">
+                            <div class="section">
+                                <h2 class="section-title">精勤手当</h2>
+                                <div class="section-content form-grid" style="grid-template-columns: 1fr 1fr 1fr 1fr;">
+                                    <div class="form-group">
+                                        <label for="seikin-criteria" class="form-label">算出基準</label>
+                                        <select id="seikin-criteria" class="form-control">
+                                            <option value="none">設定しない</option>
+                                            <option value="days_worked" selected>利用日数</option>
+                                            <option value="days_absent">欠席日数</option>
+                                            <option value="attendance_rate">利用率</option>
+                                            <option value="absence_rate">欠席率</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="seikin-threshold" class="form-label">閾値（基準値）</label>
+                                        <input type="number" id="seikin-threshold" class="form-control" value="20">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="seikin-unit" class="form-label">単位</label>
+                                        <select id="seikin-unit" class="form-control"></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="seikin-amount" class="form-label">支給額（円）</label>
+                                        <input type="number" id="seikin-amount" class="form-control" value="3000">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="section">
+                                <h2 class="section-title">皆勤手当</h2>
+                                <div class="section-content form-grid" style="grid-template-columns: 1fr 1fr;">
+                                    <div class="form-group">
+                                        <label for="kaikin-criteria" class="form-label">算出基準</label>
+                                        <select id="kaikin-criteria" class="form-control">
+                                            <option value="none">設定しない</option>
+                                            <option value="days_absent_zero" selected>欠席日数ゼロ</option>
+                                            <option value="attendance_rate_100">利用率100%</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="kaikin-amount" class="form-label">支給額（円）</label>
+                                        <input type="number" id="kaikin-amount" class="form-control" value="5000">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tab-wage-other-allowance" class="tab-content">
+                            <div class="list-page-header" style="margin-bottom: 1rem;">
+                                <h2 class="section-title" style="margin: 0; border: none;">その他加算手当</h2>
+                                <button type="button" class="button button-primary" id="add-allowance-row">＋ 項目を追加</button>
+                            </div>
+        
+                            <div class="table-wrapper">
+                                <table class="table" id="allowance-table">
+                                    <thead>
+                                        <tr>
+                                            <th>項目名</th>
+                                            <th style="width: 150px;">種別</th>
+                                            <th style="width: 150px;">金額(円)</th>
+                                            <th class="col-actions">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="allowance-table-body">
+                                        <tr>
+                                            <td><input type="text" class="form-control" value="送迎手当"></td>
+                                            <td>
+                                                <select class="form-control">
+                                                    <option value="monthly" selected>月割</option>
+                                                    <option value="daily">日割</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="number" class="form-control" value="3000"></td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <div id="tab-wage-deduction" class="tab-content">
+                            <div class="list-page-header" style="margin-bottom: 1rem;">
+                                <h2 class="section-title" style="margin: 0; border: none;">控除項目</h2>
+                                <button type="button" class="button button-primary" id="add-deduction-row">＋ 項目を追加</button>
+                            </div>
+        
+                            <div class="table-wrapper">
+                                <table class="table" id="deduction-table">
+                                    <thead>
+                                        <tr>
+                                            <th>項目名</th>
+                                            <th style="width: 150px;">種別</th>
+                                            <th style="width: 150px;">金額(円)</th>
+                                            <th class="col-actions">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="deduction-table-body">
+                                        <tr>
+                                            <td><input type="text" class="form-control" value="昼食費"></td>
+                                            <td>
+                                                <select class="form-control">
+                                                    <option value="monthly" selected>月割</option>
+                                                    <option value="daily">日割</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="number" class="form-control" value="6000"></td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit" class="button button-primary">更新する</button>
+                        <button type="submit" class="button button-primary">工賃体系を更新する</button>
                     </div>
                 </form>
 
@@ -157,5 +273,171 @@
         </main>
     </div>
 
-</body>
+    <template id="rank-row-template">
+        <tr>
+            <td><input type="text" class="form-control" placeholder="例: C等級"></td>
+            <td><input type="number" class="form-control" placeholder="0"></td>
+            <td class="col-actions">
+                <div class="table-button-group">
+                    <button type="button" class="button button-danger">削除</button>
+                </div>
+            </td>
+        </tr>
+    </template>
+    <template id="allowance-row-template">
+        <tr>
+            <td><input type="text" class="form-control" placeholder="例: 資格手当"></td>
+            <td>
+                <select class="form-control">
+                    <option value="monthly" selected>月割</option>
+                    <option value="daily">日割</option>
+                </select>
+            </td>
+            <td><input type="number" class="form-control" placeholder="0"></td>
+            <td class="col-actions">
+                <div class="table-button-group">
+                    <button type="button" class="button button-danger">削除</button>
+                </div>
+            </td>
+        </tr>
+    </template>
+
+    <template id="deduction-row-template">
+        <tr>
+            <td><input type="text" class="form-control" placeholder="例: 行事費"></td>
+            <td>
+                <select class="form-control">
+                    <option value="monthly" selected>月割</option>
+                    <option value="daily">日割</option>
+                </select>
+            </td>
+            <td><input type="number" class="form-control" placeholder="0"></td>
+            <td class="col-actions">
+                <div class="table-button-group">
+                    <button type="button" class="button button-danger">削除</button>
+                </div>
+            </td>
+        </tr>
+    </template>
+
+
+    <script src="../script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. 精勤手当の「単位」プルダウン ---
+            const seikinCriteria = document.getElementById('seikin-criteria');
+            const seikinUnit = document.getElementById('seikin-unit');
+            
+            const unitOptions = {
+                days: [
+                    { value: 'gte', text: '日以上' },
+                    { value: 'gt', text: '日を超える' },
+                    { value: 'lte', text: '日以下' },
+                    { value: 'lt', text: '日未満' }
+                ],
+                rate: [
+                    { value: 'gte', text: '％以上' },
+                    { value: 'gt', text: '％を超える' },
+                    { value: 'lte', text: '％以下' },
+                    { value: 'lt', text: '％未満' }
+                ]
+            };
+
+            function updateSeikinUnitOptions() {
+                const selectedBasis = seikinCriteria.value;
+                let optionsToUse = [];
+
+                if (selectedBasis === 'days_worked' || selectedBasis === 'days_absent') {
+                    optionsToUse = unitOptions.days;
+                } else if (selectedBasis === 'attendance_rate' || selectedBasis === 'absence_rate') {
+                    optionsToUse = unitOptions.rate;
+                }
+
+                seikinUnit.innerHTML = '';
+
+                if (optionsToUse.length === 0) {
+                    seikinUnit.disabled = true;
+                    const defaultOption = document.createElement('option');
+                    defaultOption.text = '---';
+                    seikinUnit.add(defaultOption);
+                } else {
+                    seikinUnit.disabled = false;
+                    optionsToUse.forEach(opt => {
+                        const optionEl = document.createElement('option');
+                        optionEl.value = opt.value;
+                        optionEl.text = opt.text;
+                        seikinUnit.add(optionEl);
+                    });
+                }
+            }
+            updateSeikinUnitOptions();
+            seikinCriteria.addEventListener('change', updateSeikinUnitOptions);
+
+
+            // --- 2. テーブル行追加・削除の汎用ロジック ---
+            function setupTableRowAdder(tbodyId, addButtonId, templateId) {
+                const tbody = document.getElementById(tbodyId);
+                const addButton = document.getElementById(addButtonId);
+                const template = document.getElementById(templateId);
+
+                if (!tbody || !addButton || !template) {
+                    console.warn('Table adder elements not found for', tbodyId);
+                    return;
+                }
+
+                // 行追加
+                addButton.addEventListener('click', () => {
+                    const clone = template.content.cloneNode(true);
+                    tbody.appendChild(clone);
+                });
+
+                // 行削除 (イベント委任)
+                tbody.addEventListener('click', (e) => {
+                    const deleteButton = e.target.closest('.button-danger');
+                    if (deleteButton) {
+                        deleteButton.closest('tr').remove();
+                    }
+                });
+            }
+
+            // その他加算手当の初期化
+            setupTableRowAdder('allowance-table-body', 'add-allowance-row', 'allowance-row-template');
+            
+            // 控除の初期化
+            setupTableRowAdder('deduction-table-body', 'add-deduction-row', 'deduction-row-template');
+
+            // ▼▼▼ 追加 ▼▼▼
+            // --- 3. 基本工賃タブの動的表示切り替え ---
+            const wageBaseType = document.getElementById('wage-base-type');
+            const hourlyCalcUnitGroup = document.getElementById('hourly-calc-unit-group');
+            const hourlyRoundingGroup = document.getElementById('hourly-rounding-group');
+            const rankAmountHeader = document.getElementById('rank-amount-header');
+
+            function updateWageBaseView() {
+                const selectedType = wageBaseType.value;
+                
+                if (selectedType === 'hourly') {
+                    hourlyCalcUnitGroup.style.display = 'block';
+                    hourlyRoundingGroup.style.display = 'block';
+                    rankAmountHeader.textContent = '時給(円)';
+                } else if (selectedType === 'daily') {
+                    hourlyCalcUnitGroup.style.display = 'none';
+                    hourlyRoundingGroup.style.display = 'none';
+                    rankAmountHeader.textContent = '日給(円)';
+                }
+            }
+
+            // 初期表示
+            updateWageBaseView();
+            // 変更時に実行
+            wageBaseType.addEventListener('change', updateWageBaseView);
+
+            // --- 4. 等級テーブルの行追加・削除 ---
+            setupTableRowAdder('rank-table-body', 'add-rank-row', 'rank-row-template');
+            // ▲▲▲ 追加 ▲▲▲
+        });
+    </script>
+    </body>
 </html>
