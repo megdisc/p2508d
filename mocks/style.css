@@ -412,7 +412,8 @@ textarea.work-content {
     background-color: var(--color-active-bg);
 }
 
-/* --- Modal --- */
+/* --- Modal (DIV-based) --- */
+/* (p2508d/mocks/script.js の openModal/closeModal で使用) */
 .modal {
     display: none;
     position: fixed;
@@ -427,7 +428,7 @@ textarea.work-content {
 }
 .modal-content {
     background-color: #fefefe; /* Note: This is a one-off color */
-    margin: 10% auto;
+    margin: 10% auto; /* 10% from top, auto horizontal */
     padding: 2rem;
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
@@ -616,11 +617,6 @@ textarea.work-content {
     font-weight: normal; 
 }
 
-
-
-
-
-
 /* ==========================================================================
    Login Page (p2508d_mocks/index.html)
    ========================================================================== */
@@ -690,88 +686,45 @@ textarea.work-content {
     margin-top: 1rem; /* 最後のフォームグループとの間隔 */
     font-size: var(--font-size-base);
 }
-/* --- Modal Styles --- */
-.modal {
-    border: none;
-    border-radius: 8px;
-    padding: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    max-width: 600px;
-    width: 90%;
+
+
+/* ==========================================================================
+   Facility Schedule Grid (p2508d/mocks/facility/index.html)
+   ========================================================================== */
+.schedule-grid-table th,
+.schedule-grid-table td {
+    text-align: center;
+    vertical-align: middle;
+    height: 60px;
+}
+/* 1列目のヘッダー（週）のスタイル */
+.schedule-grid-table thead th:first-child,
+.schedule-grid-table tbody tr td:first-child {
+    font-weight: 600;
+    background-color: #f9f9f9;
+    width: 80px;
+    font-size: var(--font-size-sm);
+}
+.schedule-cell {
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.schedule-cell:hover {
+    background-color: var(--color-hover-bg);
+}
+.schedule-cell.holiday {
+    background-color: #fde2e2;
+    color: var(--color-danger);
+    font-weight: 500;
 }
 
-.modal::backdrop {
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px);
+/* ==========================================================================
+   Calendar Table (Copied from analytics/index.html)
+   ========================================================================== */
+.calendar-table td[style*="#fde2e2"] {
+     background-color: #fde2e2; /* For holiday */
 }
-
-.modal-content {
-    padding: 2rem;
-}
-
-.modal-title {
-    font-size: 1.5rem;
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 0.5rem;
-}
-
-.modal-footer {
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.modal-footer-actions {
-    display: flex;
-    gap: 0.5rem;
-}
-
-
-
-
-
-/* --- Modal Styles --- */
-.modal {
-    border: none;
-    border-radius: 8px;
-    padding: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    max-width: 600px;
-    width: 90%;
-}
-
-.modal::backdrop {
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px);
-}
-
-.modal-content {
-    padding: 2rem;
-}
-
-.modal-title {
-    font-size: 1.5rem;
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 0.5rem;
-}
-
-.modal-footer {
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.modal-footer-actions {
-    display: flex;
-    gap: 0.5rem;
+.calendar-table td[style*="#ffe8cc"] {
+     background-color: #ffe8cc; /* For special holiday */
 }
