@@ -501,16 +501,6 @@ textarea.work-content {
     white-space: nowrap; /* セル内での改行を防ぐ */
 }
 
-
-
-
-
-
-
-
-
-
-
 /* --- Accordion Styles --- */
 /* Add this to the end of your existing style.css */
 
@@ -532,3 +522,171 @@ textarea.work-content {
         .nav-link.accordion-toggle {
             position: relative;
         }
+
+
+/* ==========================================================================
+   Settings Page (Cards & Icons) - p2508d_mocks/settings/index.html より統合
+   ========================================================================== */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+.card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px var(--color-shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.card a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+.card-icon {
+    font-size: 2.5rem; /* 40px */
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+.card-content h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: 0.5rem;
+}
+.card-content p {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+}
+/* Material Icons用 */
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+}
+
+/* ==========================================================================
+   Dashboard Page (Cards) - p2508d_mocks/dashboard/index.html より統合
+   ========================================================================== */
+.dashboard-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 1.5rem; 
+}
+.dashboard-card { 
+    border: 1px solid var(--color-border); 
+    border-radius: var(--border-radius); 
+    padding: 1.5rem; 
+    background-color: #fff; 
+}
+.dashboard-card-title { 
+    font-size: 1.1rem; 
+    font-weight: 600; 
+    margin-bottom: 1rem; 
+}
+.dashboard-card-content { 
+    font-size: 1.8rem; 
+    font-weight: bold; 
+    color: var(--color-primary); 
+}
+.dashboard-card-subtext { 
+    font-size: 1rem; 
+    color: #6c757d; 
+    font-weight: normal; 
+}
+
+
+
+
+
+
+/* ==========================================================================
+   Login Page (p2508d_mocks/index.html)
+   ========================================================================== */
+
+/* ログインボックスを画面中央に配置するコンテナ */
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: var(--color-background); /* 既存の背景色 */
+    padding: 1rem;
+}
+
+/* ログインフォームのボックス */
+.login-box {
+    width: 100%;
+    max-width: 420px; /* ログインボックスの最大幅 */
+    padding: 2.5rem;  /* 内側余白を広めに設定 */
+    background-color: var(--color-surface); /* 既存の表面色 (白) */
+    border: 1px solid var(--color-border); /* 既存の境界線色 */
+    border-radius: var(--border-radius); /* 既存の角丸 */
+    box-shadow: 0 4px 12px var(--color-shadow); /* 既存の影 */
+}
+
+/* ログインタイトル */
+.login-title {
+    text-align: center;
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--color-primary); /* 既存のプライマリカラー */
+    margin-bottom: 2rem;
+}
+
+/* フォームの各項目（ラベルと入力欄）のグループ */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* フォームのラベル */
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: var(--font-size-sm);
+}
+
+/* ログインページの入力欄スタイル */
+.login-box input[type="email"],
+.login-box input[type="password"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: var(--font-size-base);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    line-height: 1.5;
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    box-sizing: border-box; /* paddingを含めてwidth: 100%にするため */
+}
+
+/* ボタンをボックス幅いっぱいに広げる汎用クラス */
+.button-full-width {
+    width: 100%;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    margin-top: 1rem; /* 最後のフォームグループとの間隔 */
+    font-size: var(--font-size-base);
+}

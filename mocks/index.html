@@ -1,152 +1,39 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>p2508d モックアップ一覧</title>
-    <style>
-        :root {
-            --color-bg: #f4f7f9;
-            --color-surface: #ffffff;
-            --color-text-primary: #212529;
-            --color-text-secondary: #6c757d;
-            --color-border: #dee2e6;
-            --color-accent: #000066;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            --border-radius: 8px;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "游ゴシック Medium", "Yu Gothic Medium", "メイリオ", Meiryo, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 2rem;
-            background-color: var(--color-bg);
-            color: var(--color-text-primary);
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 960px;
-            background-color: var(--color-surface);
-            padding: 2.5rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--color-accent);
-            margin: 0 0 0.5rem 0;
-        }
-
-        header p {
-            font-size: 1rem;
-            color: var(--color-text-secondary);
-        }
-        
-        .lists-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2.5rem;
-        }
-
-        .list-column h2 {
-            font-size: 1.25rem;
-            border-bottom: 2px solid var(--color-border);
-            padding-bottom: 0.75rem;
-            margin-bottom: 1.5rem;
-            color: var(--color-text-primary);
-        }
-
-        .list-column ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .list-column li {
-            margin-bottom: 0.75rem;
-        }
-
-        .list-column a {
-            text-decoration: none;
-            color: var(--color-text-primary);
-            font-weight: 500;
-            display: block;
-            padding: 0.875rem 1.25rem;
-            border: 1px solid var(--color-border);
-            border-radius: 6px;
-            transition: background-color 0.2s, box-shadow 0.2s, transform 0.2s;
-        }
-
-        .list-column a:hover {
-            background-color: #f8f9fa;
-            border-color: #ced4da;
-            transform: translateY(-2px);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-        }
-
-        /* Responsive layout for smaller screens */
-        @media (max-width: 768px) {
-            body {
-                padding: 1rem;
-            }
-            .container {
-                padding: 1.5rem;
-            }
-            .lists-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-        }
-    </style>
+    <title>p2508d - ログイン</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div class="container">
-        <header>
-            <h1>p2508d Mockup Index</h1>
-            <p>各画面へのリンク一覧です。各画面左下のリンクからこの画面に遷移できます</p>
-        </header>
 
-        <div class="lists-container">
-            <div class="list-column">
-                <h2>職員向け画面</h2>
-                <ul>
-                    <li><a href="./dashboard/index.html">ダッシュボード</a></li>
-                    <li><a href="./members/index.html">利用者管理</a></li>
-                    <li><a href="./projects/index.html">生産活動管理</a></li>
-                    <li><a href="./partners/index.html">取引先管理</a></li>
-                    <li><a href="./skills/index.html">スキル管理</a></li>
-                    <li><a href="./staff/index.html">職員管理</a></li>
-                    <li><a href="./accounting/index.html">会計管理</a></li>
-                    <li><a href="./records/index.html">記録・書類管理</a></li>
-                    <li><a href="./analytics/index.html">データ分析</a></li>
-                    <li><a href="./corporation/index.html">法人運営</a></li>
-                    <li><a href="./settings/index.html">設定</a></li>
-                </ul>
-            </div>
+    <div class="login-container">
+        
+        <div class="login-box">
+            
+            <h1 class="login-title">p2508d ログイン</h1>
+            
+            <form id="login-form">
+                
+                <div class="form-group">
+                    <label for="email">メールアドレス</label>
+                    <input type="email" id="email" placeholder="mail@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">パスワード</label>
+                    <input type="password" id="password" placeholder="********">
+                </div>
+                
+                <a href="dashboard/index.html" class="button button-primary button-full-width">
+                    ログイン
+                </a>
+            </form>
 
-            <div class="list-column">
-                <h2>利用者向け画面</h2>
-                <ul>
-                    <li><a href="./my-page/index.html">マイページ</a></li>
-                </ul>
-            </div>
         </div>
     </div>
-</body>
 
+    </body>
 </html>

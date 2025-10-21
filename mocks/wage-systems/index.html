@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>p2508d - アプリケーションモックアップ (操作可能版)</title>
+    <title>p2508d - 工賃体系設定 (操作可能版)</title>
     <style>
-        /* globals.cssの内容をここに展開 */
+        /* globals.cssの内容 (省略) */
         :root {
             --palette-navy-main: #000066;
             --palette-navy-sub: #000099;
@@ -34,67 +34,42 @@
         body, h1, h2, h3, h4, p, ul, ol, table { margin: 0; }
         ul, ol { padding: 0; list-style: none; }
         body { font-family: var(--font-family-base); background-color: #f8f9fa; color: var(--color-text-primary); line-height: 1.5; }
+        button, input, select, textarea { font-family: inherit; font-size: 100%; margin: 0; }
         button { background: none; border: none; cursor: pointer; padding: 0; }
         table { border-collapse: collapse; border-spacing: 0; }
 
         /* --- モックアップ用の全体レイアウト --- */
         .mockup-container { display: flex; }
         .mockup-main { margin-left: 240px; padding: 2rem; width: calc(100% - 240px); }
-        .mockup-page { display: block; /* SPA用の display: none; を解除 */ }
+        .mockup-page { display: block; }
         
-        /* --- 各コンポーネントのスタイル --- */
-        /* Header */
-        .header {
-            width: 240px; height: 100vh; position: fixed; top: 0; left: 0; background-color: var(--color-background);
-            border-right: 1px solid var(--color-border); padding: 1.5rem; display: flex; flex-direction: column; gap: 2rem;
-            z-index: 1000;
-        }
+        /* --- 各コンポーネントのスタイル (省略) --- */
+        .header { width: 240px; height: 100vh; position: fixed; top: 0; left: 0; background-color: var(--color-background); border-right: 1px solid var(--color-border); padding: 1.5rem; display: flex; flex-direction: column; gap: 2rem; z-index: 1000; }
         .header-logo { font-size: var(--font-size-lg); font-weight: 700; text-align: center; }
         .header-logo a { color: inherit; text-decoration: none; }
-
-        /* Navigation */
         .nav { display: flex; flex-direction: column; justify-content: space-between; height: 100%; overflow-y: auto; }
         .nav-list { display: flex; flex-direction: column; gap: 0.5rem; text-align: left; }
         .nav-link { display: block; width: 100%; padding: 0.75rem 1rem; border-radius: var(--border-radius); text-decoration: none; color: var(--color-text-primary); font-weight: 500; transition: background-color 0.2s, color 0.2s; text-align: left; }
         .nav-link:hover { background-color: #f1f3f5; }
         .nav-link.active { font-weight: 700; background-color: #e9ecef; color: var(--color-primary); }
-        .nav-accordion-button { position: relative; }
-        .nav-accordion-button::after { content: '▶'; position: absolute; right: 1rem; top: 50%; transform: translateY(-50%) rotate(0deg); font-size: 0.6em; transition: transform 0.25s ease-in-out; }
-        .nav-accordion-button.open::after { transform: translateY(-50%) rotate(90deg); }
-        .nav-submenu { list-style: none; padding: 0 0 0 1rem; margin: 0.5rem 0; overflow: hidden; max-height: 0; transition: max-height 0.3s ease-in-out; }
-        .nav-submenu.open { max-height: 500px; }
-        .nav-sublink { padding: 0.5rem 1rem; }
         .nav-logout-section { margin-top: auto; padding-top: 1rem; }
-
-        /* Button */
         .button { display: inline-flex; align-items: center; justify-content: center; padding: 0.5rem 1rem; border-radius: var(--border-radius); font-size: var(--font-size-sm); font-weight: 500; color: var(--color-button-text); border: none; cursor: pointer; transition: background-color 0.2s ease-in-out; }
         .button-primary { background-color: var(--color-primary); }
-        .button-danger { background-color: var(--color-danger); }
-
-        /* PageTitle & ListPageLayout */
         .page-title { font-size: var(--font-size-xl); font-weight: 700; }
         .list-page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-
-        /* Section */
         .section { width: 100%; border: 1px solid var(--color-border); border-radius: var(--border-radius); padding: 1.5rem; margin-top: 1rem; background-color: #fff; }
         .section-title { font-size: var(--font-size-lg); font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--color-border); }
         .section-content { margin-top: 1rem; }
-
-        /* Table */
-        .table-wrapper { width: 100%; overflow-x: auto; border: 1px solid var(--color-border); border-radius: var(--border-radius); }
-        .table { width: 100%; border-collapse: collapse; }
-        .table th, .table td { padding: 0.75rem 1rem; vertical-align: middle; border-bottom: 1px solid var(--color-border); font-size: var(--font-size-sm); text-align: center; }
-        .table thead th { font-weight: 600; background-color: #f9f9f9; }
-        .table tbody tr:last-child td { border-bottom: none; }
-        .table-button-group { display: flex; justify-content: center; gap: 0.5rem; }
         
-        /* Dashboard specific */
-        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-        .dashboard-card { border: 1px solid var(--color-border); border-radius: var(--border-radius); padding: 1.5rem; background-color: #fff; }
-        .dashboard-card-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; }
-        .dashboard-card-content { font-size: 1.8rem; font-weight: bold; color: var(--color-primary); }
-        .dashboard-card-subtext { font-size: 1rem; color: #6c757d; font-weight: normal; }
-
+        /* Form (for detail page) */
+        .detail-form { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.25rem; }
+        .form-group-full { grid-column: 1 / -1; }
+        .form-label { font-size: var(--font-size-sm); font-weight: 500; }
+        .form-control { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--color-border); border-radius: var(--border-radius); font-size: var(--font-size-sm); }
+        .form-actions { display: flex; justify-content: flex-end; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border); }
+        
     </style>
 </head>
 <body>
@@ -107,7 +82,7 @@
             
             <nav class="nav" id="side-nav">
                 <ul class="nav-list">
-                    <li><a href="../dashboard/index.html" class="nav-link active">ダッシュボード</a></li>
+                    <li><a href="../dashboard/index.html" class="nav-link">ダッシュボード</a></li>
                     <li><a href="../records/index.html" class="nav-link">日々の記録</a></li>
                     <li><a href="../members/index.html" class="nav-link">利用者支援</a></li>
                     <li><a href="../staff/index.html" class="nav-link">職員管理</a></li>
@@ -115,45 +90,71 @@
                     <li><a href="../accounting/index.html" class="nav-link">会計管理</a></li>
                     <li><a href="../billing/index.html" class="nav-link">国保連請求</a></li>
                     <li><a href="../analytics/index.html" class="nav-link">データ分析</a></li>
-                    <li><a href="../settings/index.html" class="nav-link">設定</a></li>
+                    <li><a href="../settings/index.html" class="nav-link active">設定</a></li>
                 </ul>
                 <div class="nav-logout-section">
                     <a href="../index.html" class="nav-link">ログアウト</a>
                 </div>
             </nav>
-            </header>
+            
+        </header>
 
         <main class="mockup-main">
-            <div id="dashboard" class="mockup-page">
+            
+            <div id="wage-system-detail" class="mockup-page">
                 <div class="list-page-header">
-                     <h1 class="page-title">ダッシュボード</h1>
+                     <h1 class="page-title">工賃体系設定</h1>
                 </div>
-                <div class="dashboard-grid">
-                    <div class="dashboard-card">
-                        <h3 class="dashboard-card-title">本日の出欠状況</h3>
-                        <p class="dashboard-card-content">18 <span class="dashboard-card-subtext">/ 20人</span></p>
+
+                <form class="detail-form">
+                    <div class="section">
+                        <h2 class="section-title">基本設定</h2>
+                        <div class="section-content form-grid">
+                            <div class="form-group">
+                                <label for="wage-base-type" class="form-label">基本工賃体系</label>
+                                <select id="wage-base-type" class="form-control">
+                                    <option value="hourly">時給制</option>
+                                    <option value="daily">日給制</option>
+                                    <option value="piecework">歩合制</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="wage-default-hourly" class="form-label">基本時給（円）</label>
+                                <input type="number" id="wage-default-hourly" class="form-control" value="250">
+                            </div>
+                            <div class="form-group">
+                                <label for="wage-default-daily" class="form-label">基本日給（円）</label>
+                                <input type="number" id="wage-default-daily" class="form-control" value="1000">
+                            </div>
+                        </div>
                     </div>
-                    <div class="dashboard-card">
-                        <h3 class="dashboard-card-title">主要アラート</h3>
-                        <p class="dashboard-card-content">4 <span class="dashboard-card-subtext">件</span></p>
+
+                    <div class="section">
+                        <h2 class="section-title">等級別設定（オプション）</h2>
+                        <div class="section-content form-grid">
+                            <div class="form-group">
+                                <label for="wage-rank-a" class="form-label">A等級（時給）</label>
+                                <input type="number" id="wage-rank-a" class="form-control" value="350">
+                            </div>
+                            <div class="form-group">
+                                <label for="wage-rank-b" class="form-label">B等級（時給）</label>
+                                <input type="number" id="wage-rank-b" class="form-control" value="300">
+                            </div>
+                            <div class="form-group">
+                                <label for="wage-rank-c" class="form-label">C等級（時給）</label>
+                                <input type="number" id="wage-rank-c" class="form-control" value="250">
+                            </div>
+                        </div>
                     </div>
-                    <div class="dashboard-card">
-                        <h3 class="dashboard-card-title">今月の平均工賃 (目標比)</h3>
-                        <p class="dashboard-card-content">85 <span class="dashboard-card-subtext">%</span></p>
+
+                    <div class="form-actions">
+                        <button type="submit" class="button button-primary">更新する</button>
                     </div>
-                </div>
-                 <div class="section">
-                    <h2 class="section-title">今日の作業予定</h2>
-                    <div class="section-content">
-                        <ul>
-                            <li>A社 DM封入</li>
-                            <li>B社 部品組み立て</li>
-                        </ul>
-                    </div>
-                </div>
+                </form>
+
             </div>
 
-            </main>
+        </main>
     </div>
 
 </body>
