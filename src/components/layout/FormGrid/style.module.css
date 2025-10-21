@@ -1,8 +1,0 @@
-/* src/components/layout/FormGrid/style.module.css */
-.formGrid {
-  display: grid;
-  /* ★ 修正: ラベルと入力欄が横に並ぶ2カラムレイアウトに戻します */
-  grid-template-columns: 150px 1fr;
-  gap: 1.5rem; /* 上下のgapも統一 */
-  align-items: center;
-}
