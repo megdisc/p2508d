@@ -168,3 +168,4 @@ document.addEventListener('DOMContentLoaded', function() {
         skillAccordion.nextElementSibling.style.display = 'block';
     }
 });
+
