@@ -3,4 +3,4 @@
 // StaffListフォルダ内のindex.tsxからStaffListコンポーネントをエクスポートします
 export * from './StaffList';
 // StaffDetailフォルダ内のindex.tsxからStaffDetailコンポーネントをエクスポートします
-export * from './StaffDetail';
+// export * from './StaffDetail';

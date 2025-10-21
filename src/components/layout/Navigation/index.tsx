@@ -10,10 +10,14 @@ import styles from "./style.module.css";
 // ナビゲーションの項目を定義
 const navItems = [
   { href: "/dashboard", label: "ダッシュボード" },
-  { href: "/members", label: "メンバー管理" },
-  { href: "/staff", label: "スタッフ管理" },
-  // 他のナビゲーション項目...
-  { href: "/settings", label: "設定" }, // ← この行を追加
+  { href: "/records", label: "日々の記録" },
+  { href: "/members", label: "利用者支援" },
+  { href: "/staff", label: "職員管理" },
+  { href: "/production-activities", label: "生産活動" },
+  { href: "/accounting", label: "会計管理" },
+  { href: "/kokuhoren-billing", label: "国保連請求" },
+  { href: "/data-analysis", label: "データ分析" },
+  { href: "/settings", label: "設定" },
 ];
 
 export const Navigation = () => {

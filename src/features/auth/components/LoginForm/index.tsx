@@ -1,66 +1,36 @@
-// src/features/auth/components/LoginForm/index.tsx
 'use client';
 
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { Button, Input } from '@/components/ui';
-import { useAuth } from '@/features/auth';
-import { UI_TEXT } from '@/constants';
+import React from 'react'; // Reactをインポート
+import { Button, FormField, Input } from '@/components/ui';
+import { useAuth } from '@/features/auth/hooks/useAuth';
 import styles from './style.module.css';
-
-type LoginFormInputs = {
-  email: string;
-  password: string;
-};
+import { UI_TEXT } from '@/constants';
 
 export const LoginForm = () => {
-  const { login } = useAuth();
-  const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<LoginFormInputs>();
+  const { login, isLoading, error } = useAuth();
 
-  const onSubmit: SubmitHandler<LoginFormInputs> = () => {
-    const mockUserEmail = 'admin@example.com';
-    login(mockUserEmail);
-    router.push('/dashboard');
+  // フォーム送信時の処理
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // デフォルトのフォーム送信をキャンセル
+    login(); // 引数なしでlogin関数を呼び出す
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-      <h1 className={styles.title}>
-        <Link href="/login">{UI_TEXT.SYSTEM_NAME}</Link>
-      </h1>
-
-      <div className={styles.field}>
-        <label htmlFor="email">{UI_TEXT.LABELS.EMAIL}</label>
-        <Input
-          id="email"
-          type="email"
-          placeholder={UI_TEXT.PLACEHOLDERS.EMAIL}
-          {...register('email')}
-        />
-        {errors.email && <p className={styles.error}>{errors.email.message}</p>}
-      </div>
-
-      <div className={styles.field}>
-        <label htmlFor="password">{UI_TEXT.LABELS.PASSWORD}</label>
-        <Input
-          id="password"
-          type="password"
-          placeholder={UI_TEXT.PLACEHOLDERS.PASSWORD}
-          {...register('password')}
-        />
-        {errors.password && <p className={styles.error}>{errors.password.message}</p>}
-      </div>
-
-      {/* ★ 変更点: ラベルを定数に置き換え */}
-      <Button type="submit" disabled={isSubmitting}>
-        {UI_TEXT.BUTTONS.LOGIN}
-      </Button>
-    </form>
+    <div className={styles.formContainer}>
+      <h1 className={styles.title}>{UI_TEXT.SYSTEM_NAME}</h1>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        {/* メールアドレスとパスワードの入力欄は残しますが、入力は不要です */}
+        <FormField label={UI_TEXT.LABELS.EMAIL}>
+          <Input id="email" type="email" placeholder="（入力不要）" />
+        </FormField>
+        <FormField label={UI_TEXT.LABELS.PASSWORD}>
+          <Input id="password" type="password" placeholder="（入力不要）" />
+        </FormField>
+        {error && <p className={styles.errorMessage}>{error}</p>}
+        <Button type="submit" disabled={isLoading} variant="primary">
+          {isLoading ? 'ログイン中...' : UI_TEXT.BUTTONS.LOGIN}
+        </Button>
+      </form>
+    </div>
   );
 };

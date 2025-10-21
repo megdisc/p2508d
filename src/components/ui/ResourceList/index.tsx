@@ -1,61 +1,74 @@
-// src/components/ui/ResourceList/index.tsx
 'use client';
 
+import { ReactNode } from 'react';
 import { Table, Button } from '@/components/ui';
 import { UI_TEXT } from '@/constants';
 import styles from './style.module.css';
 
-// 列の定義を表す型
-export interface ColumnDefinition<T> {
-  header: string; // テーブルヘッダーに表示するテキスト
-  accessor: (item: T) => React.ReactNode; // データをどのように表示するかを定義する関数
+// Tの型をより緩やかに
+type GenericItem = Record<string, any> & { id: string };
+
+// カラム定義の型
+interface Column<T extends GenericItem> {
+  field: keyof T;
+  headerName: string;
+  width?: string;
+  renderCell?: (params: { row: T }) => ReactNode;
 }
 
-// コンポーネントが受け取るプロパティの型
-interface ResourceListProps<T extends { id: string }> {
-  items: T[]; // 表示するデータの配列
-  columns: ColumnDefinition<T>[]; // 列の定義
-  onViewDetails: (id: string) => void; // 詳細ボタンのクリックハンドラ
-  onDelete?: (id: string) => void; // 削除ボタンのクリックハンドラ（任意）
+interface ResourceListProps<T extends GenericItem> {
+  rows: T[];
+  columns: Column<T>[];
+  onRowClick?: (row: T) => void;
+  onDeleteClick?: (row: T) => void;
 }
 
-export const ResourceList = <T extends { id: string }>({
-  items,
+export const ResourceList = <T extends GenericItem>({
+  rows,
   columns,
-  onViewDetails,
-  onDelete,
+  onRowClick,
+  onDeleteClick,
 }: ResourceListProps<T>) => {
   return (
     <Table>
       <thead>
         <tr>
           {columns.map((col) => (
-            <th key={col.header}>{col.header}</th>
+            <th key={String(col.field)} style={{ width: col.width }}>
+              {col.headerName}
+            </th>
           ))}
-          <th>{UI_TEXT.LABELS.OPERATION}</th>
+          {(onRowClick || onDeleteClick) && <th>{UI_TEXT.TABLE_HEADERS.OPERATION}</th>}
         </tr>
       </thead>
       <tbody>
-        {items.map((item) => (
-          <tr key={item.id}>
+        {rows.map((row) => (
+          <tr key={row.id} onClick={() => onRowClick?.(row)} style={{ cursor: onRowClick ? 'pointer' : 'default' }}>
             {columns.map((col) => (
-              <td key={col.header}>{col.accessor(item)}</td>
+              <td key={`${row.id}-${String(col.field)}`}>
+                {col.renderCell ? col.renderCell({ row }) : row[col.field]}
+              </td>
             ))}
-            <td>
-              <div className={styles.buttonGroup}>
-                {/* ★ 変更点: "詳細" を定数に置き換え */}
-                <Button onClick={() => onViewDetails(item.id)}>
-                  {UI_TEXT.BUTTONS.DETAILS}
-                </Button>
-                {/* onDeleteプロパティが渡された時だけ削除ボタンを表示 */}
-                {onDelete && (
-                  // ★ 変更点: "削除" を定数に置き換え
-                  <Button variant="danger" onClick={() => onDelete(item.id)}>
-                    {UI_TEXT.BUTTONS.DELETE}
-                  </Button>
-                )}
-              </div>
-            </td>
+            {(onRowClick || onDeleteClick) && (
+              <td>
+                <div className={styles.buttonGroup}>
+                  {onRowClick && (
+                     <Button onClick={() => onRowClick(row)}>{UI_TEXT.BUTTONS.DETAILS}</Button>
+                  )}
+                  {onDeleteClick && (
+                    <Button
+                      variant="danger"
+                      onClick={(e) => {
+                        e.stopPropagation(); // 行クリックイベントの発火を防ぐ
+                        onDeleteClick(row);
+                      }}
+                    >
+                      {UI_TEXT.BUTTONS.DELETE}
+                    </Button>
+                  )}
+                </div>
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

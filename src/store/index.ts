@@ -1,20 +1,25 @@
-// src/store/index.ts
-
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { authReducer } from '@/features/auth/store/authSlice';
 import { memberReducer } from '@/features/member/store/memberSlice';
 import { staffReducer } from '@/features/staff/store/staffSlice';
-import { terminologyReducer } from '@/features/terminology/store/terminologySlice'; // 追加
+import { projectReducer } from '@/features/project';
+import { terminologyReducer } from '@/features/terminology/store/terminologySlice';
 
-export const store = configureStore({
-  reducer: {
-    auth: authReducer,
-    member: memberReducer,
-    staff: staffReducer,
-    terminology: terminologyReducer, // 追加
-  },
+export const rootReducer = combineReducers({
+  auth: authReducer,
+  member: memberReducer,
+  staff: staffReducer,
+  project: projectReducer,
+  terminology: terminologyReducer,
 });
 
-// RootStateとAppDispatchの型をstore自身から推論する
-export type RootState = ReturnType<typeof store.getState>;
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
+
+export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;

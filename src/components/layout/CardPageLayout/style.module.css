@@ -1,12 +1,10 @@
-/* src/components/layout/CardPageLayout/style.module.css */
-.description {
-  margin-bottom: 2rem;
-  font-size: var(--font-size-base);
-  color: var(--color-text-secondary);
+.container {
+  padding: 24px;
 }
 
-.grid {
+.cardGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
+

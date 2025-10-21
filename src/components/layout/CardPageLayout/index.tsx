@@ -1,20 +1,19 @@
-// src/components/layout/CardPageLayout/index.tsx
-import { ReactNode } from 'react';
-import { PageHeader } from '../PageHeader';
+import { PageHeader } from '@/components/layout';
 import styles from './style.module.css';
 
-interface CardPageLayoutProps {
+type CardPageLayoutProps = {
   pageTitle: string;
-  description?: string;
-  children: ReactNode;
-}
+  children: React.ReactNode;
+};
 
-export const CardPageLayout = ({ pageTitle, description, children }: CardPageLayoutProps) => {
+export const CardPageLayout = ({ pageTitle, children }: CardPageLayoutProps) => {
   return (
-    <div>
+    <>
       <PageHeader title={pageTitle} />
-      {description && <p className={styles.description}>{description}</p>}
-      <div className={styles.grid}>{children}</div>
-    </div>
+      <div className={styles.container}>
+        <div className={styles.cardGrid}>{children}</div>
+      </div>
+    </>
   );
 };
+

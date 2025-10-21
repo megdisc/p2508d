@@ -1,63 +1,84 @@
-// src/utils/createEntitySlice.ts
+import {
+  createSlice,
+  createAsyncThunk,
+  createEntityAdapter,
+  EntityState,
+} from '@reduxjs/toolkit';
+import { apiClient } from '@/lib';
+import { RootState } from '@/store';
 
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { apiClient } from '@/lib/axios';
-
-// 汎用的な状態の型定義
-export interface GenericState<T> {
-  entities: T[];
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  error: string | null;
-}
-
-// createEntitySlice関数の引数の型定義
-interface CreateEntitySliceOptions<T> {
+// createEntitySliceの引数の型
+interface CreateSliceOptions<T> {
   name: string;
-  fetchAllEndpoint: string;
+  selectId: (entity: T) => string;
 }
 
 /**
- * APIからのデータ取得と状態管理を行う標準的なRedux Sliceを生成します。
+ * 標準的なCRUD操作（一覧取得、個別取得）のためのRedux SliceとAction、Selectorを生成します。
  */
-export function createEntitySlice<T>({ name, fetchAllEndpoint }: CreateEntitySliceOptions<T>) {
-  
-  const initialState: GenericState<T> = {
-    entities: [],
-    status: 'idle',
-    error: null,
-  };
+export function createEntitySlice<T>({ name, selectId }: CreateSliceOptions<T>) {
+  // Redux ToolkitのEntity Adapterを作成
+  const adapter = createEntityAdapter<T>({
+    selectId,
+  });
 
-  const fetchAll = createAsyncThunk<T[]>(
-    `${name}/fetchAll`,
-    async () => {
-      const response = await apiClient.get<T[]>(fetchAllEndpoint);
-      return response.data;
-    }
-  );
+  // 全件取得の非同期Thunk
+  const fetchAll = createAsyncThunk<T[]>(`${name}/fetchAll`, async () => {
+    const response = await apiClient.get<T[]>(`/${name}`);
+    return response.data;
+  });
 
-  const entitySlice = createSlice({
+  // ID指定での個別取得の非同期Thunk
+  const fetch = createAsyncThunk<T, string>(`${name}/fetch`, async (id: string) => {
+    const response = await apiClient.get<T>(`/${name}/${id}`);
+    return response.data;
+  });
+
+  // Sliceの作成
+  const slice = createSlice({
     name,
-    initialState,
+    initialState: adapter.getInitialState({
+      status: 'idle' as 'idle' | 'loading' | 'succeeded' | 'failed',
+      error: null as string | null,
+    }),
     reducers: {},
     extraReducers: (builder) => {
       builder
+        // fetchAll
         .addCase(fetchAll.pending, (state) => {
           state.status = 'loading';
         })
-        .addCase(fetchAll.fulfilled, (state, action: PayloadAction<T[]>) => {
+        .addCase(fetchAll.fulfilled, (state, action) => {
           state.status = 'succeeded';
-          // ★ 修正点: 型エラーを解消するために `as any` を追加
-          state.entities = action.payload as any;
+          adapter.setAll(state, action.payload);
         })
         .addCase(fetchAll.rejected, (state, action) => {
           state.status = 'failed';
-          state.error = action.error.message ?? `Failed to fetch ${name}`;
+          state.error = action.error.message || 'Failed to fetch data.';
+        })
+        // fetch (by id)
+        .addCase(fetch.pending, (state) => {
+          state.status = 'loading';
+        })
+        .addCase(fetch.fulfilled, (state, action) => {
+          state.status = 'succeeded';
+          adapter.upsertOne(state, action.payload); // 既存なら更新、なければ追加
+        })
+        .addCase(fetch.rejected, (state, action) => {
+          state.status = 'failed';
+          state.error = action.error.message || 'Failed to fetch data.';
         });
     },
   });
 
+  // Selectorを生成
+  const entitySelectors = adapter.getSelectors<RootState>(
+    (state) => state[name as keyof RootState] as EntityState<T>
+  );
+
   return {
-    reducer: entitySlice.reducer,
-    fetchAll,
+    reducer: slice.reducer,
+    actions: { fetchAll, fetch },
+    selectors: entitySelectors,
   };
 }
