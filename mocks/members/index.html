@@ -5,177 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>p2508d - アプリケーションモックアップ (詳細版)</title>
     <link rel="stylesheet" href="../style.css">
-    <style>
-        /* --- Sub Navigation Bar --- */
-        .sub-nav { overflow-x: auto; white-space: nowrap; border-bottom: 1px solid var(--color-border); margin-bottom: 1.5rem; background-color: var(--color-surface); -ms-overflow-style: none; scrollbar-width: none; }
-        .sub-nav::-webkit-scrollbar { display: none; }
-        .sub-nav ul { display: flex; padding: 0; margin: 0; list-style: none; }
-        .sub-nav-item { display: inline-block; padding: 0.75rem 1.5rem; cursor: pointer; border: 1px solid transparent; border-bottom: none; margin-bottom: -1px; font-weight: 500; color: var(--color-text-secondary); text-decoration: none; transition: color 0.2s, border-color 0.2s; }
-        .sub-nav-item:hover { color: var(--color-primary); }
-        .sub-nav-item.active { border-color: var(--color-border); border-bottom-color: var(--color-surface); border-radius: var(--border-radius) var(--border-radius) 0 0; font-weight: 600; background-color: var(--color-surface); color: var(--color-primary); }
-        /* --- Global Navigation --- */
-        .nav { overflow-y: auto; -ms-overflow-style: none; scrollbar-width: none; }
-        .nav::-webkit-scrollbar { display: none; }
-        textarea.form-control { min-height: 80px; resize: vertical; }
-        /* --- Table styles --- */
-        .table .form-control { width: 100%; padding: 0.375rem 0.5rem; font-size: var(--font-size-sm); box-sizing: border-box; }
-        .table textarea.form-control { min-height: 60px; }
-        .table select.form-control { min-width: 120px; }
-        /* --- Section Header --- */
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--color-border); }
-        .section-title-in-header { font-size: var(--font-size-lg); font-weight: 600; margin: 0; padding: 0; border: none; }
-        /* Readonly text in table */
-        .table td { vertical-align: top; }
-        .readonly-text { padding: 0.5rem 0.75rem; display: block; min-height: calc(1.5em + 0.75rem + 2px); }
-        .readonly-textarea { white-space: pre-wrap; padding: 0.5rem 0.75rem; display: block; min-height: 60px; }
-        /* 医療機関情報用スタイル */
-        .clinic-info { padding: 0.5rem 0.75rem; line-height: 1.4; }
-        .clinic-info span { display: block; font-size: var(--font-size-sm); }
-        .clinic-info .clinic-name { font-weight: 600; }
-        .clinic-info .clinic-dept-doctor { color: var(--color-text-secondary); font-size: var(--font-size-xs); }
-        
-        /* --- カレンダー用スタイル --- */
-        .calendar-table td {
-             text-align: center;
-             vertical-align: middle;
-             height: 60px;
-             font-size: var(--font-size-sm);
-             cursor: pointer;
-             transition: background-color 0.2s;
-        }
-        .calendar-table td:hover {
-             background-color: var(--color-hover-bg);
-        }
-        .calendar-table thead th {
-            text-align: center;
-        }
-
-        /* --- 利用日設定テーブル ホバー --- */
-        #usage-settings-table tbody tr:hover {
-             background-color: var(--color-hover-bg);
-        }
-
-        /* --- 有り/無しUI用 --- */
-        .form-group-inline {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0;
-        }
-        .form-group-inline label {
-            font-weight: normal;
-            font-size: var(--font-size-sm);
-            margin-bottom: 0;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-        .section-header-controls {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        .section-header-controls .button {
-             margin-left: auto;
-        }
-
-        /* --- スキルツリー用CSS --- */
-        .skill-tree-table {
-            width: 100%;
-            border-collapse: separate; /* セルのボーダーを独立させる */
-            border-spacing: 0;
-            background-color: var(--color-surface);
-            overflow: hidden; /* 角丸のため */
-        }
-        .skill-tree-table th,
-        .skill-tree-table td {
-            padding: 0.75rem 1rem;
-            vertical-align: middle;
-            border-bottom: 1px solid var(--color-border);
-            font-size: var(--font-size-sm);
-            text-align: left;
-        }
-        .skill-tree-table thead th {
-            font-weight: 600;
-            background-color: #f9f9f9;
-            text-align: left;
-        }
-        .skill-tree-table tbody tr:last-child td {
-            border-bottom: none;
-        }
-        .skill-tree-table tbody tr:hover {
-            background-color: var(--color-hover-bg);
-        }
-        .skill-tree-table .col-level {
-            width: 200px; /* 習熟度レベル選択の列幅を固定 */
-        }
-
-        /* ツリー表示用スタイル */
-        .skill-name-cell {
-            display: flex;
-            align-items: center;
-        }
-        .toggle-icon {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            text-align: center;
-            line-height: 18px;
-            font-size: 0.8em;
-            cursor: pointer;
-            margin-right: 4px;
-            color: #666;
-            font-family: monospace;
-            flex-shrink: 0;
-        }
-        .toggle-icon.no-child {
-            cursor: default;
-            color: transparent;
-        }
-        .tree-prefix {
-            flex-shrink: 0;
-            font-family: monospace;
-            font-size: 1.1em;
-            color: #999;
-            margin-right: 2px;
-            width: 20px;
-            display: inline-block;
-            text-align: center;
-        }
-         /* インデントレベルに応じた padding-left */
-        .skill-name-cell.indent-0 { padding-left: 0.5rem; }
-        .skill-name-cell.indent-1 { padding-left: 2.0rem; } /* 0.5rem + 1.5rem (24px) */
-        .skill-name-cell.indent-2 { padding-left: 3.5rem; } /* 0.5rem + 1.5rem * 2 */
-        .skill-name-cell.indent-3 { padding-left: 5.0rem; } /* 0.5rem + 1.5rem * 3 */
-
-        /* カテゴリ行 */
-        .skill-category-row {
-            font-weight: 600;
-            background-color: #fdfdfd; /* カテゴリ行を少し目立たせる */
-        }
-        
-        /* ▼▼▼ 修正 ▼▼▼ */
-        /* 開閉操作が可能なカテゴリ行 (data-toggle属性を持つ行) にカーソルを設定 */
-        .skill-category-row[data-toggle="collapse"] {
-            cursor: pointer;
-        }
-        /* ▲▲▲ 修正 ▲▲▲ */
-        
-        /* スキル項目行のテキストは通常の太さ */
-        .skill-item-row .skill-name-cell {
-             font-weight: normal;
-        }
-        
-        .skill-level-select {
-            width: 100%;
-            min-width: 160px;
-        }
-        
-        /* 開閉用 */
-        .skill-node.collapsed {
-            display: none;
-        }
-    </style>
 </head>
 <body>
 
@@ -218,8 +47,8 @@
                         <li><a href="#" class="sub-nav-item" data-tab="tab-address-contact">住所・連絡先</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-usage-settings">利用日設定</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-calendar">カレンダー</a></li>
-                        <li><a href="#" class="sub-nav-item" data-tab="tab-skills">スキル</a></li>
-                        <li><a href="#" class="sub-nav-item" data-tab="tab-wages">工賃</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-skills">スキル評価</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-wages">工賃評価</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-health-medical">健康・医療</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-certificates">各種証書</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-support-plan">支援計画</a></li>
@@ -231,22 +60,31 @@
                 <div class="tab-content-wrapper" style="border-top: none; border-radius: var(--border-radius);">
                     <div id="tab-basic-info" class="tab-content active">
                         <div class="section">
-                            <div class="section-header"><h2 class="section-title-in-header">基本情報</h2><button class="button button-primary" onclick="openModal('edit-basic-info-modal')">編集</button></div>
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">基本情報</h2>
+                                <button class="button button-primary" onclick="openModal('edit-basic-info-modal')">編集</button>
+                            </div>
                             <div class="section-content">
                                 <dl class="detail-grid"><dt>氏名</dt><dd>青木 誠</dd><dt>フリガナ</dt><dd>アオキ マコト</dd><dt>利用者番号</dt><dd>A001</dd><dt>生年月日</dt><dd>2000年4月1日</dd><dt>性別</dt><dd>男性</dd><dt>契約日</dt><dd>2024年4月1日</dd><dt>契約状況</dt><dd>利用中</dd><dt>担当職員</dt><dd>支援員 次郎</dd></dl>
                             </div>
-                        </div>
+                            </div>
                     </div>
                     <div id="tab-address-contact" class="tab-content">
                         <div class="section">
-                            <div class="section-header"><h2 class="section-title-in-header">住所・連絡先</h2><button class="button button-primary" onclick="openModal('edit-address-contact-modal')">編集</button></div>
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">住所・連絡先</h2>
+                                <button class="button button-primary" onclick="openModal('edit-address-contact-modal')">編集</button>
+                            </div>
                              <div class="section-content">
                                 <dl class="detail-grid"><dt>郵便番号</dt><dd>123-4567</dd><dt>住所</dt><dd>東京都渋谷区...</dd><dt>電話番号</dt><dd>090-XXXX-XXXX</dd><dt>FAX番号</dt><dd>（未登録）</dd><dt>メールアドレス</dt><dd>aoki.makoto@example.com</dd></dl>
                             </div>
                         </div>
                          <div class="section">
-                             <div class="list-page-header" style="margin-bottom: 1rem;"><h2 class="section-title" style="margin: 0; border: none;">緊急連絡先</h2><button type="button" class="button button-primary" id="add-emergency-contact-row">＋ 連絡先を追加</button></div>
-                             <div class="table-wrapper">
+                             <div class="list-page-header">
+                                <h2 class="section-title">緊急連絡先</h2>
+                                <button type="button" class="button button-primary" id="add-emergency-contact-row">＋ 連絡先を追加</button>
+                            </div>
+                            <div class="table-wrapper">
                                  <table class="table" id="emergency-contact-table">
                                      <thead>
                                          <tr>
@@ -277,8 +115,8 @@
                              </div>
                          </div>
                          <div class="section">
-                             <div class="list-page-header" style="margin-bottom: 1rem;">
-                                <h2 class="section-title" style="margin: 0; border: none;">相談支援専門員</h2>
+                             <div class="list-page-header">
+                                <h2 class="section-title">相談支援専門員</h2>
                                 <div class="section-header-controls">
                                     <div class="form-group-inline">
                                         <label><input type="radio" name="specialist-toggle" value="yes" checked> 有り</label>
@@ -287,7 +125,7 @@
                                     <button type="button" class="button button-primary" id="add-specialist-row">＋ 担当を追加</button>
                                 </div>
                              </div>
-                              <div class="table-wrapper">
+                             <div class="table-wrapper">
                                 <table class="table" id="specialist-table">
                                      <thead><tr><th style="width: 150px;">氏名</th><th>事業所名</th><th>連絡先</th><th class="col-actions" style="width: 100px;">操作</th></tr></thead>
                                     <tbody id="specialist-table-body">
@@ -385,8 +223,8 @@
 
                     <div id="tab-calendar" class="tab-content">
                         <div class="section">
-                            <div class="list-page-header" style="margin-bottom: 1rem;">
-                                <h2 class="section-title" style="margin: 0; border: none;">利用カレンダー</h2>
+                            <div class="list-page-header">
+                                <h2 class="section-title">利用カレンダー</h2>
                                 <button class="button button-primary" onclick="alert('（カレンダーを一括編集するモーダルを表示）')">利用日設定を適用</button>
                             </div>
                              <div class="calendar-header" style="justify-content: center; margin-bottom: 1rem;">
@@ -457,11 +295,10 @@
                     <div id="tab-skills" class="tab-content">
                         <div class="section">
                                 <div class="section-header">
-                                    <h2 class="section-title-in-header">スキル習得状況</h2>
+                                    <h2 class="section-title-in-header">スキル評価状況</h2>
                                     <button class="button button-primary" onclick="alert('（スキルレベルを一括保存します）')">保存</button>
                                 </div>
                                 <div class="section-content" id="skill-tree-container">
-                                    
                                     <div class="table-wrapper">
                                         <table class="table skill-tree-table" id="skill-tree-table">
                                             <thead>
@@ -619,13 +456,19 @@
 
 
                     <div id="tab-wages" class="tab-content">
-                        <div class="table-wrapper"><table class="table"><thead><tr><th>対象月</th><th>利用日数</th><th>支払工賃</th><th>操作</th></tr></thead><tbody><tr><td>2025年9月</td><td>20日</td><td>15,000円</td><td><button class="button button-primary" onclick="openModal('wage-detail-modal')">明細</button></td></tr><tr><td>2025年8月</td><td>22日</td><td>16,500円</td><td><button class="button button-primary" onclick="openModal('wage-detail-modal')">明細</button></td></tr></tbody></table></div>
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">工賃評価履歴</h2>
+                                </div>
+                            <div class="section-content">
+                                <div class="table-wrapper"><table class="table"><thead><tr><th>対象月</th><th>利用日数</th><th>支払工賃</th><th>操作</th></tr></thead><tbody><tr><td>2025年9月</td><td>20日</td><td>15,000円</td><td><button class="button button-primary" onclick="openModal('wage-detail-modal')">明細</button></td></tr><tr><td>2025年8月</td><td>22日</td><td>16,500円</td><td><button class="button button-primary" onclick="openModal('wage-detail-modal')">明細</button></td></tr></tbody></table></div>
+                            </div>
+                        </div>
                     </div>
-
                     <div id="tab-health-medical" class="tab-content">
                         <div class="section">
-                            <div class="list-page-header" style="margin-bottom: 1rem;">
-                                <h2 class="section-title" style="margin: 0; border: none;">障害特性</h2>
+                            <div class="list-page-header">
+                                <h2 class="section-title">障害特性</h2>
                                 <div class="section-header-controls">
                                     <div class="form-group-inline">
                                         <label><input type="radio" name="disability-toggle" value="yes" checked> 有り</label>
@@ -647,8 +490,8 @@
                             </div>
                         </div>
                         <div class="section">
-                             <div class="list-page-header" style="margin-bottom: 1rem;">
-                                <h2 class="section-title" style="margin: 0; border: none;">難病特性</h2>
+                             <div class="list-page-header">
+                                <h2 class="section-title">難病特性</h2>
                                 <div class="section-header-controls">
                                     <div class="form-group-inline">
                                         <label><input type="radio" name="disease-toggle" value="yes"> 有り</label>
@@ -665,8 +508,8 @@
                             </div>
                          </div>
                         <div class="section">
-                            <div class="list-page-header" style="margin-bottom: 1rem;">
-                                <h2 class="section-title" style="margin: 0; border: none;">アレルギー</h2>
+                            <div class="list-page-header">
+                                <h2 class="section-title">アレルギー</h2>
                                 <div class="section-header-controls">
                                     <div class="form-group-inline">
                                         <label><input type="radio" name="allergy-toggle" value="yes" checked> 有り</label>
@@ -688,8 +531,8 @@
                              </div>
                          </div>
                          <div class="section">
-                             <div class="list-page-header" style="margin-bottom: 1rem;">
-                                <h2 class="section-title" style="margin: 0; border: none;">かかりつけ医療機関</h2>
+                             <div class="list-page-header">
+                                <h2 class="section-title">かかりつけ医療機関</h2>
                                 <div class="section-header-controls">
                                     <div class="form-group-inline">
                                         <label><input type="radio" name="clinic-toggle" value="yes" checked> 有り</label>
@@ -713,13 +556,19 @@
                     </div>
                     <div id="tab-certificates" class="tab-content">
                         <div class="section">
-                             <div class="section-header"><h2 class="section-title-in-header">障害福祉サービス受給者証</h2><button class="button button-primary" onclick="openModal('edit-certificate1-modal')">編集</button></div>
+                             <div class="section-header">
+                                <h2 class="section-title-in-header">障害福祉サービス受給者証</h2>
+                                <button class="button button-primary" onclick="openModal('edit-certificate1-modal')">編集</button>
+                            </div>
                              <div class="section-content">
                                 <dl class="detail-grid"><dt>支給決定期間</dt><dd>2025年4月1日 〜 2026年3月31日</dd><dt>利用者負担割合</dt><dd>1割</dd><dt>負担上限月額</dt><dd>0 円</dd></dl>
                             </div>
                         </div>
                         <div class="section">
-                             <div class="section-header"><h2 class="section-title-in-header">障害者手帳</h2><button class="button button-primary" onclick="openModal('edit-certificate2-modal')">編集</button></div>
+                             <div class="section-header">
+                                <h2 class="section-title-in-header">障害者手帳</h2>
+                                <button class="button button-primary" onclick="openModal('edit-certificate2-modal')">編集</button>
+                            </div>
                              <div class="section-content">
                                  <dl class="detail-grid"><dt>手帳種別</dt><dd>精神障害者保健福祉手帳</dd><dt>等級</dt><dd>2級</dd><dt>交付日</dt><dd>2022年10月1日</dd></dl>
                              </div>
@@ -727,24 +576,27 @@
                     </div>
                     
                     <div id="tab-support-plan" class="tab-content">
-                        <div class="list-page-header" style="margin-bottom: 1rem;"><h2 class="section-title" style="margin: 0; border: none;">個別支援計画</h2><button class="button button-primary" onclick="openModal('support-plan-modal')">＋ 新規計画作成</button></div>
+                        <div class="list-page-header">
+                            <h2 class="section-title">個別支援計画</h2>
+                            <button class="button button-primary" onclick="openModal('support-plan-modal')">＋ 新規計画作成</button>
+                          </div>
                         <div style="display: flex; gap: 1.5rem;">
                             <div style="width: 30%;">
                                 <div class="section"><h3 style="font-size: 1.1rem;">計画一覧</h3><div class="section-content"><ul class="nav-list"><li><a href="#" class="nav-link active">2025.09.15 作成</a></li><li><a href="#" class="nav-link">2025.03.15 作成</a></li></ul></div></div>
                             </div>
                             <div style="width: 70%;">
                                 <div class="section"><h3 style="font-size: 1.1rem;">計画詳細 (2025.09.15版)</h3><div class="section-content"><dl class="detail-grid"><dt>本人の希望</dt><dd>PCを使った仕事ができるようになりたい。</dd><dt>長期目標</dt><dd>データ入力の案件を一人で担当できるようになる。</dd><dt>短期目標</dt><dd>タイピングの正確性を上げる。</dd></dl></div></div>
-                                 <div class="section"><div class="list-page-header" style="margin-bottom: 1rem;"><h3 style="font-size: 1.1rem; margin:0;">モニタリング記録</h3><button class="button button-primary" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;" onclick="openModal('monitoring-modal')">＋ モニタリング追加</button></div><div class="section-content"><p><strong>2025.12.20 (支援員 次郎)</strong></p><p>短期目標Aについて達成度80%。本人の意欲も高く、来月から次のステップに進むことを検討。</p></div></div>
+                                 <div class="section"><div class="list-page-header"><h3 style="font-size: 1.1rem; margin:0;" class="section-title">モニタリング記録</h3><button class="button button-primary" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;" onclick="openModal('monitoring-modal')">＋ モニタリング追加</button></div><div class="section-content"><p><strong>2025.12.20 (支援員 次郎)</strong></p><p>短期目標Aについて達成度80%。本人の意欲も高く、来月から次のステップに進むことを検討。</p></div></div>
                             </div>
                         </div>
                     </div>
                     <div id="tab-communication" class="tab-content">
-                        <div class="section"><div class="list-page-header" style="margin-bottom: 1rem;"><h2 class="section-title" style="margin: 0; border: none;">面談記録一覧</h2><button class="button button-primary" onclick="openModal('interview-modal')">＋ 新規記録作成</button></div><div class="table-wrapper"><table class="table"><thead><tr><th>面談日</th><th>種別</th><th>対応者</th><th>操作</th></tr></thead><tbody><tr><td>2025.10.10</td><td>定期面談</td><td>支援員 次郎</td><td><button class="button button-primary" onclick="openModal('interview-modal')">表示</button></td></tr></tbody></table></div></div>
-                         <div class="section"><div class="list-page-header" style="margin-bottom: 1rem;"><h2 class="section-title" style="margin: 0; border: none;">連携記録一覧</h2><button class="button button-primary" onclick="openModal('linkage-modal')">＋ 新規記録作成</button></div><div class="table-wrapper"><table class="table"><thead><tr><th>日時</th><th>対象者/機関</th><th>対応者</th><th>操作</th></tr></thead><tbody><tr><td>2025.10.05</td><td>母・花子様</td><td>管理者 太郎</td><td><button class="button button-primary" onclick="openModal('linkage-modal')">表示</button></td></tr></tbody></table></div></div>
+                        <div class="section"><div class="list-page-header"><h2 class="section-title">面談記録一覧</h2><button class="button button-primary" onclick="openModal('interview-modal')">＋ 新規記録作成</button></div><div class="table-wrapper"><table class="table"><thead><tr><th>面談日</th><th>種別</th><th>対応者</th><th>操作</th></tr></thead><tbody><tr><td>2025.10.10</td><td>定期面談</td><td>支援員 次郎</td><td><button class="button button-primary" onclick="openModal('interview-modal')">表示</button></td></tr></tbody></table></div></div>
+                         <div class="section"><div class="list-page-header"><h2 class="section-title">連携記録一覧</h2><button class="button button-primary" onclick="openModal('linkage-modal')">＋ 新規記録作成</button></div><div class="table-wrapper"><table class="table"><thead><tr><th>日時</th><th>対象者/機関</th><th>対応者</th><th>操作</th></tr></thead><tbody><tr><td>2025.10.05</td><td>母・花子様</td><td>管理者 太郎</td><td><button class="button button-primary" onclick="openModal('linkage-modal')">表示</button></td></tr></tbody></table></div></div>
                     </div>
 
                     <div id="tab-documents" class="tab-content">
-                        <div class="list-page-header" style="margin-bottom: 1rem;"><h2 class="section-title" style="margin: 0; border: none;">関連書類一覧</h2><button class="button button-primary">＋ アップロード</button></div>
+                        <div class="list-page-header"><h2 class="section-title">関連書類一覧</h2><button class="button button-primary">＋ アップロード</button></div>
                         <div class="table-wrapper"><table class="table"><thead><tr><th>ファイル名</th><th>更新日時</th><th class="col-actions">操作</th></tr></thead><tbody><tr><td>契約書_20240401.pdf</td><td>2024/04/01 10:00</td><td class="col-actions"><div class="table-button-group"><button class="button button-secondary">ダウンロード</button><button class="button button-danger">削除</button></div></td></tr><tr><td>個別支援計画_20250915.pdf</td><td>2025/09/15 14:30</td><td class="col-actions"><div class="table-button-group"><button class="button button-secondary">ダウンロード</button><button class="button button-danger">削除</button></div></td></tr></tbody></table></div>
                     </div>
                 </div>
@@ -753,15 +605,302 @@
         </main>
     </div>
     
-    <div id="edit-basic-info-modal" class="modal">...</div>
-    <div id="edit-address-contact-modal" class="modal">...</div>
-    <div id="edit-disability-modal" class="modal">...</div>
-    <div id="edit-disease-modal" class="modal">...</div>
-    <div id="edit-allergy-modal" class="modal">...</div>
-    <div id="edit-clinic-modal" class="modal">...</div>
-    <div id="edit-specialist-modal" class="modal">...</div>
-    <div id="edit-certificate1-modal" class="modal">...</div>
-    <div id="edit-certificate2-modal" class="modal">...</div>
+    <div id="edit-basic-info-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">基本情報 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-basic-info-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>氏名</label>
+                    <input type="text" class="form-control" value="青木 誠">
+                </div>
+                <div class="form-group">
+                    <label>フリガナ</label>
+                    <input type="text" class="form-control" value="アオキ マコト">
+                </div>
+                <div class="form-group">
+                    <label>利用者番号</label>
+                    <input type="text" class="form-control" value="A001">
+                </div>
+                <div class="form-group">
+                    <label>生年月日</label>
+                    <input type="date" class="form-control" value="2000-04-01">
+                </div>
+                <div class="form-group">
+                    <label>性別</label>
+                    <select class="form-control">
+                        <option value="male" selected>男性</option>
+                        <option value="female">女性</option>
+                        <option value="other">その他</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>契約日</label>
+                    <input type="date" class="form-control" value="2024-04-01">
+                </div>
+                <div class="form-group">
+                    <label>契約状況</label>
+                    <select class="form-control">
+                        <option value="active" selected>利用中</option>
+                        <option value="inactive">利用終了</option>
+                        <option value="pending">待機中</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>担当職員</label>
+                    <select class="form-control">
+                        <option value="staff1">管理者 太郎</option>
+                        <option value="staff2" selected>支援員 次郎</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('edit-basic-info-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="edit-address-contact-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">住所・連絡先 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-address-contact-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                 <div class="form-group">
+                    <label>郵便番号</label>
+                    <input type="text" class="form-control" value="123-4567">
+                </div>
+                <div class="form-group">
+                    <label>住所</label>
+                    <input type="text" class="form-control" value="東京都渋谷区...">
+                </div>
+                <div class="form-group">
+                    <label>電話番号</label>
+                    <input type="tel" class="form-control" value="090-XXXX-XXXX">
+                </div>
+                <div class="form-group">
+                    <label>FAX番号</label>
+                    <input type="tel" class="form-control" value="">
+                </div>
+                <div class="form-group">
+                    <label>メールアドレス</label>
+                    <input type="email" class="form-control" value="aoki.makoto@example.com">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('edit-address-contact-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-disability-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">障害特性 編集/追加</h2>
+                <span class="modal-close" onclick="closeModal('edit-disability-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>障害種別</label>
+                    <select class="form-control">
+                        <option value="physical">身体</option>
+                        <option value="intellectual">知的</option>
+                        <option value="mental" selected>精神</option>
+                        <option value="developmental">発達</option>
+                        <option value="other">その他</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>障害名</label>
+                    <input type="text" class="form-control" value="統合失調症">
+                </div>
+                <div class="form-group">
+                    <label>特性・配慮事項</label>
+                    <textarea class="form-control" rows="4">聴覚過敏があるため、イヤーマフの使用を許可。大きな音のする作業は避ける。</textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('edit-disability-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="edit-disease-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">難病特性 編集/追加</h2>
+                <span class="modal-close" onclick="closeModal('edit-disease-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>難病名</label>
+                    <input type="text" class="form-control" value="">
+                </div>
+                <div class="form-group">
+                    <label>特性・配慮事項</label>
+                    <textarea class="form-control" rows="4"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('edit-disease-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="edit-allergy-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">アレルギー 編集/追加</h2>
+                <span class="modal-close" onclick="closeModal('edit-allergy-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>アレルゲン</label>
+                    <input type="text" class="form-control" value="そば">
+                </div>
+                <div class="form-group">
+                    <label>症状・注意事項</label>
+                    <textarea class="form-control" rows="4">アナフィラキシーの可能性あり。調理器具の共有不可。</textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('edit-allergy-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="edit-clinic-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">かかりつけ医療機関 編集/追加</h2>
+                <span class="modal-close" onclick="closeModal('edit-clinic-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>関連(障害/難病)</label>
+                    <input type="text" class="form-control" value="精神障害 (統合失調症)">
+                </div>
+                <div class="form-group">
+                    <label>医療機関名</label>
+                    <input type="text" class="form-control" value="〇〇メンタルクリニック">
+                </div>
+                <div class="form-group">
+                    <label>診療科・担当医</label>
+                    <input type="text" class="form-control" value="精神科 / △△ 医師">
+                </div>
+                <div class="form-group">
+                    <label>連絡先</label>
+                    <input type="tel" class="form-control" value="03-YYYY-ZZZZ">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('edit-clinic-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="edit-specialist-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">相談支援専門員 編集/追加</h2>
+                <span class="modal-close" onclick="closeModal('edit-specialist-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>氏名</label>
+                    <input type="text" class="form-control" value="□□ □□">
+                </div>
+                <div class="form-group">
+                    <label>事業所名</label>
+                    <input type="text" class="form-control" value="相談支援センター××">
+                </div>
+                <div class="form-group">
+                    <label>連絡先</label>
+                    <input type="tel" class="form-control" value="03-AAAA-BBBB">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('edit-specialist-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-certificate1-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">障害福祉サービス受給者証 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-certificate1-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>支給決定期間 (開始)</label>
+                    <input type="date" class="form-control" value="2025-04-01">
+                </div>
+                <div class="form-group">
+                    <label>支給決定期間 (終了)</label>
+                    <input type="date" class="form-control" value="2026-03-31">
+                </div>
+                <div class="form-group">
+                    <label>利用者負担割合</label>
+                    <select class="form-control">
+                        <option value="0">0割</option>
+                        <option value="1" selected>1割</option>
+                        <option value="2">2割</option>
+                        <option value="3">3割</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>負担上限月額 (円)</label>
+                    <input type="number" class="form-control" value="0">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('edit-certificate1-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="edit-certificate2-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">障害者手帳 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-certificate2-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>手帳種別</label>
+                    <select class="form-control">
+                        <option value="physical">身体障害者手帳</option>
+                        <option value="mental" selected>精神障害者保健福祉手帳</option>
+                        <option value="intellectual">療育手帳</option>
+                    </select>
+                </div>
+                 <div class="form-group">
+                    <label>等級</label>
+                    <input type="text" class="form-control" value="2級">
+                </div>
+                <div class="form-group">
+                    <label>交付日</label>
+                    <input type="date" class="form-control" value="2022-10-01">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('edit-certificate2-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
     
     <div id="edit-emergency-contact-modal" class="modal">
         <div class="modal-content">
@@ -853,13 +992,197 @@
         </div>
     </div>
 
-    <div id="service-record-modal" class="modal">...（日々の記録モーダル）...</div>
-    <div id="support-plan-modal" class="modal">...</div>
-    <div id="monitoring-modal" class="modal">...</div>
-    <div id="wage-detail-modal" class="modal">...</div>
-    <div id="interview-modal" class="modal">...</div>
-    <div id="linkage-modal" class="modal">...</div>
-
+    <div id="service-record-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">日々の記録 (2025/10/01)</h2>
+                <span class="modal-close" onclick="closeModal('service-record-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>利用実績</label>
+                    <select class="form-control">
+                        <option value="attended" selected>利用 (通所)</option>
+                        <option value="remote">利用 (在宅)</option>
+                        <option value="absent_with_reason">欠席 (連絡あり)</option>
+                        <option value="absent_without_reason">欠席 (連絡なし)</option>
+                    </select>
+                </div>
+                 <div class="form-group">
+                    <label>作業内容メモ</label>
+                    <textarea class="form-control" rows="3">データ入力作業 (A案件) を実施。</textarea>
+                </div>
+                <div class="form-group">
+                    <label>支援員メモ (内部用)</label>
+                    <textarea class="form-control" rows="3">集中して取り組めていた。15時にやや疲れが見られたため声掛け。</textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('service-record-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="support-plan-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">個別支援計画 作成/編集</h2>
+                <span class="modal-close" onclick="closeModal('support-plan-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>計画作成日</label>
+                    <input type="date" class="form-control" value="2025-09-15">
+                </div>
+                <div class="form-group">
+                    <label>本人の希望</label>
+                    <textarea class="form-control" rows="3">PCを使った仕事ができるようになりたい。</textarea>
+                </div>
+                <div class="form-group">
+                    <label>長期目標</label>
+                    <textarea class="form-control" rows="3">データ入力の案件を一人で担当できるようになる。</textarea>
+                </div>
+                <div class="form-group">
+                    <label>短期目標</label>
+                    <textarea class="form-control" rows="3">タイピングの正確性を上げる。</textarea>
+                </div>
+                 <div class="form-group">
+                    <label>支援内容</label>
+                    <textarea class="form-control" rows="3">タイピング練習ソフトの実施。週1回の進捗確認面談。</textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('support-plan-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="monitoring-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">モニタリング記録 追加</h2>
+                <span class="modal-close" onclick="closeModal('monitoring-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>モニタリング日</label>
+                    <input type="date" class="form-control" value="2025-12-20">
+                </div>
+                <div class="form-group">
+                    <label>対応職員</label>
+                    <select class="form-control">
+                        <option value="staff1">管理者 太郎</option>
+                        <option value="staff2" selected>支援員 次郎</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>記録内容</label>
+                    <textarea class="form-control" rows="5">短期目標Aについて達成度80%。本人の意欲も高く、来月から次のステップに進むことを検討。</textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('monitoring-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wage-detail-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">工賃明細 (2025年9月)</h2>
+                <span class="modal-close" onclick="closeModal('wage-detail-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <dl class="detail-grid">
+                    <dt>対象月</dt><dd>2025年9月</dd>
+                    <dt>利用日数</dt><dd>20日</dd>
+                    <dt>基本工賃</dt><dd>10,000円</dd>
+                    <dt>作業手当 (A案件)</dt><dd>3,000円</dd>
+                    <dt>作業手当 (B案件)</dt><dd>2,000円</dd>
+                    <dt>控除合計</dt><dd>0円</dd>
+                    <dt style="font-weight: bold; font-size: 1.1em;">差引支給額</dt><dd style="font-weight: bold; font-size: 1.1em;">15,000円</dd>
+                </dl>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('wage-detail-modal')">閉じる</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="interview-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">面談記録 編集/追加</h2>
+                <span class="modal-close" onclick="closeModal('interview-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>面談日</label>
+                    <input type="date" class="form-control" value="2025-10-10">
+                </div>
+                <div class="form-group">
+                    <label>種別</label>
+                    <select class="form-control">
+                        <option value="regular" selected>定期面談</option>
+                        <option value="adhoc">随時面談</option>
+                        <option value="other">その他</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>対応者</label>
+                    <select class="form-control">
+                        <option value="staff1">管理者 太郎</option>
+                        <option value="staff2" selected>支援員 次郎</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>面談内容</label>
+                    <textarea class="form-control" rows="5">（面談内容の記録...）</textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('interview-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="linkage-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">連携記録 編集/追加</h2>
+                <span class="modal-close" onclick="closeModal('linkage-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>日時</label>
+                    <input type="datetime-local" class="form-control" value="2025-10-05T10:00">
+                </div>
+                <div class="form-group">
+                    <label>対象者/機関</label>
+                    <input type="text" class="form-control" value="母・花子様">
+                </div>
+                <div class="form-group">
+                    <label>対応者</label>
+                    <select class="form-control">
+                        <option value="staff1" selected>管理者 太郎</option>
+                        <option value="staff2">支援員 次郎</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>連携内容</label>
+                    <textarea class="form-control" rows="5">（ご家族との連携内容の記録...）</textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('linkage-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
     <template id="disability-row-template">...</template>
     <template id="disease-row-template">...</template>
     <template id="allergy-row-template">...</template>
@@ -869,8 +1192,11 @@
 
 
     <script src="../script.js"></script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 利用者詳細: サブナビゲーション（タブ）切り替え ---
             const subNavContainer = document.getElementById('member-detail-subnav');
             const tabContents = document.querySelectorAll('#member-detail .tab-content');
             
@@ -886,95 +1212,45 @@
                 });
             }
 
-            // (setupTableInteraction 変更なし)
-            function setupTableInteraction(tbodyId, addButtonId, editModalId, addModalId) {
-                const tbody = document.getElementById(tbodyId);
-                const addButton = document.getElementById(addButtonId);
-                const effectiveAddModalId = addModalId || editModalId; 
+            // --- 汎用関数の呼び出し (定義は script.js に移動) ---
 
-                if (!tbody || !editModalId || !effectiveAddModalId) {
-                     console.warn(`Required elements missing for table interaction (tbody or modalId): ${tbodyId}, ${editModalId}`);
-                     return;
-                 }
-                
-                if(addButton) {
-                    addButton.addEventListener('click', () => { 
-                        openModal(effectiveAddModalId); 
-                    });
-                }
-
-                tbody.addEventListener('click', (e) => {
-                    const deleteButton = e.target.closest('.button-danger');
-                    const editButton = e.target.closest('.edit-row-button'); 
-                    
-                    if (deleteButton) { 
-                        deleteButton.closest('tr').remove(); 
-                    } else if (editButton) {
-                        const modalId = editButton.dataset.modalId || editModalId; 
-                        openModal(modalId);
-                    }
-                });
-            }
-            
-            setupTableInteraction('disability-table-body', 'add-disability-row', 'edit-disability-modal');
-            setupTableInteraction('disease-table-body', 'add-disease-row', 'edit-disease-modal');
-            setupTableInteraction('allergy-table-body', 'add-allergy-row', 'edit-allergy-modal');
-            setupTableInteraction('clinic-table-body', 'add-clinic-row', 'edit-clinic-modal');
-            setupTableInteraction('emergency-contact-table-body', 'add-emergency-contact-row', 'edit-emergency-contact-modal'); 
-            setupTableInteraction('specialist-table-body', 'add-specialist-row', 'edit-specialist-modal');
-
-            // (setupToggleUI 変更なし)
-            function setupToggleUI(radioName, addButtonId, tableWrapper) {
-                const radios = document.querySelectorAll(`input[name="${radioName}"]`);
-                const addButton = document.getElementById(addButtonId);
-                const table = tableWrapper;
-                
-                if (!radios || !addButton || !table) return;
-
-                const toggleControls = () => {
-                    const selectedValue = document.querySelector(`input[name="${radioName}"]:checked`).value;
-                    if (selectedValue === 'yes') {
-                        addButton.disabled = false;
-                        table.style.display = '';
-                    } else {
-                        addButton.disabled = true;
-                        table.style.display = 'none';
-                    }
-                };
-
-                radios.forEach(radio => radio.addEventListener('change', toggleControls));
-                toggleControls();
+            // (setupTableInteraction の呼び出し)
+            if (window.setupTableInteraction) {
+                // 健康・医療タブ
+                setupTableInteraction('disability-table-body', 'add-disability-row', 'edit-disability-modal');
+                setupTableInteraction('disease-table-body', 'add-disease-row', 'edit-disease-modal');
+                setupTableInteraction('allergy-table-body', 'add-allergy-row', 'edit-allergy-modal');
+                setupTableInteraction('clinic-table-body', 'add-clinic-row', 'edit-clinic-modal');
+                // 住所・連絡先タブ
+                setupTableInteraction('emergency-contact-table-body', 'add-emergency-contact-row', 'edit-emergency-contact-modal'); 
+                setupTableInteraction('specialist-table-body', 'add-specialist-row', 'edit-specialist-modal');
             }
 
-            setupToggleUI('specialist-toggle', 'add-specialist-row', document.getElementById('specialist-table').closest('.table-wrapper'));
-            setupToggleUI('disability-toggle', 'add-disability-row', document.getElementById('disability-table').closest('.table-wrapper'));
-            setupToggleUI('disease-toggle', 'add-disease-row', document.getElementById('disease-table').closest('.table-wrapper'));
-            setupToggleUI('allergy-toggle', 'add-allergy-row', document.getElementById('allergy-table').closest('.table-wrapper'));
-            setupToggleUI('clinic-toggle', 'add-clinic-row', document.getElementById('clinic-table').closest('.table-wrapper'));
+            // (setupToggleUI の呼び出し)
+            if (window.setupToggleUI) {
+                // 住所・連絡先タブ
+                setupToggleUI('specialist-toggle', 'add-specialist-row', document.getElementById('specialist-table').closest('.table-wrapper'));
+                // 健康・医療タブ
+                setupToggleUI('disability-toggle', 'add-disability-row', document.getElementById('disability-table').closest('.table-wrapper'));
+                setupToggleUI('disease-toggle', 'add-disease-row', document.getElementById('disease-table').closest('.table-wrapper'));
+                setupToggleUI('allergy-toggle', 'add-allergy-row', document.getElementById('allergy-table').closest('.table-wrapper'));
+                setupToggleUI('clinic-toggle', 'add-clinic-row', document.getElementById('clinic-table').closest('.table-wrapper'));
+            }
 
-            /* ▼▼▼ 修正 (スキルタブのアコーディオン制御) ▼▼▼ */
+            // --- 利用者詳細: スキルタブのアコーディオン制御 ---
             const skillTreeTbody = document.getElementById('skill-tree-table')?.getElementsByTagName('tbody')[0];
 
             if (skillTreeTbody) {
                 skillTreeTbody.addEventListener('click', (e) => {
                     
-                    // クリックされた要素の最も近い親である「カテゴリ行」を探す
                     const categoryRow = e.target.closest('.skill-category-row');
 
-                    // カテゴリ行以外、または開閉対象でない行 (data-toggle属性がない) 場合は何もしない
                     if (!categoryRow || categoryRow.dataset.toggle !== 'collapse') {
-                        // (ただし、クリックされたのがセレクトボックスの場合は、イベントが伝播しないようにする)
-                        // ※今回はカテゴリ行にセレクトボックスはないため、このチェックは不要だが参考として
-                        // if (e.target.closest('select, input, button, a')) {
-                        //     return;
-                        // }
                         return;
                     }
                     
-                    // 行内のアイコンを探す
                     const toggleIcon = categoryRow.querySelector('.toggle-icon');
 
-                    // アイコンがない、または「子なし」アイコンの場合は開閉操作をしない
                     if (!toggleIcon || toggleIcon.classList.contains('no-child')) {
                         return;
                     }
@@ -982,14 +1258,11 @@
                     const parentId = categoryRow.dataset.skillId;
                     if (!parentId) return;
 
-                    // 子孫ノードを検索 (data-parent-id が parentId と一致するもの)
                     const children = skillTreeTbody.querySelectorAll(`[data-parent-id="${parentId}"]`);
                     if (children.length === 0) return;
 
-                    // 最初の子の表示状態をもって、現在の開閉状態を判断
                     const isCurrentlyCollapsed = children[0].classList.contains('collapsed');
 
-                    // 再帰的に開閉を制御する関数
                     function toggleDescendants(currentParentId, collapse) {
                         const directChildren = skillTreeTbody.querySelectorAll(`[data-parent-id="${currentParentId}"]`);
                         directChildren.forEach(child => {
@@ -999,16 +1272,13 @@
                                 child.classList.remove('collapsed');
                             }
                             
-                            // 子ノード（カテゴリ行）の開閉状態をチェック
-                            const childId = child.dataset.skillId; // 子がカテゴリなら skillId を持つ
+                            const childId = child.dataset.skillId;
                             const childIcon = child.querySelector('.toggle-icon');
                             
                             if (childId && childIcon && !childIcon.classList.contains('no-child')) {
-                                // 閉じるときは、子の状態に関わらず再帰的に閉じる
                                 if (collapse) {
                                     toggleDescendants(childId, true);
                                 } 
-                                // 開くときは、子が元々開いていた(▼)場合のみ再帰的に開く
                                 else if (!collapse && childIcon.textContent === '▼') {
                                     toggleDescendants(childId, false);
                                 }
@@ -1017,20 +1287,16 @@
                     }
 
                     if (isCurrentlyCollapsed) {
-                        // 開く
                         toggleIcon.textContent = '▼';
-                        toggleDescendants(parentId, false); // このIDを親に持つ子ノードを開く
+                        toggleDescendants(parentId, false);
                     } else {
-                        // 閉じる
                         toggleIcon.textContent = '▶';
-                        toggleDescendants(parentId, true); // このIDを親に持つ子ノードを閉じる
+                        toggleDescendants(parentId, true);
                     }
                 });
             }
-            /* ▲▲▲ 修正 ▲▲▲ */
         });
     </script>
-
 
 </body>
 </html>

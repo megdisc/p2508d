@@ -94,7 +94,81 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // ▼▼▼ p2508d/mocks/members/index.html から移動した汎用関数 ▼▼▼
+
+    /**
+     * テーブルの行インタラクション（追加/編集モーダル表示、行削除）をセットアップする汎用関数
+     * @param {string} tbodyId 対象テーブルの <tbody> のID
+     * @param {string} addButtonId 「追加」ボタンのID
+     * @param {string} editModalId 「編集」時に開くモーダルのID
+     * @param {string} [addModalId] 「追加」時に開くモーダルのID (省略時は editModalId を使用)
+     */
+    window.setupTableInteraction = function(tbodyId, addButtonId, editModalId, addModalId) {
+        const tbody = document.getElementById(tbodyId);
+        const addButton = document.getElementById(addButtonId);
+        const effectiveAddModalId = addModalId || editModalId; 
+
+        if (!tbody || !editModalId || !effectiveAddModalId) {
+             console.warn(`Required elements missing for table interaction (tbody or modalId): ${tbodyId}, ${editModalId}`);
+             return;
+         }
+        
+        if(addButton) {
+            addButton.addEventListener('click', () => { 
+                // TODO: モーダルを開く前に、フォームの内容をクリアする処理を追加
+                window.openModal(effectiveAddModalId); 
+            });
+        }
+
+        tbody.addEventListener('click', (e) => {
+            const deleteButton = e.target.closest('.button-danger');
+            const editButton = e.target.closest('.edit-row-button'); 
+            
+            if (deleteButton) { 
+                // 行削除のロジック
+                deleteButton.closest('tr').remove(); 
+            } else if (editButton) {
+                // 編集モーダル表示のロジック
+                const modalId = editButton.dataset.modalId || editModalId; 
+                // TODO: モーダルを開く前に、クリックされた行のデータをフォームに設定する処理を追加
+                window.openModal(modalId);
+            }
+        });
+    }
+
+    /**
+     * 「有り/無し」ラジオボタンと「追加ボタン」/「テーブル」の連動をセットアップする汎用関数
+     * @param {string} radioName ラジオボタンの name 属性
+     * @param {string} addButtonId 連動させる「追加」ボタンのID
+     * @param {HTMLElement} tableWrapper 連動させるテーブルのラッパー要素 (e.g., .table-wrapper)
+     */
+    window.setupToggleUI = function(radioName, addButtonId, tableWrapper) {
+        const radios = document.querySelectorAll(`input[name="${radioName}"]`);
+        const addButton = document.getElementById(addButtonId);
+        const table = tableWrapper;
+        
+        if (!radios || !addButton || !table) return;
+
+        const toggleControls = () => {
+            const selectedValue = document.querySelector(`input[name="${radioName}"]:checked`).value;
+            if (selectedValue === 'yes') {
+                addButton.disabled = false;
+                table.style.display = '';
+            } else {
+                addButton.disabled = true;
+                table.style.display = 'none';
+            }
+        };
+
+        radios.forEach(radio => radio.addEventListener('change', toggleControls));
+        toggleControls(); // 初期表示を制御
+    }
+
+    // ▲▲▲ 汎用関数の移動ここまで ▲▲▲
+
+
     // --- Dynamic Table Row Addition/Deletion (Event Delegation) ---
+    // (※注: setupTableInteraction とは別の、古い実装のようです。元のscript.jsのまま残します)
     document.body.addEventListener('click', function(e) {
         // Add Row
         const addBtn = e.target.closest('#add-process-row, #add-expense-row, #add-contact-row');
@@ -120,7 +194,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Delete Row
         const deleteBtn = e.target.closest('.button-danger');
-        if (deleteBtn && deleteBtn.closest('tbody')) {
+        // (※注: setupTableInteraction と競合しないよう、tbody内かつ特定のテーブルIDを持たない場合に限定)
+        const tbody = deleteBtn ? deleteBtn.closest('tbody') : null;
+        if (tbody && !tbody.id) { // setupTableInteraction が管理するtbody(ID付き)以外を対象
             const row = deleteBtn.closest('tr');
             const tableBody = row.parentNode;
             row.remove();
@@ -168,4 +244,3 @@ document.addEventListener('DOMContentLoaded', function() {
         skillAccordion.nextElementSibling.style.display = 'block';
     }
 });
-
