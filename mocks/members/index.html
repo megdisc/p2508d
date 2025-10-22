@@ -1008,7 +1008,32 @@
                         <option value="absent_without_reason">欠席 (連絡なし)</option>
                     </select>
                 </div>
-                 <div class="form-group">
+                
+                <div class="form-group">
+                    <label>利用時間</label>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="time" class="form-control" value="09:30">
+                        <span>〜</span>
+                        <input type="time" class="form-control" value="15:30">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>昼食</label>
+                    <select class="form-control">
+                        <option value="yes" selected>要</option>
+                        <option value="no">不要</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>送迎</label>
+                    <select class="form-control">
+                        <option value="none">無</option>
+                        <option value="roundtrip" selected>往復</option>
+                        <option value="oneway_go">往（迎えのみ）</option>
+                        <option value="oneway_back">復（送りのみ）</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label>作業内容メモ</label>
                     <textarea class="form-control" rows="3">データ入力作業 (A案件) を実施。</textarea>
                 </div>
@@ -1023,7 +1048,6 @@
             </div>
         </div>
     </div>
-    
     <div id="support-plan-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1294,7 +1318,7 @@
                         toggleDescendants(parentId, true);
                     }
                 });
-            }
+    }
         });
     </script>
 
