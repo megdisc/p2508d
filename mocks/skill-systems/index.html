@@ -8,15 +8,15 @@
     <link rel="stylesheet" href="../style.css">
 
     <style>
-        /* --- テーブル内のフォーム要素 (工賃体系設定/案件管理のスタイルに合わせる) --- */
+        /* --- テーブル内のフォーム要素 --- */
         .table .form-control {
             width: 100%;
-            padding: 0.375rem 0.5rem; /* テーブル内は少し小さく */
+            padding: 0.375rem 0.5rem;
             font-size: var(--font-size-sm);
             box-sizing: border-box;
         }
 
-        /* --- 検索/ページネーション (style.cssの定義を流用) --- */
+        /* --- 検索/ページネーション (スキル項目タブ用) --- */
         .table-controls {
             display: flex;
             justify-content: space-between;
@@ -32,7 +32,7 @@
         }
         .pagination-controls {
             display: flex;
-            justify-content: flex-end; 
+            justify-content: flex-end;
             align-items: center;
             margin-top: 1rem;
         }
@@ -42,7 +42,6 @@
             gap: 0.5rem;
             font-size: var(--font-size-sm);
         }
-        /* (追加) 表示件数選択 select の幅を自動にする */
         .items-per-page .form-control {
             width: auto;
         }
@@ -52,14 +51,68 @@
             gap: 0.5rem;
             font-size: var(--font-size-sm);
         }
-        /* ソート用リンク (style.cssの定義を流用) */
-        .sort-link {
+        .sort-link { /* スキル項目タブ用 */
             color: inherit;
             text-decoration: none;
             cursor: pointer;
         }
         .sort-link:hover {
             text-decoration: underline;
+        }
+
+        /* --- アコーディオン・ツリー用スタイル --- */
+        .category-name-cell {
+            display: flex;
+            align-items: center;
+        }
+        .toggle-icon {
+            display: inline-block;
+            width: 20px; /* アイコンの幅 */
+            height: 20px;
+            text-align: center;
+            line-height: 18px;
+            font-size: 0.8em;
+            cursor: pointer;
+            margin-right: 4px;
+            color: #666;
+            font-family: monospace;
+        }
+        .toggle-icon.no-child {
+            cursor: default;
+            color: transparent;
+        }
+        /* ツリー記号 */
+        .tree-prefix {
+            flex-shrink: 0;
+            font-family: monospace;
+            font-size: 1.1em;
+            color: #999;
+            margin-right: 2px;
+            width: 20px; /* アイコンと同じ幅を確保 */
+            display: inline-block; /* 幅指定のため */
+            text-align: center;
+        }
+         /* インデントレベルに応じた padding-left */
+        .category-name-cell.indent-0 { padding-left: 0px; }
+        .category-name-cell.indent-1 { padding-left: 24px; } /* 20px (アイコン) + 4px (マージン) */
+        .category-name-cell.indent-2 { padding-left: 48px; } /* 24px * 2 */
+        .category-name-cell.indent-3 { padding-left: 72px; } /* 24px * 3 */
+        /* 必要に応じて .indent-4 なども追加 */
+
+        .sub-category.collapsed {
+            display: none;
+        }
+
+        .table .col-actions {
+            width: 150px;
+        }
+
+        .add-root-row .static-text {
+            color: var(--color-text-secondary);
+            font-style: italic;
+            padding: 0.375rem 0.5rem;
+            display: inline-block;
+            line-height: 1.5;
         }
     </style>
     </head>
@@ -87,7 +140,6 @@
                     <a href="../index.html" class="nav-link">ログアウト</a>
                 </div>
             </nav>
-            
         </header>
 
         <main class="mockup-main">
@@ -109,166 +161,152 @@
                 <div class="tab-content-wrapper">
                     
                     <div id="tab-skill-categories" class="tab-content active">
-                        <div class="list-page-header" style="margin-bottom: 1rem;">
+                        <div class="list-page-header" style="margin-bottom: 1rem; border: none;">
                             <h2 class="section-title" style="margin: 0; border: none;">スキルカテゴリ設定</h2>
-                            <button type="button" class="button button-primary" id="add-category-row">＋ カテゴリを追加</button>
                         </div>
                         
-                        <div class="table-controls">
-                            <div class="search-form">
-                                <input type="text" placeholder="カテゴリ名で検索..." class="form-control" id="search-category">
-                            </div>
-                            <div class="items-per-page">
-                                <label for="items-per-page-cat">表示件数:</label>
-                                <select id="items-per-page-cat" class="form-control">
-                                    <option value="20">20</option>
-                                    <option value="50" selected>50</option>
-                                    <option value="100">100</option>
-                                </select>
-                            </div>
-                        </div>
-
                         <div class="table-wrapper">
                             <table class="table" id="category-table">
                                 <thead>
                                     <tr>
-                                        <th><a href="#" class="sort-link">カテゴリ名</a></th>
-                                        <th style="width: 250px;"><a href="#" class="sort-link">親カテゴリ</a></th>
+                                        <th>カテゴリ名</th>
                                         <th class="col-actions">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody id="category-table-body">
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="マーケティング"></td>
-                                        <td>
-                                            <select class="form-control">
-                                                <option value="root" selected>(ルートカテゴリ)</option>
-                                            </select>
+                                    <tr class="add-root-row">
+                                        <td class="category-name-cell indent-0">
+                                            <span class="toggle-icon no-child"></span>
+                                            <span class="static-text">（ルートカテゴリ）</span>
                                         </td>
                                         <td class="col-actions">
                                             <div class="table-button-group">
+                                                <button type="button" class="button button-secondary" id="add-root-category-row" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr data-toggle="collapse" data-target-id="cat-mkt">
+                                        <td class="category-name-cell indent-0">
+                                            <span class="toggle-icon">▶</span>
+                                            <input type="text" class="form-control" value="マーケティング">
+                                        </td>
+                                        <td class="col-actions">
+                                            <div class="table-button-group">
+                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
                                                 <button type="button" class="button button-danger">削除</button>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="デザイン"></td>
-                                        <td>
-                                            <select class="form-control">
-                                                <option value="root" selected>(ルートカテゴリ)</option>
-                                            </select>
+                                    <tr class="sub-category collapsed" data-parent-id="cat-mkt" data-toggle="collapse" data-target-id="cat-seo"> <td class="category-name-cell indent-1">
+                                            <span class="toggle-icon">▶</span>
+                                            <span class="tree-prefix">└&nbsp;</span>
+                                            <input type="text" class="form-control" value="SEO/広告">
                                         </td>
                                         <td class="col-actions">
                                             <div class="table-button-group">
+                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
                                                 <button type="button" class="button button-danger">削除</button>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="開発"></td>
-                                        <td>
-                                            <select class="form-control">
-                                                <option value="root" selected>(ルートカテゴリ)</option>
-                                            </select>
+                                    <tr class="sub-category collapsed" data-parent-id="cat-seo">
+                                        <td class="category-name-cell indent-2">
+                                            <span class="toggle-icon no-child"></span>
+                                            <span class="tree-prefix">└&nbsp;</span>
+                                            <input type="text" class="form-control" value="Web広告">
                                         </td>
                                         <td class="col-actions">
                                             <div class="table-button-group">
+                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
                                                 <button type="button" class="button button-danger">削除</button>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="SEO/広告"></td>
-                                        <td>
-                                            <select class="form-control">
-                                                <option value="root">(ルートカテゴリ)</option>
-                                                <option value="mkt" selected>マーケティング</option>
-                                                <option value="des" disabled>デザイン</option>
-                                                <option value="dev" disabled>開発</option>
-                                            </select>
+                                    <tr class="sub-category collapsed" data-parent-id="cat-mkt">
+                                        <td class="category-name-cell indent-1">
+                                            <span class="toggle-icon no-child"></span>
+                                            <span class="tree-prefix">└&nbsp;</span>
+                                            <input type="text" class="form-control" value="SNS">
                                         </td>
                                         <td class="col-actions">
                                             <div class="table-button-group">
+                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
                                                 <button type="button" class="button button-danger">削除</button>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="SNS"></td>
-                                        <td>
-                                            <select class="form-control">
-                                                <option value="root">(ルートカテゴリ)</option>
-                                                <option value="mkt" selected>マーケティング</option>
-                                                <option value="des" disabled>デザイン</option>
-                                                <option value="dev" disabled>開発</option>
-                                            </select>
+                                    <tr data-toggle="collapse" data-target-id="cat-des">
+                                        <td class="category-name-cell indent-0">
+                                            <span class="toggle-icon">▶</span>
+                                            <input type="text" class="form-control" value="デザイン">
                                         </td>
                                         <td class="col-actions">
                                             <div class="table-button-group">
+                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
                                                 <button type="button" class="button button-danger">削除</button>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="UI/UX"></td>
-                                        <td>
-                                            <select class="form-control">
-                                                <option value="root">(ルートカテゴリ)</option>
-                                                <option value="mkt" disabled>マーケティング</option>
-                                                <option value="des" selected>デザイン</option>
-                                                <option value="dev" disabled>開発</option>
-                                            </select>
+                                    <tr class="sub-category collapsed" data-parent-id="cat-des">
+                                        <td class="category-name-cell indent-1">
+                                            <span class="toggle-icon no-child"></span>
+                                            <span class="tree-prefix">└&nbsp;</span>
+                                            <input type="text" class="form-control" value="UI/UX">
                                         </td>
                                         <td class="col-actions">
                                             <div class="table-button-group">
+                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
                                                 <button type="button" class="button button-danger">削除</button>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="グラフィック"></td>
-                                        <td>
-                                            <select class="form-control">
-                                                <option value="root">(ルートカテゴリ)</option>
-                                                <option value="mkt" disabled>マーケティング</option>
-                                                <option value="des" selected>デザイン</option>
-                                                <option value="dev" disabled>開発</option>
-                                            </select>
+                                    <tr class="sub-category collapsed" data-parent-id="cat-des">
+                                        <td class="category-name-cell indent-1">
+                                            <span class="toggle-icon no-child"></span>
+                                            <span class="tree-prefix">└&nbsp;</span>
+                                            <input type="text" class="form-control" value="グラフィック">
                                         </td>
                                         <td class="col-actions">
                                             <div class="table-button-group">
+                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
                                                 <button type="button" class="button button-danger">削除</button>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="フロントエンド"></td>
-                                        <td>
-                                            <select class="form-control">
-                                                <option value="root">(ルートカテゴリ)</option>
-                                                <option value="mkt" disabled>マーケティング</option>
-                                                <option value="des" disabled>デザイン</option>
-                                                <option value="dev" selected>開発</option>
-                                            </select>
+                                    <tr data-toggle="collapse" data-target-id="cat-dev">
+                                        <td class="category-name-cell indent-0">
+                                            <span class="toggle-icon">▶</span>
+                                            <input type="text" class="form-control" value="開発">
                                         </td>
                                         <td class="col-actions">
                                             <div class="table-button-group">
+                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
                                                 <button type="button" class="button button-danger">削除</button>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="バックエンド"></td>
-                                        <td>
-                                            <select class="form-control">
-                                                <option value="root">(ルートカテゴリ)</option>
-                                                <option value="mkt" disabled>マーケティング</option>
-                                                <option value="des" disabled>デザイン</option>
-                                                <option value="dev" selected>開発</option>
-                                            </select>
+                                    <tr class="sub-category collapsed" data-parent-id="cat-dev">
+                                        <td class="category-name-cell indent-1">
+                                            <span class="toggle-icon no-child"></span>
+                                            <span class="tree-prefix">└&nbsp;</span>
+                                            <input type="text" class="form-control" value="フロントエンド">
                                         </td>
                                         <td class="col-actions">
                                             <div class="table-button-group">
+                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
+                                                <button type="button" class="button button-danger">削除</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="sub-category collapsed" data-parent-id="cat-dev">
+                                        <td class="category-name-cell indent-1">
+                                            <span class="toggle-icon no-child"></span>
+                                            <span class="tree-prefix">└&nbsp;</span>
+                                            <input type="text" class="form-control" value="バックエンド">
+                                        </td>
+                                        <td class="col-actions">
+                                            <div class="table-button-group">
+                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
                                                 <button type="button" class="button button-danger">削除</button>
                                             </div>
                                         </td>
@@ -276,20 +314,12 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="pagination-controls">
-                            <div class="pagination-nav">
-                                <span>1 - 9 / 9件中</span>
-                                <button class="button button-secondary" disabled>&lt; 前へ</button>
-                                <button class="button button-secondary">次へ &gt;</button>
-                            </div>
-                        </div>
                     </div>
                     <div id="tab-skill-items" class="tab-content">
-                        <div class="list-page-header" style="margin-bottom: 1rem;">
+                         <div class="list-page-header" style="margin-bottom: 1rem;">
                             <h2 class="section-title" style="margin: 0; border: none;">スキル項目設定</h2>
                             <button type="button" class="button button-primary" id="add-skill-item-row">＋ 項目を追加</button>
                         </div>
-
                         <div class="table-controls">
                             <div class="search-form">
                                 <input type="text" placeholder="スキル名で検索..." class="form-control" id="search-skill-item">
@@ -303,7 +333,6 @@
                                 </select>
                             </div>
                         </div>
-
                         <div class="table-wrapper">
                             <table class="table" id="skill-item-table">
                                 <thead>
@@ -472,6 +501,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div id="tab-skill-levels" class="tab-content">
                         <div class="list-page-header" style="margin-bottom: 1rem;">
                             <h2 class="section-title" style="margin: 0; border: none;">習熟度レベル設定</h2>
@@ -536,29 +566,35 @@
     </div>
 
     <template id="category-row-template">
-        <tr>
-            <td><input type="text" class="form-control" placeholder="新規カテゴリ名"></td>
-            <td>
-                <select class="form-control">
-                    <option value="root" selected>(ルートカテゴリ)</option>
-                    <option value="mkt">マーケティング</option>
-                    <option value="des">デザイン</option>
-                    <option value="dev">開発</option>
-                    <option value="seo_ad">└ SEO/広告</option>
-                    <option value="sns">└ SNS</option>
-                    <option value="ui_ux">└ UI/UX</option>
-                    <option value="gfx">└ グラフィック</option>
-                    <option valueG="front">└ フロントエンド</option>
-                    <option value="back">└ バックエンド</option>
-                </select>
+        <tr data-toggle="collapse" data-target-id="new-cat-id">
+            <td class="category-name-cell indent-0">
+                <span class="toggle-icon no-child"></span>
+                <input type="text" class="form-control" placeholder="新規カテゴリ名">
             </td>
             <td class="col-actions">
                 <div class="table-button-group">
+                    <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
                     <button type="button" class="button button-danger">削除</button>
                 </div>
             </td>
         </tr>
     </template>
+    
+    <template id="subcategory-row-template">
+        <tr class="sub-category collapsed" data-parent-id="" data-target-id="new-subcat-id"> <td class="category-name-cell">
+                <span class="toggle-icon no-child"></span>
+                <span class="tree-prefix">└&nbsp;</span>
+                <input type="text" class="form-control" placeholder="新規サブカテゴリ名">
+            </td>
+            <td class="col-actions">
+                <div class="table-button-group">
+                    <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
+                    <button type="button" class="button button-danger">削除</button>
+                </div>
+            </td>
+        </tr>
+    </template>
+
 
     <template id="skill-item-row-template">
         <tr>
@@ -603,24 +639,192 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // --- テーブル行追加・削除の汎用ロジック ---
-            function setupTableRowAdder(tbodyId, addButtonId, templateId) {
+            // --- スキルカテゴリタブのロジック ---
+            const categoryTbody = document.getElementById('category-table-body');
+            const rootCategoryButton = document.getElementById('add-root-category-row');
+            const rootCategoryTemplate = document.getElementById('category-row-template');
+            const subCategoryTemplate = document.getElementById('subcategory-row-template');
+
+            if (categoryTbody && rootCategoryButton && rootCategoryTemplate && subCategoryTemplate) {
+                
+                // ルートカテゴリ追加ボタンのイベント
+                rootCategoryButton.addEventListener('click', () => {
+                    const clone = rootCategoryTemplate.content.cloneNode(true);
+                    const newId = `cat-new-${Date.now()}`;
+                    clone.querySelector('tr').dataset.targetId = newId; 
+                    categoryTbody.insertBefore(clone, categoryTbody.rows[1]);
+                });
+
+                // tbody 内のイベント委任 (削除、サブ追加、開閉)
+                categoryTbody.addEventListener('click', (e) => {
+                    const deleteButton = e.target.closest('.button-danger');
+                    const addSubButton = e.target.closest('.add-subcategory-button');
+                    const toggleIcon = e.target.closest('.toggle-icon');
+
+                    // 削除ボタンの処理
+                    if (deleteButton) {
+                        const row = deleteButton.closest('tr');
+                        if (row && !row.classList.contains('add-root-row')) {
+                            const targetId = row.dataset.targetId;
+                            if (targetId) {
+                                // 子孫要素を再帰的に削除する関数
+                                function removeDescendants(parentId) {
+                                    const children = categoryTbody.querySelectorAll(`[data-parent-id="${parentId}"]`);
+                                    children.forEach(child => {
+                                        const childTargetId = child.dataset.targetId;
+                                        if (childTargetId) {
+                                            removeDescendants(childTargetId); // 再帰呼び出し
+                                        }
+                                        child.remove();
+                                    });
+                                }
+                                removeDescendants(targetId); // 子孫を削除
+                            }
+                            row.remove(); // 自分自身を削除
+                        }
+                    }
+                    // 子カテゴリ追加ボタンの処理
+                    else if (addSubButton) {
+                        const parentRow = addSubButton.closest('tr');
+                         // ルート追加行からの追加も許可
+                        if (parentRow) { 
+                            
+                            const clone = subCategoryTemplate.content.cloneNode(true);
+                            const newRow = clone.querySelector('tr');
+                            const nameCell = newRow.querySelector('.category-name-cell');
+                            
+                            let parentId = parentRow.dataset.targetId || 'root'; // ルート行には targetId がないので 'root' とする
+                            // ルート追加行からの場合は parentId を null (または空) にする
+                             if (parentRow.classList.contains('add-root-row')) {
+                                parentId = null; 
+                             } else if (!parentRow.dataset.targetId) {
+                                // 既存行に ID がなければ仮設定
+                                parentId = `cat-temp-${Math.random().toString(36).substring(2, 9)}`;
+                                parentRow.dataset.targetId = parentId;
+                             }
+                            
+                            if (parentId) { // ルート直下以外
+                                newRow.dataset.parentId = parentId;
+                            }
+                            
+                            const newSubId = `cat-sub-${Date.now()}`;
+                            newRow.dataset.targetId = newSubId; 
+
+                            // --- インデントレベルの計算 ---
+                            let parentIndentLevel = -1;
+                             if (!parentRow.classList.contains('add-root-row')) { // ルート追加行以外
+                                const parentNameCell = parentRow.querySelector('.category-name-cell');
+                                if (parentNameCell) {
+                                    for (let i = 0; i < 5; i++) { // indent-0 から indent-4 までチェック (例)
+                                        if (parentNameCell.classList.contains(`indent-${i}`)) {
+                                            parentIndentLevel = i;
+                                            break;
+                                        }
+                                    }
+                                }
+                             }
+                            const newIndentLevel = parentIndentLevel + 1;
+                            
+                            // 新しい行にインデントクラスを設定
+                            if (nameCell) {
+                                nameCell.classList.remove('indent-0', 'indent-1', 'indent-2', 'indent-3'); // 既存をクリア
+                                nameCell.classList.add(`indent-${newIndentLevel}`);
+                            }
+                            // --- インデント計算ここまで ---
+
+
+                            const icon = parentRow.querySelector('.toggle-icon');
+                            const childRows = parentId ? categoryTbody.querySelectorAll(`[data-parent-id="${parentId}"]`) : []; // ルートの場合は子は空
+                            let insertAfter = parentRow;
+                            
+                            // 親が開いていなければ開く & アイコン更新
+                            if (icon && !parentRow.classList.contains('add-root-row')) { // ルート追加行のアイコンは操作しない
+                                if (icon.textContent === '▶') {
+                                     icon.textContent = '▼';
+                                     childRows.forEach(child => child.classList.remove('collapsed'));
+                                }
+                                if (icon.classList.contains('no-child')) {
+                                    icon.classList.remove('no-child');
+                                    if (icon.textContent !== '▼') icon.textContent = '▼';
+                                }
+                            }
+                           
+                            // 挿入位置の決定
+                            if (childRows.length > 0) {
+                                insertAfter = childRows[childRows.length - 1]; 
+                            }
+                             // ルート行からの追加の場合は、ルート行のすぐ下に挿入
+                             if (parentRow.classList.contains('add-root-row')) {
+                                 insertAfter = parentRow;
+                                 newRow.querySelector('.tree-prefix').textContent = ''; // ルートなのでツリー記号なし
+                                 newRow.querySelector('.category-name-cell').classList.add('indent-0'); // インデント0
+                             }
+                            
+                            // 新しい行は開いた状態で挿入
+                            newRow.classList.remove('collapsed'); 
+                            
+                            insertAfter.parentNode.insertBefore(clone, insertAfter.nextSibling);
+                        }
+                    }
+                    // 開閉アイコンの処理
+                    else if (toggleIcon && !toggleIcon.classList.contains('no-child')) {
+                        const row = toggleIcon.closest('tr');
+                        const targetId = row.dataset.targetId;
+                        if (!targetId) return;
+
+                        // 子孫要素を再帰的に開閉する関数
+                        function toggleDescendants(parentId, collapse) {
+                            const children = categoryTbody.querySelectorAll(`[data-parent-id="${parentId}"]`);
+                            children.forEach(child => {
+                                if (collapse) {
+                                    child.classList.add('collapsed');
+                                } else {
+                                    child.classList.remove('collapsed');
+                                }
+                                // 子がさらに子を持つ場合、親が開くときだけ再帰的に開く（閉じるときは全て閉じる）
+                                const childTargetId = child.dataset.targetId;
+                                const childIcon = child.querySelector('.toggle-icon');
+                                if (childTargetId && childIcon && !childIcon.classList.contains('no-child')) {
+                                     if (!collapse && childIcon.textContent === '▼') { // 親が開いていて、かつ子も開いていた場合のみ再帰
+                                         toggleDescendants(childTargetId, collapse);
+                                     } else if (collapse) { // 閉じるときは子の状態に関わらず再帰的に閉じる
+                                         toggleDescendants(childTargetId, collapse);
+                                     }
+                                }
+                            });
+                        }
+
+                        // 現在開いているかどうかの判定 (最初の子要素を見る)
+                        const firstChild = categoryTbody.querySelector(`[data-parent-id="${targetId}"]`);
+                        if (!firstChild) return; // 子がいない場合は何もしない
+
+                        const isCurrentlyCollapsed = firstChild.classList.contains('collapsed');
+
+                        if (isCurrentlyCollapsed) {
+                            toggleIcon.textContent = '▼';
+                            toggleDescendants(targetId, false); // 子孫を開く
+                        } else {
+                            toggleIcon.textContent = '▶';
+                            toggleDescendants(targetId, true); // 子孫を閉じる
+                        }
+                    }
+                });
+            }
+
+
+            // --- テーブル行追加・削除の汎用ロジック (スキル項目・習熟度用) ---
+            function setupSimpleTableRowAdder(tbodyId, addButtonId, templateId) {
+                // (変更なし)
                 const tbody = document.getElementById(tbodyId);
                 const addButton = document.getElementById(addButtonId);
                 const template = document.getElementById(templateId);
+                if (!tbody || !addButton || !template) return;
 
-                if (!tbody || !addButton || !template) {
-                    console.warn('Table adder elements not found for', tbodyId);
-                    return;
-                }
-
-                // 行追加
                 addButton.addEventListener('click', () => {
                     const clone = template.content.cloneNode(true);
                     tbody.appendChild(clone);
                 });
 
-                // 行削除 (イベント委任)
                 tbody.addEventListener('click', (e) => {
                     const deleteButton = e.target.closest('.button-danger');
                     if (deleteButton) {
@@ -628,52 +832,40 @@
                     }
                 });
             }
-
-            // スキルカテゴリの初期化
-            setupTableRowAdder('category-table-body', 'add-category-row', 'category-row-template');
             
-            // スキル項目の初期化
-            setupTableRowAdder('skill-item-table-body', 'add-skill-item-row', 'skill-item-row-template');
-
-            // 習熟度レベルの初期化
-            setupTableRowAdder('level-table-body', 'add-level-row', 'level-row-template');
+            setupSimpleTableRowAdder('skill-item-table-body', 'add-skill-item-row', 'skill-item-row-template');
+            setupSimpleTableRowAdder('level-table-body', 'add-level-row', 'level-row-template');
 
 
-            // --- リアルタイム検索の汎用ロジック ---
+            // --- リアルタイム検索の汎用ロジック (スキル項目タブのみ) ---
             function setupRealtimeSearch(inputId, tbodyId) {
+                // (変更なし)
                 const searchInput = document.getElementById(inputId);
                 const tableBody = document.getElementById(tbodyId);
-
-                if (!searchInput || !tableBody) {
-                    console.warn('Search elements not found for', inputId);
-                    return;
-                }
+                if (!searchInput || !tableBody) return;
 
                 searchInput.addEventListener('input', () => {
                     const searchTerm = searchInput.value.toLowerCase();
                     const rows = tableBody.getElementsByTagName('tr');
 
                     Array.from(rows).forEach(row => {
+                        if (row.classList.contains('add-root-row')) return;
+
                         const inputInCell = row.querySelector('td:first-child input');
                         if (inputInCell) {
                             const cellValue = inputInCell.value.toLowerCase();
                             if (cellValue.includes(searchTerm)) {
-                                row.style.display = ''; // 表示
+                                row.style.display = '';
                             } else {
-                                row.style.display = 'none'; // 非表示
+                                row.style.display = 'none';
                             }
                         }
                     });
                 });
             }
-
-            // スキルカテゴリのリアルタイム検索を初期化
-            setupRealtimeSearch('search-category', 'category-table-body');
             
-            // スキル項目のリアルタイム検索を初期化
             setupRealtimeSearch('search-skill-item', 'skill-item-table-body');
         });
     </script>
-
-</body>
+    </body>
 </html>
