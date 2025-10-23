@@ -32,7 +32,7 @@
         </header>
 
         <main class="mockup-main">
-            <div id="contacts" class="mockup-page active"> 
+            <div id="contacts" class="mockup-page active">
                 <div class="list-page-header">
                     <h1 class="page-title">取引先一覧</h1>
                     <div>
@@ -42,10 +42,6 @@
                 </div>
 
                 <div class="section">
-                    <div class="section-header">
-                        <h2 class="section-title-in-header">検索条件</h2>
-                        <button type="button" class="button button-secondary" onclick="document.querySelector('#contacts .filter-form').reset(); filterPartners();">クリア</button>
-                    </div>
                     <form class="section-content filter-form">
                         <div class="form-group">
                             <label for="search-partner-name" class="form-label">会社名</label>
@@ -61,7 +57,8 @@
                                 <option value="other">その他</option>
                             </select>
                         </div>
-                        </form>
+                        <button type="button" class="button button-secondary filter-clear-button" onclick="document.querySelector('#contacts .filter-form').reset(); filterPartners();">クリア</button>
+                    </form>
                 </div>
                 <div class="table-wrapper" style="margin-top: 1.5rem;">
                     <table class="table">
@@ -102,22 +99,22 @@
                 </div>
             </div>
 
-            <div id="contact-detail" class="mockup-page"> 
+            <div id="contact-detail" class="mockup-page">
                 <div class="list-page-header">
-                    <h1 class="page-title">株式会社A</h1> 
+                    <h1 class="page-title">株式会社A</h1>
                     <div>
                         <button class="button button-secondary" style="margin-right: 0.5rem;" onclick="showPage('contacts')">一覧へ戻る</button>
                         <button type="button" class="button button-danger" onclick="alert('「株式会社A」のデータを削除します。よろしいですか？')">削除</button>
                     </div>
                 </div>
-                
+
                 <div class="sub-nav">
                     <ul id="partner-detail-subnav">
                         <li><a href="#" class="sub-nav-item active" data-tab="tab-company-info">取引先情報</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-trade-history">取引履歴</a></li>
                     </ul>
                 </div>
-                
+
                 <div id="tab-company-info" class="tab-content active" style="border-top: none; padding-top: 0;">
                     <div class="section">
                          <div class="section-header">
@@ -129,11 +126,11 @@
                                 <dt>会社名</dt><dd>株式会社A</dd>
                                 <dt>住所</dt><dd>〒XXX-XXXX 東京都...</dd>
                                 <dt>電話番号</dt><dd>03-XXXX-XXXX</dd>
-                                <dt>種別</dt><dd>顧客</dd> 
+                                <dt>種別</dt><dd>顧客</dd>
                             </dl>
                         </div>
                     </div>
-                    
+
                     <div class="section">
                         <div class="section-header">
                             <h2 class="section-title-in-header">担当者一覧</h2>
@@ -167,10 +164,6 @@
 
                 <div id="tab-trade-history" class="tab-content" style="border-top: none; padding-top: 0;">
                     <div class="section">
-                        <div class="section-header">
-                             <h2 class="section-title-in-header">検索条件</h2>
-                             <button type="button" class="button button-secondary" onclick="document.querySelector('#tab-trade-history .filter-form').reset();">クリア</button>
-                        </div>
                         <form class="section-content filter-form">
                             <div class="form-group">
                                 <label for="search-history-project-name" class="form-label">案件名</label>
@@ -186,7 +179,8 @@
                                     <option value="キャンセル">キャンセル</option>
                                 </select>
                             </div>
-                            </form>
+                            <button type="button" class="button button-secondary filter-clear-button" onclick="document.querySelector('#tab-trade-history .filter-form').reset();">クリア</button>
+                        </form>
                     </div>
                     <div class="table-wrapper" style="margin-top: 1.5rem;">
                         <table class="table">
@@ -300,7 +294,7 @@
 
             Array.from(rows).forEach(row => {
                 const companyName = row.cells[0]?.textContent.toLowerCase() || '';
-                const partnerTypes = (row.dataset.partnerType || '').split(' '); 
+                const partnerTypes = (row.dataset.partnerType || '').split(' ');
                 const nameMatch = companyName.includes(nameFilter);
                 const typeMatch = typeFilter === "" || partnerTypes.includes(typeFilter);
 
@@ -311,22 +305,22 @@
                 }
             });
         }
-        
+
         document.addEventListener('DOMContentLoaded', () => {
             const subNavContainer = document.getElementById('partner-detail-subnav');
-            const tabContents = document.querySelectorAll('#contact-detail .tab-content'); 
-            
+            const tabContents = document.querySelectorAll('#contact-detail .tab-content');
+
             if (subNavContainer && tabContents.length > 0) {
                 subNavContainer.addEventListener('click', (e) => {
                     const navItem = e.target.closest('.sub-nav-item');
                     if (!navItem || navItem.classList.contains('active')) { return; }
                     e.preventDefault();
-                    
+
                     const targetTabId = navItem.dataset.tab;
-                    
+
                     subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
                     navItem.classList.add('active');
-                    
+
                     tabContents.forEach(content => {
                         if (content.id === targetTabId) {
                             content.classList.add('active');

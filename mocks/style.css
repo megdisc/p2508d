@@ -1055,6 +1055,31 @@ textarea.work-content {
 }
 /* ▲▲▲ 追加ここまで ▲▲▲ */
 
+/* ▼▼▼ 追加 ▼▼▼ */
+/* 日々の記録 > ヒヤリハット・事故報告一覧テーブルの行をクリック可能にするスタイル */
+#incident-reports-tbody .clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#incident-reports-tbody .clickable-row:hover {
+    background-color: var(--color-hover-bg);
+}
+/* ▲▲▲ 追加ここまで ▲▲▲ */
+
+/* ▼▼▼ 追加 ▼▼▼ */
+/* 日々の記録 > 業務日誌 > 利用状況テーブルの行をクリック可能にするスタイル */
+#daily-records-tbody .clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#daily-records-tbody .clickable-row:hover {
+    background-color: var(--color-hover-bg);
+}
+/* ▲▲▲ 追加ここまで ▲▲▲ */
+
+
 
 
 
@@ -1161,6 +1186,11 @@ textarea.work-content {
         grid-template-columns: 1fr;
     }
 }
+
+
+
+
+
 
 /* 案件一覧の行をクリック可能にするスタイル */
 #project-list-tbody .clickable-row {

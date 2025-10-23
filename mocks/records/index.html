@@ -5,9 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>p2508d - 記録・書類管理モックアップ</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        .filter-form-inline {
+            display: flex;
+            align-items: flex-end;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .filter-form-inline .form-group {
+            margin-bottom: 0;
+            flex-grow: 1;
+        }
+         .filter-form-inline .button-secondary {
+             margin-bottom: 0;
+             height: calc(1.5em + 1rem + 2px);
+             flex-shrink: 0;
+         }
+         /* ▼▼▼ 追加: 日付選択セクション用のスタイル ▼▼▼ */
+         .date-selector-section .section-content {
+             display: flex;
+             align-items: center;
+             gap: 0.5rem;
+         }
+         .date-selector-section .form-label {
+             margin-bottom: 0; /* ラベル下のマージンを削除 */
+             font-weight: 500; /* 通常の太さに */
+         }
+         .date-selector-section .form-control {
+            width: auto; /* 日付入力欄の幅を自動調整 */
+         }
+         /* ▲▲▲ 追加ここまで ▲▲▲ */
+    </style>
 </head>
 <body>
-    <div class="mockup-container"><header class="header">
+    <div class="mockup-container">
+        <header class="header">
             <div>
                 <h1 class="header-logo"><a href="../dashboard/index.html">p2508d</a></h1>
             </div>
@@ -31,96 +63,522 @@
             </header>
 
         <main class="mockup-main">
-            <div id="daily-logs" class="mockup-page active">
-                <div class="list-page-header">
-                    <h1 class="page-title">業務日誌</h1>
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <label for="log-date">対象日:</label>
-                        <input type="date" id="log-date" value="2025-10-15" style="padding: 0.5rem;">
-                    </div>
-                </div>
-                <div class="section">
-                    <h2 class="section-title">今日の特記事項</h2>
-                    <div class="section-content">
-                        <textarea rows="5">- 青木様、新しい作業工程「検品」のトレーニングを開始。順調な滑り出し。
-- 午後、株式会社Aの鈴木部長が来所。</textarea>
-                    </div>
-                </div>
-                <div class="section">
-                    <h2 class="section-title">利用者様の様子</h2>
-                    <div class="section-content">
-                        <dl class="detail-grid" style="grid-template-columns: 100px 1fr;">
-                            <dt>五十嵐様</dt>
-                            <dd><input type="text" value="集中して作業に取り組めていた。"></dd>
-                            <dt>遠藤様</dt>
-                            <dd><input type="text" value="午後から少し疲れが見られたため、休憩を促した。"></dd>
-                        </dl>
-                    </div>
-                </div>
-                <div class="section-footer" style="display: flex; justify-content: space-between; align-items: center;">
-                     <div>
-                        <label for="log-author">記録者:</label>
-                        <select id="log-author" style="padding: 0.5rem;">
-                            <option>管理者 太郎</option>
-                            <option selected>支援員 次郎</option>
-                        </select>
-                    </div>
-                    <button class="button button-primary">日誌を保存</button>
-                </div>
+
+            <div class="list-page-header" style="margin-bottom: 1.5rem;">
+                <h1 class="page-title">日々の記録</h1>
             </div>
 
-            <div id="incident-reports" class="mockup-page">
-                <div class="list-page-header">
-                    <h1 class="page-title">ヒヤリハット・事故報告一覧</h1>
-                    <button class="button button-primary">＋ 新規報告作成</button>
+            <div class="sub-nav">
+                <ul id="records-subnav">
+                    <li><a href="#" class="sub-nav-item active" data-tab="tab-daily-logs">業務日誌</a></li>
+                    <li><a href="#" class="sub-nav-item" data-tab="tab-incident-reports">ヒヤリハット・事故報告</a></li>
+                </ul>
+            </div>
+            <div class="tab-content-wrapper">
+
+                <div id="tab-daily-logs" class="tab-content active">
+
+                    <div class="section date-selector-section" style="margin-bottom: 1.5rem;">
+                         <div class="section-content">
+                             <label for="daily-log-date-selector" class="form-label">対象日:</label>
+                             <input type="date" id="daily-log-date-selector" class="form-control" value="2025-10-15">
+                             </div>
+                    </div>
+                    <div class="section">
+                        <h2 class="section-title">利用状況</h2>
+
+                        <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--color-border);">
+                            <div class="form-group" style="flex-grow: 2;">
+                                <label for="search-log-member-name" class="form-label">利用者名</label>
+                                <input type="text" id="search-log-member-name" class="form-control" placeholder="氏名で検索...">
+                            </div>
+                            <div class="form-group">
+                                <label for="filter-log-status" class="form-label">利用実績</label>
+                                <select id="filter-log-status" class="form-control">
+                                    <option value="">すべて</option>
+                                    <option value="利用 (通所)">利用 (通所)</option>
+                                    <option value="利用 (在宅)">利用 (在宅)</option>
+                                    <option value="欠席 (連絡あり)">欠席 (連絡あり)</option>
+                                    <option value="欠席 (連絡なし)">欠席 (連絡なし)</option>
+                                </select>
+                            </div>
+                            <button type="button" class="button button-secondary">クリア</button>
+                        </form>
+
+                        <div class="table-wrapper">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>利用者名</th>
+                                        <th>利用実績</th>
+                                        <th>利用時間</th>
+                                        <th>昼食</th>
+                                        <th>送迎</th>
+                                        <th>作業メモ</th>
+                                        <th>支援メモ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="daily-records-tbody">
+                                    <tr class="clickable-row" data-member-name="青木 誠" data-status="利用 (通所)" data-start-time="09:30" data-end-time="15:30" data-lunch="yes" data-pickup="roundtrip" data-work-memo="データ入力作業 (A案件) を実施。" data-support-memo="集中して取り組めていた。15時にやや疲れが見られたため声掛け。">
+                                        <td>青木 誠</td>
+                                        <td>利用 (通所)</td>
+                                        <td>09:30-15:30</td>
+                                        <td>要</td>
+                                        <td>往復</td>
+                                        <td style="text-align: left; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="データ入力作業 (A案件) を実施。">データ入力作業...</td>
+                                        <td style="text-align: left; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="集中して取り組めていた。15時にやや疲れが見られたため声掛け。">集中して取り組めて...</td>
+                                    </tr>
+                                    <tr class="clickable-row" data-member-name="五十嵐 直人" data-status="利用 (通所)" data-start-time="09:00" data-end-time="15:00" data-lunch="yes" data-pickup="none" data-work-memo="B社 部品組み立て" data-support-memo="">
+                                        <td>五十嵐 直人</td>
+                                        <td>利用 (通所)</td>
+                                        <td>09:00-15:00</td>
+                                        <td>要</td>
+                                        <td>無</td>
+                                        <td style="text-align: left;">B社 部品組み立て</td>
+                                        <td style="text-align: left;"></td>
+                                    </tr>
+                                    <tr class="clickable-row" data-member-name="遠藤 雅彦" data-status="欠席 (連絡あり)" data-start-time="" data-end-time="" data-lunch="no" data-pickup="none" data-work-memo="" data-support-memo="体調不良のため欠席（連絡あり）">
+                                        <td>遠藤 雅彦</td>
+                                        <td>欠席 (連絡あり)</td>
+                                        <td>-</td>
+                                        <td>不要</td>
+                                        <td>無</td>
+                                        <td style="text-align: left;"></td>
+                                        <td style="text-align: left;">体調不良のため...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                         <div class="section-header">
+                             <h2 class="section-title-in-header">特記事項</h2>
+                             <button class="button button-primary" onclick="openModal('edit-daily-notes-modal')">編集</button>
+                         </div>
+                        <div class="section-content">
+                            <p id="daily-notes-display">- 青木様、新しい作業工程「検品」のトレーニングを開始。順調な滑り出し。<br>- 午後、株式会社Aの鈴木部長が来所。</p>
+                        </div>
+                    </div>
+
+                    <div class="section-footer" style="display: flex; justify-content: space-between; align-items: center;">
+                         <div>
+                            <label for="log-author">記録者:</label>
+                            <select id="log-author" class="form-control" style="width: auto; display: inline-block; padding: 0.5rem;">
+                                <option>管理者 太郎</option>
+                                <option selected>支援員 次郎</option>
+                            </select>
+                        </div>
+                        <button class="button button-danger">日誌を記録</button>
+                    </div>
                 </div>
-                <div class="table-wrapper">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>発生日時</th>
-                                <th>種別</th>
-                                <th>報告者</th>
-                                <th>状況</th>
-                                <th class="col-actions">操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>2025/10/14 11:00</td>
-                                <td>ヒヤリハット</td>
-                                <td>支援員 次郎</td>
-                                <td>確認済</td>
-                                <td class="col-actions">
-                                    <div class="table-button-group">
-                                        <button class="button button-primary">詳細</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2025/09/20 15:30</td>
-                                <td>事故報告</td>
-                                <td>管理者 太郎</td>
-                                <td>対応完了</td>
-                                <td class="col-actions">
-                                    <div class="table-button-group">
-                                        <button class="button button-primary">詳細</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                <div id="tab-incident-reports" class="tab-content">
+                    <div class="section">
+                        <div class="section-header">
+                            <h2 class="section-title-in-header">検索条件</h2>
+                            <button type="button" class="button button-secondary">クリア</button>
+                        </div>
+                        <form class="section-content filter-form" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+                            <div class="form-group">
+                                <label for="search-incident-date-start" class="form-label">発生日(始)</label>
+                                <input type="date" id="search-incident-date-start" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="search-incident-date-end" class="form-label">発生日(終)</label>
+                                <input type="date" id="search-incident-date-end" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="filter-incident-type" class="form-label">種別</label>
+                                <select id="filter-incident-type" class="form-control">
+                                    <option value="">すべて</option>
+                                    <option value="ヒヤリハット">ヒヤリハット</option>
+                                    <option value="事故報告">事故報告</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="filter-incident-reporter" class="form-label">報告者</label>
+                                <select id="filter-incident-reporter" class="form-control">
+                                    <option value="">すべて</option>
+                                    <option value="管理者 太郎">管理者 太郎</option>
+                                    <option value="支援員 次郎">支援員 次郎</option>
+                                </select>
+                            </div>
+                             <div class="form-group">
+                                <label for="filter-incident-status" class="form-label">状況</label>
+                                <select id="filter-incident-status" class="form-control">
+                                    <option value="">すべて</option>
+                                    <option value="確認済">確認済</option>
+                                    <option value="対応完了">対応完了</option>
+                                    <option value="未確認">未確認</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="table-wrapper" style="margin-top: 1.5rem;">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>発生日時</th>
+                                    <th>種別</th>
+                                    <th>報告者</th>
+                                    <th>状況</th>
+                                </tr>
+                            </thead>
+                            <tbody id="incident-reports-tbody">
+                                <tr class="clickable-row"
+                                    data-datetime="2025-10-14 11:00"
+                                    data-type="ヒヤリハット"
+                                    data-reporter="支援員 次郎"
+                                    data-status="確認済">
+                                    <td>2025/10/14 11:00</td>
+                                    <td>ヒヤリハット</td>
+                                    <td>支援員 次郎</td>
+                                    <td>確認済</td>
+                                </tr>
+                                <tr class="clickable-row"
+                                    data-datetime="2025-09-20 15:30"
+                                    data-type="事故報告"
+                                    data-reporter="管理者 太郎"
+                                    data-status="対応完了">
+                                    <td>2025/09/20 15:30</td>
+                                    <td>事故報告</td>
+                                    <td>管理者 太郎</td>
+                                    <td>対応完了</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                     <div class="list-page-header" style="justify-content: flex-end; margin-top: 1.5rem;">
+                        <button class="button button-primary">＋ 新規報告作成</button>
+                    </div>
                 </div>
+
             </div>
         </main>
     </div>
 
+    <div id="edit-daily-notes-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">特記事項 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-daily-notes-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="daily-notes-textarea">内容</label>
+                    <textarea id="daily-notes-textarea" class="form-control" rows="8"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-secondary" onclick="closeModal('edit-daily-notes-modal')">キャンセル</button>
+                <button type="button" class="button button-primary" id="save-daily-notes-button">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="service-record-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">利用記録 編集 (<span id="modal-record-date"></span> <span id="modal-record-member-name"></span>)</h2>
+                <span class="modal-close" onclick="closeModal('service-record-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="modal-record-row-index">
+                <div class="form-group">
+                    <label for="modal-record-status">利用実績</label>
+                    <select id="modal-record-status" class="form-control">
+                        <option value="利用 (通所)">利用 (通所)</option>
+                        <option value="利用 (在宅)">利用 (在宅)</option>
+                        <option value="欠席 (連絡あり)">欠席 (連絡あり)</option>
+                        <option value="欠席 (連絡なし)">欠席 (連絡なし)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>利用時間</label>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="time" id="modal-record-start-time" class="form-control">
+                        <span>〜</span>
+                        <input type="time" id="modal-record-end-time" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="modal-record-lunch">昼食</label>
+                    <select id="modal-record-lunch" class="form-control">
+                        <option value="yes">要</option>
+                        <option value="no">不要</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modal-record-pickup">送迎</label>
+                    <select id="modal-record-pickup" class="form-control">
+                        <option value="none">無</option>
+                        <option value="roundtrip">往復</option>
+                        <option value="oneway_go">往（迎えのみ）</option>
+                        <option value="oneway_back">復（送りのみ）</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modal-record-work-memo">作業内容メモ</label>
+                    <textarea id="modal-record-work-memo" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="modal-record-support-memo">支援員メモ (内部用)</label>
+                    <textarea id="modal-record-support-memo" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-secondary" onclick="closeModal('service-record-modal')">キャンセル</button>
+                <button type="button" class="button button-primary" id="save-service-record-button">保存</button>
+            </div>
+        </div>
+    </div>
+
     <script src="../script.js"></script>
+
     <script>
-        // ページ読み込み時にURLにハッシュ(#)がなければ、#daily-logsをデフォルトとして設定する
-        if (!location.hash) {
-            location.hash = '#daily-logs';
+        // --- 業務日誌タブ ---
+        function filterDailyRecords() {
+            const nameInput = document.getElementById('search-log-member-name');
+            const statusSelect = document.getElementById('filter-log-status');
+            const tableBody = document.getElementById('daily-records-tbody');
+            if (!nameInput || !statusSelect || !tableBody) return;
+            const nameFilter = nameInput.value.toLowerCase();
+            const statusFilter = statusSelect.value;
+            const rows = tableBody.getElementsByTagName('tr');
+            Array.from(rows).forEach(row => {
+                const memberNameData = row.dataset.memberName?.toLowerCase() || '';
+                const statusData = row.dataset.status || '';
+                const nameMatch = memberNameData.includes(nameFilter);
+                const statusMatch = statusFilter === "" || statusData === statusFilter;
+                row.style.display = (nameMatch && statusMatch) ? '' : 'none';
+            });
         }
+        const dailyNotesDisplay = document.getElementById('daily-notes-display');
+        const dailyNotesTextarea = document.getElementById('daily-notes-textarea');
+        const saveDailyNotesButton = document.getElementById('save-daily-notes-button');
+        const editNotesButton = document.querySelector('#tab-daily-logs .section-header .button-primary[onclick*="edit-daily-notes-modal"]');
+        if (editNotesButton) {
+             editNotesButton.onclick = () => {
+                 if(dailyNotesDisplay && dailyNotesTextarea){
+                     dailyNotesTextarea.value = dailyNotesDisplay.innerHTML.replace(/<br\s*[\/]?>/gi, '\n');
+                 }
+                 openModal('edit-daily-notes-modal');
+             }
+        }
+        if (saveDailyNotesButton && dailyNotesDisplay && dailyNotesTextarea) {
+            saveDailyNotesButton.addEventListener('click', () => {
+                dailyNotesDisplay.innerHTML = dailyNotesTextarea.value.replace(/\n/g, '<br>');
+                closeModal('edit-daily-notes-modal');
+            });
+        }
+
+        // --- ヒヤリハット・事故報告タブ ---
+        function filterIncidents() { /* ... (変更なし) ... */
+             const dateStartInput = document.getElementById('search-incident-date-start');
+            const dateEndInput = document.getElementById('search-incident-date-end');
+            const typeSelect = document.getElementById('filter-incident-type');
+            const reporterSelect = document.getElementById('filter-incident-reporter');
+            const statusSelect = document.getElementById('filter-incident-status');
+            const tableBody = document.getElementById('incident-reports-tbody');
+            if (!dateStartInput || !dateEndInput || !typeSelect || !reporterSelect || !statusSelect || !tableBody) return;
+            const dateStartFilter = dateStartInput.value;
+            const dateEndFilter = dateEndInput.value;
+            const typeFilter = typeSelect.value;
+            const reporterFilter = reporterSelect.value;
+            const statusFilter = statusSelect.value;
+            const rows = tableBody.getElementsByTagName('tr');
+            Array.from(rows).forEach(row => {
+                const datetimeData = row.dataset.datetime || '';
+                const dateData = datetimeData.split(' ')[0];
+                const typeData = row.dataset.type || '';
+                const reporterData = row.dataset.reporter || '';
+                const statusData = row.dataset.status || '';
+                const dateMatch = (!dateStartFilter || dateData >= dateStartFilter) && (!dateEndFilter || dateData <= dateEndFilter);
+                const typeMatch = typeFilter === "" || typeData === typeFilter;
+                const reporterMatch = reporterFilter === "" || reporterData === reporterFilter;
+                const statusMatch = statusFilter === "" || statusData === statusFilter;
+                row.style.display = (dateMatch && typeMatch && reporterMatch && statusMatch) ? '' : 'none';
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- サブナビゲーション（タブ）切り替え ---
+            const subNavContainer = document.getElementById('records-subnav');
+            const tabContents = document.querySelectorAll('.tab-content-wrapper .tab-content');
+            if (subNavContainer && tabContents.length > 0) {
+                 subNavContainer.addEventListener('click', (e) => { /* ... (変更なし) ... */
+                    const navItem = e.target.closest('.sub-nav-item');
+                    if (!navItem || navItem.classList.contains('active')) { return; }
+                    e.preventDefault();
+                    const targetTabId = navItem.dataset.tab;
+                    window.location.hash = '#' + targetTabId;
+                    subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                    navItem.classList.add('active');
+                    tabContents.forEach(content => {
+                        content.classList.toggle('active', content.id === targetTabId);
+                        // ▼▼▼ 追加: display スタイルも切り替える ▼▼▼
+                        content.style.display = (content.id === targetTabId) ? 'block' : 'none';
+                         // ▲▲▲ 追加ここまで ▲▲▲
+                    });
+                });
+                 // 初期表示 (URLハッシュに基づく)
+                 const initialTabId = window.location.hash ? window.location.hash.substring(1) : 'tab-daily-logs';
+                 const initialNavItem = subNavContainer.querySelector(`.sub-nav-item[data-tab="${initialTabId}"]`);
+                 const initialTabContent = document.getElementById(initialTabId);
+                 if (initialNavItem && initialTabContent) {
+                     subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                     tabContents.forEach(content => { content.classList.remove('active'); content.style.display = 'none'; }); // display:none 追加
+                     initialNavItem.classList.add('active');
+                     initialTabContent.classList.add('active');
+                     initialTabContent.style.display = 'block'; // display:block 追加
+                 } else {
+                     const defaultNavItem = subNavContainer.querySelector('.sub-nav-item[data-tab="tab-daily-logs"]');
+                     const defaultTabContent = document.getElementById('tab-daily-logs');
+                     if(defaultNavItem && defaultTabContent){
+                         subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                         tabContents.forEach(content => { content.classList.remove('active'); content.style.display = 'none'; }); // display:none 追加
+                         defaultNavItem.classList.add('active');
+                         defaultTabContent.classList.add('active');
+                         defaultTabContent.style.display = 'block'; // display:block 追加
+                     }
+                 }
+            }
+
+            // --- 業務日誌: フィルタリングのイベントリスナー設定 ---
+            if (typeof window.filterDailyRecords === 'function') {
+                const nameInputListener = document.getElementById('search-log-member-name');
+                const statusSelectListener = document.getElementById('filter-log-status');
+                const clearButton = document.querySelector('#tab-daily-logs .filter-form-inline .button-secondary');
+                // 対象日のリスナー削除
+                if(nameInputListener) nameInputListener.addEventListener('input', filterDailyRecords);
+                if(statusSelectListener) statusSelectListener.addEventListener('change', filterDailyRecords);
+                if(clearButton) {
+                    clearButton.addEventListener('click', () => {
+                         const form = clearButton.closest('.filter-form-inline');
+                         if (form) {
+                             form.reset();
+                             filterDailyRecords();
+                         }
+                    });
+                }
+                filterDailyRecords();
+            }
+
+            // --- 業務日誌: 利用状況テーブル行クリック処理 ---
+            const dailyRecordsTbody = document.getElementById('daily-records-tbody');
+            if (dailyRecordsTbody) {
+                dailyRecordsTbody.addEventListener('click', (e) => {
+                     const clickedRow = e.target.closest('tr.clickable-row');
+                     if (clickedRow) {
+                         const rowIndex = Array.from(dailyRecordsTbody.children).indexOf(clickedRow);
+                         const memberName = clickedRow.dataset.memberName;
+                         // ▼▼▼ 変更: 日付を新しいセレクタから取得 ▼▼▼
+                         const logDate = document.getElementById('daily-log-date-selector')?.value || '';
+                         // ▲▲▲ 変更ここまで ▲▲▲
+
+                         const modalDate = document.getElementById('modal-record-date');
+                         const modalMemberName = document.getElementById('modal-record-member-name');
+                         const modalStatus = document.getElementById('modal-record-status');
+                         const modalStartTime = document.getElementById('modal-record-start-time');
+                         const modalEndTime = document.getElementById('modal-record-end-time');
+                         const modalLunch = document.getElementById('modal-record-lunch');
+                         const modalPickup = document.getElementById('modal-record-pickup');
+                         const modalWorkMemo = document.getElementById('modal-record-work-memo');
+                         const modalSupportMemo = document.getElementById('modal-record-support-memo');
+                         const modalRowIndex = document.getElementById('modal-record-row-index');
+                         if(modalDate) modalDate.textContent = logDate; // 対象日を設定
+                         if(modalMemberName) modalMemberName.textContent = memberName || '';
+                         if(modalStatus) modalStatus.value = clickedRow.dataset.status || '';
+                         if(modalStartTime) modalStartTime.value = clickedRow.dataset.startTime || '';
+                         if(modalEndTime) modalEndTime.value = clickedRow.dataset.endTime || '';
+                         if(modalLunch) modalLunch.value = clickedRow.dataset.lunch || 'no';
+                         if(modalPickup) modalPickup.value = clickedRow.dataset.pickup || 'none';
+                         if(modalWorkMemo) modalWorkMemo.value = clickedRow.dataset.workMemo || '';
+                         if(modalSupportMemo) modalSupportMemo.value = clickedRow.dataset.supportMemo || '';
+                         if(modalRowIndex) modalRowIndex.value = rowIndex;
+                         openModal('service-record-modal');
+                     }
+                });
+            }
+
+            // --- 業務日誌: 利用記録モーダル保存処理 ---
+            const saveServiceRecordButton = document.getElementById('save-service-record-button');
+            if(saveServiceRecordButton){
+                 saveServiceRecordButton.addEventListener('click', () => { /* ... (変更なし) ... */
+                     const rowIndex = parseInt(document.getElementById('modal-record-row-index')?.value, 10);
+                     const tableBody = document.getElementById('daily-records-tbody');
+                     if(tableBody && !isNaN(rowIndex) && rowIndex >= 0 && rowIndex < tableBody.rows.length){
+                         const targetRow = tableBody.rows[rowIndex];
+                         const status = document.getElementById('modal-record-status')?.value || '';
+                         const startTime = document.getElementById('modal-record-start-time')?.value || '';
+                         const endTime = document.getElementById('modal-record-end-time')?.value || '';
+                         const lunch = document.getElementById('modal-record-lunch')?.value || '';
+                         const pickup = document.getElementById('modal-record-pickup')?.value || '';
+                         const workMemo = document.getElementById('modal-record-work-memo')?.value || '';
+                         const supportMemo = document.getElementById('modal-record-support-memo')?.value || '';
+                         targetRow.dataset.status = status;
+                         targetRow.dataset.startTime = startTime;
+                         targetRow.dataset.endTime = endTime;
+                         targetRow.dataset.lunch = lunch;
+                         targetRow.dataset.pickup = pickup;
+                         targetRow.dataset.workMemo = workMemo;
+                         targetRow.dataset.supportMemo = supportMemo;
+                         targetRow.cells[1].textContent = status;
+                         targetRow.cells[2].textContent = (startTime && endTime) ? `${startTime}-${endTime}` : '-';
+                         targetRow.cells[3].textContent = (lunch === 'yes') ? '要' : '不要';
+                         targetRow.cells[4].textContent = {none: '無', roundtrip: '往復', oneway_go: '往', oneway_back: '復'}[pickup] || '無';
+                         const workMemoCell = targetRow.cells[5];
+                         workMemoCell.textContent = workMemo;
+                         workMemoCell.title = workMemo;
+                         if(workMemo.length > 20) workMemoCell.textContent = workMemo.substring(0, 18) + '...';
+                         const supportMemoCell = targetRow.cells[6];
+                         supportMemoCell.textContent = supportMemo;
+                         supportMemoCell.title = supportMemo;
+                         if(supportMemo.length > 20) supportMemoCell.textContent = supportMemo.substring(0, 18) + '...';
+                         closeModal('service-record-modal');
+                     } else {
+                         console.error("Failed to find row to update or invalid row index.");
+                     }
+                 });
+            }
+
+            // --- ヒヤリハット・事故報告一覧: フィルタリングのイベントリスナー設定 ---
+            if (typeof window.filterIncidents === 'function') {
+                const dateStartListener = document.getElementById('search-incident-date-start');
+                const dateEndListener = document.getElementById('search-incident-date-end');
+                const typeSelectListener = document.getElementById('filter-incident-type');
+                const reporterSelectListener = document.getElementById('filter-incident-reporter');
+                const statusSelectListener = document.getElementById('filter-incident-status');
+                const clearButton = document.querySelector('#tab-incident-reports .section-header .button-secondary');
+                if(dateStartListener) dateStartListener.addEventListener('change', filterIncidents);
+                if(dateEndListener) dateEndListener.addEventListener('change', filterIncidents);
+                if(typeSelectListener) typeSelectListener.addEventListener('change', filterIncidents);
+                if(reporterSelectListener) reporterSelectListener.addEventListener('change', filterIncidents);
+                if(statusSelectListener) statusSelectListener.addEventListener('change', filterIncidents);
+                if(clearButton) {
+                    clearButton.addEventListener('click', () => {
+                         const form = document.querySelector('#tab-incident-reports .filter-form');
+                         if (form) form.reset();
+                         filterIncidents();
+                    });
+                }
+                filterIncidents();
+            }
+
+            // --- ヒヤリハット・事故報告一覧: 行クリック処理 ---
+            const incidentTableBody = document.getElementById('incident-reports-tbody');
+            if (incidentTableBody) {
+                 incidentTableBody.addEventListener('click', (e) => { /* ... (変更なし) ... */
+                     const clickedRow = e.target.closest('tr.clickable-row');
+                     if (clickedRow) {
+                         const dateTime = clickedRow.dataset.datetime;
+                         const type = clickedRow.dataset.type;
+                         alert(`「${dateTime} ${type}」の詳細を表示します。（実装は別途）`);
+                     }
+                 });
+            }
+        });
     </script>
 </body>
 </html>
