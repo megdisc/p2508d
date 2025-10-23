@@ -32,13 +32,41 @@
         </header>
 
         <main class="mockup-main">
-            <div id="staff" class="mockup-page">
-                <div class="list-page-header">
+            <div id="staff" class="mockup-page active"> <div class="list-page-header">
                     <h1 class="page-title">職員一覧</h1>
                     <button class="button button-primary" onclick="openModal('edit-staff-basic-modal')">＋ 新規作成</button>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title-in-header">検索条件</h2>
+                        <button type="button" class="button button-secondary">クリア</button>
                     </div>
-                <div class="table-wrapper">
-                    <table class="table">
+                    <form class="section-content filter-form">
+                        <div class="form-group">
+                            <label for="search-staff-name" class="form-label">職員名</label>
+                            <input type="text" id="search-staff-name" class="form-control" placeholder="氏名で検索...">
+                        </div>
+                        <div class="form-group">
+                            <label for="filter-staff-role" class="form-label">役職</label>
+                            <select id="filter-staff-role" class="form-control">
+                                <option value="">すべて</option>
+                                <option value="管理者">管理者</option>
+                                <option value="サービス管理責任者">サービス管理責任者</option>
+                                <option value="職業指導員">職業指導員</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="filter-staff-status" class="form-label">雇用形態</label>
+                            <select id="filter-staff-status" class="form-control">
+                                <option value="">すべて</option>
+                                <option value="常勤">常勤</option>
+                                <option value="非常勤">非常勤</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="table-wrapper" style="margin-top: 1.5rem;"> <table class="table">
                         <thead>
                             <tr>
                                 <th>職員名</th>
@@ -67,20 +95,23 @@
                 </div>
             </div>
 
-            <div id="staff-detail" class="mockup-page">
-                <div class="list-page-header">
+            <div id="staff-detail" class="mockup-page"> <div class="list-page-header">
                     <h1 class="page-title">管理者 太郎</h1>
                     <div>
                         <a href="#staff" class="button button-secondary" style="margin-right: 0.5rem;" onclick="showPage('staff')">一覧へ戻る</a>
                         <button type="button" class="button button-danger" onclick="alert('「管理者 太郎」様のデータを削除します。よろしいですか？')">削除</button>
                     </div>
                 </div>
-            <div class="tabs" id="staff-detail-tabs">
-                    <div class="tab-item active" data-tab="tab-basic-info">基本情報</div>
-                    <div class="tab-item" data-tab="tab-schedule">シフト・勤怠</div>
-                    <div class="tab-item" data-tab="tab-payroll">給与情報</div>
-                    <div class="tab-item" data-tab="tab-training">研修記録</div>
+                
+                <div class="sub-nav">
+                    <ul id="staff-detail-subnav">
+                        <li><a href="#" class="sub-nav-item active" data-tab="tab-basic-info">基本情報</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-schedule">シフト・勤怠</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-payroll">給与情報</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-training">研修記録</a></li>
+                    </ul>
                 </div>
+
                 <div class="tab-content-wrapper">
                     <div id="tab-basic-info" class="tab-content active">
                         <div class="section">
@@ -91,13 +122,14 @@
                             <div class="section-content">
                                 <dl class="detail-grid">
                                     <dt>氏名</dt><dd>管理者 太郎</dd>
+                                    <dt>フリガナ</dt><dd>カンリシャ タロウ</dd> 
                                     <dt>役職</dt><dd>管理者</dd>
                                     <dt>雇用形態</dt><dd>常勤</dd>
                                     <dt>入社日</dt><dd>2023年4月1日</dd>
                                 </dl>
                                 </div>
                         </div>
-                         </div>
+                    </div>
                     
                     <div id="tab-schedule" class="tab-content">
                         <div class="section">
@@ -139,41 +171,45 @@
                             </div>
                         </div>
                     </div>
+
                     <div id="tab-training" class="tab-content">
-                        <div class="list-page-header" style="margin-bottom: 1rem;">
-                            <h2 class="section-title" style="margin: 0; border: none;">研修受講履歴</h2>
-                            <button class="button button-primary" onclick="openModal('add-training-modal')">＋ 研修を追加</button>
+                        <div class="section">
+                            <div class="list-page-header" style="margin-bottom: 1rem;">
+                                <h2 class="section-title" style="margin: 0; border: none;">研修受講履歴</h2>
+                                <button class="button button-primary" onclick="openModal('add-training-modal')">＋ 研修を追加</button>
+                                </div>
+                            <div class="table-wrapper">
+                                 <table class="table">
+                                    <thead><tr><th>研修名</th><th>実施日</th><th>種別</th><th class="col-actions">操作</th></tr></thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>虐待防止研修</td>
+                                            <td>2025/08/10</td>
+                                            <td>内部研修</td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button class="button button-secondary" onclick="openModal('add-training-modal')">詳細</button>
+                                                    <button class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>サービス管理責任者研修</td>
+                                            <td>2025/06/01</td>
+                                            <td>外部研修</td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button class="button button-secondary" onclick="openModal('add-training-modal')">詳細</button>
+                                                    <button class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        <div class="table-wrapper">
-                             <table class="table">
-                                <thead><tr><th>研修名</th><th>実施日</th><th>種別</th><th class="col-actions">操作</th></tr></thead>
-                                <tbody>
-                                    <tr>
-                                        <td>虐待防止研修</td>
-                                        <td>2025/08/10</td>
-                                        <td>内部研修</td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button class="button button-secondary" onclick="openModal('add-training-modal')">詳細</button>
-                                                <button class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>サービス管理責任者研修</td>
-                                        <td>2025/06/01</td>
-                                        <td>外部研修</td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button class="button button-secondary" onclick="openModal('add-training-modal')">詳細</button>
-                                                <button class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
+
                 </div>
             </div>
         </main>
@@ -189,6 +225,10 @@
                 <div class="form-group">
                     <label>氏名</label>
                     <input type="text" class="form-control" value="管理者 太郎">
+                </div>
+                <div class="form-group">
+                    <label>フリガナ</label>
+                    <input type="text" class="form-control" value="カンリシャ タロウ">
                 </div>
                 <div class="form-group">
                     <label>役職</label>
@@ -275,5 +315,88 @@
     </div>
     <script src="../script.js"></script>
     
+    <script>
+        // 職員一覧の簡易フィルタリング関数
+        function filterStaff() {
+            const nameInput = document.getElementById('search-staff-name');
+            const roleSelect = document.getElementById('filter-staff-role');
+            const statusSelect = document.getElementById('filter-staff-status');
+            const tableBody = document.getElementById('staff-list-tbody');
+
+            if (!nameInput || !roleSelect || !statusSelect || !tableBody) {
+                // console.warn("Filter elements or table body for staff not found.");
+                return;
+            }
+
+            const nameFilter = nameInput.value.toLowerCase();
+            const roleFilter = roleSelect.value;
+            const statusFilter = statusSelect.value;
+            const rows = tableBody.getElementsByTagName('tr');
+
+            Array.from(rows).forEach(row => {
+                const staffName = row.cells[0]?.textContent.toLowerCase() || '';
+                const role = row.cells[1]?.textContent || '';
+                const status = row.cells[2]?.textContent || '';
+
+                const nameMatch = staffName.includes(nameFilter);
+                const roleMatch = roleFilter === "" || role === roleFilter;
+                const statusMatch = statusFilter === "" || status === statusFilter;
+
+                if (nameMatch && roleMatch && statusMatch) {
+                    row.style.display = ''; // 表示
+                } else {
+                    row.style.display = 'none'; // 非表示
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 職員詳細: サブナビゲーション（タブ）切り替え ---
+            const subNavContainer = document.getElementById('staff-detail-subnav');
+            const tabContents = document.querySelectorAll('#staff-detail .tab-content-wrapper .tab-content'); 
+            
+            if (subNavContainer && tabContents.length > 0) {
+                subNavContainer.addEventListener('click', (e) => {
+                    const navItem = e.target.closest('.sub-nav-item');
+                    if (!navItem || navItem.classList.contains('active')) { return; }
+                    e.preventDefault();
+                    
+                    const targetTabId = navItem.dataset.tab;
+                    
+                    // サブナビのアクティブ状態を更新
+                    subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                    navItem.classList.add('active');
+                    
+                    // タブコンテンツの表示を切り替え
+                    tabContents.forEach(content => {
+                        content.classList.toggle('active', content.id === targetTabId);
+                    });
+                });
+            }
+
+            // --- 職員一覧: フィルタリングのイベントリスナー設定 ---
+            if (typeof window.filterStaff === 'function') {
+                const nameInputListener = document.getElementById('search-staff-name');
+                const roleSelectListener = document.getElementById('filter-staff-role');
+                const statusSelectListener = document.getElementById('filter-staff-status');
+                const clearButton = document.querySelector('#staff .section-header .button-secondary'); 
+
+                if(nameInputListener) nameInputListener.addEventListener('input', filterStaff);
+                if(roleSelectListener) roleSelectListener.addEventListener('change', filterStaff);
+                if(statusSelectListener) statusSelectListener.addEventListener('change', filterStaff);
+                
+                if(clearButton) {
+                    clearButton.addEventListener('click', () => {
+                         const form = document.querySelector('#staff .filter-form');
+                         if (form) form.reset(); 
+                         filterStaff();
+                    });
+                }
+                
+                // 初期表示のための呼び出し
+                filterStaff();
+            }
+        });
+    </script>
     </body>
 </html>

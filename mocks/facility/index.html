@@ -32,15 +32,45 @@
         </header>
 
         <main class="mockup-main">
-            <div id="facilities" class="mockup-page">
-                <div class="list-page-header">
+            <div id="facilities" class="mockup-page active"> <div class="list-page-header">
                     <h1 class="page-title">事業所一覧</h1>
                     <div>
                         <a href="../settings/index.html" class="button button-secondary">設定TOPへ戻る</a>
                         <button class="button button-primary">＋ 新規事業所</button>
                     </div>
                 </div>
-                <div class="table-wrapper">
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title-in-header">検索条件</h2>
+                        <button type="button" class="button button-secondary">クリア</button>
+                    </div>
+                    <form class="section-content filter-form">
+                        <div class="form-group">
+                            <label for="search-facility-name" class="form-label">事業所名</label>
+                            <input type="text" id="search-facility-name" class="form-control" placeholder="事業所名で検索...">
+                        </div>
+                        <div class="form-group">
+                            <label for="filter-facility-service" class="form-label">サービス種別</label>
+                            <select id="filter-facility-service" class="form-control">
+                                <option value="">すべて</option>
+                                <option value="就労継続支援B型">就労継続支援B型</option>
+                                <option value="生活介護">生活介護</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="filter-facility-status" class="form-label">状態</label>
+                            <select id="filter-facility-status" class="form-control">
+                                <option value="">すべて</option>
+                                <option value="有効">有効</option>
+                                <option value="無効">無効</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="table-wrapper" style="margin-top: 1.5rem;">
                     <table class="table">
                         <thead>
                             <tr>
@@ -52,14 +82,20 @@
                                 </tr>
                         </thead>
                         <tbody id="facility-list-tbody">
-                            <tr class="clickable-row" onclick="showPage('facility-detail')">
+                            <tr class="clickable-row" onclick="showPage('facility-detail')"
+                                data-facility-name="事業所A（自事業所）"
+                                data-service-type="就労継続支援B型"
+                                data-status="有効">
                                 <td>事業所A（自事業所）</td>
                                 <td>1234567890</td>
                                 <td>就労継続支援B型</td>
                                 <td>03-XXXX-XXXX</td>
                                 <td>有効</td>
                                 </tr>
-                            <tr class="clickable-row" onclick="showPage('facility-detail')">
+                            <tr class="clickable-row" onclick="showPage('facility-detail')"
+                                data-facility-name="事業所B（他事業所）"
+                                data-service-type="生活介護"
+                                data-status="有効">
                                 <td>事業所B（他事業所）</td>
                                 <td>0987654321</td>
                                 <td>生活介護</td>
@@ -79,12 +115,15 @@
                         <button type="button" class="button button-danger" onclick="alert('「事業所A（自事業所）」のデータを削除します。よろしいですか？')">削除</button>
                     </div>
                 </div>
-            <div class="tabs" id="facility-detail-tabs">
-                    <div class="tab-item active" data-tab="tab-facility-basic-info">基本情報</div>
-                    <div class="tab-item" data-tab="tab-facility-address">住所・連絡先</div>
-                    <div class="tab-item" data-tab="tab-facility-schedule-settings">営業日設定</div>
-                    <div class="tab-item" data-tab="tab-facility-calendar">カレンダー</div>
-                    <div class="tab-item" data-tab="tab-facility-staff">所属職員</div>
+                
+                <div class="sub-nav">
+                    <ul id="facility-detail-subnav">
+                        <li><a href="#" class="sub-nav-item active" data-tab="tab-facility-basic-info">基本情報</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-facility-address">住所・連絡先</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-facility-schedule-settings">営業日設定</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-facility-calendar">カレンダー</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-facility-staff">所属職員</a></li>
+                    </ul>
                 </div>
 
                 <div class="tab-content-wrapper">
@@ -282,33 +321,38 @@
                     </div>
 
                     <div id="tab-facility-staff" class="tab-content">
-                        <div class="table-wrapper">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>氏名</th>
-                                        <th>職種</th>
-                                        <th>常勤/非常勤</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>職員A</td>
-                                        <td>管理者 兼 サビ管</td>
-                                        <td>常勤</td>
-                                    </tr>
-                                    <tr>
-                                        <td>職員B</td>
-                                        <td>職業指導員</td>
-                                        <td>常勤</td>
-                                    </tr>
-                                    <tr>
-                                        <td>職員C</td>
-                                        <td>生活支援員</td>
-                                        <td>非常勤</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="section">
+                             <div class="list-page-header" style="margin-bottom: 1rem;">
+                                <h2 class="section-title" style="margin: 0; border: none;">所属職員</h2>
+                            </div>
+                            <div class="table-wrapper">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>氏名</th>
+                                            <th>職種</th>
+                                            <th>常勤/非常勤</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="facility-staff-tbody">
+                                        <tr class="clickable-row" onclick="location.href='../staff/index.html#staff-detail'">
+                                            <td>職員A</td>
+                                            <td>管理者 兼 サビ管</td>
+                                            <td>常勤</td>
+                                        </tr>
+                                        <tr class="clickable-row" onclick="location.href='../staff/index.html#staff-detail'">
+                                            <td>職員B</td>
+                                            <td>職業指導員</td>
+                                            <td>常勤</td>
+                                        </tr>
+                                        <tr class="clickable-row" onclick="location.href='../staff/index.html#staff-detail'">
+                                            <td>職員C</td>
+                                            <td>生活支援員</td>
+                                            <td>非常勤</td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -445,8 +489,85 @@
             </div>
         </div>
     </div>
-
-
     <script src="../script.js"></script>
-</body>
+
+    <script>
+        // 事業所一覧の簡易フィルタリング関数
+        function filterFacilities() {
+            const nameInput = document.getElementById('search-facility-name');
+            const serviceSelect = document.getElementById('filter-facility-service');
+            const statusSelect = document.getElementById('filter-facility-status');
+            const tableBody = document.getElementById('facility-list-tbody');
+
+            if (!nameInput || !serviceSelect || !statusSelect || !tableBody) {
+                return;
+            }
+
+            const nameFilter = nameInput.value.toLowerCase();
+            const serviceFilter = serviceSelect.value;
+            const statusFilter = statusSelect.value;
+            const rows = tableBody.getElementsByTagName('tr');
+
+            Array.from(rows).forEach(row => {
+                const facilityNameData = row.dataset.facilityName?.toLowerCase() || '';
+                const serviceTypeData = row.dataset.serviceType || '';
+                const statusData = row.dataset.status || '';
+                const nameMatch = facilityNameData.includes(nameFilter);
+                const serviceMatch = serviceFilter === "" || serviceTypeData === serviceFilter;
+                const statusMatch = statusFilter === "" || statusData === statusFilter;
+
+                if (nameMatch && serviceMatch && statusMatch) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 事業所詳細: サブナビゲーション（タブ）切り替え ---
+            const subNavContainer = document.getElementById('facility-detail-subnav');
+            const tabContents = document.querySelectorAll('#facility-detail .tab-content-wrapper .tab-content'); 
+            
+            if (subNavContainer && tabContents.length > 0) {
+                subNavContainer.addEventListener('click', (e) => {
+                    const navItem = e.target.closest('.sub-nav-item');
+                    if (!navItem || navItem.classList.contains('active')) { return; }
+                    e.preventDefault();
+                    
+                    const targetTabId = navItem.dataset.tab;
+                    
+                    subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                    navItem.classList.add('active');
+                    
+                    tabContents.forEach(content => {
+                        content.classList.toggle('active', content.id === targetTabId);
+                    });
+                });
+            }
+
+            // --- 事業所一覧: フィルタリングのイベントリスナー設定 ---
+            if (typeof window.filterFacilities === 'function') {
+                const nameInputListener = document.getElementById('search-facility-name');
+                const serviceSelectListener = document.getElementById('filter-facility-service');
+                const statusSelectListener = document.getElementById('filter-facility-status');
+                const clearButton = document.querySelector('#facilities .section-header .button-secondary'); 
+
+                if(nameInputListener) nameInputListener.addEventListener('input', filterFacilities);
+                if(serviceSelectListener) serviceSelectListener.addEventListener('change', filterFacilities);
+                if(statusSelectListener) statusSelectListener.addEventListener('change', filterFacilities);
+                
+                if(clearButton) {
+                    clearButton.addEventListener('click', () => {
+                         const form = document.querySelector('#facilities .filter-form');
+                         if (form) form.reset(); 
+                         filterFacilities();
+                    });
+                }
+                
+                filterFacilities(); // 初期表示
+            }
+        });
+    </script>
+    </body>
 </html>

@@ -3,69 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>p2508d - 設定 (操作可能版)</title>
-    <style>
-        /* globals.cssの内容 (省略) */
-        :root {
-            --palette-navy-main: #000066;
-            --palette-navy-sub: #000099;
-            --palette-orange-accent: #FF9900;
-            --palette-white: #FFFFFF;
-            --palette-gray-dark: #333333;
-            --palette-gray-light: #CCCCCC;
-            --palette-red-error: #FF0000;
-            --color-background: var(--palette-white);
-            --color-text-primary: var(--palette-gray-dark);
-            --color-border: #e0e0e0;
-            --color-shadow: rgba(0, 0, 0, 0.05);
-            --color-primary: var(--palette-navy-main);
-            --color-primary-hover: var(--palette-navy-sub);
-            --color-danger: var(--palette-red-error);
-            --color-button-text: var(--palette-white);
-            --font-family-base: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "游ゴシック Medium", "Yu Gothic Medium", "メイリオ", Meiryo, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            --font-size-xs: 0.75rem;
-            --font-size-sm: 0.875rem;
-            --font-size-base: 1rem;
-            --font-size-lg: 1.25rem;
-            --font-size-xl: 1.875rem;
-            --border-radius: 0.375rem;
-        }
-        *, *::before, *::after { box-sizing: border-box; }
-        body, h1, h2, h3, h4, p, ul, ol, table { margin: 0; }
-        ul, ol { padding: 0; list-style: none; }
-        body { font-family: var(--font-family-base); background-color: #f8f9fa; color: var(--color-text-primary); line-height: 1.5; }
-        button, input, select, textarea { font-family: inherit; font-size: 100%; margin: 0; }
-        button { background: none; border: none; cursor: pointer; padding: 0; }
-        table { border-collapse: collapse; border-spacing: 0; }
-
-        /* --- モックアップ用の全体レイアウト --- */
-        .mockup-container { display: flex; }
-        .mockup-main { margin-left: 240px; padding: 2rem; width: calc(100% - 240px); }
-        .mockup-page { display: block; }
-        
-        /* --- 各コンポーネントのスタイル (省略) --- */
-        .header { width: 240px; height: 100vh; position: fixed; top: 0; left: 0; background-color: var(--color-background); border-right: 1px solid var(--color-border); padding: 1.5rem; display: flex; flex-direction: column; gap: 2rem; z-index: 1000; }
-        .header-logo { font-size: var(--font-size-lg); font-weight: 700; text-align: center; }
-        .header-logo a { color: inherit; text-decoration: none; }
-        .nav { display: flex; flex-direction: column; justify-content: space-between; height: 100%; overflow-y: auto; }
-        .nav-list { display: flex; flex-direction: column; gap: 0.5rem; text-align: left; }
-        .nav-link { display: block; width: 100%; padding: 0.75rem 1rem; border-radius: var(--border-radius); text-decoration: none; color: var(--color-text-primary); font-weight: 500; transition: background-color 0.2s, color 0.2s; text-align: left; }
-        .nav-link:hover { background-color: #f1f3f5; }
-        .nav-link.active { font-weight: 700; background-color: #e9ecef; color: var(--color-primary); }
-        .nav-logout-section { margin-top: auto; padding-top: 1rem; }
-        .button { display: inline-flex; align-items: center; justify-content: center; padding: 0.5rem 1rem; border-radius: var(--border-radius); font-size: var(--font-size-sm); font-weight: 500; color: var(--color-button-text); border: none; cursor: pointer; transition: background-color 0.2s ease-in-out; }
-        .button-primary { background-color: var(--color-primary); }
-        .page-title { font-size: var(--font-size-xl); font-weight: 700; }
-        .list-page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-
-        /* Dashboard/Card スタイル (流用) */
-        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-        .dashboard-card { border: 1px solid var(--color-border); border-radius: var(--border-radius); padding: 1.5rem; background-color: #fff; text-decoration: none; color: inherit; display: block; transition: box-shadow 0.2s; }
-        .dashboard-card:hover { box-shadow: 0 4px 12px var(--color-shadow); }
-        .dashboard-card-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--color-primary); }
-        .dashboard-card-description { font-size: var(--font-size-sm); color: #6c757d; }
-
-    </style>
+    <title>p2508d - 設定</title>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
@@ -96,53 +35,83 @@
 
         <main class="mockup-main">
             
-            <div id="settings-cards" class="mockup-page">
+            <div id="settings-cards" class="mockup-page active">
                 <div class="list-page-header">
                      <h1 class="page-title">設定</h1>
                 </div>
 
-                <div class="dashboard-grid">
+                <div class="card-grid">
                     
-                    <a href="../corporation/index.html" class="dashboard-card">
-                        <h3 class="dashboard-card-title">法人情報</h3>
-                        <p class="dashboard-card-description">法人名、住所、連絡先など、運営母体の基本情報を管理します。</p>
-                    </a>
+                    <div class="card">
+                        <a href="../corporation/index.html">
+                            <div class="card-content">
+                                <h3>法人情報</h3>
+                                <p>法人名、住所、連絡先など、運営母体の基本情報を管理します。</p>
+                            </div>
+                        </a>
+                    </div>
 
-                    <a href="../facility/index.html" class="dashboard-card">
-                        <h3 class="dashboard-card-title">事業所情報</h3>
-                        <p class="dashboard-card-description">事業所名、指定番号、サービス内容など、施設固有の情報を管理します。</p>
-                    </a>
+                    <div class="card">
+                        <a href="../facility/index.html">
+                             <div class="card-content">
+                                <h3>事業所情報</h3>
+                                <p>事業所名、指定番号、サービス内容など、施設固有の情報を管理します。</p>
+                            </div>
+                        </a>
+                    </div>
 
-                    <a href="../users/index.html" class="dashboard-card">
-                        <h3 class="dashboard-card-title">ユーザー管理</h3>
-                        <p class="dashboard-card-description">システムを利用する職員アカウントの追加、権限設定を行います。</p>
-                    </a>
+                    <div class="card">
+                        <a href="../users/index.html">
+                             <div class="card-content">
+                                <h3>ユーザー管理</h3>
+                                <p>システムを利用する職員アカウントの追加、権限設定を行います。</p>
+                            </div>
+                        </a>
+                    </div>
 
-                    <a href="../wage-systems/index.html" class="dashboard-card">
-                        <h3 class="dashboard-card-title">工賃体系</h3>
-                        <p class="dashboard-card-description">利用者の工賃計算（時給、日給、等級）の基準を設定します。</p>
-                    </a>
+                    <div class="card">
+                        <a href="../wage-systems/index.html">
+                             <div class="card-content">
+                                <h3>工賃体系</h3>
+                                <p>利用者の工賃計算（時給、日給、等級）の基準を設定します。</p>
+                            </div>
+                        </a>
+                    </div>
 
-                    <a href="../salary-systems/index.html" class="dashboard-card">
-                        <h3 class="dashboard-card-title">給与体系</h3>
-                        <p class="dashboard-card-description">職員の給与テーブル、手当、控除などの基準を設定します。</p>
-                    </a>
+                    <div class="card">
+                        <a href="../salary-systems/index.html">
+                             <div class="card-content">
+                                <h3>給与体系</h3>
+                                <p>職員の給与テーブル、手当、控除などの基準を設定します。</p>
+                            </div>
+                        </a>
+                    </div>
 
-                    <a href="../skill-systems/index.html" class="dashboard-card">
-                        <h3 class="dashboard-card-title">スキル体系</h3>
-                        <p class="dashboard-card-description">スキルマップで使用するスキルカテゴリや項目（マスター）を定義します。</p>
-                    </a>
+                    <div class="card">
+                        <a href="../skill-systems/index.html">
+                             <div class="card-content">
+                                <h3>スキル体系</h3>
+                                <p>スキルマップで使用するスキルカテゴリや項目（マスター）を定義します。</p>
+                            </div>
+                        </a>
+                    </div>
 
-                    <a href="../masters/index.html" class="dashboard-card">
-                        <h3 class="dashboard-card-title">各種マスター</h3>
-                        <p class="dashboard-card-description">作業項目、取引先区分など、システム共通のデータを管理します。</p>
-                    </a>
+                    <div class="card">
+                        <a href="../masters/index.html">
+                             <div class="card-content">
+                                <h3>各種マスター</h3>
+                                <p>作業項目、取引先区分など、システム共通のデータを管理します。</p>
+                            </div>
+                        </a>
+                    </div>
 
                 </div>
                 </div>
 
         </main>
     </div>
+
+    <script src="../script.js"></script>
 
 </body>
 </html>

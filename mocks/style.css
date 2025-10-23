@@ -237,30 +237,32 @@ table {
     font-size: var(--font-size-xl);
     font-weight: 700;
 }
+
+/* ▼▼▼ 変更: 余白を増やす ▼▼▼ */
 .list-page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem; /* 1rem -> 2rem */
 }
 
 
 /* --- Section --- */
-/* ... (変更なし) ... */
+/* ▼▼▼ 変更: 余白を増やし、見出しの下線を削除 ▼▼▼ */
 .section {
     width: 100%;
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
     padding: 1.5rem;
-    margin-top: 1rem;
+    margin-top: 1.5rem; /* 1rem -> 1.5rem */
     background-color: var(--color-surface);
 }
 .section-title {
     font-size: var(--font-size-lg);
     font-weight: 600;
     margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--color-border);
+    /* padding-bottom: 0.5rem; (削除) */
+    /* border-bottom: 1px solid var(--color-border); (削除) */
 }
 .section-content {
     margin-top: 0;
@@ -269,6 +271,8 @@ table {
     margin-top: 1.5rem;
     text-align: right;
 }
+/* ▲▲▲ 変更ここまで ▲▲▲ */
+
 
 /* --- Table --- */
 /* ... (変更なし) ... */
@@ -341,10 +345,13 @@ table {
     color: var(--color-primary);
 }
 .tab-content-wrapper {
-    border: 1px solid var(--color-border);
-    border-radius: 0 var(--border-radius) var(--border-radius) var(--border-radius);
-    padding: 1.5rem;
-    background-color: var(--color-surface);
+/* * 2025/10/23 ユーザーリクエストにより、タブコンテンツを囲う枠を削除。
+     * 各セクションが独立して表示されるようになります。
+     */
+    /* border: 1px solid var(--color-border); */
+    /* border-radius: 0 var(--border-radius) var(--border-radius) var(--border-radius); */
+    /* padding: 1.5rem; */
+    /* background-color: var(--color-surface); */
 }
 .tab-content {
     display: none;
@@ -783,22 +790,67 @@ textarea.work-content {
 }
 
 
-/* ▼▼▼ 以下、 p2508d/mocks/members/index.html から移動したスタイル ▼▼▼ */
-/* ... (変更なし) ... */
-.sub-nav { overflow-x: auto; white-space: nowrap; border-bottom: 1px solid var(--color-border); margin-bottom: 1.5rem; background-color: var(--color-surface); -ms-overflow-style: none; scrollbar-width: none; }
-.sub-nav::-webkit-scrollbar { display: none; }
-.sub-nav ul { display: flex; padding: 0; margin: 0; list-style: none; }
-.sub-nav-item { display: inline-block; padding: 0.75rem 1.5rem; cursor: pointer; border: 1px solid transparent; border-bottom: none; margin-bottom: -1px; font-weight: 500; color: var(--color-text-secondary); text-decoration: none; transition: color 0.2s, border-color 0.2s; }
-.sub-nav-item:hover { color: var(--color-primary); }
-.sub-nav-item.active { border-color: var(--color-border); border-bottom-color: var(--color-surface); border-radius: var(--border-radius) var(--border-radius) 0 0; font-weight: 600; background-color: var(--color-surface); color: var(--color-primary); }
+/* --- ▼▼▼ 新しいサブナビゲーションスタイル (前回の修正版) --- */
+.sub-nav {
+    overflow-x: auto;
+    white-space: nowrap;
+    margin-bottom: 1.5rem;
+    -ms-overflow-style: none; /* IE/Edge スクロールバー非表示 */
+    scrollbar-width: none;    /* Firefox スクロールバー非表示 */
+}
+.sub-nav::-webkit-scrollbar { 
+    display: none; /* Chrome/Safari スクロールバー非表示 */
+}
+.sub-nav ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    /* ナビゲーション全体の下に細い罫線を引く */
+    border-bottom: 1px solid var(--color-border);
+}
+.sub-nav-item {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    /* 罫線を削除し、下線用に透明なボーダーを設定 */
+    border: none;
+    border-bottom: 3px solid transparent; /* アクティブ時の下線分の高さを確保 */
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    /* トランジションの対象を変更 */
+    transition: color 0.2s, border-color 0.2s;
+}
+.sub-nav-item:hover {
+    color: var(--color-primary);
+    /* ホバー時に薄い下線を表示 */
+    border-bottom-color: var(--color-border);
+}
+.sub-nav-item.active {
+    font-weight: 600;
+    color: var(--color-primary);
+    /* アクティブ時は太い下線を表示 */
+    border-bottom-color: var(--color-primary);
+}
+/* --- ▲▲▲ 新しいサブナビゲーションスタイル ▲▲▲ --- */
+
+
 /* .textarea.form-control は汎用スタイルでカバー */
+
+/* ▼▼▼ 変更: 見出しの下線を削除 ▼▼▼ */
 .section-header { 
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
-    margin-bottom: 1rem; /* 間隔を確保 */
+    margin-bottom: 1rem; /* コンテンツとのマージン */
+    /* padding-bottom: 0.5rem; (削除) */
+    /* border-bottom: 1px solid var(--color-border); (削除) */
 }
 .section-title-in-header { font-size: var(--font-size-lg); font-weight: 600; margin: 0; padding: 0; border: none; }
+/* ▲▲▲ 変更ここまで ▲▲▲ */
+
+
 .table td { vertical-align: top; }
 .readonly-text { padding: 0.5rem 0.75rem; display: block; min-height: calc(1.5em + 0.75rem + 2px); }
 .readonly-textarea { white-space: pre-wrap; padding: 0.5rem 0.75rem; display: block; min-height: 60px; }
@@ -947,6 +999,67 @@ textarea.work-content {
     background-color: var(--color-hover-bg);
 }
 
+/* ▼▼▼ 追加 ▼▼▼ */
+/* スキル管理(利用者別)一覧の行をクリック可能にするスタイル */
+#member-skill-list-tbody .clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#member-skill-list-tbody .clickable-row:hover {
+    background-color: var(--color-hover-bg);
+}
+/* ▲▲▲ 追加ここまで ▲▲▲ */
+
+/* 工賃管理(利用者別)一覧の行をクリック可能にするスタイル */
+#member-wage-list-tbody .clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#member-wage-list-tbody .clickable-row:hover {
+    background-color: var(--color-hover-bg);
+}
+
+/* ▼▼▼ 追加 ▼▼▼ */
+/* 利用者詳細 > 各種テーブルの行をクリック可能にするスタイル */
+#emergency-contact-table-body .clickable-row,
+#specialist-table-body .clickable-row,
+#disability-table-body .clickable-row,
+#disease-table-body .clickable-row,
+#allergy-table-body .clickable-row,
+#clinic-table-body .clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#emergency-contact-table-body .clickable-row:hover,
+#specialist-table-body .clickable-row:hover,
+#disability-table-body .clickable-row:hover,
+#disease-table-body .clickable-row:hover,
+#allergy-table-body .clickable-row:hover,
+#clinic-table-body .clickable-row:hover {
+    background-color: var(--color-hover-bg);
+}
+/* ▲▲▲ 追加ここまで ▲▲▲ */
+
+/* ▼▼▼ 追加 ▼▼▼ */
+/* 事業所詳細 > 所属職員テーブルの行をクリック可能にするスタイル */
+#facility-staff-tbody .clickable-row { /* IDを変更 */
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#facility-staff-tbody .clickable-row:hover { /* IDを変更 */
+    background-color: var(--color-hover-bg);
+}
+/* ▲▲▲ 追加ここまで ▲▲▲ */
+
+
+
+
+
+
 /* 事業所一覧の行をクリック可能にするスタイル */
 #facility-list-tbody .clickable-row {
     cursor: pointer;
@@ -1039,16 +1152,8 @@ textarea.work-content {
     margin-bottom: 0;
 }
 
-/* アクションボタンの配置 (既存を拡張/変更) */
-.filter-actions {
-    grid-column: 1 / -1; /* 全幅を使用 */
-    display: flex;
-    justify-content: flex-end; /* 右寄せ */
-    gap: 0.5rem;
-    margin-top: 0; /* 上の要素とのgapで制御するためリセット */
-    padding-top: 0; /* 上の要素とのgapで制御するためリセット */
-    border-top: none; /* 罫線を削除 */
-}
+/* アクションボタンの配置 (削除) */
+/* .filter-actions { ... } (削除済み) */
 
 /* 画面幅が狭い場合（例: 600px以下）は1列にする */
 @media (max-width: 600px) {
@@ -1064,5 +1169,35 @@ textarea.work-content {
 }
 
 #project-list-tbody .clickable-row:hover {
+    background-color: var(--color-hover-bg);
+}
+
+/* (前回追加分) 取引先一覧の行をクリック可能にするスタイル */
+#partner-list-tbody .clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#partner-list-tbody .clickable-row:hover {
+    background-color: var(--color-hover-bg);
+}
+
+/* (前回追加分) 取引先詳細 > 取引履歴の行をクリック可能にするスタイル */
+#partner-history-tbody .clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#partner-history-tbody .clickable-row:hover {
+    background-color: var(--color-hover-bg);
+}
+
+/* (前回追加分) 取引先詳細 > 担当者一覧の行をクリック可能にするスタイル */
+#partner-contacts-tbody .clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#partner-contacts-tbody .clickable-row:hover {
     background-color: var(--color-hover-bg);
 }

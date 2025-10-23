@@ -34,91 +34,102 @@
                         </div>
                 </div>
 
-                <div class="section">
-                    <h2 class="section-title">検索条件</h2>
-                    <form class="section-content filter-form">
-                        <div class="form-group">
-                            <label for="search-member-name" class="form-label">利用者名</label>
-                            <input type="text" id="search-member-name" class="form-control" placeholder="氏名で検索...">
-                        </div>
-                        <div class="form-group">
-                            <label for="filter-skill-category" class="form-label">スキルカテゴリ</label>
-                            <select id="filter-skill-category" class="form-control">
-                                <option value="">すべて</option>
-                                <option value="pc">PC基本操作</option>
-                                <option value="office">└ Officeソフト</option>
-                                <option value="lightwork">軽作業</option>
-                                <option value="manner">ビジネスマナー</option>
-                            </select>
-                        </div>
-                         <div class="form-group">
-                            <label for="filter-skill-level" class="form-label">習熟度</label>
-                            <select id="filter-skill-level" class="form-control">
-                                <option value="">すべて</option>
-                                <option value="0">未習得</option>
-                                <option value="1">レベル1 (支援あり)</option>
-                                <option value="2">レベル2 (自立)</option>
-                                <option value="3">レベル3 (指導可)</option>
-                            </select>
-                        </div>
-                        <div class="filter-actions">
-                            <button type="button" class="button button-secondary">クリア</button>
-                            <button type="submit" class="button button-primary">検索</button>
-                        </div>
-                    </form>
+                <div class="sub-nav">
+                    <ul id="skill-member-subnav">
+                        <li><a href="#" class="sub-nav-item active" data-tab="tab-skill-evaluations">評価一覧</a></li>
+                        </ul>
                 </div>
+                <div class="tab-content-wrapper">
+                    <div id="tab-skill-evaluations" class="tab-content active">
 
-                <div class="table-wrapper" style="margin-top: 1.5rem;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>利用者名</th>
-                                <th>スキル名</th>
-                                <th>カテゴリ</th>
-                                <th>習熟度</th>
-                                <th>最終評価日</th>
-                                <th class="col-actions">操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>青木 誠</td>
-                                <td>タイピング (かな)</td>
-                                <td>PC基本操作</td>
-                                <td>レベル2 (自立)</td>
-                                <td>2025/10/20</td>
-                                <td class="col-actions">
-                                    <div class="table-button-group">
-                                        <button class="button button-secondary" onclick="openModal('edit-member-skill-modal')">編集</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>青木 誠</td>
-                                <td>Word (基本文書作成)</td>
-                                <td>Officeソフト</td>
-                                <td>レベル1 (支援あり)</td>
-                                <td>2025/10/20</td>
-                                 <td class="col-actions">
-                                    <div class="table-button-group">
-                                        <button class="button button-secondary" onclick="openModal('edit-member-skill-modal')">編集</button>
-                                    </div>
-                                </td>
-                            </tr>
-                             <tr>
-                                <td>五十嵐 直人</td>
-                                <td>タイピング (かな)</td>
-                                <td>PC基本操作</td>
-                                <td>レベル1 (支援あり)</td>
-                                <td>2025/10/18</td>
-                                 <td class="col-actions">
-                                    <div class="table-button-group">
-                                        <button class="button button-secondary" onclick="openModal('edit-member-skill-modal')">編集</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                    </table>
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">検索条件</h2>
+                                <button type="button" class="button button-secondary">クリア</button>
+                            </div>
+                            <form class="section-content filter-form">
+                                <div class="form-group">
+                                    <label for="search-member-name" class="form-label">利用者名</label>
+                                    <input type="text" id="search-member-name" class="form-control" placeholder="氏名で検索...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="filter-skill-category" class="form-label">スキルカテゴリ</label>
+                                    <select id="filter-skill-category" class="form-control">
+                                        <option value="">すべて</option>
+                                        <option value="PC基本操作">PC基本操作</option>
+                                        <option value="Officeソフト">Officeソフト</option>
+                                        <option value="軽作業">軽作業</option>
+                                        <option value="ビジネスマナー">ビジネスマナー</option>
+                                    </select>
+                                </div>
+                                 <div class="form-group">
+                                    <label for="filter-skill-level" class="form-label">習熟度</label>
+                                    <select id="filter-skill-level" class="form-control">
+                                        <option value="">すべて</option>
+                                        <option value="未習得">未習得</option>
+                                        <option value="レベル1">レベル1 (支援あり)</option>
+                                        <option value="レベル2">レベル2 (自立)</option>
+                                        <option value="レベル3">レベル3 (指導可)</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="table-wrapper" style="margin-top: 1.5rem;">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>利用者名</th>
+                                        <th>スキル名</th>
+                                        <th>カテゴリ</th>
+                                        <th>習熟度</th>
+                                        <th>最終評価日</th>
+                                        </tr>
+                                </thead>
+                                <tbody id="member-skill-list-tbody">
+                                    <tr class="clickable-row"
+                                        data-member-name="青木 誠"
+                                        data-skill-name="タイピング (かな)"
+                                        data-category="PC基本操作"
+                                        data-level="レベル2"
+                                        data-date="2025-10-20"
+                                        data-memo="">
+                                        <td>青木 誠</td>
+                                        <td>タイピング (かな)</td>
+                                        <td>PC基本操作</td>
+                                        <td>レベル2 (自立)</td>
+                                        <td>2025/10/20</td>
+                                    </tr>
+                                    <tr class="clickable-row"
+                                        data-member-name="青木 誠"
+                                        data-skill-name="Word (基本文書作成)"
+                                        data-category="Officeソフト"
+                                        data-level="レベル1"
+                                        data-date="2025-10-20"
+                                        data-memo="基本的な操作は可能だが、複雑な書式設定には支援が必要。">
+                                        <td>青木 誠</td>
+                                        <td>Word (基本文書作成)</td>
+                                        <td>Officeソフト</td>
+                                        <td>レベル1 (支援あり)</td>
+                                        <td>2025/10/20</td>
+                                    </tr>
+                                     <tr class="clickable-row"
+                                        data-member-name="五十嵐 直人"
+                                        data-skill-name="タイピング (かな)"
+                                        data-category="PC基本操作"
+                                        data-level="レベル1"
+                                        data-date="2025-10-18"
+                                        data-memo="練習中。少しずつ速度と正確性が向上している。">
+                                        <td>五十嵐 直人</td>
+                                        <td>タイピング (かな)</td>
+                                        <td>PC基本操作</td>
+                                        <td>レベル1 (支援あり)</td>
+                                        <td>2025/10/18</td>
+                                    </tr>
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 </div>
         </main>
@@ -131,25 +142,13 @@
                 <span class="modal-close" onclick="closeModal('edit-member-skill-modal')">&times;</span>
             </div>
             <div class="modal-body">
-                <p><strong>利用者:</strong> <span id="modal-member-name">青木 誠</span></p>
-                <p><strong>スキル:</strong> <span id="modal-skill-name">タイピング (かな)</span></p>
-                <div class="form-group">
-                    <label for="modal-skill-level" class="form-label">習熟度レベル</label>
-                    <select id="modal-skill-level" class="form-control">
-                         <option value="0">未習得</option>
-                         <option value="1">レベル1 (支援あり)</option>
-                         <option value="2" selected>レベル2 (自立)</option>
-                         <option value="3">レベル3 (指導可)</option>
-                    </select>
+                <p><strong>利用者:</strong> <span id="modal-edit-member-name"></span></p> <p><strong>スキル:</strong> <span id="modal-edit-skill-name"></span></p> <div class="form-group">
+                    <label for="modal-edit-skill-level" class="form-label">習熟度レベル</label> <select id="modal-edit-skill-level" class="form-control"> <option value="未習得">未習得</option> <option value="レベル1">レベル1 (支援あり)</option> <option value="レベル2">レベル2 (自立)</option> <option value="レベル3">レベル3 (指導可)</option> </select>
                 </div>
                  <div class="form-group">
-                    <label for="modal-skill-memo" class="form-label">評価メモ</label>
-                    <textarea id="modal-skill-memo" class="form-control" rows="3"></textarea>
-                 </div>
+                    <label for="modal-edit-skill-memo" class="form-label">評価メモ</label> <textarea id="modal-edit-skill-memo" class="form-control" rows="3"></textarea> </div>
                  <div class="form-group">
-                     <label for="modal-skill-date" class="form-label">評価日</label>
-                     <input type="date" id="modal-skill-date" class="form-control" value="2025-10-20">
-                 </div>
+                     <label for="modal-edit-skill-date" class="form-label">評価日</label> <input type="date" id="modal-edit-skill-date" class="form-control"> </div>
             </div>
             <div class="modal-footer">
                 <button class="button button-secondary" onclick="closeModal('edit-member-skill-modal')">キャンセル</button>
@@ -157,7 +156,117 @@
             </div>
         </div>
     </div>
-
     <script src="../script.js"></script>
+
+    <script>
+        // スキル一覧の簡易フィルタリング関数
+        function filterSkills() {
+            const nameInput = document.getElementById('search-member-name');
+            const categorySelect = document.getElementById('filter-skill-category');
+            const levelSelect = document.getElementById('filter-skill-level');
+            const tableBody = document.getElementById('member-skill-list-tbody');
+
+            if (!nameInput || !categorySelect || !levelSelect || !tableBody) {
+                return;
+            }
+
+            const nameFilter = nameInput.value.toLowerCase();
+            const categoryFilter = categorySelect.value;
+            const levelFilter = levelSelect.value;
+            const rows = tableBody.getElementsByTagName('tr');
+
+            Array.from(rows).forEach(row => {
+                const memberName = row.cells[0]?.textContent.toLowerCase() || '';
+                const category = row.cells[2]?.textContent || '';
+                // data属性からレベルを取得して比較
+                const levelData = row.dataset.level || ''; // "レベル1", "レベル2" など
+
+                const nameMatch = memberName.includes(nameFilter);
+                const categoryMatch = categoryFilter === "" || category === categoryFilter;
+                const levelMatch = levelFilter === "" || levelData === levelFilter; // data属性と完全一致
+
+                if (nameMatch && categoryMatch && levelMatch) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- サブナビゲーション（タブ）切り替え ---
+            const subNavContainer = document.getElementById('skill-member-subnav');
+            const tabContents = document.querySelectorAll('#member-skills-list .tab-content-wrapper .tab-content');
+
+            if (subNavContainer && tabContents.length > 0) {
+                subNavContainer.addEventListener('click', (e) => {
+                    const navItem = e.target.closest('.sub-nav-item');
+                    if (!navItem || navItem.classList.contains('active')) { return; }
+                    e.preventDefault();
+                    const targetTabId = navItem.dataset.tab;
+                    subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                    navItem.classList.add('active');
+                    tabContents.forEach(content => {
+                        content.classList.toggle('active', content.id === targetTabId);
+                    });
+                });
+            }
+
+
+            // --- スキル一覧: フィルタリングのイベントリスナー設定 ---
+            if (typeof window.filterSkills === 'function') {
+                const nameInputListener = document.getElementById('search-member-name');
+                const categorySelectListener = document.getElementById('filter-skill-category');
+                const levelSelectListener = document.getElementById('filter-skill-level');
+                const clearButton = document.querySelector('#member-skills-list .section-header .button-secondary');
+
+                if(nameInputListener) nameInputListener.addEventListener('input', filterSkills);
+                if(categorySelectListener) categorySelectListener.addEventListener('change', filterSkills);
+                if(levelSelectListener) levelSelectListener.addEventListener('change', filterSkills);
+
+                if(clearButton) {
+                    clearButton.addEventListener('click', () => {
+                         const form = document.querySelector('#member-skills-list .filter-form');
+                         if (form) form.reset();
+                         filterSkills();
+                    });
+                }
+                filterSkills(); // 初期表示
+            }
+
+            // --- 行クリックでモーダル表示 ---
+            const tableBody = document.getElementById('member-skill-list-tbody');
+            if (tableBody && typeof window.openModal === 'function') {
+                tableBody.addEventListener('click', (e) => {
+                    const clickedRow = e.target.closest('tr.clickable-row');
+                    if (clickedRow) {
+                        // モーダル内の要素を取得
+                        const modalMemberName = document.getElementById('modal-edit-member-name');
+                        const modalSkillName = document.getElementById('modal-edit-skill-name');
+                        const modalLevelSelect = document.getElementById('modal-edit-skill-level');
+                        const modalMemoTextarea = document.getElementById('modal-edit-skill-memo');
+                        const modalDateInput = document.getElementById('modal-edit-skill-date');
+
+                        // data属性から値を取得
+                        const memberName = clickedRow.dataset.memberName;
+                        const skillName = clickedRow.dataset.skillName;
+                        const level = clickedRow.dataset.level; // "レベル1", "レベル2"など
+                        const memo = clickedRow.dataset.memo;
+                        const date = clickedRow.dataset.date; // "YYYY-MM-DD"形式
+
+                        // モーダルに値を設定
+                        if (modalMemberName) modalMemberName.textContent = memberName || '';
+                        if (modalSkillName) modalSkillName.textContent = skillName || '';
+                        if (modalLevelSelect) modalLevelSelect.value = level || ''; // valueとdata属性の値を一致させる
+                        if (modalMemoTextarea) modalMemoTextarea.value = memo || '';
+                        if (modalDateInput) modalDateInput.value = date || '';
+
+                        // モーダルを開く
+                        window.openModal('edit-member-skill-modal');
+                    }
+                });
+            }
+        });
+    </script>
     </body>
 </html>

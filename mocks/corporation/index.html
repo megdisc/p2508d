@@ -40,11 +40,12 @@
                 </div>
                 </div>
                 
-                <div class="tabs" id="corporation-detail-tabs">
-                    <div class="tab-item active" data-tab="tab-corporation-basic-info">基本情報</div>
-                    <div class="tab-item" data-tab="tab-corporation-address">住所・連絡先</div>
+                <div class="sub-nav">
+                    <ul id="corporation-detail-subnav">
+                        <li><a href="#" class="sub-nav-item active" data-tab="tab-corporation-basic-info">基本情報</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-corporation-address">住所・連絡先</a></li>
+                    </ul>
                 </div>
-
                 <div class="tab-content-wrapper">
                     <div id="tab-corporation-basic-info" class="tab-content active">
                         <div class="section">
@@ -151,5 +152,32 @@
         </div>
     </div>
     <script src="../script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 法人情報詳細: サブナビゲーション（タブ）切り替え ---
+            const subNavContainer = document.getElementById('corporation-detail-subnav');
+            const tabContents = document.querySelectorAll('#corporation-detail .tab-content-wrapper .tab-content'); 
+            
+            if (subNavContainer && tabContents.length > 0) {
+                subNavContainer.addEventListener('click', (e) => {
+                    const navItem = e.target.closest('.sub-nav-item');
+                    if (!navItem || navItem.classList.contains('active')) { return; }
+                    e.preventDefault();
+                    
+                    const targetTabId = navItem.dataset.tab;
+                    
+                    // サブナビのアクティブ状態を更新
+                    subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                    navItem.classList.add('active');
+                    
+                    // タブコンテンツの表示を切り替え
+                    tabContents.forEach(content => {
+                        content.classList.toggle('active', content.id === targetTabId);
+                    });
+                });
+            }
+        });
+    </script>
     </body>
 </html>

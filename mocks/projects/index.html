@@ -32,7 +32,8 @@
         </header>
 
         <main class="mockup-main">
-            <div id="projects" class="mockup-page active"> <div class="list-page-header">
+            <div id="projects" class="mockup-page active"> 
+                <div class="list-page-header">
                     <h1 class="page-title">案件一覧</h1>
                      <div>
                          <a href="../production/index.html" class="button button-secondary" style="margin-right: 0.5rem;">生産活動メニューへ</a>
@@ -41,19 +42,22 @@
                 </div>
 
                 <div class="section">
-                    <h2 class="section-title">検索条件</h2>
+                    <div class="section-header">
+                        <h2 class="section-title-in-header">検索条件</h2>
+                        <button type="button" class="button button-secondary">クリア</button>
+                    </div>
                     <form class="section-content filter-form">
                         <div class="form-group">
                             <label for="search-project-name" class="form-label">案件名</label>
-                            <input type="text" id="search-project-name" class="form-control" placeholder="案件名で検索..." oninput="filterProjects()">
+                            <input type="text" id="search-project-name" class="form-control" placeholder="案件名で検索...">
                         </div>
                         <div class="form-group">
                             <label for="search-client-name" class="form-label">クライアント名</label>
-                            <input type="text" id="search-client-name" class="form-control" placeholder="クライアント名で検索..." oninput="filterProjects()">
+                            <input type="text" id="search-client-name" class="form-control" placeholder="クライアント名で検索...">
                         </div>
                         <div class="form-group">
                             <label for="filter-project-status" class="form-label">ステータス</label>
-                            <select id="filter-project-status" class="form-control" onchange="filterProjects()">
+                            <select id="filter-project-status" class="form-control">
                                 <option value="">すべて</option>
                                 <option value="未着手">未着手</option>
                                 <option value="作業中">作業中</option>
@@ -62,10 +66,7 @@
                                 <option value="キャンセル">キャンセル</option>
                             </select>
                         </div>
-                        <div class="filter-actions">
-                            <button type="button" class="button button-secondary" onclick="document.querySelector('#projects .filter-form').reset(); filterProjects();">クリア</button>
-                            </div>
-                    </form>
+                        </form>
                 </div>
                 <div class="table-wrapper" style="margin-top: 1.5rem;">
                     <table class="table">
@@ -101,21 +102,25 @@
                 </div>
             </div>
 
-            <div id="project-detail" class="mockup-page"> <div class="list-page-header">
+            <div id="project-detail" class="mockup-page"> 
+                <div class="list-page-header">
                     <h1 class="page-title">A社 DM封入作業</h1> <div>
                         <button class="button button-secondary" style="margin-right: 0.5rem;" onclick="showPage('projects')">一覧へ戻る</button>
                         <button type="button" class="button button-danger" onclick="alert('「A社 DM封入作業」のデータを削除します。よろしいですか？')">削除</button>
                     </div>
                 </div>
-                 <div class="tabs" id="project-detail-tabs">
-                    <div class="tab-item active" data-tab="tab-project-overview">案件情報</div>
-                    <div class="tab-item" data-tab="tab-project-process">工程管理</div>
-                    <div class="tab-item" data-tab="tab-project-finance">収支管理</div>
-                    <div class="tab-item" data-tab="tab-project-delivery">納品・請求</div>
-                    <div class="tab-item" data-tab="tab-project-files">関連ファイル</div>
+
+                <div class="sub-nav">
+                    <ul id="project-detail-subnav">
+                        <li><a href="#" class="sub-nav-item active" data-tab="tab-project-overview">案件情報</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-project-process">工程管理</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-project-finance">収支管理</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-project-delivery">納品・請求</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-project-files">関連ファイル</a></li>
+                    </ul>
                 </div>
                 <div class="tab-content-wrapper">
-                    <div id="tab-project-overview" class="tab-content active">
+                <div id="tab-project-overview" class="tab-content active">
                         <div class="section">
                             <div class="section-header">
                                 <h2 class="section-title-in-header">基本情報</h2>
@@ -142,46 +147,49 @@
                             </div>
                         </div>
                          </div>
+
                     <div id="tab-project-process" class="tab-content">
-                        <div class="list-page-header" style="margin-bottom: 1rem;">
-                            <h2 class="section-title" style="margin: 0; border: none;">工程一覧</h2>
-                            <button type="button" class="button button-primary" id="add-process-row">＋ 工程を追加</button>
-                        </div>
-                        <div class="table-wrapper">
-                            <table class="table" id="process-table">
-                                <thead>
-                                    <tr><th>No</th><th>工程名</th><th>担当者</th><th>進捗</th><th>予定/実績</th><th class="col-actions">操作</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td><input type="text" class="form-control" value="チラシ折り"></td>
-                                        <td><input type="text" class="form-control" value="青木, 五十嵐"></td>
-                                        <td><input type="text" class="form-control" value="完了"></td>
-                                        <td><input type="text" class="form-control" value="20h / 18.5h"></td>
-                                        <td class="col-actions"><div class="table-button-group"><button type="button" class="button button-danger">削除</button></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td><input type="text" class="form-control" value="封入"></td>
-                                        <td><input type="text" class="form-control" value="遠藤"></td>
-                                        <td><input type="text" class="form-control" value="作業中 50%"></td>
-                                        <td><input type="text" class="form-control" value="40h / 25h"></td>
-                                        <td class="col-actions"><div class="table-button-group"><button type="button" class="button button-danger">削除</button></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td><input type="text" class="form-control" value="宛名貼り"></td>
-                                        <td><input type="text" class="form-control" value="-"></td>
-                                        <td><input type="text" class="form-control" value="未着手"></td>
-                                        <td><input type="text" class="form-control" value="15h / -"></td>
-                                        <td class="col-actions"><div class="table-button-group"><button type="button" class="button button-danger">削除</button></div></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="section-footer">
-                            <button type="button" class="button button-primary">工程情報を保存</button>
+                        <div class="section">
+                            <div class="list-page-header" style="margin-bottom: 1rem;">
+                                <h2 class="section-title" style="margin: 0; border: none;">工程一覧</h2>
+                                <button type="button" class="button button-primary" id="add-process-row">＋ 工程を追加</button>
+                            </div>
+                            <div class="table-wrapper">
+                                <table class="table" id="process-table">
+                                    <thead>
+                                        <tr><th>No</th><th>工程名</th><th>担当者</th><th>進捗</th><th>予定/実績</th><th class="col-actions">操作</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td><input type="text" class="form-control" value="チラシ折り"></td>
+                                            <td><input type="text" class="form-control" value="青木, 五十嵐"></td>
+                                            <td><input type="text" class="form-control" value="完了"></td>
+                                            <td><input type="text" class="form-control" value="20h / 18.5h"></td>
+                                            <td class="col-actions"><div class="table-button-group"><button type="button" class="button button-danger">削除</button></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td><input type="text" class="form-control" value="封入"></td>
+                                            <td><input type="text" class="form-control" value="遠藤"></td>
+                                            <td><input type="text" class="form-control" value="作業中 50%"></td>
+                                            <td><input type="text" class="form-control" value="40h / 25h"></td>
+                                            <td class="col-actions"><div class="table-button-group"><button type="button" class="button button-danger">削除</button></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td><input type="text" class="form-control" value="宛名貼り"></td>
+                                            <td><input type="text" class="form-control" value="-"></td>
+                                            <td><input type="text" class="form-control" value="未着手"></td>
+                                            <td><input type="text" class="form-control" value="15h / -"></td>
+                                            <td class="col-actions"><div class="table-button-group"><button type="button" class="button button-danger">削除</button></div></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="section-footer">
+                                <button type="button" class="button button-primary">工程情報を保存</button>
+                            </div>
                         </div>
                     </div>
                     <div id="tab-project-finance" class="tab-content">
@@ -261,41 +269,43 @@
                             <button type="button" class="button button-primary">納品・請求情報を保存</button>
                         </div>
                     </div>
+
                     <div id="tab-project-files" class="tab-content">
-                        <div class="list-page-header" style="margin-bottom: 1rem;">
-                            <h2 class="section-title" style="margin: 0; border: none;">ファイル一覧</h2>
-                            <button type="button" class="button button-primary">＋ アップロード</button>
-                        </div>
-                        <div class="table-wrapper">
-                            <table class="table">
-                                <thead><tr><th>ファイル名</th><th>更新日時</th><th class="col-actions">操作</th></tr></thead>
-                                <tbody>
-                                    <tr>
-                                        <td>仕様書_rev2.pdf</td>
-                                        <td>2025/10/01 10:30</td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-secondary">ダウンロード</button>
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>宛名リスト.xlsx</td>
-                                        <td>2025/10/05 14:00</td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-secondary">ダウンロード</button>
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="section">
+                            <div class="list-page-header" style="margin-bottom: 1rem;">
+                                <h2 class="section-title" style="margin: 0; border: none;">ファイル一覧</h2>
+                                <button type="button" class="button button-primary">＋ アップロード</button>
+                            </div>
+                            <div class="table-wrapper">
+                                <table class="table">
+                                    <thead><tr><th>ファイル名</th><th>更新日時</th><th class="col-actions">操作</th></tr></thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>仕様書_rev2.pdf</td>
+                                            <td>2025/10/01 10:30</td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-secondary">ダウンロード</button>
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>宛名リスト.xlsx</td>
+                                            <td>2025/10/05 14:00</td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-secondary">ダウンロード</button>
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                    </div> </div>
 
             <div id="edit-project-basic-modal" class="modal">
                 <div class="modal-content">
@@ -354,6 +364,7 @@
     </div>
 
     <script src="../script.js"></script>
+    
     <script>
         // 案件一覧の簡易フィルタリング関数
         function filterProjects() {
@@ -389,24 +400,57 @@
             });
         }
 
-        // script.jsのグローバル関数を呼び出す想定
-         if (typeof window.showPage === 'function') {
-             // リアルタイム検索のためのイベントリスナーを追加
-             const nameInputListener = document.getElementById('search-project-name');
-             const clientInputListener = document.getElementById('search-client-name');
-             const statusSelectListener = document.getElementById('filter-project-status');
-             if(nameInputListener) nameInputListener.addEventListener('input', filterProjects);
-             if(clientInputListener) clientInputListener.addEventListener('input', filterProjects);
-             if(statusSelectListener) statusSelectListener.addEventListener('change', filterProjects);
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 案件詳細: サブナビゲーション（タブ）切り替え (members/list.html から流用) ---
+            const subNavContainer = document.getElementById('project-detail-subnav');
+            // .tab-content-wrapper の中の .tab-content を探すようにセレクタを修正
+            const tabContents = document.querySelectorAll('#project-detail .tab-content-wrapper .tab-content'); 
+            
+            if (subNavContainer && tabContents.length > 0) {
+                subNavContainer.addEventListener('click', (e) => {
+                    const navItem = e.target.closest('.sub-nav-item');
+                    if (!navItem || navItem.classList.contains('active')) { return; }
+                    e.preventDefault();
+                    
+                    const targetTabId = navItem.dataset.tab;
+                    
+                    // サブナビのアクティブ状態を更新
+                    subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                    navItem.classList.add('active');
+                    
+                    // タブコンテンツの表示を切り替え
+                    tabContents.forEach(content => {
+                        content.classList.toggle('active', content.id === targetTabId);
+                    });
+                });
+            }
 
-             // 初期表示のための呼び出し
-             filterProjects();
-         } else {
-              console.warn("showPage or filter functions might not be globally available yet.");
-              // フォールバック
-              document.addEventListener('DOMContentLoaded', filterProjects);
-         }
+            // --- 案件一覧: フィルタリングのイベントリスナー設定 ---
+            if (typeof window.filterProjects === 'function') {
+                const nameInputListener = document.getElementById('search-project-name');
+                const clientInputListener = document.getElementById('search-client-name');
+                const statusSelectListener = document.getElementById('filter-project-status');
+                // クリアボタンのセレクタを修正
+                const clearButton = document.querySelector('#projects .section-header .button-secondary'); 
+
+                if(nameInputListener) nameInputListener.addEventListener('input', filterProjects);
+                if(clientInputListener) clientInputListener.addEventListener('input', filterProjects);
+                if(statusSelectListener) statusSelectListener.addEventListener('change', filterProjects);
+                
+                if(clearButton) {
+                    clearButton.addEventListener('click', () => {
+                         // フォームの特定を #projects 内の .filter-form に修正
+                         const form = document.querySelector('#projects .filter-form');
+                         if (form) form.reset(); 
+                         filterProjects();
+                    });
+                }
+                
+                // 初期表示のための呼び出し
+                filterProjects();
+            }
+        });
 
     </script>
-</body>
+    </body>
 </html>

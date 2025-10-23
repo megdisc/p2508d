@@ -152,411 +152,418 @@
                      </div>
                 </div>
 
-                <div class="tabs" id="skill-system-tabs">
-                    <div class="tab-item active" data-tab="tab-skill-categories">スキルカテゴリ</div>
-                    <div class="tab-item" data-tab="tab-skill-items">スキル項目</div>
-                    <div class="tab-item" data-tab="tab-skill-levels">習熟度レベル</div>
+                 <div class="sub-nav">
+                    <ul id="skill-system-subnav">
+                        <li><a href="#" class="sub-nav-item active" data-tab="tab-skill-categories">スキルカテゴリ</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-skill-items">スキル項目</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-skill-levels">習熟度レベル</a></li>
+                    </ul>
                 </div>
-
-                <div class="tab-content-wrapper">
+                 <div class="tab-content-wrapper">
                     
                     <div id="tab-skill-categories" class="tab-content active">
-                        <div class="list-page-header" style="margin-bottom: 1rem; border: none;">
-                            <h2 class="section-title" style="margin: 0; border: none;">スキルカテゴリ設定</h2>
+                        <div class="section">
+                            <div class="list-page-header" style="margin-bottom: 1rem; border: none;">
+                                <h2 class="section-title" style="margin: 0; border: none;">スキルカテゴリ設定</h2>
+                            </div>
+                            
+                            <div class="table-wrapper">
+                                <table class="table" id="category-table">
+                                    <thead>
+                                        <tr>
+                                            <th>カテゴリ名</th>
+                                            <th class="col-actions">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="category-table-body">
+                                        <tr class="add-root-row">
+                                            <td class="category-name-cell indent-0">
+                                                <span class="toggle-icon no-child"></span>
+                                                <span class="static-text">（ルートカテゴリ）</span>
+                                            </td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-secondary" id="add-root-category-row" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr data-toggle="collapse" data-target-id="cat-mkt">
+                                            <td class="category-name-cell indent-0">
+                                                <span class="toggle-icon">▶</span>
+                                                <input type="text" class="form-control" value="マーケティング">
+                                            </td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="sub-category collapsed" data-parent-id="cat-mkt" data-toggle="collapse" data-target-id="cat-seo"> <td class="category-name-cell indent-1">
+                                                <span class="toggle-icon">▶</span>
+                                                <span class="tree-prefix">└&nbsp;</span>
+                                                <input type="text" class="form-control" value="SEO/広告">
+                                            </td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="sub-category collapsed" data-parent-id="cat-seo">
+                                            <td class="category-name-cell indent-2">
+                                                <span class="toggle-icon no-child"></span>
+                                                <span class="tree-prefix">└&nbsp;</span>
+                                                <input type="text" class="form-control" value="Web広告">
+                                            </td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="sub-category collapsed" data-parent-id="cat-mkt">
+                                            <td class="category-name-cell indent-1">
+                                                <span class="toggle-icon no-child"></span>
+                                                <span class="tree-prefix">└&nbsp;</span>
+                                                <input type="text" class="form-control" value="SNS">
+                                            </td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr data-toggle="collapse" data-target-id="cat-des">
+                                            <td class="category-name-cell indent-0">
+                                                <span class="toggle-icon">▶</span>
+                                                <input type="text" class="form-control" value="デザイン">
+                                            </td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="sub-category collapsed" data-parent-id="cat-des">
+                                            <td class="category-name-cell indent-1">
+                                                <span class="toggle-icon no-child"></span>
+                                                <span class="tree-prefix">└&nbsp;</span>
+                                                <input type="text" class="form-control" value="UI/UX">
+                                            </td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="sub-category collapsed" data-parent-id="cat-des">
+                                            <td class="category-name-cell indent-1">
+                                                <span class="toggle-icon no-child"></span>
+                                                <span class="tree-prefix">└&nbsp;</span>
+                                                <input type="text" class="form-control" value="グラフィック">
+                                            </td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr data-toggle="collapse" data-target-id="cat-dev">
+                                            <td class="category-name-cell indent-0">
+                                                <span class="toggle-icon">▶</span>
+                                                <input type="text" class="form-control" value="開発">
+                                            </td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="sub-category collapsed" data-parent-id="cat-dev">
+                                            <td class="category-name-cell indent-1">
+                                                <span class="toggle-icon no-child"></span>
+                                                <span class="tree-prefix">└&nbsp;</span>
+                                                <input type="text" class="form-control" value="フロントエンド">
+                                            </td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="sub-category collapsed" data-parent-id="cat-dev">
+                                            <td class="category-name-cell indent-1">
+                                                <span class="toggle-icon no-child"></span>
+                                                <span class="tree-prefix">└&nbsp;</span>
+                                                <input type="text" class="form-control" value="バックエンド">
+                                            </td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        
-                        <div class="table-wrapper">
-                            <table class="table" id="category-table">
-                                <thead>
-                                    <tr>
-                                        <th>カテゴリ名</th>
-                                        <th class="col-actions">操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="category-table-body">
-                                    <tr class="add-root-row">
-                                        <td class="category-name-cell indent-0">
-                                            <span class="toggle-icon no-child"></span>
-                                            <span class="static-text">（ルートカテゴリ）</span>
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-secondary" id="add-root-category-row" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr data-toggle="collapse" data-target-id="cat-mkt">
-                                        <td class="category-name-cell indent-0">
-                                            <span class="toggle-icon">▶</span>
-                                            <input type="text" class="form-control" value="マーケティング">
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="sub-category collapsed" data-parent-id="cat-mkt" data-toggle="collapse" data-target-id="cat-seo"> <td class="category-name-cell indent-1">
-                                            <span class="toggle-icon">▶</span>
-                                            <span class="tree-prefix">└&nbsp;</span>
-                                            <input type="text" class="form-control" value="SEO/広告">
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="sub-category collapsed" data-parent-id="cat-seo">
-                                        <td class="category-name-cell indent-2">
-                                            <span class="toggle-icon no-child"></span>
-                                            <span class="tree-prefix">└&nbsp;</span>
-                                            <input type="text" class="form-control" value="Web広告">
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="sub-category collapsed" data-parent-id="cat-mkt">
-                                        <td class="category-name-cell indent-1">
-                                            <span class="toggle-icon no-child"></span>
-                                            <span class="tree-prefix">└&nbsp;</span>
-                                            <input type="text" class="form-control" value="SNS">
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr data-toggle="collapse" data-target-id="cat-des">
-                                        <td class="category-name-cell indent-0">
-                                            <span class="toggle-icon">▶</span>
-                                            <input type="text" class="form-control" value="デザイン">
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="sub-category collapsed" data-parent-id="cat-des">
-                                        <td class="category-name-cell indent-1">
-                                            <span class="toggle-icon no-child"></span>
-                                            <span class="tree-prefix">└&nbsp;</span>
-                                            <input type="text" class="form-control" value="UI/UX">
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="sub-category collapsed" data-parent-id="cat-des">
-                                        <td class="category-name-cell indent-1">
-                                            <span class="toggle-icon no-child"></span>
-                                            <span class="tree-prefix">└&nbsp;</span>
-                                            <input type="text" class="form-control" value="グラフィック">
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr data-toggle="collapse" data-target-id="cat-dev">
-                                        <td class="category-name-cell indent-0">
-                                            <span class="toggle-icon">▶</span>
-                                            <input type="text" class="form-control" value="開発">
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="sub-category collapsed" data-parent-id="cat-dev">
-                                        <td class="category-name-cell indent-1">
-                                            <span class="toggle-icon no-child"></span>
-                                            <span class="tree-prefix">└&nbsp;</span>
-                                            <input type="text" class="form-control" value="フロントエンド">
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="sub-category collapsed" data-parent-id="cat-dev">
-                                        <td class="category-name-cell indent-1">
-                                            <span class="toggle-icon no-child"></span>
-                                            <span class="tree-prefix">└&nbsp;</span>
-                                            <input type="text" class="form-control" value="バックエンド">
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-secondary add-subcategory-button" style="font-size: var(--font-size-xs);">子カテゴリ追加</button>
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
-                    </div>
                     <div id="tab-skill-items" class="tab-content">
-                         <div class="list-page-header" style="margin-bottom: 1rem;">
-                            <h2 class="section-title" style="margin: 0; border: none;">スキル項目設定</h2>
-                            <button type="button" class="button button-primary" id="add-skill-item-row">＋ 項目を追加</button>
+                        <div class="section">
+                            <div class="list-page-header" style="margin-bottom: 1rem;">
+                               <h2 class="section-title" style="margin: 0; border: none;">スキル項目設定</h2>
+                               <button type="button" class="button button-primary" id="add-skill-item-row">＋ 項目を追加</button>
+                           </div>
+                           <div class="table-controls">
+                               <div class="search-form">
+                                   <input type="text" placeholder="スキル名で検索..." class="form-control" id="search-skill-item">
+                               </div>
+                               <div class="items-per-page">
+                                   <label for="items-per-page-item">表示件数:</label>
+                                   <select id="items-per-page-item" class="form-control">
+                                       <option value="20">20</option>
+                                       <option value="50" selected>50</option>
+                                       <option value="100">100</option>
+                                   </select>
+                               </div>
+                           </div>
+                           <div class="table-wrapper">
+                               <table class="table" id="skill-item-table">
+                                   <thead>
+                                       <tr>
+                                           <th><a href="#" class="sort-link">スキル名</a></th>
+                                           <th style="width: 250px;"><a href="#" class="sort-link">カテゴリ</a></th>
+                                           <th class="col-actions">操作</th>
+                                       </tr>
+                                   </thead>
+                                   <tbody id="skill-item-table-body">
+                                       <tr>
+                                           <td><input type="text" class="form-control" value="キーワードリサーチ"></td>
+                                           <td>
+                                               <select class="form-control">
+                                                   <option value="mkt">マーケティング</option>
+                                                   <option value="seo_ad" selected>└ SEO/広告</option>
+                                                   <option value="sns">└ SNS</option>
+                                                   <option value="des">デザイン</option>
+                                                   <option value="ui_ux">└ UI/UX</option>
+                                                   <option value="gfx">└ グラフィック</option>
+                                                   <option value="dev">開発</option>
+                                                   <option value="front">└ フロントエンド</option>
+                                                   <option value="back">└ バックエンド</option>
+                                               </select>
+                                           </td>
+                                           <td class="col-actions">
+                                               <div class="table-button-group">
+                                                   <button type="button" class="button button-danger">削除</button>
+                                               </div>
+                                           </td>
+                                       </tr>
+                                       <tr>
+                                           <td><input type="text" class="form-control" value="GA4分析"></td>
+                                           <td>
+                                               <select class="form-control">
+                                                   <option value="mkt">マーケティング</option>
+                                                   <option value="seo_ad" selected>└ SEO/広告</option>
+                                                   <option value="sns">└ SNS</option>
+                                                   <option value="des">デザイン</option>
+                                                   <option value="ui_ux">└ UI/UX</option>
+                                                   <option value="gfx">└ グラフィック</option>
+                                                   <option value="dev">開発</option>
+                                                   <option value="front">└ フロントエンド</option>
+                                                   <option value="back">└ バックエンド</option>
+                                               </select>
+                                           </td>
+                                           <td class="col-actions">
+                                               <div class="table-button-group">
+                                                   <button type="button" class="button button-danger">削除</button>
+                                               </div>
+                                           </td>
+                                       </tr>
+                                       <tr>
+                                           <td><input type="text" class="form-control" value="Instagram投稿作成"></td>
+                                           <td>
+                                               <select class="form-control">
+                                                   <option value="mkt">マーケティング</option>
+                                                   <option value="seo_ad">└ SEO/広告</option>
+                                                   <option value="sns" selected>└ SNS</option>
+                                                   <option value="des">デザイン</option>
+                                                   <option value="ui_ux">└ UI/UX</option>
+                                                   <option value="gfx">└ グラフィック</option>
+                                                   <option value="dev">開発</option>
+                                                   <option value="front">└ フロントエンド</option>
+                                                   <option value="back">└ バックエンド</option>
+                                               </select>
+                                           </td>
+                                           <td class="col-actions">
+                                               <div class="table-button-group">
+                                                   <button type="button" class="button button-danger">削除</button>
+                                               </div>
+                                           </td>
+                                       </tr>
+                                       <tr>
+                                           <td><input type="text" class="form-control" value="ワイヤーフレーム作成"></td>
+                                           <td>
+                                               <select class="form-control">
+                                                   <option value="mkt">マーケティング</option>
+                                                   <option value="seo_ad">└ SEO/広告</option>
+                                                   <option value="sns">└ SNS</option>
+                                                   <option value="des">デザイン</option>
+                                                   <option value="ui_ux" selected>└ UI/UX</option>
+                                                   <option value="gfx">└ グラフィック</option>
+                                                   <option value="dev">開発</option>
+                                                   <option value="front">└ フロントエンド</option>
+                                                   <option value="back">└ バックエンド</option>
+                                               </select>
+                                           </td>
+                                           <td class="col-actions">
+                                               <div class="table-button-group">
+                                                   <button type="button" class="button button-danger">削除</button>
+                                               </div>
+                                           </td>
+                                       </tr>
+                                       <tr>
+                                           <td><input type="text" class="form-control" value="バナー作成 (Figma)"></td>
+                                           <td>
+                                               <select class="form-control">
+                                                   <option value="mkt">マーケティング</option>
+                                                   <option value="seo_ad">└ SEO/広告</option>
+                                                   <option value="sns">└ SNS</option>
+                                                   <option value="des">デザイン</option>
+                                                   <option value="ui_ux">└ UI/UX</option>
+                                                   <option value="gfx" selected>└ グラフィック</option>
+                                                   <option value="dev">開発</option>
+                                                   <option value="front">└ フロントエンド</option>
+                                                   <option value="back">└ バックエンド</option>
+                                               </select>
+                                           </td>
+                                           <td class="col-actions">
+                                               <div class="table-button-group">
+                                                   <button type="button" class="button button-danger">削除</button>
+                                               </div>
+                                           </td>
+                                       </tr>
+                                       <tr>
+                                           <td><input type="text" class="form-control" value="HTML/CSSコーディング"></td>
+                                           <td>
+                                               <select class="form-control">
+                                                   <option value="mkt">マーケティング</option>
+                                                   <option value="seo_ad">└ SEO/広告</option>
+                                                   <option value="sns">└ SNS</option>
+                                                   <option value="des">デザイン</option>
+                                                   <option value="ui_ux">└ UI/UX</option>
+                                                   <option value="gfx">└ グラフィック</option>
+                                                   <option value="dev">開発</option>
+                                                   <option value="front" selected>└ フロントエンド</option>
+                                                   <option value="back">└ バックエンド</option>
+                                               </select>
+                                           </td>
+                                           <td class="col-actions">
+                                               <div class="table-button-group">
+                                                   <button type="button" class="button button-danger">削除</button>
+                                               </div>
+                                           </td>
+                                       </tr>
+                                       <tr>
+                                           <td><input type="text" class="form-control" value="API開発 (Node.js)"></td>
+                                           <td>
+                                               <select class="form-control">
+                                                   <option value="mkt">マーケティング</option>
+                                                   <option value="seo_ad">└ SEO/広告</option>
+                                                   <option value="sns">└ SNS</option>
+                                                   <option value="des">デザイン</option>
+                                                   <option value="ui_ux">└ UI/UX</option>
+                                                   <option value="gfx">└ グラフィック</option>
+                                                   <option value="dev">開発</option>
+                                                   <option value="front">└ フロントエンド</option>
+                                                   <option value="back" selected>└ バックエンド</option>
+                                               </select>
+                                           </td>
+                                           <td class="col-actions">
+                                               <div class="table-button-group">
+                                                   <button type="button" class="button button-danger">削除</button>
+                                               </div>
+                                           </td>
+                                       </tr>
+                                   </tbody>
+                               </table>
+                           </div>
+                           <div class="pagination-controls">
+                               <div class="pagination-nav">
+                                   <span>1 - 7 / 7件中</span>
+                                   <button class="button button-secondary" disabled>&lt; 前へ</button>
+                                   <button class="button button-secondary">次へ &gt;</button>
+                               </div>
+                           </div>
                         </div>
-                        <div class="table-controls">
-                            <div class="search-form">
-                                <input type="text" placeholder="スキル名で検索..." class="form-control" id="search-skill-item">
-                            </div>
-                            <div class="items-per-page">
-                                <label for="items-per-page-item">表示件数:</label>
-                                <select id="items-per-page-item" class="form-control">
-                                    <option value="20">20</option>
-                                    <option value="50" selected>50</option>
-                                    <option value="100">100</option>
-                                </select>
-                            </div>
                         </div>
-                        <div class="table-wrapper">
-                            <table class="table" id="skill-item-table">
-                                <thead>
-                                    <tr>
-                                        <th><a href="#" class="sort-link">スキル名</a></th>
-                                        <th style="width: 250px;"><a href="#" class="sort-link">カテゴリ</a></th>
-                                        <th class="col-actions">操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="skill-item-table-body">
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="キーワードリサーチ"></td>
-                                        <td>
-                                            <select class="form-control">
-                                                <option value="mkt">マーケティング</option>
-                                                <option value="seo_ad" selected>└ SEO/広告</option>
-                                                <option value="sns">└ SNS</option>
-                                                <option value="des">デザイン</option>
-                                                <option value="ui_ux">└ UI/UX</option>
-                                                <option value="gfx">└ グラフィック</option>
-                                                <option value="dev">開発</option>
-                                                <option value="front">└ フロントエンド</option>
-                                                <option value="back">└ バックエンド</option>
-                                            </select>
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="GA4分析"></td>
-                                        <td>
-                                            <select class="form-control">
-                                                <option value="mkt">マーケティング</option>
-                                                <option value="seo_ad" selected>└ SEO/広告</option>
-                                                <option value="sns">└ SNS</option>
-                                                <option value="des">デザイン</option>
-                                                <option value="ui_ux">└ UI/UX</option>
-                                                <option value="gfx">└ グラフィック</option>
-                                                <option value="dev">開発</option>
-                                                <option value="front">└ フロントエンド</option>
-                                                <option value="back">└ バックエンド</option>
-                                            </select>
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="Instagram投稿作成"></td>
-                                        <td>
-                                            <select class="form-control">
-                                                <option value="mkt">マーケティング</option>
-                                                <option value="seo_ad">└ SEO/広告</option>
-                                                <option value="sns" selected>└ SNS</option>
-                                                <option value="des">デザイン</option>
-                                                <option value="ui_ux">└ UI/UX</option>
-                                                <option value="gfx">└ グラフィック</option>
-                                                <option value="dev">開発</option>
-                                                <option value="front">└ フロントエンド</option>
-                                                <option value="back">└ バックエンド</option>
-                                            </select>
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="ワイヤーフレーム作成"></td>
-                                        <td>
-                                            <select class="form-control">
-                                                <option value="mkt">マーケティング</option>
-                                                <option value="seo_ad">└ SEO/広告</option>
-                                                <option value="sns">└ SNS</option>
-                                                <option value="des">デザイン</option>
-                                                <option value="ui_ux" selected>└ UI/UX</option>
-                                                <option value="gfx">└ グラフィック</option>
-                                                <option value="dev">開発</option>
-                                                <option value="front">└ フロントエンド</option>
-                                                <option value="back">└ バックエンド</option>
-                                            </select>
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="バナー作成 (Figma)"></td>
-                                        <td>
-                                            <select class="form-control">
-                                                <option value="mkt">マーケティング</option>
-                                                <option value="seo_ad">└ SEO/広告</option>
-                                                <option value="sns">└ SNS</option>
-                                                <option value="des">デザイン</option>
-                                                <option value="ui_ux">└ UI/UX</option>
-                                                <option value="gfx" selected>└ グラフィック</option>
-                                                <option value="dev">開発</option>
-                                                <option value="front">└ フロントエンド</option>
-                                                <option value="back">└ バックエンド</option>
-                                            </select>
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="HTML/CSSコーディング"></td>
-                                        <td>
-                                            <select class="form-control">
-                                                <option value="mkt">マーケティング</option>
-                                                <option value="seo_ad">└ SEO/広告</option>
-                                                <option value="sns">└ SNS</option>
-                                                <option value="des">デザイン</option>
-                                                <option value="ui_ux">└ UI/UX</option>
-                                                <option value="gfx">└ グラフィック</option>
-                                                <option value="dev">開発</option>
-                                                <option value="front" selected>└ フロントエンド</option>
-                                                <option value="back">└ バックエンド</option>
-                                            </select>
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="API開発 (Node.js)"></td>
-                                        <td>
-                                            <select class="form-control">
-                                                <option value="mkt">マーケティング</option>
-                                                <option value="seo_ad">└ SEO/広告</option>
-                                                <option value="sns">└ SNS</option>
-                                                <option value="des">デザイン</option>
-                                                <option value="ui_ux">└ UI/UX</option>
-                                                <option value="gfx">└ グラフィック</option>
-                                                <option value="dev">開発</option>
-                                                <option value="front">└ フロントエンド</option>
-                                                <option value="back" selected>└ バックエンド</option>
-                                            </select>
-                                        </td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="pagination-controls">
-                            <div class="pagination-nav">
-                                <span>1 - 7 / 7件中</span>
-                                <button class="button button-secondary" disabled>&lt; 前へ</button>
-                                <button class="button button-secondary">次へ &gt;</button>
-                            </div>
-                        </div>
-                    </div>
                     
                     <div id="tab-skill-levels" class="tab-content">
-                        <div class="list-page-header" style="margin-bottom: 1rem;">
-                            <h2 class="section-title" style="margin: 0; border: none;">習熟度レベル設定</h2>
-                            <button type="button" class="button button-primary" id="add-level-row">＋ レベルを追加</button>
+                         <div class="section">
+                            <div class="list-page-header" style="margin-bottom: 1rem;">
+                                <h2 class="section-title" style="margin: 0; border: none;">習熟度レベル設定</h2>
+                                <button type="button" class="button button-primary" id="add-level-row">＋ レベルを追加</button>
+                            </div>
+                            <div class="table-wrapper">
+                                <table class="table" id="level-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 150px;">レベル名</th>
+                                            <th>説明</th>
+                                            <th class="col-actions">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="level-table-body">
+                                        <tr>
+                                            <td><input type="text" class="form-control" value="Lv.0"></td>
+                                            <td><input type="text" class="form-control" value="未学習・見学"></td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="form-control" value="Lv.1"></td>
+                                            <td><input type="text" class="form-control" value="要支援・練習中"></td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="form-control" value="Lv.2"></td>
+                                            <td><input type="text" class="form-control" value="独力で作業可能"></td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="form-control" value="Lv.3"></td>
+                                            <td><input type="text" class="form-control" value="指導・検品が可能"></td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="table-wrapper">
-                            <table class="table" id="level-table">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 150px;">レベル名</th>
-                                        <th>説明</th>
-                                        <th class="col-actions">操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="level-table-body">
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="Lv.0"></td>
-                                        <td><input type="text" class="form-control" value="未学習・見学"></td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="Lv.1"></td>
-                                        <td><input type="text" class="form-control" value="要支援・練習中"></td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="Lv.2"></td>
-                                        <td><input type="text" class="form-control" value="独力で作業可能"></td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" value="Lv.3"></td>
-                                        <td><input type="text" class="form-control" value="指導・検品が可能"></td>
-                                        <td class="col-actions">
-                                            <div class="table-button-group">
-                                                <button type="button" class="button button-danger">削除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                         </div>
 
                 </div>
 
@@ -632,12 +639,32 @@
             </td>
         </tr>
     </template>
-
-
     <script src="../script.js"></script>
 
-    <script>
+     <script>
         document.addEventListener('DOMContentLoaded', () => {
+
+            // --- サブナビゲーション（タブ）切り替え ---
+            const subNavContainer = document.getElementById('skill-system-subnav');
+            const tabContents = document.querySelectorAll('#skill-system-detail .tab-content-wrapper .tab-content'); 
+            
+            if (subNavContainer && tabContents.length > 0) {
+                subNavContainer.addEventListener('click', (e) => {
+                    const navItem = e.target.closest('.sub-nav-item');
+                    if (!navItem || navItem.classList.contains('active')) { return; }
+                    e.preventDefault();
+                    
+                    const targetTabId = navItem.dataset.tab;
+                    
+                    subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                    navItem.classList.add('active');
+                    
+                    tabContents.forEach(content => {
+                        content.classList.toggle('active', content.id === targetTabId);
+                    });
+                });
+            }
+
 
             // --- スキルカテゴリタブのロジック ---
             const categoryTbody = document.getElementById('category-table-body');
@@ -652,7 +679,8 @@
                     const clone = rootCategoryTemplate.content.cloneNode(true);
                     const newId = `cat-new-${Date.now()}`;
                     clone.querySelector('tr').dataset.targetId = newId; 
-                    categoryTbody.insertBefore(clone, categoryTbody.rows[1]);
+                    // ルート追加行の直後に挿入
+                    categoryTbody.insertBefore(clone, rootCategoryButton.closest('tr').nextSibling); 
                 });
 
                 // tbody 内のイベント委任 (削除、サブ追加、開閉)
@@ -741,7 +769,12 @@
                             if (icon && !parentRow.classList.contains('add-root-row')) { // ルート追加行のアイコンは操作しない
                                 if (icon.textContent === '▶') {
                                      icon.textContent = '▼';
-                                     childRows.forEach(child => child.classList.remove('collapsed'));
+                                     // 子要素を開く処理（開閉処理に依存）
+                                     const targetIdToOpen = parentRow.dataset.targetId;
+                                     if(targetIdToOpen) {
+                                         const childrenToOpen = categoryTbody.querySelectorAll(`[data-parent-id="${targetIdToOpen}"]`);
+                                         childrenToOpen.forEach(child => child.classList.remove('collapsed'));
+                                     }
                                 }
                                 if (icon.classList.contains('no-child')) {
                                     icon.classList.remove('no-child');
@@ -749,15 +782,38 @@
                                 }
                             }
                            
-                            // 挿入位置の決定
-                            if (childRows.length > 0) {
-                                insertAfter = childRows[childRows.length - 1]; 
-                            }
-                             // ルート行からの追加の場合は、ルート行のすぐ下に挿入
+                            // 挿入位置の決定: 最後の直接の子、または孫要素の最後を探す
+                             let lastDescendant = parentRow;
+                             if (parentId) { // ルート直下以外
+                                 function findLastDescendant(currentParentId) {
+                                     const directChildren = Array.from(categoryTbody.querySelectorAll(`[data-parent-id="${currentParentId}"]`));
+                                     if (directChildren.length > 0) {
+                                         const lastDirectChild = directChildren[directChildren.length - 1];
+                                         const lastDirectChildId = lastDirectChild.dataset.targetId;
+                                         if (lastDirectChildId) {
+                                             // 最後の直接の子がさらに子を持つかチェック
+                                             const grandChildren = categoryTbody.querySelectorAll(`[data-parent-id="${lastDirectChildId}"]`);
+                                             if (grandChildren.length > 0 && !lastDirectChild.querySelector('.toggle-icon')?.classList.contains('no-child') && lastDirectChild.querySelector('.toggle-icon')?.textContent === '▼' ) {
+                                                  // 孫要素がいる、かつ開いている場合、再帰的に探す
+                                                 return findLastDescendant(lastDirectChildId);
+                                             }
+                                         }
+                                         // 孫がいない、または閉じていれば、最後の直接の子の後ろ
+                                         return lastDirectChild;
+                                     }
+                                     // 子がいなければ親自身
+                                     return categoryTbody.querySelector(`[data-target-id="${currentParentId}"]`);
+                                 }
+                                 lastDescendant = findLastDescendant(parentId);
+                             }
+
+                             insertAfter = lastDescendant || parentRow; // 見つからなければ親の後ろ
+
+
+                             // ルート行からの追加の場合は、インデントとツリー記号を調整
                              if (parentRow.classList.contains('add-root-row')) {
-                                 insertAfter = parentRow;
-                                 newRow.querySelector('.tree-prefix').textContent = ''; // ルートなのでツリー記号なし
-                                 newRow.querySelector('.category-name-cell').classList.add('indent-0'); // インデント0
+                                 newRow.querySelector('.tree-prefix').textContent = '';
+                                 nameCell.classList.add('indent-0');
                              }
                             
                             // 新しい行は開いた状態で挿入
@@ -785,20 +841,17 @@
                                 const childTargetId = child.dataset.targetId;
                                 const childIcon = child.querySelector('.toggle-icon');
                                 if (childTargetId && childIcon && !childIcon.classList.contains('no-child')) {
-                                     if (!collapse && childIcon.textContent === '▼') { // 親が開いていて、かつ子も開いていた場合のみ再帰
-                                         toggleDescendants(childTargetId, collapse);
-                                     } else if (collapse) { // 閉じるときは子の状態に関わらず再帰的に閉じる
+                                     // 閉じるときは子の状態に関わらず再帰的に閉じる
+                                     // 開くときは、その子が元々開いていた場合のみ再帰的に開く（アイコンが▼）
+                                     if (collapse || (!collapse && childIcon.textContent === '▼')) {
                                          toggleDescendants(childTargetId, collapse);
                                      }
                                 }
                             });
                         }
 
-                        // 現在開いているかどうかの判定 (最初の子要素を見る)
-                        const firstChild = categoryTbody.querySelector(`[data-parent-id="${targetId}"]`);
-                        if (!firstChild) return; // 子がいない場合は何もしない
-
-                        const isCurrentlyCollapsed = firstChild.classList.contains('collapsed');
+                        // 現在開いているかどうかの判定 (アイコンで判断)
+                        const isCurrentlyCollapsed = (toggleIcon.textContent === '▶');
 
                         if (isCurrentlyCollapsed) {
                             toggleIcon.textContent = '▼';
@@ -814,7 +867,6 @@
 
             // --- テーブル行追加・削除の汎用ロジック (スキル項目・習熟度用) ---
             function setupSimpleTableRowAdder(tbodyId, addButtonId, templateId) {
-                // (変更なし)
                 const tbody = document.getElementById(tbodyId);
                 const addButton = document.getElementById(addButtonId);
                 const template = document.getElementById(templateId);
@@ -826,8 +878,8 @@
                 });
 
                 tbody.addEventListener('click', (e) => {
-                    const deleteButton = e.target.closest('.button-danger');
-                    if (deleteButton) {
+                    const deleteButton = e.target.closest('td.col-actions .button-danger');
+                    if (deleteButton && tbody.contains(deleteButton)) {
                         deleteButton.closest('tr').remove();
                     }
                 });
@@ -839,7 +891,6 @@
 
             // --- リアルタイム検索の汎用ロジック (スキル項目タブのみ) ---
             function setupRealtimeSearch(inputId, tbodyId) {
-                // (変更なし)
                 const searchInput = document.getElementById(inputId);
                 const tableBody = document.getElementById(tbodyId);
                 if (!searchInput || !tableBody) return;
@@ -849,9 +900,10 @@
                     const rows = tableBody.getElementsByTagName('tr');
 
                     Array.from(rows).forEach(row => {
-                        if (row.classList.contains('add-root-row')) return;
+                        if (row.classList.contains('add-root-row')) return; // カテゴリ追加行は無視
 
-                        const inputInCell = row.querySelector('td:first-child input');
+                        // スキル名の input 要素を取得
+                        const inputInCell = row.querySelector('td:first-child input.form-control'); 
                         if (inputInCell) {
                             const cellValue = inputInCell.value.toLowerCase();
                             if (cellValue.includes(searchTerm)) {
@@ -867,5 +919,5 @@
             setupRealtimeSearch('search-skill-item', 'skill-item-table-body');
         });
     </script>
-    </body>
+     </body>
 </html>
