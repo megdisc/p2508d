@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>会計管理 - p2508d</title>
     <link rel="stylesheet" href="../style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
+    </head>
 <body>
-    <div class="mockup-container"><header class="header">
+    <div class="mockup-container">
+        <header class="header">
             <div>
                 <h1 class="header-logo"><a href="../dashboard/index.html">p2508d</a></h1>
             </div>
@@ -29,50 +29,42 @@
                     <a href="../index.html" class="nav-link">ログアウト</a>
                 </div>
             </nav>
-            </header>
+        </header>
 
         <main class="mockup-main">
             <div class="list-page-header">
                 <h1 class="page-title">会計管理</h1>
             </div>
-            <p>日々の収支、工賃、給与など、事業所の会計業務を管理します。</p>
+            <div class="card-grid">
 
-            <div class="section">
-                <div class="card-grid">
-                    
-                    <div class="card">
-                        <a href="../accounting backup/index.html">
-                            <div class="card-icon"><i class="material-icons">receipt_long</i></div>
-                            <div class="card-content">
-                                <h3>取引一覧</h3>
-                                <p>売上や経費などのすべての収支を記録・管理します。</p>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="card">
-                        <a href="#">
-                             <div class="card-icon"><i class="material-icons">payments</i></div>
-                            <div class="card-content">
-                                <h3>工賃管理</h3>
-                                <p>利用者への工賃計算と明細発行を行います。</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="card">
-                        <a href="#">
-                             <div class="card-icon"><i class="material-icons">paid</i></div>
-                            <div class="card-content">
-                                <h3>給与管理</h3>
-                                <p>職員への給与計算と明細発行を行います。</p>
-                            </div>
-                        </a>
-                    </div>
-
+                <div class="card">
+                    <a href="../accounting backup/index.html">
+                        <div class="card-content">
+                            <h3>取引一覧</h3>
+                            <p>売上や経費などのすべての収支を記録・管理します。</p>
+                        </div>
+                    </a>
                 </div>
+
+                <div class="card">
+                    <a href="../wages/members.html">
+                         <div class="card-content">
+                            <h3>工賃管理 (利用者別)</h3>
+                            <p>利用者への工賃計算と明細発行を行います。</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="#">
+                         <div class="card-content">
+                            <h3>給与管理</h3>
+                            <p>職員への給与計算と明細発行を行います。</p>
+                        </div>
+                    </a>
+                </div>
+
             </div>
-        </main>
+            </main>
     </div>
 </body>
 </html>

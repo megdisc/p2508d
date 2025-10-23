@@ -2,11 +2,7 @@
    CSS Variables (Design Tokens)
    ========================================================================== */
 :root {
-    /* ============================================= */
-    /* 第1層：グローバル・パレット (Global Palette)   */
-    /* プロジェクトで利用するすべての色を定義します。    */
-    /* ============================================= */
-    /* --- ブランドカラー --- */
+    /* ... (変更なし) ... */
     --palette-navy-main: #000066;        /* メインカラー */
     --palette-navy-sub: #000099;         /* サブカラー */
     --palette-orange-accent: #FF9900;    /* アクセントカラー */
@@ -29,7 +25,6 @@
 
     /* ============================================= */
     /* 第2層：セマンティック・トークン (Semantic Tokens) */
-    /* 色やサイズに「意味」を与えます。アプリでは主にこの層を使います。 */
     /* ============================================= */
 
     /* --- 基本色 --- */
@@ -70,6 +65,7 @@
 /* ==========================================================================
    Base & Reset
    ========================================================================== */
+/* ... (変更なし) ... */
 *,
 *::before,
 *::after {
@@ -103,6 +99,7 @@ table {
 /* ==========================================================================
    Layout
    ========================================================================== */
+/* ... (変更なし) ... */
 .mockup-container {
     display: flex;
 }
@@ -128,6 +125,7 @@ table {
    ========================================================================== */
 
 /* --- Header --- */
+/* ... (変更なし) ... */
 .header {
     width: 240px;
     height: 100vh;
@@ -159,8 +157,20 @@ table {
     justify-content: space-between;
     height: 100%;
     overflow-y: auto;
+    
+    /* ▼▼▼ 追加: スクロールバー非表示 ▼▼▼ */
+    -ms-overflow-style: none;  /* IE/Edge */
+    scrollbar-width: none;     /* Firefox */
+    /* ▲▲▲ 追加 ▲▲▲ */
 }
+/* ▼▼▼ 追加: Webkit系スクロールバー非表示 ▼▼▼ */
+.nav::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Edge */
+}
+/* ▲▲▲ 追加 ▲▲▲ */
+
 .nav-list {
+/* ... (変更なし) ... */
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -191,6 +201,7 @@ table {
 }
 
 /* --- Button --- */
+/* ... (変更なし) ... */
 .button {
     display: inline-flex;
     align-items: center;
@@ -221,21 +232,21 @@ table {
 }
 
 /* --- Page Structure --- */
+/* ... (変更なし) ... */
 .page-title {
     font-size: var(--font-size-xl);
     font-weight: 700;
 }
-/* ▼▼▼ 修正: margin-bottom を 1rem に変更 ▼▼▼ */
 .list-page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
 }
-/* ▲▲▲ 修正 ▲▲▲ */
 
 
 /* --- Section --- */
+/* ... (変更なし) ... */
 .section {
     width: 100%;
     border: 1px solid var(--color-border);
@@ -251,17 +262,16 @@ table {
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--color-border);
 }
-/* ▼▼▼ 修正: margin-top を 0 に変更 ▼▼▼ */
 .section-content {
     margin-top: 0;
 }
-/* ▲▲▲ 修正 ▲▲▲ */
 .section-footer {
     margin-top: 1.5rem;
     text-align: right;
 }
 
 /* --- Table --- */
+/* ... (変更なし) ... */
 .table-wrapper {
     width: 100%;
     overflow-x: auto;
@@ -307,6 +317,7 @@ table {
 }
 
 /* --- Tabs --- */
+/* ... (変更なし) ... */
 .tabs {
     display: flex;
     border-bottom: 1px solid var(--color-border);
@@ -343,7 +354,58 @@ table {
     display: block;
 }
 
+/* ▼▼▼ 汎用的なフォームスタイルを追加 ▼▼▼ */
+/* ==========================================================================
+   Forms (General / Shared)
+   ========================================================================== */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group label,
+.form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: var(--font-size-sm);
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: var(--font-size-base); /* 基本のフォントサイズ */
+    line-height: 1.5;
+    color: var(--color-text-primary);
+    background-color: var(--color-surface);
+    background-clip: padding-box;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* selectはフォントサイズが継承されにくい場合があるため明示 */
+select.form-control {
+    font-size: var(--font-size-base);
+}
+
+textarea.form-control {
+    min-height: 80px;
+    resize: vertical;
+    font-family: var(--font-family-base);
+}
+
+.form-control:focus {
+    color: var(--color-text-primary);
+    background-color: var(--color-surface);
+    border-color: var(--color-primary-hover);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 0, 102, 0.25); /* --color-primary の薄い影 */
+}
+/* ▲▲▲ 汎用フォームスタイルここまで ▲▲▲ */
+
+
 /* --- Detail Page --- */
+/* ... (変更なし) ... */
 .detail-grid {
     display: grid;
     grid-template-columns: 150px 1fr;
@@ -361,11 +423,12 @@ table {
     align-items: center;
     gap: 0.5rem;
 }
+/* detail-grid内のフォーム要素は、汎用の.form-controlスタイルを使いつつ、一部上書き */
 .detail-grid input,
 .detail-grid select,
 .detail-grid textarea {
     width: 100%;
-    padding: 0.375rem 0.75rem;
+    padding: 0.375rem 0.75rem; /* 汎用より少し小さめ */
     font-size: var(--font-size-base);
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
@@ -383,6 +446,7 @@ textarea.work-content {
 }
 
 /* --- Calendar --- */
+/* ... (変更なし) ... */
 .calendar {
     width: 100%;
     background-color: var(--color-background);
@@ -418,7 +482,7 @@ textarea.work-content {
 }
 
 /* --- Modal (DIV-based) --- */
-/* (p2508d/mocks/script.js の openModal/closeModal で使用) */
+/* ... (変更なし) ... */
 .modal {
     display: none;
     position: fixed;
@@ -463,19 +527,22 @@ textarea.work-content {
 .modal-close:focus {
     color: black;
 }
+/* .modal-body .form-group は汎用スタイル .form-group を使用 */
 .modal-body .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; /* モーダル内は少し狭く */
 }
+/* .modal-body label は汎用スタイル .form-label を使用 */
 .modal-body label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
 }
+/* modal-body 内のフォーム要素は、汎用の.form-controlスタイルを使いつつ、一部上書き */
 .modal-body input,
 .modal-body textarea,
 .modal-body select {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.5rem; /* 汎用より少し小さめ */
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
 }
@@ -502,14 +569,14 @@ textarea.work-content {
 /* ==========================================================================
    Custom/Fixes
    ========================================================================== */
+/* ... (変更なし) ... */
 .col-actions {
     width: 120px; /* ボタンが収まるように幅を固定 */
     white-space: nowrap; /* セル内での改行を防ぐ */
 }
 
 /* --- Accordion Styles --- */
-/* Add this to the end of your existing style.css */
-
+/* ... (変更なし) ... */
 .accordion-toggle::after {
     content: '▶';
     position: absolute;
@@ -519,20 +586,18 @@ textarea.work-content {
     font-size: 12px;
     transition: transform 0.2s ease-in-out;
 }
-
 .accordion-toggle.active::after {
     transform: translateY(-50%) rotate(90deg);
 }
-
-/* 矢印の位置を修正するためのスタイル */
-        .nav-link.accordion-toggle {
-            position: relative;
-        }
+.nav-link.accordion-toggle {
+    position: relative;
+}
 
 
 /* ==========================================================================
    Settings Page (Cards & Icons) - p2508d_mocks/settings/index.html より統合
    ========================================================================== */
+/* ... (変更なし) ... */
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -573,7 +638,6 @@ textarea.work-content {
     color: var(--color-text-secondary);
     line-height: 1.4;
 }
-/* Material Icons用 */
 .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
@@ -595,6 +659,7 @@ textarea.work-content {
 /* ==========================================================================
    Dashboard Page (Cards) - p2508d_mocks/dashboard/index.html より統合
    ========================================================================== */
+/* ... (変更なし) ... */
 .dashboard-grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
@@ -625,8 +690,7 @@ textarea.work-content {
 /* ==========================================================================
    Login Page (p2508d_mocks/index.html)
    ========================================================================== */
-
-/* ログインボックスを画面中央に配置するコンテナ */
+/* ... (変更なし) ... */
 .login-container {
     display: flex;
     align-items: center;
@@ -635,8 +699,6 @@ textarea.work-content {
     background-color: var(--color-background); /* 既存の背景色 */
     padding: 1rem;
 }
-
-/* ログインフォームのボックス */
 .login-box {
     width: 100%;
     max-width: 420px; /* ログインボックスの最大幅 */
@@ -646,8 +708,6 @@ textarea.work-content {
     border-radius: var(--border-radius); /* 既存の角丸 */
     box-shadow: 0 4px 12px var(--color-shadow); /* 既存の影 */
 }
-
-/* ログインタイトル */
 .login-title {
     text-align: center;
     font-size: var(--font-size-lg);
@@ -655,25 +715,14 @@ textarea.work-content {
     color: var(--color-primary); /* 既存のプライマリカラー */
     margin-bottom: 2rem;
 }
+/* .form-group は汎用スタイルを使用 */
+/* .form-group label は汎用スタイルを使用 */
 
-/* フォームの各項目（ラベルと入力欄）のグループ */
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-/* フォームのラベル */
-.form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    font-size: var(--font-size-sm);
-}
-
-/* ログインページの入力欄スタイル */
+/* ログインボックス内のフォームは汎用 .form-control を使用 */
 .login-box input[type="email"],
 .login-box input[type="password"] {
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 1rem; /* ログインボックスは少し大きめ */
     font-size: var(--font-size-base);
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
@@ -682,8 +731,6 @@ textarea.work-content {
     color: var(--color-text-primary);
     box-sizing: border-box; /* paddingを含めてwidth: 100%にするため */
 }
-
-/* ボタンをボックス幅いっぱいに広げる汎用クラス */
 .button-full-width {
     width: 100%;
     padding-top: 0.75rem;
@@ -696,13 +743,13 @@ textarea.work-content {
 /* ==========================================================================
    Facility Schedule Grid (p2508d/mocks/facility/index.html)
    ========================================================================== */
+/* ... (変更なし) ... */
 .schedule-grid-table th,
 .schedule-grid-table td {
     text-align: center;
     vertical-align: middle;
     height: 60px;
 }
-/* 1列目のヘッダー（週）のスタイル */
 .schedule-grid-table thead th:first-child,
 .schedule-grid-table tbody tr td:first-child {
     font-weight: 600;
@@ -727,6 +774,7 @@ textarea.work-content {
 /* ==========================================================================
    Calendar Table (Copied from analytics/index.html)
    ========================================================================== */
+/* ... (変更なし) ... */
 .calendar-table td[style*="#fde2e2"] {
      background-color: #fde2e2; /* For holiday */
 }
@@ -736,42 +784,31 @@ textarea.work-content {
 
 
 /* ▼▼▼ 以下、 p2508d/mocks/members/index.html から移動したスタイル ▼▼▼ */
-
-/* --- Sub Navigation Bar --- */
+/* ... (変更なし) ... */
 .sub-nav { overflow-x: auto; white-space: nowrap; border-bottom: 1px solid var(--color-border); margin-bottom: 1.5rem; background-color: var(--color-surface); -ms-overflow-style: none; scrollbar-width: none; }
 .sub-nav::-webkit-scrollbar { display: none; }
 .sub-nav ul { display: flex; padding: 0; margin: 0; list-style: none; }
 .sub-nav-item { display: inline-block; padding: 0.75rem 1.5rem; cursor: pointer; border: 1px solid transparent; border-bottom: none; margin-bottom: -1px; font-weight: 500; color: var(--color-text-secondary); text-decoration: none; transition: color 0.2s, border-color 0.2s; }
 .sub-nav-item:hover { color: var(--color-primary); }
 .sub-nav-item.active { border-color: var(--color-border); border-bottom-color: var(--color-surface); border-radius: var(--border-radius) var(--border-radius) 0 0; font-weight: 600; background-color: var(--color-surface); color: var(--color-primary); }
-textarea.form-control { min-height: 80px; resize: vertical; }
-
-/* ▼▼▼ 修正: margin-bottom を 1rem に変更 ▼▼▼ */
+/* .textarea.form-control は汎用スタイルでカバー */
 .section-header { 
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
     margin-bottom: 1rem; /* 間隔を確保 */
 }
-/* ▲▲▲ 修正 ▲▲▲ */
-
 .section-title-in-header { font-size: var(--font-size-lg); font-weight: 600; margin: 0; padding: 0; border: none; }
-/* Readonly text in table */
 .table td { vertical-align: top; }
 .readonly-text { padding: 0.5rem 0.75rem; display: block; min-height: calc(1.5em + 0.75rem + 2px); }
 .readonly-textarea { white-space: pre-wrap; padding: 0.5rem 0.75rem; display: block; min-height: 60px; }
-/* 医療機関情報用スタイル */
 .clinic-info { padding: 0.5rem 0.75rem; line-height: 1.4; }
 .clinic-info span { display: block; font-size: var(--font-size-sm); }
 .clinic-info .clinic-name { font-weight: 600; }
 .clinic-info .clinic-dept-doctor { color: var(--color-text-secondary); font-size: var(--font-size-xs); }
-
-/* --- 利用日設定テーブル ホバー --- */
 #usage-settings-table tbody tr:hover {
      background-color: var(--color-hover-bg);
 }
-
-/* --- 有り/無しUI用 --- */
 .form-group-inline {
     display: flex;
     align-items: center;
@@ -794,8 +831,6 @@ textarea.form-control { min-height: 80px; resize: vertical; }
 .section-header-controls .button {
      margin-left: auto;
 }
-
-/* --- スキルツリー用CSS --- */
 .skill-tree-table {
     width: 100%;
     border-collapse: separate; /* セルのボーダーを独立させる */
@@ -825,8 +860,6 @@ textarea.form-control { min-height: 80px; resize: vertical; }
 .skill-tree-table .col-level {
     width: 200px; /* 習熟度レベル選択の列幅を固定 */
 }
-
-/* ツリー表示用スタイル */
 .skill-name-cell {
     display: flex;
     align-items: center;
@@ -858,44 +891,178 @@ textarea.form-control { min-height: 80px; resize: vertical; }
     display: inline-block;
     text-align: center;
 }
- /* インデントレベルに応じた padding-left */
 .skill-name-cell.indent-0 { padding-left: 0.5rem; }
 .skill-name-cell.indent-1 { padding-left: 2.0rem; } /* 0.5rem + 1.5rem (24px) */
 .skill-name-cell.indent-2 { padding-left: 3.5rem; } /* 0.5rem + 1.5rem * 2 */
 .skill-name-cell.indent-3 { padding-left: 5.0rem; } /* 0.5rem + 1.5rem * 3 */
-
-/* カテゴリ行 */
 .skill-category-row {
     font-weight: 600;
     background-color: #fdfdfd; /* カテゴリ行を少し目立たせる */
 }
-
-/* 開閉操作が可能なカテゴリ行 (data-toggle属性を持つ行) にカーソルを設定 */
 .skill-category-row[data-toggle="collapse"] {
     cursor: pointer;
 }
-
-/* スキル項目行のテキストは通常の太さ */
 .skill-item-row .skill-name-cell {
      font-weight: normal;
 }
-
 .skill-level-select {
     width: 100%;
     min-width: 160px;
 }
-
-/* 開閉用 */
 .skill-node.collapsed {
     display: none;
 }
-/* ▲▲▲ p2508d/mocks/members/index.html からの移動ここまで ▲▲▲ */
 
 
 /* ▼▼▼ 追加: list-page-header 内の h2.section-title のスタイルを定義 ▼▼▼ */
+/* ... (変更なし) ... */
 .list-page-header > h2.section-title {
     margin: 0;
     border: none;
     padding: 0;
 }
 /* ▲▲▲ 追加 ▲▲▲ */
+
+/* ==========================================================================
+   Custom/Fixes (Additions for Clickable Rows)
+   ========================================================================== */
+
+/* 利用者一覧の行をクリック可能にするスタイル */
+#member-list-tbody .clickable-row {
+    cursor: pointer; /* カーソルを手の形に変更 */
+    transition: background-color 0.2s ease-in-out; /* 背景色の変化を滑らかに */
+}
+
+#member-list-tbody .clickable-row:hover {
+    background-color: var(--color-hover-bg); /* ホバー時の背景色 (style.cssで定義済みの変数) */
+}
+
+/* 職員一覧の行をクリック可能にするスタイル */
+#staff-list-tbody .clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#staff-list-tbody .clickable-row:hover {
+    background-color: var(--color-hover-bg);
+}
+
+/* 事業所一覧の行をクリック可能にするスタイル */
+#facility-list-tbody .clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#facility-list-tbody .clickable-row:hover {
+    background-color: var(--color-hover-bg);
+}
+
+/* アカウント管理一覧の行をクリック可能にするスタイル */
+#user-list-tbody .clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#user-list-tbody .clickable-row:hover {
+    background-color: var(--color-hover-bg);
+}
+
+/* ==========================================================================
+   Wage/Salary System Forms (wage-systems/index.html, salary-systems/index.html)
+   ========================================================================== */
+
+/* 詳細ページ全体のフォームレイアウト */
+.detail-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+/* セクション内のグリッドレイアウト */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 最小幅200pxで自動調整 */
+    gap: 1.5rem;
+}
+
+/* フォームグループ内の要素間隔調整 (汎用.form-groupはmargin-bottomのみ) */
+.detail-form .form-group,
+.form-grid .form-group {
+    display: flex; /* form-labelとform-controlを縦に並べる */
+    flex-direction: column;
+    gap: 0.25rem; /* ラベルと入力欄の間の隙間 */
+    margin-bottom: 0; /* form-gridやdetail-formのgapで制御するためリセット */
+}
+
+/* フォームアクション（保存ボタンなど）のスタイル */
+.form-actions {
+    display: flex;
+    justify-content: flex-end; /* 右寄せ */
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+}
+
+/* テーブル内のフォームコントロールのスタイル */
+/* 既存の .table input[...] スタイルと競合しないよう、より詳細に指定 */
+.table td > .form-control { /* td 直下の .form-control に限定 */
+    width: 100%;
+    padding: 0.375rem 0.5rem; /* テーブル内は少し小さく */
+    font-size: var(--font-size-sm);
+    box-sizing: border-box; /* paddingを含めて幅100%にする */
+    margin: 0; /* 不要なマージンをリセット */
+}
+/* テーブル内の select も同様 */
+.table td > select.form-control {
+    width: 100%;
+    padding: 0.375rem 0.5rem;
+    font-size: var(--font-size-sm);
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* ==========================================================================
+   Filter/Search Forms (Compact Layout)
+   ========================================================================== */
+
+/* フィルターフォームの基本レイアウト (既存を拡張) */
+.filter-form {
+    display: grid;
+    /* 2列レイアウトを基本とし、小さい画面では1列に */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem 1.5rem; /* 縦横の隙間 */
+    align-items: end; /* 要素を下に揃える */
+}
+
+/* フィルターフォーム内の各グループのマージンをリセット */
+.filter-form .form-group {
+    margin-bottom: 0;
+}
+
+/* アクションボタンの配置 (既存を拡張/変更) */
+.filter-actions {
+    grid-column: 1 / -1; /* 全幅を使用 */
+    display: flex;
+    justify-content: flex-end; /* 右寄せ */
+    gap: 0.5rem;
+    margin-top: 0; /* 上の要素とのgapで制御するためリセット */
+    padding-top: 0; /* 上の要素とのgapで制御するためリセット */
+    border-top: none; /* 罫線を削除 */
+}
+
+/* 画面幅が狭い場合（例: 600px以下）は1列にする */
+@media (max-width: 600px) {
+    .filter-form {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 案件一覧の行をクリック可能にするスタイル */
+#project-list-tbody .clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#project-list-tbody .clickable-row:hover {
+    background-color: var(--color-hover-bg);
+}

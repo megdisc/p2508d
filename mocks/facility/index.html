@@ -5,41 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>p2508d - 事業所設定モックアップ</title>
     <link rel="stylesheet" href="../style.css">
-    <style>
-        .schedule-grid-table th,
-        .schedule-grid-table td {
-            text-align: center;
-            vertical-align: middle;
-            height: 60px;
-        }
-        .schedule-grid-table thead th:first-child,
-        .schedule-grid-table tbody tr td:first-child {
-            font-weight: 600;
-            background-color: #f9f9f9;
-            width: 80px;
-            font-size: var(--font-size-sm);
-        }
-        .schedule-cell {
-            font-size: var(--font-size-sm);
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .schedule-cell:hover {
-            background-color: var(--color-hover-bg);
-        }
-        .schedule-cell.holiday {
-            background-color: #fde2e2;
-            color: var(--color-danger);
-            font-weight: 500;
-        }
-        .calendar-table td[style*="#fde2e2"] {
-             background-color: #fde2e2;
-        }
-        .calendar-table td[style*="#ffe8cc"] {
-             background-color: #ffe8cc;
-        }
-    </style>
-</head>
+    </head>
 <body>
     <div class="mockup-container">
         <header class="header">
@@ -67,7 +33,7 @@
 
         <main class="mockup-main">
             <div id="facilities" class="mockup-page">
-         <div class="list-page-header">
+                <div class="list-page-header">
                     <h1 class="page-title">事業所一覧</h1>
                     <div>
                         <a href="../settings/index.html" class="button button-secondary">設定TOPへ戻る</a>
@@ -83,38 +49,25 @@
                                 <th>サービス種別</th>
                                 <th>電話番号</th>
                                 <th>状態</th>
-                                <th class="col-actions">操作</th>
-                            </tr>
+                                </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody id="facility-list-tbody">
+                            <tr class="clickable-row" onclick="showPage('facility-detail')">
                                 <td>事業所A（自事業所）</td>
                                 <td>1234567890</td>
                                 <td>就労継続支援B型</td>
                                 <td>03-XXXX-XXXX</td>
                                 <td>有効</td>
-                                <td class="col-actions">
-                                    <div class="table-button-group">
-                                        <a href="#facility-detail" class="button button-primary">詳細</a>
-                                        <button type="button" class="button button-danger">削除</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
+                                </tr>
+                            <tr class="clickable-row" onclick="showPage('facility-detail')">
                                 <td>事業所B（他事業所）</td>
                                 <td>0987654321</td>
                                 <td>生活介護</td>
                                 <td>045-XXX-XXXX</td>
                                 <td>有効</td>
-                                <td class="col-actions">
-                                    <div class="table-button-group">
-                                        <a href="#facility-detail" class="button button-primary">詳細</a>
-                                        <button type="button" class="button button-danger">削除</button>
-                                    </div>
-                                </td>
-                            </tr>
+                                </tr>
                         </tbody>
-                    </table>
+                        </table>
                 </div>
             </div>
 
@@ -122,11 +75,11 @@
                 <div class="list-page-header">
                     <h1 class="page-title">事業所A（自事業所）</h1>
                     <div>
-                        <a href="#facilities" class="button button-secondary">一覧へ戻る</a>
+                        <a href="#facilities" class="button button-secondary" style="margin-right: 0.5rem;" onclick="showPage('facilities')">一覧へ戻る</a>
+                        <button type="button" class="button button-danger" onclick="alert('「事業所A（自事業所）」のデータを削除します。よろしいですか？')">削除</button>
                     </div>
                 </div>
-                
-                <div class="tabs" id="facility-detail-tabs">
+            <div class="tabs" id="facility-detail-tabs">
                     <div class="tab-item active" data-tab="tab-facility-basic-info">基本情報</div>
                     <div class="tab-item" data-tab="tab-facility-address">住所・連絡先</div>
                     <div class="tab-item" data-tab="tab-facility-schedule-settings">営業日設定</div>
@@ -137,55 +90,56 @@
                 <div class="tab-content-wrapper">
                     <div id="tab-facility-basic-info" class="tab-content active">
                         <div class="section">
-                            <h2 class="section-title">事業所情報</h2>
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">事業所情報</h2>
+                                <button class="button button-primary" onclick="openModal('edit-facility-basic-modal')">編集</button>
+                            </div>
                             <div class="section-content">
                                 <dl class="detail-grid">
-                                    <dt>事業所名</dt><dd><input type="text" value="事業所A（自事業所）"></dd>
-                                    <dt>事業所番号</dt><dd><input type="text" value="1234567890"></dd>
-                                    <dt>サービス種別</dt><dd><input type="text" value="就労継続支援B型"></dd>
-                                    <dt>管理者氏名</dt><dd><input type="text" value="職員A"></dd>
-                                    <dt>指定日</dt><dd><input type="date" value="2020-04-01"></dd>
+                                    <dt>事業所名</dt><dd>事業所A（自事業所）</dd>
+                                    <dt>事業所番号</dt><dd>1234567890</dd>
+                                    <dt>サービス種別</dt><dd>就労継続支援B型</dd>
+                                    <dt>管理者氏名</dt><dd>職員A</dd>
+                                    <dt>指定日</dt><dd>2020年4月1日</dd>
                                 </dl>
-                            </div>
+                                </div>
                         </div>
 
                         <div class="section">
-                            <h2 class="section-title">営業時間</h2>
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">営業時間</h2>
+                                <button class="button button-primary" onclick="openModal('edit-facility-hours-modal')">編集</button>
+                            </div>
                             <div class="section-content">
                                 <dl class="detail-grid" style="grid-template-columns: 120px 1fr;">
                                     <dt>営業時間 (開始)</dt>
-                                    <dd><input type="time" class="form-control" value="09:00" style="width: 150px;"></dd>
+                                    <dd>09:00</dd>
                                     <dt>営業時間 (終了)</dt>
-                                    <dd><input type="time" class="form-control" value="16:00" style="width: 150px;"></dd>
+                                    <dd>16:00</dd>
                                     <dt>休憩時間 (分)</dt>
-                                    <dd><input type="number" class="form-control" value="60" style="width: 150px;"> 分</dd>
+                                    <dd>60 分</dd>
                                 </dl>
-                            </div>
+                                </div>
                         </div>
-
-
-                        <div class="section-footer">
-                            <button class="button button-primary">基本情報を保存</button>
                         </div>
-                    </div>
 
                     <div id="tab-facility-address" class="tab-content">
                         <div class="section">
-                            <h2 class="section-title">住所・連絡先</h2>
-                            <div class="section-content">
-                                <dl class="detail-grid">
-                                    <dt>郵便番号</dt><dd><input type="text" value="100-0001"></dd>
-                                    <dt>住所</dt><dd><input type="text" value="東京都千代田区..."></dd>
-                                    <dt>電話番号</dt><dd><input type="text" value="03-XXXX-XXXX"></dd>
-                                    <dt>FAX番号</dt><dd><input type="text" value="03-XXXX-YYYY"></dd>
-                                    <dt>メールアドレス</dt><dd><input type="email" value="info@facility-a.jp"></dd>
-                                </dl>
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">住所・連絡先</h2>
+                                <button class="button button-primary" onclick="openModal('edit-facility-address-modal')">編集</button>
                             </div>
+                             <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>郵便番号</dt><dd>100-0001</dd>
+                                    <dt>住所</dt><dd>東京都千代田区...</dd>
+                                    <dt>電話番号</dt><dd>03-XXXX-XXXX</dd>
+                                    <dt>FAX番号</dt><dd>03-XXXX-YYYY</dd>
+                                    <dt>メールアドレス</dt><dd>info@facility-a.jp</dd>
+                                </dl>
+                                </div>
                         </div>
-                        <div class="section-footer">
-                            <button class="button button-primary">変更を保存</button>
                         </div>
-                    </div>
 
                     <div id="tab-facility-schedule-settings" class="tab-content">
                         <div class="section">
@@ -244,7 +198,7 @@
                                             <tr>
                                                 <td>第5週</td>
                                                 <td class="schedule-cell holiday" onclick="openModal('schedule-edit-modal')">休業</td>
-                                                <td class="schedule-cell" onclick="openModal('schedule-edit-modal')">0D09:00-16:00</td>
+                                                <td class="schedule-cell" onclick="openModal('schedule-edit-modal')">09:00-16:00</td>
                                                 <td class="schedule-cell" onclick="openModal('schedule-edit-modal')">09:00-16:00</td>
                                                 <td class="schedule-cell" onclick="openModal('schedule-edit-modal')">09:00-16:00</td>
                                                 <td class="schedule-cell" onclick="openModal('schedule-edit-modal')">09:00-16:00</td>
@@ -256,11 +210,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="section-footer">
-                            <button class="button button-primary">営業日設定を保存</button>
                         </div>
-                    </div>
 
                     <div id="tab-facility-calendar" class="tab-content">
                         <div class="section">
@@ -331,7 +281,6 @@
                         </div>
                     </div>
 
-
                     <div id="tab-facility-staff" class="tab-content">
                         <div class="table-wrapper">
                             <table class="table">
@@ -367,6 +316,102 @@
         </main>
     </div>
 
+    <div id="edit-facility-basic-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">事業所情報 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-facility-basic-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>事業所名</label>
+                    <input type="text" class="form-control" value="事業所A（自事業所）">
+                </div>
+                <div class="form-group">
+                    <label>事業所番号</label>
+                    <input type="text" class="form-control" value="1234567890">
+                </div>
+                <div class="form-group">
+                    <label>サービス種別</label>
+                    <input type="text" class="form-control" value="就労継続支援B型">
+                </div>
+                <div class="form-group">
+                    <label>管理者氏名</label>
+                    <input type="text" class="form-control" value="職員A">
+                </div>
+                <div class="form-group">
+                    <label>指定日</label>
+                    <input type="date" class="form-control" value="2020-04-01">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('edit-facility-basic-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-facility-hours-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">営業時間 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-facility-hours-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>営業時間 (開始)</label>
+                    <input type="time" class="form-control" value="09:00">
+                </div>
+                <div class="form-group">
+                    <label>営業時間 (終了)</label>
+                    <input type="time" class="form-control" value="16:00">
+                </div>
+                <div class="form-group">
+                    <label>休憩時間 (分)</label>
+                    <input type="number" class="form-control" value="60">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('edit-facility-hours-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-facility-address-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">住所・連絡先 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-facility-address-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                 <div class="form-group">
+                    <label>郵便番号</label>
+                    <input type="text" class="form-control" value="100-0001">
+                </div>
+                <div class="form-group">
+                    <label>住所</label>
+                    <input type="text" class="form-control" value="東京都千代田区...">
+                </div>
+                <div class="form-group">
+                    <label>電話番号</label>
+                    <input type="tel" class="form-control" value="03-XXXX-XXXX">
+                </div>
+                <div class="form-group">
+                    <label>FAX番号</label>
+                    <input type="tel" class="form-control" value="03-XXXX-YYYY">
+                </div>
+                 <div class="form-group">
+                    <label>メールアドレス</label>
+                    <input type="email" class="form-control" value="info@facility-a.jp">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('edit-facility-address-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
     <div id="schedule-edit-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">

@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="../style.css"></head>
 </head>
 <body>
-    <div class="mockup-container"><header class="header">
+    <div class="mockup-container">
+        <header class="header">
             <div>
                 <h1 class="header-logo"><a href="../dashboard/index.html">p2508d</a></h1>
             </div>
@@ -28,15 +29,40 @@
                     <a href="../index.html" class="nav-link">ログアウト</a>
                 </div>
             </nav>
-            </header>
+        </header>
 
         <main class="mockup-main">
-            <div id="contacts" class="mockup-page">
-                <div class="list-page-header">
+            <div id="contacts" class="mockup-page active"> <div class="list-page-header">
                     <h1 class="page-title">取引先一覧</h1>
-                    <button class="button button-primary">＋ 新規作成</button>
+                    <div>
+                         <a href="../production/index.html" class="button button-secondary" style="margin-right: 0.5rem;">生産活動メニューへ</a>
+                         <button class="button button-primary" onclick="alert('新規取引先作成画面へ遷移します')">＋ 新規作成</button>
+                    </div>
                 </div>
-                <div class="table-wrapper">
+
+                <div class="section">
+                    <h2 class="section-title">検索条件</h2>
+                    <form class="section-content filter-form">
+                        <div class="form-group">
+                            <label for="search-partner-name" class="form-label">会社名</label>
+                            <input type="text" id="search-partner-name" class="form-control" placeholder="会社名で検索..." oninput="filterPartners()">
+                        </div>
+                        <div class="form-group">
+                            <label for="filter-partner-type" class="form-label">種別</label>
+                             <select id="filter-partner-type" class="form-control" onchange="filterPartners()">
+                                <option value="">すべて</option>
+                                <option value="customer">顧客</option>
+                                <option value="supplier">仕入先</option>
+                                <option value="outsourcer">外注先</option>
+                                <option value="other">その他</option>
+                            </select>
+                        </div>
+                        <div class="filter-actions">
+                            <button type="button" class="button button-secondary" onclick="document.querySelector('#contacts .filter-form').reset(); filterPartners();">クリア</button>
+                            </div>
+                    </form>
+                </div>
+                <div class="table-wrapper" style="margin-top: 1.5rem;">
                     <table class="table">
                         <thead>
                             <tr>
@@ -44,56 +70,41 @@
                                 <th>種別</th>
                                 <th>電話番号</th>
                                 <th>最終取引日</th>
-                                <th class="col-actions">操作</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody id="partner-list-tbody">
+                            <tr class="clickable-row" data-partner-type="customer" onclick="showPage('contact-detail')">
                                 <td>株式会社A</td>
                                 <td>顧客</td>
                                 <td>03-XXXX-XXXX</td>
                                 <td>2025.10.31</td>
-                                <td class="col-actions">
-                                    <div class="table-button-group">
-                                        <a href="#contact-detail" class="button button-primary">詳細</a>
-                                        <button type="button" class="button button-danger">削除</button>
-                                    </div>
-                                </td>
                             </tr>
-                            <tr>
+                            <tr class="clickable-row" data-partner-type="customer" onclick="showPage('contact-detail')">
                                 <td>有限会社B</td>
                                 <td>顧客</td>
                                 <td>045-XXX-XXXX</td>
                                 <td>2025.09.30</td>
-                                <td class="col-actions">
-                                    <div class="table-button-group">
-                                        <a href="#contact-detail" class="button button-primary">詳細</a>
-                                        <button type="button" class="button button-danger">削除</button>
-                                    </div>
-                                </td>
                             </tr>
-                            <tr>
+                            <tr class="clickable-row" data-partner-type="outsourcer" onclick="showPage('contact-detail')">
                                 <td>○○印刷</td>
                                 <td>外注先</td>
                                 <td>03-YYYY-YYYY</td>
                                 <td>2025.10.31</td>
-                                <td class="col-actions">
-                                    <div class="table-button-group">
-                                        <a href="#contact-detail" class="button button-primary">詳細</a>
-                                        <button type="button" class="button button-danger">削除</button>
-                                    </div>
-                                </td>
+                            </tr>
+                             <tr class="clickable-row" data-partner-type="supplier customer" onclick="showPage('contact-detail')"> <td>□□商事</td>
+                                <td>仕入先, 顧客</td>
+                                <td>03-ZZZZ-ZZZZ</td>
+                                <td>2025.11.01</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div id="contact-detail" class="mockup-page">
-                <div class="list-page-header">
-                    <h1 class="page-title">&lt; 株式会社A &gt;</h1>
-                    <div>
-                        <a href="#contacts" class="button button-secondary">一覧へ戻る</a>
+            <div id="contact-detail" class="mockup-page"> <div class="list-page-header">
+                    <h1 class="page-title">株式会社A</h1> <div>
+                        <button class="button button-secondary" style="margin-right: 0.5rem;" onclick="showPage('contacts')">一覧へ戻る</button>
+                        <button type="button" class="button button-danger" onclick="alert('「株式会社A」のデータを削除します。よろしいですか？')">削除</button>
                     </div>
                 </div>
                 <div class="tabs" id="contact-detail-tabs">
@@ -104,12 +115,16 @@
                 <div class="tab-content-wrapper">
                     <div id="tab-company-info" class="tab-content active">
                         <div class="section">
-                            <h2 class="section-title">基本情報</h2>
+                             <div class="section-header">
+                                <h2 class="section-title-in-header">基本情報</h2>
+                                <button class="button button-primary" onclick="openModal('edit-partner-basic-modal')">編集</button>
+                            </div>
                             <div class="section-content">
                                 <dl class="detail-grid">
-                                    <dt>会社名</dt><dd><input type="text" value="株式会社A"></dd>
-                                    <dt>住所</dt><dd><input type="text" value="〒XXX-XXXX 東京都..."></dd>
-                                </dl>
+                                    <dt>会社名</dt><dd>株式会社A</dd>
+                                    <dt>住所</dt><dd>〒XXX-XXXX 東京都...</dd>
+                                    <dt>電話番号</dt><dd>03-XXXX-XXXX</dd>
+                                    <dt>種別</dt><dd>顧客</dd> </dl>
                             </div>
                         </div>
                         <div class="section">
@@ -126,18 +141,18 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input type="text" value="鈴木 一郎"></td>
-                                            <td><input type="text" value="営業部/部長"></td>
-                                            <td><input type="text" value="suzuki@a-corp.jp"></td>
-                                            <td><input type="text" value="090-XXXX-XXXX"></td>
-                                            <td class="col-actions"><div class="table-button-group"><button class="button button-danger">削除</button></div></td>
+                                            <td><input type="text" class="form-control" value="鈴木 一郎"></td>
+                                            <td><input type="text" class="form-control" value="営業部/部長"></td>
+                                            <td><input type="text" class="form-control" value="suzuki@a-corp.jp"></td>
+                                            <td><input type="text" class="form-control" value="090-XXXX-XXXX"></td>
+                                            <td class="col-actions"><div class="table-button-group"><button type="button" class="button button-danger">削除</button></div></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div class="section-footer">
-                            <button class="button button-primary">変更を保存</button>
+                             <div class="section-footer">
+                                <button type="button" class="button button-primary">担当者情報を保存</button>
+                            </div>
                         </div>
                     </div>
                     <div id="tab-trade-history" class="tab-content">
@@ -172,10 +187,105 @@
                     </div>
                 </div>
             </div>
+
+            <div id="edit-partner-basic-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">取引先 基本情報編集</h2>
+                        <span class="modal-close" onclick="closeModal('edit-partner-basic-modal')">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="edit-partner-name" class="form-label">会社名</label>
+                            <input type="text" id="edit-partner-name" class="form-control" value="株式会社A">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-partner-address" class="form-label">住所</label>
+                            <input type="text" id="edit-partner-address" class="form-control" value="〒XXX-XXXX 東京都...">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-partner-tel" class="form-label">電話番号</label>
+                            <input type="tel" id="edit-partner-tel" class="form-control" value="03-XXXX-XXXX">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">種別 (複数選択可)</label>
+                            <div class="checkbox-group-vertical" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <label><input type="checkbox" name="edit-partner-type" value="customer" checked> 顧客</label>
+                                <label><input type="checkbox" name="edit-partner-type" value="supplier"> 仕入先</label>
+                                <label><input type="checkbox" name="edit-partner-type" value="outsourcer"> 外注先</label>
+                                <label><input type="checkbox" name="edit-partner-type" value="other"> その他</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="button button-secondary" onclick="closeModal('edit-partner-basic-modal')">キャンセル</button>
+                        <button type="button" class="button button-primary">保存</button>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
 
     <script src="../script.js"></script>
+    <script>
+        // 簡易的なクライアントサイドフィルタリング関数
+        function filterPartners() {
+            // ▼▼▼ 変更: input/select要素の取得をより確実にする ▼▼▼
+            const nameInput = document.getElementById('search-partner-name');
+            const typeSelect = document.getElementById('filter-partner-type');
+            const tableBody = document.getElementById('partner-list-tbody');
+
+            // 要素が見つからない場合は処理を中断
+            if (!nameInput || !typeSelect || !tableBody) {
+                 console.warn("Filter elements or table body not found.");
+                 return;
+            }
+
+            const nameFilter = nameInput.value.toLowerCase();
+            const typeFilter = typeSelect.value;
+            const rows = tableBody.getElementsByTagName('tr');
+            // ▲▲▲ 変更 ▲▲▲
+
+            Array.from(rows).forEach(row => {
+                const companyName = row.cells[0]?.textContent.toLowerCase() || ''; // 会社名列
+                const partnerTypes = (row.dataset.partnerType || '').split(' '); // data属性から種別を取得
+
+                const nameMatch = companyName.includes(nameFilter);
+                const typeMatch = typeFilter === "" || partnerTypes.includes(typeFilter);
+
+                if (nameMatch && typeMatch) {
+                    row.style.display = ''; // 表示 (デフォルトに戻す)
+                } else {
+                    row.style.display = 'none'; // 非表示
+                }
+            });
+        }
+
+        // ▼▼▼ 変更: イベントリスナーをscript.jsから呼び出されるように変更 ▼▼▼
+        // DOMContentLoaded は script.js で処理されるため、ここでは不要
+        // document.addEventListener('DOMContentLoaded', filterPartners);
+
+        // 代わりに、script.js 側で filterPartners 関数を呼び出す setupRealtimeSearch を利用する
+        // (setupRealtimeSearch関数自体はscript.jsに既にある想定)
+        if (typeof window.setupRealtimeSearch === 'function') {
+             // setupRealtimeSearchは本来input要素のみを対象とするため、
+             // select要素の変更にも対応できるよう、filterPartnersを直接呼び出すイベントリスナーを追加
+             const nameInputForListener = document.getElementById('search-partner-name');
+             const typeSelectForListener = document.getElementById('filter-partner-type');
+             if(nameInputForListener) nameInputForListener.addEventListener('input', filterPartners);
+             if(typeSelectForListener) typeSelectForListener.addEventListener('change', filterPartners);
+
+             // 初期表示のための呼び出し
+             filterPartners();
+        } else {
+             console.warn("setupRealtimeSearch function is not defined in script.js.");
+             // フォールバックとしてDOMContentLoadedで初期実行
+             document.addEventListener('DOMContentLoaded', filterPartners);
+        }
+        // ▲▲▲ 変更 ▲▲▲
+
+    </script>
 
 </body>
 </html>

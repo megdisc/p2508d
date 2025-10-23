@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工賃管理 (利用者別) - p2508d</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="mockup-container">
+        <header class="header">
+            <div><h1 class="header-logo"><a href="../dashboard/index.html">p2508d</a></h1></div>
+            <nav class="nav" id="side-nav">
+                <ul class="nav-list">
+                    <li><a href="../dashboard/index.html" class="nav-link">ダッシュボード</a></li>
+                    <li><a href="../records/index.html" class="nav-link">日々の記録</a></li>
+                    <li><a href="../members/index.html" class="nav-link active">利用者支援</a></li> <li><a href="../staff/index.html" class="nav-link">職員管理</a></li>
+                    <li><a href="../production/index.html" class="nav-link">生産活動</a></li>
+                    <li><a href="../accounting/index.html" class="nav-link">会計管理</a></li>
+                    <li><a href="../billing/index.html" class="nav-link">国保連請求</a></li>
+                    <li><a href="../analytics/index.html" class="nav-link">データ分析</a></li>
+                    <li><a href="../settings/index.html" class="nav-link">設定</a></li>
+                </ul>
+                <div class="nav-logout-section"><a href="../index.html" class="nav-link">ログアウト</a></div>
+            </nav>
+        </header>
+
+        <main class="mockup-main">
+            <div id="member-wages-list" class="mockup-page active">
+                <div class="list-page-header">
+                    <h1 class="page-title">工賃管理 (利用者別)</h1>
+                     <div>
+                        <a href="../members/index.html" class="button button-secondary" style="margin-right: 0.5rem;">利用者支援メニューへ</a>
+                        <button class="button button-primary">工賃一括計算</button> </div>
+                </div>
+
+                 <div class="section">
+                    <h2 class="section-title">検索条件</h2>
+                    <form class="section-content filter-form">
+                        <div class="form-group">
+                            <label for="search-wage-member-name" class="form-label">利用者名</label>
+                            <input type="text" id="search-wage-member-name" class="form-control" placeholder="氏名で検索...">
+                        </div>
+                        <div class="form-group">
+                            <label for="filter-wage-rank" class="form-label">工賃等級</label>
+                            <select id="filter-wage-rank" class="form-control">
+                                <option value="">すべて</option>
+                                <option value="rank-a">A等級 (時給 350円)</option>
+                                <option value="rank-b">B等級 (時給 300円)</option>
+                                <option value="rank-c">C等級 (時給 250円)</option>
+                                <option value="unset">未設定</option>
+                            </select>
+                        </div>
+                        <div class="filter-actions">
+                            <button type="button" class="button button-secondary">クリア</button>
+                            <button type="submit" class="button button-primary">検索</button>
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="table-wrapper" style="margin-top: 1.5rem;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>利用者名</th>
+                                <th>適用工賃レベル</th>
+                                <th>評価メモ</th>
+                                <th>最終更新日</th>
+                                <th class="col-actions">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>青木 誠</td>
+                                <td>A等級 (時給 350円)</td>
+                                <td style="text-align: left; max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">PCスキルが高く、特にデータ入力作業において正確かつ迅速なため...</td>
+                                <td>2025/10/15</td>
+                                <td class="col-actions">
+                                    <div class="table-button-group">
+                                        <button class="button button-secondary" onclick="openModal('edit-member-wage-modal')">編集</button>
+                                        <button class="button button-clear">履歴</button> </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>五十嵐 直人</td>
+                                <td>B等級 (時給 300円)</td>
+                                <td style="text-align: left;">軽作業の習熟度が安定しているため。</td>
+                                <td>2025/10/01</td>
+                                <td class="col-actions">
+                                     <div class="table-button-group">
+                                        <button class="button button-secondary" onclick="openModal('edit-member-wage-modal')">編集</button>
+                                         <button class="button button-clear">履歴</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                    </table>
+                </div>
+                 </div>
+        </main>
+    </div>
+
+    <div id="edit-member-wage-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">工賃レベル設定</h2>
+                <span class="modal-close" onclick="closeModal('edit-member-wage-modal')">&times;</span>
+            </div>
+             <div class="modal-body">
+                 <p><strong>利用者:</strong> <span id="modal-wage-member-name">青木 誠</span></p>
+                <div class="form-group">
+                    <label for="modal-member-wage-level" class="form-label">適用工賃レベル</label>
+                    <select id="modal-member-wage-level" class="form-control">
+                        <option value="">未設定</option>
+                        <option value="rank-a" selected>A等級 (時給 350円)</option>
+                        <option value="rank-b">B等級 (時給 300円)</option>
+                        <option value="rank-c">C等級 (時給 250円)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                     <label for="modal-wage-level-memo" class="form-label">評価メモ・適用理由</label>
+                     <textarea id="modal-wage-level-memo" class="form-control" rows="4">PCスキルが高く、特にデータ入力作業において正確かつ迅速なため、A等級を適用。</textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                 <button class="button button-secondary" onclick="closeModal('edit-member-wage-modal')">キャンセル</button>
+                 <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    </body>
+</html>

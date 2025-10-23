@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スキル管理 (利用者別) - p2508d</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="mockup-container">
+        <header class="header">
+            <div><h1 class="header-logo"><a href="../dashboard/index.html">p2508d</a></h1></div>
+            <nav class="nav" id="side-nav">
+                <ul class="nav-list">
+                    <li><a href="../dashboard/index.html" class="nav-link">ダッシュボード</a></li>
+                    <li><a href="../records/index.html" class="nav-link">日々の記録</a></li>
+                    <li><a href="../members/index.html" class="nav-link active">利用者支援</a></li> <li><a href="../staff/index.html" class="nav-link">職員管理</a></li>
+                    <li><a href="../production/index.html" class="nav-link">生産活動</a></li>
+                    <li><a href="../accounting/index.html" class="nav-link">会計管理</a></li>
+                    <li><a href="../billing/index.html" class="nav-link">国保連請求</a></li>
+                    <li><a href="../analytics/index.html" class="nav-link">データ分析</a></li>
+                    <li><a href="../settings/index.html" class="nav-link">設定</a></li>
+                </ul>
+                <div class="nav-logout-section"><a href="../index.html" class="nav-link">ログアウト</a></div>
+            </nav>
+        </header>
+
+        <main class="mockup-main">
+            <div id="member-skills-list" class="mockup-page active">
+                <div class="list-page-header">
+                    <h1 class="page-title">スキル管理 (利用者別)</h1>
+                    <div>
+                        <a href="../members/index.html" class="button button-secondary">利用者支援メニューへ</a>
+                        </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">検索条件</h2>
+                    <form class="section-content filter-form">
+                        <div class="form-group">
+                            <label for="search-member-name" class="form-label">利用者名</label>
+                            <input type="text" id="search-member-name" class="form-control" placeholder="氏名で検索...">
+                        </div>
+                        <div class="form-group">
+                            <label for="filter-skill-category" class="form-label">スキルカテゴリ</label>
+                            <select id="filter-skill-category" class="form-control">
+                                <option value="">すべて</option>
+                                <option value="pc">PC基本操作</option>
+                                <option value="office">└ Officeソフト</option>
+                                <option value="lightwork">軽作業</option>
+                                <option value="manner">ビジネスマナー</option>
+                            </select>
+                        </div>
+                         <div class="form-group">
+                            <label for="filter-skill-level" class="form-label">習熟度</label>
+                            <select id="filter-skill-level" class="form-control">
+                                <option value="">すべて</option>
+                                <option value="0">未習得</option>
+                                <option value="1">レベル1 (支援あり)</option>
+                                <option value="2">レベル2 (自立)</option>
+                                <option value="3">レベル3 (指導可)</option>
+                            </select>
+                        </div>
+                        <div class="filter-actions">
+                            <button type="button" class="button button-secondary">クリア</button>
+                            <button type="submit" class="button button-primary">検索</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="table-wrapper" style="margin-top: 1.5rem;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>利用者名</th>
+                                <th>スキル名</th>
+                                <th>カテゴリ</th>
+                                <th>習熟度</th>
+                                <th>最終評価日</th>
+                                <th class="col-actions">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>青木 誠</td>
+                                <td>タイピング (かな)</td>
+                                <td>PC基本操作</td>
+                                <td>レベル2 (自立)</td>
+                                <td>2025/10/20</td>
+                                <td class="col-actions">
+                                    <div class="table-button-group">
+                                        <button class="button button-secondary" onclick="openModal('edit-member-skill-modal')">編集</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>青木 誠</td>
+                                <td>Word (基本文書作成)</td>
+                                <td>Officeソフト</td>
+                                <td>レベル1 (支援あり)</td>
+                                <td>2025/10/20</td>
+                                 <td class="col-actions">
+                                    <div class="table-button-group">
+                                        <button class="button button-secondary" onclick="openModal('edit-member-skill-modal')">編集</button>
+                                    </div>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td>五十嵐 直人</td>
+                                <td>タイピング (かな)</td>
+                                <td>PC基本操作</td>
+                                <td>レベル1 (支援あり)</td>
+                                <td>2025/10/18</td>
+                                 <td class="col-actions">
+                                    <div class="table-button-group">
+                                        <button class="button button-secondary" onclick="openModal('edit-member-skill-modal')">編集</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                    </table>
+                </div>
+                </div>
+        </main>
+    </div>
+
+    <div id="edit-member-skill-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">スキル評価編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-member-skill-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p><strong>利用者:</strong> <span id="modal-member-name">青木 誠</span></p>
+                <p><strong>スキル:</strong> <span id="modal-skill-name">タイピング (かな)</span></p>
+                <div class="form-group">
+                    <label for="modal-skill-level" class="form-label">習熟度レベル</label>
+                    <select id="modal-skill-level" class="form-control">
+                         <option value="0">未習得</option>
+                         <option value="1">レベル1 (支援あり)</option>
+                         <option value="2" selected>レベル2 (自立)</option>
+                         <option value="3">レベル3 (指導可)</option>
+                    </select>
+                </div>
+                 <div class="form-group">
+                    <label for="modal-skill-memo" class="form-label">評価メモ</label>
+                    <textarea id="modal-skill-memo" class="form-control" rows="3"></textarea>
+                 </div>
+                 <div class="form-group">
+                     <label for="modal-skill-date" class="form-label">評価日</label>
+                     <input type="date" id="modal-skill-date" class="form-control" value="2025-10-20">
+                 </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('edit-member-skill-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    </body>
+</html>
