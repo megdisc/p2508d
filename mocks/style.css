@@ -238,25 +238,29 @@ table {
     font-weight: 700;
 }
 
-/* ▼▼▼ 変更: 余白を増やす ▼▼▼ */
+/* --- Page Structure --- */
+/* ▼▼▼ 変更: list-page-header の余白を元に戻す ▼▼▼ */
 .list-page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem; /* 1rem -> 2rem */
+    margin-bottom: 1.5rem; /* 2rem -> 1.5rem に戻す */
 }
+/* ▲▲▲ 変更ここまで ▲▲▲ */
 
 
 /* --- Section --- */
-/* ▼▼▼ 変更: 余白を増やし、見出しの下線を削除 ▼▼▼ */
+/* ▼▼▼ 変更: section の余白を元に戻す ▼▼▼ */
 .section {
     width: 100%;
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
     padding: 1.5rem;
-    margin-top: 1.5rem; /* 1rem -> 1.5rem */
+    margin-top: 1.5rem; /* 変更なし (元々 1.5rem だったと想定) */
     background-color: var(--color-surface);
 }
+/* ▲▲▲ 変更ここまで ▲▲▲ */
+
 .section-title {
     font-size: var(--font-size-lg);
     font-weight: 600;
@@ -1075,6 +1079,38 @@ textarea.work-content {
 }
 
 #daily-records-tbody .clickable-row:hover {
+    background-color: var(--color-hover-bg);
+}
+/* ▲▲▲ 追加ここまで ▲▲▲ */
+
+/* ▼▼▼ 追加 ▼▼▼ */
+/* 会計管理 > 取引一覧テーブルの行をクリック可能にするスタイル */
+#transaction-list-tbody .clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#transaction-list-tbody .clickable-row:hover {
+    background-color: var(--color-hover-bg);
+}
+/* ▲▲▲ 追加ここまで ▲▲▲ */
+
+/* ▼▼▼ 追加 ▼▼▼ */
+/* データ分析 > 利用者別利用状況テーブルの行をクリック可能にするスタイル */
+#utilization-tbody .clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+#utilization-tbody .clickable-row:hover {
+    background-color: var(--color-hover-bg);
+}
+
+/* データ分析 > 案件別収支テーブルの行をクリック可能にするスタイル */
+#production-tbody .clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+#production-tbody .clickable-row:hover {
     background-color: var(--color-hover-bg);
 }
 /* ▲▲▲ 追加ここまで ▲▲▲ */

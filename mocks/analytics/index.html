@@ -3,15 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>p2508d - 法人運営モックアップ</title>
+    <title>p2508d - データ分析</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        .filter-form-inline { display: flex; align-items: flex-end; gap: 1.5rem; flex-wrap: wrap; }
+        .filter-form-inline .form-group { margin-bottom: 0; flex-grow: 1; }
+        .filter-form-inline .button-secondary { margin-bottom: 0; height: calc(1.5em + 1rem + 2px); flex-shrink: 0; }
+        .chart-placeholder { text-align: center; padding: 4rem 1rem; background-color: var(--color-hover-bg); border: 1px dashed var(--color-border); border-radius: var(--border-radius); color: var(--color-text-secondary); font-size: var(--font-size-sm); }
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem; }
+        .kpi-card { border: 1px solid var(--color-border); border-radius: var(--border-radius); padding: 1rem 1.5rem; background-color: var(--color-surface); text-align: center; }
+        .kpi-card h4 { font-size: var(--font-size-sm); font-weight: 500; color: var(--color-text-secondary); margin-bottom: 0.5rem; }
+        .kpi-card p { font-size: 1.5rem; font-weight: bold; color: var(--color-primary); }
+        .kpi-card .subtext { font-size: var(--font-size-xs); font-weight: normal; color: var(--color-text-secondary); }
+        .col-number { text-align: right !important; }
+        .detail-view { display: none; }
+        /* ▼▼▼ 追加: 期間選択セクション用スタイル ▼▼▼ */
+        .period-selector-section .section-content {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem; /* 要素間のスペース */
+            flex-wrap: wrap;
+        }
+        .period-unit-buttons {
+            display: flex;
+            gap: 0.5rem; /* ボタン間のスペース */
+        }
+        .period-unit-button {
+            padding: 0.5rem 1rem;
+            font-size: var(--font-size-sm);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            background-color: var(--color-surface);
+            color: var(--color-text-primary);
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+        }
+        .period-unit-button:hover {
+            background-color: var(--color-hover-bg);
+        }
+        .period-unit-button.active {
+            background-color: var(--color-primary);
+            color: var(--color-button-text);
+            border-color: var(--color-primary);
+            font-weight: 500;
+        }
+        .period-detail-selectors {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .period-detail-selectors .form-control {
+            width: auto; /* selectの幅を自動調整 */
+            padding: 0.5rem 0.75rem; /* .form-control に合わせる */
+        }
+        .period-detail-selectors label {
+            margin-bottom: 0; /* ラベル下のマージン削除 */
+            font-weight: normal; /* 太字解除 */
+            font-size: var(--font-size-sm);
+        }
+        /* ▲▲▲ 追加ここまで ▲▲▲ */
+    </style>
 </head>
 <body>
-    <div class="mockup-container"><header class="header">
-            <div>
-                <h1 class="header-logo"><a href="../dashboard/index.html">p2508d</a></h1>
-            </div>
-            
+    <div class="mockup-container">
+        <header class="header">
+            <div> <h1 class="header-logo"><a href="../dashboard/index.html">p2508d</a></h1> </div>
             <nav class="nav" id="side-nav">
                 <ul class="nav-list">
                     <li><a href="../dashboard/index.html" class="nav-link">ダッシュボード</a></li>
@@ -24,161 +80,420 @@
                     <li><a href="../analytics/index.html" class="nav-link active">データ分析</a></li>
                     <li><a href="../settings/index.html" class="nav-link">設定</a></li>
                 </ul>
-                <div class="nav-logout-section">
-                    <a href="../index.html" class="nav-link">ログアウト</a>
-                </div>
+                <div class="nav-logout-section"> <a href="../index.html" class="nav-link">ログアウト</a> </div>
             </nav>
-            </header>
+        </header>
 
         <main class="mockup-main">
-            <div id="analytics" class="mockup-page">
+            <div id="analytics" class="mockup-page active">
                 <div class="list-page-header">
                     <h1 class="page-title">データ分析</h1>
-                     <div>
-                        <label for="analysis-period">期間:</label>
-                        <select id="analysis-period" style="padding: 0.5rem;">
-                            <option selected>2025年度</option>
-                            <option>2024年度</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="section">
-                    <h2 class="section-title">収支推移</h2>
-                    <div class="section-content">
-                        <p style="text-align:center; padding: 4rem; background-color: #f8f9fa;">（月ごとの売上・支出・損益の推移を示す棒グラフ/折れ線グラフ）</p>
-                    </div>
-                </div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
-                    <div class="section">
-                         <h2 class="section-title">売上内訳</h2>
-                         <div class="section-content">
-                             <p style="text-align:center; padding: 4rem; background-color: #f8f9fa;">（給付費/売上の円グラフ）</p>
-                         </div>
-                    </div>
-                     <div class="section">
-                         <h2 class="section-title">支出内訳</h2>
-                         <div class="section-content">
-                            <p style="text-align:center; padding: 4rem; background-color: #f8f9fa;">（人件費/工賃/経費の円グラフ）</p>
-                         </div>
-                    </div>
-                     <div class="section">
-                         <h2 class="section-title">平均工賃</h2>
-                         <div class="section-content">
-                            <p style="text-align:center; padding: 4rem; background-color: #f8f9fa;">（推移グラフ）</p>
-                         </div>
-                    </div>
-                </div>
-            </div>
+                     </div>
 
-            <div id="calendar-settings" class="mockup-page">
-                <div class="list-page-header">
-                    <h1 class="page-title">営業日設定 (2025年)</h1>
-                    <button class="button button-primary">祝日適用</button>
+                <div class="sub-nav">
+                    <ul id="analytics-subnav">
+                        <li><a href="#" class="sub-nav-item active" data-tab="tab-financial-overview">財務状況</a></li>
+                         <li><a href="#" class="sub-nav-item" data-tab="tab-utilization">利用状況</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-production">生産活動</a></li>
+                    </ul>
                 </div>
-                <div class="section">
-                     <div class="calendar-header" style="justify-content: center; margin-bottom: 1rem;">
-                        <button class="button button-secondary">&lt;</button>
-                        <h3 style="margin: 0 1rem; font-size: 1.2rem;">2025年 10月</h3>
-                        <button class="button button-secondary">&gt;</button>
+                <div class="tab-content-wrapper">
+
+                    <div id="tab-financial-overview" class="tab-content active">
+
+                        <div class="section period-selector-section" style="margin-bottom: 1.5rem;">
+                            <div class="section-content">
+                                <label class="form-label">集計単位:</label>
+                                <div class="period-unit-buttons">
+                                    <button class="period-unit-button" data-unit="monthly">月次</button>
+                                    <button class="period-unit-button active" data-unit="yearly">年次</button>
+                                    <button class="period-unit-button" data-unit="all">全期間</button>
+                                </div>
+                                <div class="period-detail-selectors">
+                                    <label for="financial-year-select">年度:</label>
+                                    <select id="financial-year-select" class="form-control">
+                                        <option value="2025" selected>2025年度</option>
+                                        <option value="2024">2024年度</option>
+                                        <option value="2023">2023年度</option>
+                                    </select>
+                                    <label for="financial-month-select" style="display: none; margin-left: 1rem;">月:</label>
+                                    <select id="financial-month-select" class="form-control" style="display: none;">
+                                        <option value="1">1月</option> <option value="2">2月</option> <option value="3">3月</option>
+                                        <option value="4">4月</option> <option value="5">5月</option> <option value="6">6月</option>
+                                        <option value="7">7月</option> <option value="8">8月</option> <option value="9">9月</option>
+                                        <option value="10" selected>10月</option> <option value="11">11月</option> <option value="12">12月</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-view">
+                            <div class="section">
+                                <h2 class="section-title">主要指標</h2>
+                                <div class="kpi-grid">
+                                    <div class="kpi-card"> <h4>総売上</h4> <p>15,850,000 <span class="subtext">円</span></p> </div>
+                                    <div class="kpi-card"> <h4>総支出</h4> <p>13,100,000 <span class="subtext">円</span></p> </div>
+                                    <div class="kpi-card"> <h4>経常利益</h4> <p>2,750,000 <span class="subtext">円</span></p> </div>
+                                    <div class="kpi-card"> <h4>利益率</h4> <p>17.3 <span class="subtext">%</span></p> </div>
+                                </div>
+                                <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary); text-align: right;">※表示期間: 2025年度</p>
+                            </div>
+                            <div class="section">
+                                <div class="section-header">
+                                    <h2 class="section-title-in-header">収支推移 (月次)</h2>
+                                    <button class="button button-secondary" onclick="showDetailView('tab-financial-overview', true)">詳細を表示</button>
+                                </div>
+                                <div class="section-content">
+                                    <div class="chart-placeholder">（売上・支出・利益の月次推移を示す棒グラフ/折れ線グラフ）</div>
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem;">
+                                <div class="section">
+                                     <h2 class="section-title">売上内訳</h2>
+                                     <div class="section-content"> <div class="chart-placeholder">（訓練等給付費 / 生産活動収入 / その他 の円グラフ）</div> </div>
+                                </div>
+                                 <div class="section">
+                                     <h2 class="section-title">支出内訳</h2>
+                                     <div class="section-content"> <div class="chart-placeholder">（工賃 / 職員給与 / 地代家賃 / 水道光熱費 / その他 の円グラフ）</div> </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-view">
+                            <div class="section">
+                                <div class="section-header">
+                                    <h2 class="section-title-in-header">月次収支明細 (2025年度)</h2>
+                                    <button class="button button-secondary" onclick="showDetailView('tab-financial-overview', false)">サマリーへ戻る</button>
+                                </div>
+                                <div class="table-wrapper">
+                                    <table class="table" id="financial-monthly-detail-table">
+                                        <thead> <tr> <th>月</th> <th class="col-number">売上(円)</th> <th class="col-number">支出(円)</th> <th class="col-number">利益(円)</th> <th class="col-number">利益率(%)</th> </tr> </thead>
+                                        <tbody>
+                                            <tr> <td>4月</td> <td class="col-number">1,500,000</td> <td class="col-number">1,200,000</td> <td class="col-number">300,000</td> <td class="col-number">20.0%</td> </tr>
+                                            <tr> <td>5月</td> <td class="col-number">1,550,000</td> <td class="col-number">1,250,000</td> <td class="col-number">300,000</td> <td class="col-number">19.4%</td> </tr>
+                                            <tr style="font-weight: bold; background-color: var(--color-hover-bg);"> <td>合計</td> <td class="col-number">15,850,000</td> <td class="col-number">13,100,000</td> <td class="col-number">2,750,000</td> <td class="col-number">17.3%</td> </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    <div id="tab-utilization" class="tab-content">
+                        <div class="summary-view">
+                            <div class="section">
+                                <h2 class="section-title">主要指標 (2025年度)</h2>
+                                <div class="kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                                    <div class="kpi-card"> <h4>平均利用率</h4> <p>92.5 <span class="subtext">%</span></p> </div>
+                                    <div class="kpi-card"> <h4>延べ利用日数</h4> <p>4,580 <span class="subtext">日</span></p> </div>
+                                    <div class="kpi-card"> <h4>平均利用日数/人月</h4> <p>19.8 <span class="subtext">日</span></p> </div>
+                                </div>
+                            </div>
+                            <div class="section">
+                                <div class="section-header">
+                                    <h2 class="section-title-in-header">利用率推移 (月次)</h2>
+                                    <button class="button button-secondary" onclick="showDetailView('tab-utilization', true)">詳細を表示</button>
+                                </div>
+                                <div class="section-content"> <div class="chart-placeholder">（定員充足率または利用率の月次推移を示す折れ線グラフ）</div> </div>
+                            </div>
+                            <div class="section">
+                                <h2 class="section-title">利用者別 利用状況 サマリー (2025年10月)</h2>
+                                <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem;">
+                                    <div class="form-group" style="flex-grow: 2;"> <label for="search-util-member-name-summary" class="form-label">利用者名</label> <input type="text" id="search-util-member-name-summary" class="form-control" placeholder="氏名で検索..."> </div>
+                                    <div class="form-group"> <label for="filter-util-status-summary" class="form-label">利用率</label> <select id="filter-util-status-summary" class="form-control"> <option value="">すべて</option> <option value="high">90%以上</option> <option value="medium">70%-90%</option> <option value="low">70%未満</option> </select> </div>
+                                    <button type="button" class="button button-secondary">クリア</button>
+                                </form>
+                                <div class="table-wrapper">
+                                    <table class="table">
+                                        <thead> <tr> <th>利用者名</th> <th class="col-number">利用日数</th> <th class="col-number">欠席日数</th> <th class="col-number">利用率(%)</th> </tr> </thead>
+                                        <tbody id="utilization-tbody-summary">
+                                            <tr class="clickable-row" data-member-name="青木 誠" data-util-rate="100"> <td style="text-align: left;">青木 誠</td> <td class="col-number">22</td> <td class="col-number">0</td> <td class="col-number">100.0%</td> </tr>
+                                            <tr class="clickable-row" data-member-name="五十嵐 直人" data-util-rate="90.9"> <td style="text-align: left;">五十嵐 直人</td> <td class="col-number">20</td> <td class="col-number">2</td> <td class="col-number">90.9%</td> </tr>
+                                            <tr class="clickable-row" data-member-name="遠藤 雅彦" data-util-rate="68.2"> <td style="text-align: left;">遠藤 雅彦</td> <td class="col-number">15</td> <td class="col-number">7</td> <td class="col-number">68.2%</td> </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-view">
+                            <div class="section">
+                                <div class="section-header">
+                                     <h2 class="section-title-in-header">利用者別 月次利用状況 (2025年度)</h2>
+                                     <button class="button button-secondary" onclick="showDetailView('tab-utilization', false)">サマリーへ戻る</button>
+                                </div>
+                                 <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--color-border);">
+                                    <div class="form-group" style="flex-grow: 2;"> <label for="search-util-member-name-detail" class="form-label">利用者名</label> <input type="text" id="search-util-member-name-detail" class="form-control" placeholder="氏名で検索..."> </div>
+                                    <button type="button" class="button button-secondary">クリア</button>
+                                </form>
+                                <div class="table-wrapper">
+                                    <table class="table" id="utilization-monthly-detail-table">
+                                        <thead> <tr> <th>利用者名</th> <th>4月</th><th>5月</th><th>6月</th><th>7月</th><th>8月</th><th>9月</th> <th>10月</th><th>11月</th><th>12月</th><th>1月</th><th>2月</th><th>3月</th> <th>年度計</th><th>年度平均(%)</th> </tr> </thead>
+                                        <tbody id="utilization-monthly-tbody-detail">
+                                            <tr> <td style="text-align: left;">青木 誠</td> <td>20</td><td>21</td><td>22</td><td>20</td><td>18</td><td>21</td> <td>22</td><td></td><td></td><td></td><td></td><td></td> <td>144</td><td>95.0%</td> </tr>
+                                            <tr> <td style="text-align: left;">五十嵐 直人</td> <td>19</td><td>20</td><td>21</td><td>19</td><td>17</td><td>20</td> <td>20</td><td></td><td></td><td></td><td></td><td></td> <td>136</td><td>90.5%</td> </tr>
+                                            <tr> <td style="text-align: left;">遠藤 雅彦</td> <td>15</td><td>16</td><td>18</td><td>15</td><td>10</td><td>14</td> <td>15</td><td></td><td></td><td></td><td></td><td></td> <td>103</td><td>68.8%</td> </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    <div id="tab-production" class="tab-content">
+                         <div class="summary-view">
+                            <div class="section">
+                                <h2 class="section-title">主要指標 (2025年度)</h2>
+                                <div class="kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                                    <div class="kpi-card"> <h4>生産活動収入</h4> <p>3,500,000 <span class="subtext">円</span></p> </div>
+                                    <div class="kpi-card"> <h4>平均工賃 (月額)</h4> <p>16,800 <span class="subtext">円</span></p> </div>
+                                    <div class="kpi-card"> <h4>目標工賃達成率</h4> <p>105.0 <span class="subtext">%</span></p> </div>
+                                </div>
+                            </div>
+                            <div class="section">
+                                 <div class="section-header">
+                                    <h2 class="section-title-in-header">平均工賃推移 (月額)</h2>
+                                    <button class="button button-secondary" onclick="showDetailView('tab-production', true)">詳細を表示</button>
+                                </div>
+                                <div class="section-content"> <div class="chart-placeholder">（平均工賃月額の推移を示す折れ線グラフまたは棒グラフ）</div> </div>
+                            </div>
+                             <div class="section">
+                                <h2 class="section-title">案件別 収支分析 サマリー (2025年度)</h2>
+                                 <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem;">
+                                    <div class="form-group" style="flex-grow: 2;"> <label for="search-prod-project-name-summary" class="form-label">案件名/取引先</label> <input type="text" id="search-prod-project-name-summary" class="form-control" placeholder="キーワードで検索..."> </div>
+                                    <div class="form-group"> <label for="filter-prod-profit-margin-summary" class="form-label">利益率</label> <select id="filter-prod-profit-margin-summary" class="form-control"> <option value="">すべて</option> <option value="high">50%以上</option> <option value="medium">20%-50%</option> <option value="low">20%未満</option> <option value="negative">赤字</option> </select> </div>
+                                    <button type="button" class="button button-secondary">クリア</button>
+                                </form>
+                                <div class="table-wrapper">
+                                    <table class="table">
+                                        <thead> <tr> <th>案件名</th> <th>取引先</th> <th class="col-number">売上(円)</th> <th class="col-number">経費(円)</th> <th class="col-number">利益(円)</th> <th class="col-number">利益率(%)</th> </tr> </thead>
+                                        <tbody id="production-tbody-summary">
+                                            <tr class="clickable-row" data-project-name="DM封入作業" data-partner-name="株式会社A" data-profit-margin="75"> <td style="text-align: left;">DM封入作業</td> <td style="text-align: left;">株式会社A</td> <td class="col-number">1,200,000</td> <td class="col-number">300,000</td> <td class="col-number">900,000</td> <td class="col-number">75.0%</td> </tr>
+                                            <tr class="clickable-row" data-project-name="部品組み立て" data-partner-name="有限会社B" data-profit-margin="43.8"> <td style="text-align: left;">部品組み立て</td> <td style="text-align: left;">有限会社B</td> <td class="col-number">800,000</td> <td class="col-number">450,000</td> <td class="col-number">350,000</td> <td class="col-number">43.8%</td> </tr>
+                                            <tr class="clickable-row" data-project-name="データ入力" data-partner-name="C-Tech" data-profit-margin="90"> <td style="text-align: left;">データ入力</td> <td style="text-align: left;">C-Tech</td> <td class="col-number">500,000</td> <td class="col-number">50,000</td> <td class="col-number">450,000</td> <td class="col-number">90.0%</td> </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-view">
+                             <div class="section">
+                                <div class="section-header">
+                                     <h2 class="section-title-in-header">月次 平均工賃 明細 (2025年度)</h2>
+                                     <button class="button button-secondary" onclick="showDetailView('tab-production', false)">サマリーへ戻る</button>
+                                </div>
+                                <div class="table-wrapper">
+                                    <table class="table" id="production-monthly-detail-table">
+                                        <thead> <tr> <th>月</th> <th class="col-number">平均工賃(円)</th> <th class="col-number">工賃支払総額(円)</th> <th class="col-number">延べ利用日数</th> <th class="col-number">開所日数</th> <th class="col-number">平均利用人数/日</th> </tr> </thead>
+                                        <tbody id="production-monthly-tbody-detail">
+                                            <tr> <td>4月</td> <td class="col-number">16,500</td> <td class="col-number">280,500</td> <td>340</td> <td>20</td> <td>17.0</td> </tr>
+                                            <tr> <td>5月</td> <td class="col-number">16,600</td> <td class="col-number">282,200</td> <td>340</td> <td>21</td> <td>16.2</td> </tr>
+                                            <tr style="font-weight: bold; background-color: var(--color-hover-bg);"> <td>合計/平均</td> <td class="col-number">16,800</td> <td class="col-number">2,032,700</td> <td>2420</td> <td>144</td> <td>16.8</td> </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                             </div>
+                        </div>
                     </div>
-                    <div class="table-wrapper">
-                        <table class="table calendar-table" style="text-align: center;">
-                            <thead>
-                                <tr>
-                                    <th style="color: red;">日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th style="color: blue;">土</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td><td></td><td></td><td>1</td><td>2</td><td>3</td><td style="background-color: #fde2e2;">4</td>
-                                </tr>
-                                <tr>
-                                    <td style="background-color: #fde2e2;">5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td style="background-color: #fde2e2;">11</td>
-                                </tr>
-                                <tr>
-                                    <td style="background-color: #fde2e2;">12</td><td style="background-color: #ffe8cc;">13</td><td>14</td><td>15</td><td>16</td><td>17</td><td style="background-color: #fde2e2;">18</td>
-                                </tr>
-                                <tr>
-                                    <td style="background-color: #fde2e2;">19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td style="background-color: #fde2e2;">25</td>
-                                </tr>
-                                 <tr>
-                                    <td style="background-color: #fde2e2;">26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td><td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p style="text-align: center; margin-top: 1rem; font-size: var(--font-size-sm);">※日付をクリックすると、営業日/休業日を切り替えることができます。</p>
-                </div>
             </div>
         </main>
     </div>
 
+    <script src="../script.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const nav = document.getElementById('side-nav');
-        const links = nav.querySelectorAll('a.nav-link, a.nav-sublink');
-        const accordionButtons = nav.querySelectorAll('.nav-accordion-button');
-        const pages = document.querySelectorAll('.mockup-page');
 
-        function showPage(targetId) {
-            // すべてのページを非表示に
-            pages.forEach(page => {
-                page.classList.remove('active');
+        // --- サブナビゲーション（タブ）切り替え ---
+        const subNavContainer = document.getElementById('analytics-subnav');
+        const tabContents = document.querySelectorAll('#analytics .tab-content-wrapper .tab-content');
+        if (subNavContainer && tabContents.length > 0) {
+             subNavContainer.addEventListener('click', (e) => {
+                const navItem = e.target.closest('.sub-nav-item');
+                if (!navItem || navItem.classList.contains('active')) { return; }
+                e.preventDefault();
+                const targetTabId = navItem.dataset.tab;
+                // window.location.hash = '#' + targetTabId;
+                subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                navItem.classList.add('active');
+                tabContents.forEach(content => {
+                    const isActive = content.id === targetTabId;
+                    content.classList.toggle('active', isActive);
+                    content.style.display = isActive ? 'block' : 'none';
+                    showDetailView(content.id, false); // タブ切り替え時はサマリー表示に戻す
+                });
             });
-            // ターゲットのページを表示
-            const targetPage = document.getElementById(targetId);
-            if (targetPage) {
-                targetPage.classList.add('active');
+             // 初期表示
+             const firstNavItem = subNavContainer.querySelector('.sub-nav-item');
+             const firstTabContentId = firstNavItem?.dataset.tab;
+             if(firstNavItem && firstTabContentId){
+                const firstTabContent = document.getElementById(firstTabContentId);
+                 subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                 tabContents.forEach(content => { content.classList.remove('active'); content.style.display = 'none'; });
+                 firstNavItem.classList.add('active');
+                 if(firstTabContent) {
+                     firstTabContent.classList.add('active');
+                     firstTabContent.style.display = 'block';
+                 }
+             }
+        }
+
+        // --- 詳細表示/サマリー表示 切り替え ---
+        window.showDetailView = function(tabId, showDetail) {
+            const tabContent = document.getElementById(tabId);
+            if (!tabContent) return;
+            const summaryView = tabContent.querySelector('.summary-view');
+            const detailView = tabContent.querySelector('.detail-view');
+            if (summaryView && detailView) {
+                summaryView.style.display = showDetail ? 'none' : 'block';
+                detailView.style.display = showDetail ? 'block' : 'none';
             }
+        }
 
-            // ナビゲーションのアクティブ状態を更新
-            links.forEach(link => {
-                if (link.getAttribute('href') === '#' + targetId) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
+        // --- 期間選択ボタンの処理 ---
+        const periodUnitButtons = document.querySelectorAll('.period-unit-button');
+        const financialYearSelect = document.getElementById('financial-year-select');
+        const financialMonthSelect = document.getElementById('financial-month-select');
+        const financialMonthLabel = document.querySelector('label[for="financial-month-select"]');
+
+        periodUnitButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                periodUnitButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                const unit = this.dataset.unit;
+
+                // 年度・月の表示切り替え
+                if (unit === 'monthly') {
+                    financialYearSelect.style.display = '';
+                    financialMonthSelect.style.display = '';
+                    if(financialMonthLabel) financialMonthLabel.style.display = '';
+                } else if (unit === 'yearly') {
+                    financialYearSelect.style.display = '';
+                    financialMonthSelect.style.display = 'none';
+                     if(financialMonthLabel) financialMonthLabel.style.display = 'none';
+                } else { // all
+                    financialYearSelect.style.display = 'none';
+                    financialMonthSelect.style.display = 'none';
+                     if(financialMonthLabel) financialMonthLabel.style.display = 'none';
                 }
+                // TODO: 選択された期間に応じてデータを再描画する処理を呼び出す
+                console.log('Period unit changed to:', unit);
+                // 例: reloadFinancialData();
             });
-             // アクティブなリンクが含まれるアコーディオンを開く
-            accordionButtons.forEach(button => {
-                const submenuId = button.dataset.submenuId;
-                const submenu = document.getElementById(submenuId);
-                if (submenu && submenu.querySelector('a.active')) {
-                    button.classList.add('open');
-                    submenu.classList.add('open');
-                }
+        });
+        // 初期表示のために一度呼び出す（デフォルトは年次）
+         if (financialYearSelect) financialYearSelect.style.display = '';
+         if (financialMonthSelect) financialMonthSelect.style.display = 'none';
+         if (financialMonthLabel) financialMonthLabel.style.display = 'none';
+
+         // 年度・月セレクタの変更イベント (データ再描画をトリガー)
+         if(financialYearSelect) {
+             financialYearSelect.addEventListener('change', () => {
+                 console.log('Year changed to:', financialYearSelect.value);
+                 // 例: reloadFinancialData();
+             });
+         }
+         if(financialMonthSelect) {
+             financialMonthSelect.addEventListener('change', () => {
+                 console.log('Month changed to:', financialMonthSelect.value);
+                 // 例: reloadFinancialData();
+             });
+         }
+
+
+        // --- フィルタリング関数 (利用者別利用状況 - サマリー用) ---
+        function filterUtilizationTableSummary() { /* ... (変更なし) ... */
+             const nameInput = document.getElementById('search-util-member-name-summary');
+             const statusSelect = document.getElementById('filter-util-status-summary');
+             const tableBody = document.getElementById('utilization-tbody-summary');
+             if (!nameInput || !statusSelect || !tableBody) return;
+             const nameFilter = nameInput.value.toLowerCase();
+             const statusFilter = statusSelect.value;
+             const rows = tableBody.getElementsByTagName('tr');
+             Array.from(rows).forEach(row => {
+                 const memberName = row.cells[0]?.textContent.toLowerCase() || '';
+                 const utilRate = parseFloat(row.dataset.utilRate || 0);
+                 const nameMatch = memberName.includes(nameFilter);
+                 let statusMatch = true;
+                 if(statusFilter === "high" && utilRate < 90) statusMatch = false;
+                 if(statusFilter === "medium" && (utilRate < 70 || utilRate >= 90)) statusMatch = false;
+                 if(statusFilter === "low" && utilRate >= 70) statusMatch = false;
+                 row.style.display = (nameMatch && statusMatch) ? '' : 'none';
+             });
+        }
+        // --- フィルタリング関数 (利用者別利用状況 - 詳細用) ---
+        function filterUtilizationTableDetail() { /* ... (変更なし) ... */
+             const nameInput = document.getElementById('search-util-member-name-detail');
+             const tableBody = document.getElementById('utilization-monthly-tbody-detail');
+             if (!nameInput || !tableBody) return;
+             const nameFilter = nameInput.value.toLowerCase();
+             const rows = tableBody.getElementsByTagName('tr');
+             Array.from(rows).forEach(row => {
+                 const memberName = row.cells[0]?.textContent.toLowerCase() || '';
+                 const nameMatch = memberName.includes(nameFilter);
+                 row.style.display = nameMatch ? '' : 'none';
+             });
+        }
+        // --- フィルタリング関数 (案件別収支 - サマリー用) ---
+        function filterProductionTableSummary() { /* ... (変更なし) ... */
+             const keywordInput = document.getElementById('search-prod-project-name-summary');
+             const marginSelect = document.getElementById('filter-prod-profit-margin-summary');
+             const tableBody = document.getElementById('production-tbody-summary');
+             if (!keywordInput || !marginSelect || !tableBody) return;
+             const keywordFilter = keywordInput.value.toLowerCase();
+             const marginFilter = marginSelect.value;
+             const rows = tableBody.getElementsByTagName('tr');
+             Array.from(rows).forEach(row => {
+                 const projectName = row.dataset.projectName?.toLowerCase() || '';
+                 const partnerName = row.dataset.partnerName?.toLowerCase() || '';
+                 const profitMargin = parseFloat(row.dataset.profitMargin || 0);
+                 const keywordMatch = keywordFilter === "" || projectName.includes(keywordFilter) || partnerName.includes(keywordFilter);
+                 let marginMatch = true;
+                 if(marginFilter === "high" && profitMargin < 50) marginMatch = false;
+                 if(marginFilter === "medium" && (profitMargin < 20 || profitMargin >= 50)) marginMatch = false;
+                 if(marginFilter === "low" && profitMargin >= 20) marginMatch = false;
+                 if(marginFilter === "negative" && profitMargin >= 0) marginMatch = false;
+                 row.style.display = (keywordMatch && marginMatch) ? '' : 'none';
+             });
+        }
+
+        // --- イベントリスナー設定 ---
+        // 利用状況タブ (サマリー)
+        const nameUtilInputSummary = document.getElementById('search-util-member-name-summary');
+        const statusUtilSelectSummary = document.getElementById('filter-util-status-summary');
+        const clearUtilButtonSummary = document.querySelector('#tab-utilization .summary-view .filter-form-inline .button-secondary');
+        if(nameUtilInputSummary) nameUtilInputSummary.addEventListener('input', filterUtilizationTableSummary);
+        if(statusUtilSelectSummary) statusUtilSelectSummary.addEventListener('change', filterUtilizationTableSummary);
+        if(clearUtilButtonSummary) { /* ... (クリア処理) ... */
+            clearUtilButtonSummary.addEventListener('click', () => {
+                const form = clearUtilButtonSummary.closest('form'); if(form) form.reset(); filterUtilizationTableSummary();
+            });
+        }
+        // 利用状況タブ (詳細)
+        const nameUtilInputDetail = document.getElementById('search-util-member-name-detail');
+        const clearUtilButtonDetail = document.querySelector('#tab-utilization .detail-view .filter-form-inline .button-secondary');
+        if(nameUtilInputDetail) nameUtilInputDetail.addEventListener('input', filterUtilizationTableDetail);
+        if(clearUtilButtonDetail) { /* ... (クリア処理) ... */
+             clearUtilButtonDetail.addEventListener('click', () => {
+                const form = clearUtilButtonDetail.closest('form'); if(form) form.reset(); filterUtilizationTableDetail();
             });
         }
 
-        // リンククリック時の処理
-        links.forEach(link => {
-            link.addEventListener('click', function(event) {
-                const href = this.getAttribute('href');
-                if (href && href.startsWith('#')) {
-                    event.preventDefault();
-                    const targetId = href.substring(1);
-                    showPage(targetId);
-                    window.location.hash = targetId;
-                }
+        // 生産活動タブ (サマリー)
+        const keywordProdInputSummary = document.getElementById('search-prod-project-name-summary');
+        const marginProdSelectSummary = document.getElementById('filter-prod-profit-margin-summary');
+        const clearProdButtonSummary = document.querySelector('#tab-production .summary-view .filter-form-inline .button-secondary');
+        if(keywordProdInputSummary) keywordProdInputSummary.addEventListener('input', filterProductionTableSummary);
+        if(marginProdSelectSummary) marginProdSelectSummary.addEventListener('change', filterProductionTableSummary);
+        if(clearProdButtonSummary) { /* ... (クリア処理) ... */
+            clearProdButtonSummary.addEventListener('click', () => {
+                const form = clearProdButtonSummary.closest('form'); if(form) form.reset(); filterProductionTableSummary();
             });
-        });
+        }
 
-        // アコーディオンメニューの開閉処理
-        accordionButtons.forEach(button => {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-                this.classList.toggle('open');
-                const submenuId = this.dataset.submenuId;
-                const submenu = document.getElementById(submenuId);
-                if (submenu) {
-                    submenu.classList.toggle('open');
-                }
-            });
-        });
+        // --- 行クリック処理 (変更なし) ---
+        // ...
 
-        // 初期表示
-        const initialPageId = window.location.hash ? window.location.hash.substring(1) : 'analytics';
-        showPage(initialPageId);
+        // 初期フィルタリング実行
+        filterUtilizationTableSummary();
+        filterUtilizationTableDetail();
+        filterProductionTableSummary();
+
     });
 </script>
 </body>

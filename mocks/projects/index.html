@@ -138,14 +138,13 @@
                             </div>
                         </div>
                         <div class="section">
-                            <h2 class="section-title">作業内容</h2>
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">作業内容</h2>
+                                <button class="button button-primary" id="edit-work-content-button">編集</button> </div>
                              <div class="section-content">
-                                <textarea class="form-control" rows="4">チラシ、挨拶状、返信用封筒の3点をまとめて封入する。宛名ラベルを貼付後、指定の箱に500部ずつ梱包する。</textarea>
+                                <p id="project-work-content-display" style="white-space: pre-wrap;">チラシ、挨拶状、返信用封筒の3点をまとめて封入する。宛名ラベルを貼付後、指定の箱に500部ずつ梱包する。</p>
                             </div>
-                             <div class="section-footer">
-                                <button type="button" class="button button-primary">作業内容を保存</button>
-                            </div>
-                        </div>
+                             </div>
                          </div>
 
                     <div id="tab-project-process" class="tab-content">
@@ -360,6 +359,25 @@
                     </div>
                 </div>
             </div>
+
+             <div id="edit-project-work-content-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">作業内容 編集</h2>
+                        <span class="modal-close" onclick="closeModal('edit-project-work-content-modal')">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="edit-project-work-content-textarea" class="form-label">内容</label>
+                            <textarea id="edit-project-work-content-textarea" class="form-control" rows="8"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="button button-secondary" onclick="closeModal('edit-project-work-content-modal')">キャンセル</button>
+                        <button type="button" class="button button-primary" id="save-work-content-button">保存</button>
+                    </div>
+                </div>
+            </div>
              </main>
     </div>
 
@@ -374,7 +392,6 @@
             const tableBody = document.getElementById('project-list-tbody');
 
             if (!nameInput || !clientInput || !statusSelect || !tableBody) {
-                console.warn("Filter elements or table body for projects not found.");
                 return;
             }
 
@@ -387,23 +404,16 @@
                 const projectName = row.cells[0]?.textContent.toLowerCase() || '';
                 const clientName = row.cells[1]?.textContent.toLowerCase() || '';
                 const status = row.cells[2]?.textContent || '';
-
                 const nameMatch = projectName.includes(nameFilter);
                 const clientMatch = clientName.includes(clientFilter);
                 const statusMatch = statusFilter === "" || status === statusFilter;
-
-                if (nameMatch && clientMatch && statusMatch) {
-                    row.style.display = ''; // 表示
-                } else {
-                    row.style.display = 'none'; // 非表示
-                }
+                row.style.display = (nameMatch && clientMatch && statusMatch) ? '' : 'none';
             });
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // --- 案件詳細: サブナビゲーション（タブ）切り替え (members/list.html から流用) ---
+            // --- 案件詳細: サブナビゲーション（タブ）切り替え ---
             const subNavContainer = document.getElementById('project-detail-subnav');
-            // .tab-content-wrapper の中の .tab-content を探すようにセレクタを修正
             const tabContents = document.querySelectorAll('#project-detail .tab-content-wrapper .tab-content'); 
             
             if (subNavContainer && tabContents.length > 0) {
@@ -411,18 +421,15 @@
                     const navItem = e.target.closest('.sub-nav-item');
                     if (!navItem || navItem.classList.contains('active')) { return; }
                     e.preventDefault();
-                    
                     const targetTabId = navItem.dataset.tab;
-                    
-                    // サブナビのアクティブ状態を更新
                     subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
                     navItem.classList.add('active');
-                    
-                    // タブコンテンツの表示を切り替え
                     tabContents.forEach(content => {
-                        content.classList.toggle('active', content.id === targetTabId);
+                         content.classList.toggle('active', content.id === targetTabId);
+                         content.style.display = (content.id === targetTabId) ? 'block' : 'none'; // displayも制御
                     });
                 });
+                // 初期表示で display:none を解除する処理を script.js に依存
             }
 
             // --- 案件一覧: フィルタリングのイベントリスナー設定 ---
@@ -430,7 +437,6 @@
                 const nameInputListener = document.getElementById('search-project-name');
                 const clientInputListener = document.getElementById('search-client-name');
                 const statusSelectListener = document.getElementById('filter-project-status');
-                // クリアボタンのセレクタを修正
                 const clearButton = document.querySelector('#projects .section-header .button-secondary'); 
 
                 if(nameInputListener) nameInputListener.addEventListener('input', filterProjects);
@@ -439,18 +445,39 @@
                 
                 if(clearButton) {
                     clearButton.addEventListener('click', () => {
-                         // フォームの特定を #projects 内の .filter-form に修正
                          const form = document.querySelector('#projects .filter-form');
                          if (form) form.reset(); 
                          filterProjects();
                     });
                 }
-                
-                // 初期表示のための呼び出し
                 filterProjects();
             }
+
+            // ▼▼▼ 追加: 作業内容編集モーダルの処理 ▼▼▼
+            const editWorkContentButton = document.getElementById('edit-work-content-button');
+            const workContentDisplay = document.getElementById('project-work-content-display');
+            const workContentTextarea = document.getElementById('edit-project-work-content-textarea');
+            const saveWorkContentButton = document.getElementById('save-work-content-button');
+
+            if (editWorkContentButton && workContentDisplay && workContentTextarea && saveWorkContentButton) {
+                // 編集ボタンクリック時の処理
+                editWorkContentButton.addEventListener('click', () => {
+                    // 表示用pタグの内容をテキストエリアにコピー（<br>を改行に変換）
+                    workContentTextarea.value = workContentDisplay.innerHTML.replace(/<br\s*[\/]?>/gi, '\n');
+                    openModal('edit-project-work-content-modal');
+                });
+
+                // 保存ボタンクリック時の処理
+                saveWorkContentButton.addEventListener('click', () => {
+                    // テキストエリアの内容を表示用pタグに反映（改行を<br>に変換）
+                    workContentDisplay.innerHTML = workContentTextarea.value.replace(/\n/g, '<br>');
+                    closeModal('edit-project-work-content-modal');
+                });
+            }
+             // ▲▲▲ 追加ここまで ▲▲▲
+
         });
 
     </script>
-    </body>
+</body>
 </html>
