@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>p2508d - 法人情報設定モックアップ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="mockup-container">
+        <header class="header">
+            <div>
+                <h1 class="header-logo"><a href="dashboard.html">p2508d</a></h1>
+            </div>
+            
+            <nav class="nav" id="side-nav">
+                <ul class="nav-list">
+                    <li><a href="dashboard.html" class="nav-link">ダッシュボード</a></li>
+                    <li><a href="daily_records.html" class="nav-link">日々の記録</a></li>
+                    <li><a href="members_menu.html" class="nav-link">利用者支援</a></li>
+                    <li><a href="staff.html" class="nav-link">職員管理</a></li>
+                    <li><a href="work_activities_menu.html" class="nav-link">生産活動</a></li>
+                    <li><a href="accounting_menu.html" class="nav-link">会計管理</a></li>
+                    <li><a href="claims.html" class="nav-link">国保連請求</a></li>
+                    <li><a href="analytics.html" class="nav-link">データ分析</a></li>
+                    <li><a href="settings.html" class="nav-link active">設定</a></li>
+                </ul>
+                <div class="nav-logout-section">
+                    <a href="index.html" class="nav-link">ログアウト</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="mockup-main">
+            <div id="corporation-detail" class="mockup-page active">
+                <div class="list-page-header">
+                    <h1 class="page-title">法人情報</h1>
+                <div>
+                    <a href="settings.html" class="button button-secondary">設定TOPへ戻る</a>
+                </div>
+                </div>
+                
+                <div class="sub-nav">
+                    <ul id="corporation-detail-subnav">
+                        <li><a href="#" class="sub-nav-item active" data-tab="tab-corporation-basic-info">基本情報</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-corporation-address">住所・連絡先</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content-wrapper">
+                    <div id="tab-corporation-basic-info" class="tab-content active">
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">法人基本情報</h2>
+                                <button class="button button-primary" onclick="openModal('edit-corporation-basic-modal')">編集</button>
+                            </div>
+                            <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>法人名</dt><dd>社会福祉法人〇〇会</dd>
+                                    <dt>法人番号</dt><dd>1234567890123</dd>
+                                    <dt>代表者役職</dt><dd>理事長</dd>
+                                    <dt>代表者氏名</dt><dd>山田 太郎</dd>
+                                    <dt>設立年月日</dt><dd>2010年4月1日</dd>
+                                </dl>
+                                </div>
+                        </div>
+                        </div>
+
+                    <div id="tab-corporation-address" class="tab-content">
+                        <div class="section">
+                             <div class="section-header">
+                                <h2 class="section-title-in-header">本社 住所・連絡先</h2>
+                                <button class="button button-primary" onclick="openModal('edit-corporation-address-modal')">編集</button>
+                            </div>
+                            <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>郵便番号</dt><dd>100-0001</dd>
+                                    <dt>住所</dt><dd>東京都千代田区...</dd>
+                                    <dt>電話番号</dt><dd>03-AAAA-BBBB</dd>
+                                    <dt>FAX番号</dt><dd>03-AAAA-CCCC</dd>
+                                </dl>
+                                </div>
+                        </div>
+                         </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="edit-corporation-basic-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">法人基本情報 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-corporation-basic-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>法人名</label>
+                    <input type="text" class="form-control" value="社会福祉法人〇〇会">
+                </div>
+                <div class="form-group">
+                    <label>法人番号</label>
+                    <input type="text" class="form-control" value="1234567890123">
+                </div>
+                <div class="form-group">
+                    <label>代表者役職</label>
+                    <input type="text" class="form-control" value="理事長">
+                </div>
+                <div class="form-group">
+                    <label>代表者氏名</label>
+                    <input type="text" class="form-control" value="山田 太郎">
+                </div>
+                <div class="form-group">
+                    <label>設立年月日</label>
+                    <input type="date" class="form-control" value="2010-04-01">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('edit-corporation-basic-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="edit-corporation-address-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">本社 住所・連絡先 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-corporation-address-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                 <div class="form-group">
+                    <label>郵便番号</label>
+                    <input type="text" class="form-control" value="100-0001">
+                </div>
+                <div class="form-group">
+                    <label>住所</label>
+                    <input type="text" class="form-control" value="東京都千代田区...">
+                </div>
+                <div class="form-group">
+                    <label>電話番号</label>
+                    <input type="tel" class="form-control" value="03-AAAA-BBBB">
+                </div>
+                <div class="form-group">
+                    <label>FAX番号</label>
+                    <input type="tel" class="form-control" value="03-AAAA-CCCC">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" onclick="closeModal('edit-corporation-address-modal')">キャンセル</button>
+                <button class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 法人情報詳細: サブナビゲーション（タブ）切り替え ---
+            const subNavContainer = document.getElementById('corporation-detail-subnav');
+            const tabContents = document.querySelectorAll('#corporation-detail .tab-content-wrapper .tab-content'); 
+            
+            if (subNavContainer && tabContents.length > 0) {
+                subNavContainer.addEventListener('click', (e) => {
+                    const navItem = e.target.closest('.sub-nav-item');
+                    if (!navItem || navItem.classList.contains('active')) { return; }
+                    e.preventDefault();
+                    
+                    const targetTabId = navItem.dataset.tab;
+                    
+                    // サブナビのアクティブ状態を更新
+                    subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                    navItem.classList.add('active');
+                    
+                    // タブコンテンツの表示を切り替え
+                    tabContents.forEach(content => {
+                        content.classList.toggle('active', content.id === targetTabId);
+                    });
+                });
+            }
+        });
+    </script>
+    </body>
+</html>

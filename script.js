@@ -16,53 +16,67 @@ document.addEventListener('DOMContentLoaded', function() {
             targetPage.classList.add('active'); // Add active class to the shown page
         }
 
-        // Update active state of side nav links based on href matching the page ID
+        // ▼▼▼ 変更: ナビゲーションのアクティブ判定ロジック ▼▼▼
         sideNavLinks.forEach(link => {
             const linkHref = link.getAttribute('href');
-            // Check if href exists and starts with '../' followed by the targetId path part
-            // Example: ../records/index.html#tab-daily-logs should match targetId 'records' potentially
-            // Or more simply, just check if the filename part matches the targetId for these mockups
             let isActive = false;
-            if (linkHref) {
-                const fileName = linkHref.split('/').pop().split('.')[0]; // e.g., "list" from "../members/list.html"
-                const targetBaseId = targetId.split('-')[0]; // e.g., "members" from "member-detail" or "members"
+            
+            if (linkHref && linkHref.endsWith('.html')) {
+                // 'dashboard.html' -> 'dashboard'
+                const pageName = linkHref.substring(0, linkHref.lastIndexOf('.html'));
+                // 'member-detail' -> 'member'
+                const targetBaseId = targetId.split('-')[0]; 
+                const targetSuffix = targetId.split('-').pop(); // 'detail', 'list', 'cards' etc.
 
-                // Specific handling for index pages vs detail pages if needed,
-                // For now, let's assume the main page ID matches the nav link file name base
-                 // Handle index.html links potentially pointing to the base ID
-                 if (linkHref.endsWith('index.html')) {
-                    const dirName = linkHref.split('/')[1]; // e.g., "records" from "../records/index.html"
-                    // Special case for settings index pointing to settings-cards
-                    if (dirName === 'settings' && targetId === 'settings-cards') {
-                        isActive = true;
-                    }
-                    // Special case for members index pointing to members card page
-                     else if (dirName === 'members' && targetId === 'members-cards') { // Assuming members/index.html leads to a card view with this ID
-                        isActive = true;
-                     }
-                    // Add other index.html mappings if necessary
-                    else if (dirName === targetBaseId || (dirName + 's') === targetId) { // Simple match or plural match
-                         isActive = true;
-                     }
-
-                 } else if (fileName === targetBaseId) {
+                // 1. targetId と pageName が完全一致 (e.g., targetId='staff', href='staff.html')
+                if (pageName === targetId) {
                     isActive = true;
-                 }
-
-
-                 // Handle cases where targetId directly matches a specific link's intended page ID
-                 // (e.g., if nav link href was '#members-cards' and targetId is 'members-cards')
-                 if(linkHref === '#' + targetId){
+                } 
+                // 2. targetId が '-cards' で終わり、対応するメニューページの href と一致する場合
+                else if (targetSuffix === 'cards' && pageName === targetBaseId + '_menu') {
+                     isActive = true; // e.g., targetId='members-cards', href='members_menu.html'
+                }
+                else if (targetId === 'settings-cards' && pageName === 'settings') {
+                    isActive = true; // settings は例外的に _menu がない
+                }
+                // 3. targetId が詳細ページ (e.g., 'member-detail') の場合の親メニュー判定
+                else if (pageName === 'members_menu' && targetBaseId === 'member') {
+                    isActive = true; // 利用者支援(members_menu) -> member-detail
+                }
+                else if (pageName === 'staff' && targetBaseId === 'staff') {
+                    isActive = true; // 職員管理(staff) -> staff-detail
+                }
+                else if (pageName === 'work_activities_menu' && (targetBaseId === 'project' || targetBaseId === 'partner' || targetId === 'skill_evaluation')) {
+                    // 生産活動(work_activities_menu) -> project-detail, contact-detail, skill_evaluation
+                     isActive = true; 
+                }
+                else if (pageName === 'accounting_menu' && (targetBaseId === 'transaction' || targetId === 'wage_evaluation')) {
+                    // 会計管理(accounting_menu) -> transaction (将来的に詳細想定), wage_evaluation
                      isActive = true;
-                 }
-
-                 // Ensure only one link is active within the main nav list
-                 // If a more specific page is active (e.g., member-detail), don't activate the parent nav link (members)
-                 // This requires careful structuring or more complex logic, for mocks we might simplify
+                }
+                 else if (pageName === 'settings' && (
+                    targetId === 'corporation' || 
+                    targetId === 'facility' || 
+                    targetId === 'facilities' || // facility一覧もsettings配下とみなす
+                    targetId === 'facility-detail' || 
+                    targetId === 'users' ||
+                    targetId === 'wage_system' ||
+                    targetId === 'salary_system' ||
+                    targetId === 'skill_system' ||
+                    targetId === 'masters' 
+                    )) {
+                    // 設定(settings) -> 各種設定ページ
+                     isActive = true;
+                }
+                // 4. 利用者支援メニュー(members_menu.html)からの遷移先
+                else if (pageName === 'members_menu' && (targetId === 'skill_evaluation' || targetId === 'wage_evaluation')) {
+                     isActive = true;
+                }
 
             }
             link.classList.toggle('active', isActive);
         });
+        // ▲▲▲ 変更ここまで ▲▲▲
     }
 
     pageLinks.forEach(link => {
@@ -82,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             }
             // Allow default behavior for external links or links to other HTML files
+            // (フラット化により、他のHTMLファイルへのリンクはデフォルト動作でOK)
         });
     });
 
@@ -302,9 +317,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Fallback to default page if needed
+    // ▼▼▼ 変更: デフォルトページのIDを 'dashboard' に変更 ▼▼▼
     if (!initialPageId || !document.getElementById(initialPageId)) {
-        initialPageId = pages[0] ? pages[0].id : ''; // Use the first page in the HTML or fallback
+        // Find the page associated with dashboard.html if no hash
+        const dashboardLink = document.querySelector('a.nav-link[href="dashboard.html"]');
+        if (dashboardLink) {
+            // This assumes the dashboard page has an id="dashboard"
+            initialPageId = 'dashboard'; 
+        }
+        if (!initialPageId || !document.getElementById(initialPageId)) {
+             initialPageId = pages[0] ? pages[0].id : ''; // Fallback to first page in HTML
+        }
     }
+     // ▲▲▲ 変更ここまで ▲▲▲
+
 
     // Show the initial page
     if(initialPageId) {
