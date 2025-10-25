@@ -40,12 +40,8 @@
                 </div>
 
                 <div class="section">
-                    <div class="section-header">
-                        <h2 class="section-title-in-header">検索条件</h2>
-                        <button type="button" class="button button-secondary">クリア</button>
-                    </div>
-                    <form class="section-content filter-form">
-                        <div class="form-group">
+                    <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--color-border);">
+                        <div class="form-group" style="flex-grow: 2;">
                             <label for="search-staff-name" class="form-label">職員名</label>
                             <input type="text" id="search-staff-name" class="form-control" placeholder="氏名で検索...">
                         </div>
@@ -66,8 +62,10 @@
                                 <option value="非常勤">非常勤</option>
                             </select>
                         </div>
+                        <button type="button" class="button button-secondary">クリア</button>
                     </form>
-                    <div class="table-wrapper" style="margin-top: 1.5rem;">
+
+                    <div class="table-wrapper">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -96,9 +94,10 @@
                         </table>
                     </div>
                 </div>
-                </div>
+            </div>
 
-            <div id="staff-detail" class="mockup-page"> <div class="list-page-header">
+            <div id="staff-detail" class="mockup-page">
+                <div class="list-page-header">
                     <h1 class="page-title">管理者 太郎</h1>
                     <div>
                         <a href="#staff" class="button button-secondary" style="margin-right: 0.5rem;" onclick="showPage('staff')">一覧へ戻る</a>
@@ -382,7 +381,7 @@
                 const nameInputListener = document.getElementById('search-staff-name');
                 const roleSelectListener = document.getElementById('filter-staff-role');
                 const statusSelectListener = document.getElementById('filter-staff-status');
-                const clearButton = document.querySelector('#staff .section-header .button-secondary');
+                const clearButton = document.querySelector('#staff .filter-form-inline .button-secondary'); // セレクタをインラインフォーム内のボタンに修正
 
                 if(nameInputListener) nameInputListener.addEventListener('input', filterStaff);
                 if(roleSelectListener) roleSelectListener.addEventListener('change', filterStaff);
@@ -390,7 +389,7 @@
 
                 if(clearButton) {
                     clearButton.addEventListener('click', () => {
-                         const form = document.querySelector('#staff .filter-form');
+                         const form = document.querySelector('#staff .filter-form-inline'); // セレクタをインラインフォームに修正
                          if (form) form.reset();
                          filterStaff();
                     });

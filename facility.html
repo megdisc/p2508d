@@ -13,7 +13,7 @@
             <div>
                 <h1 class="header-logo"><a href="dashboard.html">p2508d</a></h1>
             </div>
-            
+
             <nav class="nav" id="side-nav">
                 <ul class="nav-list">
                     <li><a href="dashboard.html" class="nav-link">ダッシュボード</a></li>
@@ -33,7 +33,8 @@
         </header>
 
         <main class="mockup-main">
-            <div id="facilities" class="mockup-page active"> <div class="list-page-header">
+            <div id="facilities" class="mockup-page active">
+                <div class="list-page-header">
                     <h1 class="page-title">事業所一覧</h1>
                     <div>
                         <a href="settings.html" class="button button-secondary">設定TOPへ戻る</a>
@@ -42,12 +43,8 @@
                 </div>
 
                 <div class="section">
-                    <div class="section-header">
-                        <h2 class="section-title-in-header">検索条件</h2>
-                        <button type="button" class="button button-secondary">クリア</button>
-                    </div>
-                    <form class="section-content filter-form">
-                        <div class="form-group">
+                    <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--color-border);">
+                        <div class="form-group" style="flex-grow: 2;">
                             <label for="search-facility-name" class="form-label">事業所名</label>
                             <input type="text" id="search-facility-name" class="form-control" placeholder="事業所名で検索...">
                         </div>
@@ -67,44 +64,44 @@
                                 <option value="無効">無効</option>
                             </select>
                         </div>
+                        <button type="button" class="button button-secondary">クリア</button>
                     </form>
-                </div>
 
-
-                <div class="table-wrapper" style="margin-top: 1.5rem;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>事業所名</th>
-                                <th>事業所番号</th>
-                                <th>サービス種別</th>
-                                <th>電話番号</th>
-                                <th>状態</th>
-                                </tr>
-                        </thead>
-                        <tbody id="facility-list-tbody">
-                            <tr class="clickable-row" onclick="showPage('facility-detail')"
-                                data-facility-name="事業所A（自事業所）"
-                                data-service-type="就労継続支援B型"
-                                data-status="有効">
-                                <td>事業所A（自事業所）</td>
-                                <td>1234567890</td>
-                                <td>就労継続支援B型</td>
-                                <td>03-XXXX-XXXX</td>
-                                <td>有効</td>
-                                </tr>
-                            <tr class="clickable-row" onclick="showPage('facility-detail')"
-                                data-facility-name="事業所B（他事業所）"
-                                data-service-type="生活介護"
-                                data-status="有効">
-                                <td>事業所B（他事業所）</td>
-                                <td>0987654321</td>
-                                <td>生活介護</td>
-                                <td>045-XXX-XXXX</td>
-                                <td>有効</td>
-                                </tr>
-                        </tbody>
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>事業所名</th>
+                                    <th>事業所番号</th>
+                                    <th>サービス種別</th>
+                                    <th>電話番号</th>
+                                    <th>状態</th>
+                                    </tr>
+                            </thead>
+                            <tbody id="facility-list-tbody">
+                                <tr class="clickable-row" onclick="showPage('facility-detail')"
+                                    data-facility-name="事業所A（自事業所）"
+                                    data-service-type="就労継続支援B型"
+                                    data-status="有効">
+                                    <td>事業所A（自事業所）</td>
+                                    <td>1234567890</td>
+                                    <td>就労継続支援B型</td>
+                                    <td>03-XXXX-XXXX</td>
+                                    <td>有効</td>
+                                    </tr>
+                                <tr class="clickable-row" onclick="showPage('facility-detail')"
+                                    data-facility-name="事業所B（他事業所）"
+                                    data-service-type="生活介護"
+                                    data-status="有効">
+                                    <td>事業所B（他事業所）</td>
+                                    <td>0987654321</td>
+                                    <td>生活介護</td>
+                                    <td>045-XXX-XXXX</td>
+                                    <td>有効</td>
+                                    </tr>
+                            </tbody>
                         </table>
+                    </div>
                 </div>
             </div>
 
@@ -116,7 +113,7 @@
                         <button type="button" class="button button-danger" onclick="alert('「事業所A（自事業所）」のデータを削除します。よろしいですか？')">削除</button>
                     </div>
                 </div>
-                
+
                 <div class="sub-nav">
                     <ul id="facility-detail-subnav">
                         <li><a href="#" class="sub-nav-item active" data-tab="tab-facility-basic-info">基本情報</a></li>
@@ -528,19 +525,19 @@
         document.addEventListener('DOMContentLoaded', () => {
             // --- 事業所詳細: サブナビゲーション（タブ）切り替え ---
             const subNavContainer = document.getElementById('facility-detail-subnav');
-            const tabContents = document.querySelectorAll('#facility-detail .tab-content-wrapper .tab-content'); 
-            
+            const tabContents = document.querySelectorAll('#facility-detail .tab-content-wrapper .tab-content');
+
             if (subNavContainer && tabContents.length > 0) {
                 subNavContainer.addEventListener('click', (e) => {
                     const navItem = e.target.closest('.sub-nav-item');
                     if (!navItem || navItem.classList.contains('active')) { return; }
                     e.preventDefault();
-                    
+
                     const targetTabId = navItem.dataset.tab;
-                    
+
                     subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
                     navItem.classList.add('active');
-                    
+
                     tabContents.forEach(content => {
                         content.classList.toggle('active', content.id === targetTabId);
                     });
@@ -552,20 +549,20 @@
                 const nameInputListener = document.getElementById('search-facility-name');
                 const serviceSelectListener = document.getElementById('filter-facility-service');
                 const statusSelectListener = document.getElementById('filter-facility-status');
-                const clearButton = document.querySelector('#facilities .section-header .button-secondary'); 
+                const clearButton = document.querySelector('#facilities .filter-form-inline .button-secondary'); // セレクタをインラインフォーム内のボタンに修正
 
                 if(nameInputListener) nameInputListener.addEventListener('input', filterFacilities);
                 if(serviceSelectListener) serviceSelectListener.addEventListener('change', filterFacilities);
                 if(statusSelectListener) statusSelectListener.addEventListener('change', filterFacilities);
-                
+
                 if(clearButton) {
                     clearButton.addEventListener('click', () => {
-                         const form = document.querySelector('#facilities .filter-form');
-                         if (form) form.reset(); 
+                         const form = document.querySelector('#facilities .filter-form-inline'); // セレクタをインラインフォームに修正
+                         if (form) form.reset();
                          filterFacilities();
                     });
                 }
-                
+
                 filterFacilities(); // 初期表示
             }
         });
