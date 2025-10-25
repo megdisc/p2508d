@@ -38,12 +38,8 @@
                 </div>
 
                 <div class="section">
-                    <div class="section-header">
-                        <h2 class="section-title-in-header">検索条件</h2>
-                        <button type="button" class="button button-secondary">クリア</button>
-                    </div>
-                    <form class="section-content filter-form">
-                        <div class="form-group">
+                    <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem;">
+                        <div class="form-group" style="flex-grow: 2;">
                             <label for="search-member-list-name" class="form-label">利用者名</label>
                             <input type="text" id="search-member-list-name" class="form-control" placeholder="氏名・フリガナで検索...">
                         </div>
@@ -64,51 +60,52 @@
                                 <option value="待機中">待機中</option>
                             </select>
                         </div>
+                        <button type="button" class="button button-secondary">クリア</button>
                     </form>
-                </div>
 
-                <div class="table-wrapper" style="margin-top: 1.5rem;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>利用者名</th>
-                                <th>契約日</th>
-                                <th>担当職員</th>
-                                <th>契約ステータス</th>
-                            </tr>
-                        </thead>
-                        <tbody id="member-list-tbody">
-                            <tr class="clickable-row" onclick="showPage('member-detail')"
-                                data-member-name="青木 誠"
-                                data-staff-name="支援員 次郎"
-                                data-status="利用中">
-                                <td>青木 誠</td>
-                                <td>2024.04.01</td>
-                                <td>支援員 次郎</td>
-                                <td>利用中</td>
-                            </tr>
-                            <tr class="clickable-row" onclick="showPage('member-detail')"
-                                data-member-name="五十嵐 直人"
-                                data-staff-name="管理者 太郎"
-                                data-status="利用中">
-                                <td>五十嵐 直人</td>
-                                <td>2024.05.01</td>
-                                <td>管理者 太郎</td>
-                                <td>利用中</td>
-                            </tr>
-                             <tr class="clickable-row" onclick="showPage('member-detail')"
-                                data-member-name="遠藤 雅彦"
-                                data-staff-name="支援員 次郎"
-                                data-status="利用終了">
-                                <td>遠藤 雅彦</td>
-                                <td>2024.06.15</td>
-                                <td>支援員 次郎</td>
-                                <td>利用終了</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>利用者名</th>
+                                    <th>契約日</th>
+                                    <th>担当職員</th>
+                                    <th>契約ステータス</th>
+                                </tr>
+                            </thead>
+                            <tbody id="member-list-tbody">
+                                <tr class="clickable-row" onclick="showPage('member-detail')"
+                                    data-member-name="青木 誠"
+                                    data-staff-name="支援員 次郎"
+                                    data-status="利用中">
+                                    <td>青木 誠</td>
+                                    <td>2024.04.01</td>
+                                    <td>支援員 次郎</td>
+                                    <td>利用中</td>
+                                </tr>
+                                <tr class="clickable-row" onclick="showPage('member-detail')"
+                                    data-member-name="五十嵐 直人"
+                                    data-staff-name="管理者 太郎"
+                                    data-status="利用中">
+                                    <td>五十嵐 直人</td>
+                                    <td>2024.05.01</td>
+                                    <td>管理者 太郎</td>
+                                    <td>利用中</td>
+                                </tr>
+                                 <tr class="clickable-row" onclick="showPage('member-detail')"
+                                    data-member-name="遠藤 雅彦"
+                                    data-staff-name="支援員 次郎"
+                                    data-status="利用終了">
+                                    <td>遠藤 雅彦</td>
+                                    <td>2024.06.15</td>
+                                    <td>支援員 次郎</td>
+                                    <td>利用終了</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+                </div>
 
             <div id="member-detail" class="mockup-page">
                  <div class="list-page-header">
@@ -1252,7 +1249,8 @@
                  const nameInputListener = document.getElementById('search-member-list-name');
                  const staffSelectListener = document.getElementById('filter-member-staff');
                  const statusSelectListener = document.getElementById('filter-member-status');
-                 const clearButton = document.querySelector('#members .section-header .button-secondary');
+                 // ▼▼▼ 修正: クリアボタンのセレクタを変更 ▼▼▼
+                 const clearButton = document.querySelector('#members .filter-form-inline .button-secondary');
 
                  if(nameInputListener) nameInputListener.addEventListener('input', filterMembers);
                  if(staffSelectListener) staffSelectListener.addEventListener('change', filterMembers);
@@ -1260,7 +1258,8 @@
 
                  if(clearButton) {
                      clearButton.addEventListener('click', () => {
-                          const form = document.querySelector('#members .filter-form');
+                          // ▼▼▼ 修正: フォームのセレクタを変更 ▼▼▼
+                          const form = document.querySelector('#members .filter-form-inline');
                           if (form) form.reset();
                           filterMembers();
                      });

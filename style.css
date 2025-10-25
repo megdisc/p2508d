@@ -1,65 +1,97 @@
-/* ==========================================================================
-   CSS Variables (Design Tokens)
-   ========================================================================== */
+/* ============================================= */
+/* 第1層：プリミティブ・トークン (Primitive Tokens) */
+/* ============================================= */
 :root {
-    /* ... (変更なし) ... */
-    --palette-navy-main: #000066;        /* メインカラー */
-    --palette-navy-sub: #000099;         /* サブカラー */
-    --palette-orange-accent: #FF9900;    /* アクセントカラー */
+    /* --- テーマクカラー --- */
+    --palette-main: #000066;
+    --palette-sub: #000099;
+    --palette-accent: #FF9900;
+
+    /* --- セマンティッククカラー --- */
+    --palette-success: #00FFFF; /* Note: 明るすぎる可能性あり */
+    --palette-alert: #FF9999;
+    --palette-error: #FF0000;
 
     /* --- ニュートラルカラー --- */
-    --palette-white: #FFFFFF;            /* ホワイト */
-    --palette-gray-dark: #333333;         /* ダークグレー（主に文字） */
-    --palette-gray-medium: #6c757d;       /* ミディアムグレー（補助的な要素） */
-    --palette-gray-light: #CCCCCC;       /* ライトグレー（薄い罫線など） */
-    --palette-gray-border: #e0e0e0;       /* ボーダー専用グレー */
-    --palette-gray-bg-light: #f1f3f5;    /* 明るい背景グレー */
-    --palette-gray-bg-dark: #e9ecef;     /* やや濃い背景グレー */
-    --palette-gray-bg-very-light: #f8f9fa;/* 非常に明るい背景グレー */
+    --palette-black: #000000;
+    --palette-gray-charcoal: #1A1A1A;
+    --palette-gray-dark: #333333;
+    --palette-gray-dark-medium: #666666;
+    --palette-gray-medium: #808080;
+    --palette-gray-light-medium: #999999;
+    --palette-gray-light: #CCCCCC;
+    --palette-gray-ash: #E6E6E6;
+    --palette-white: #FFFFFF;
 
-    /* --- セマンティックカラー --- */
-    --palette-green-success: #28a745;    /* 成功 */
-    --palette-yellow-alert: #ffc107;     /* 警告 */
-    --palette-red-error: #FF0000;         /* エラー・危険 */
+    /* --- シャドーー --- */
+    --color-shadow-dark: rgba(0, 0, 0, 0.25);
+    --color-shadow-medium: rgba(0, 0, 0, 0.15); /* 修正: 0.5 -> 0.15 など軽めに調整推奨 */
+    --color-shadow-light: rgba(0, 0, 0, 0.005); /* 修正: 0.75 -> 0.05 元々の意図に近い軽い影に */
 
-
-    /* ============================================= */
-    /* 第2層：セマンティック・トークン (Semantic Tokens) */
-    /* ============================================= */
+/* ============================================= */
+/* 第2層：セマンティック・トークン (Semantic Tokens) */
+/* ============================================= */
 
     /* --- 基本色 --- */
-    --color-background: var(--palette-gray-bg-very-light); /* 基本の背景色 */
-    --color-surface: var(--palette-white);                /* カードなどの表面色 */
-    --color-text-primary: var(--palette-gray-dark);       /* 基本の文字色 */
-    --color-text-secondary: var(--palette-gray-medium);   /* 補助的な文字色 */
-    --color-border: var(--palette-gray-border);           /* 基本の境界線色 */
-    --color-shadow: rgba(0, 0, 0, 0.05);                  /* 影の色 */
+    --color-background: var(--palette-gray-ash); /* ページ全体の背景 */
+    --color-surface: var(--palette-white);    /* コンポーネント表面 (カード、モーダルなど) */
+    --color-text-primary: var(--palette-gray-dark); /* 主要テキスト */
+    --color-text-secondary: var(--palette-gray-dark-medium); /* 補助テキスト */
+    --color-border: var(--palette-gray-light);    /* 境界線 */
+    --color-shadow: var(--color-shadow-light);   /* 基本の影 */
 
     /* --- ブランドカラー --- */
-    --color-primary: var(--palette-navy-main);            /* プライマリ（メイン） */
-    --color-primary-hover: var(--palette-navy-sub);       /* プライマリ（ホバー時など） */
-    --color-accent: var(--palette-orange-accent);         /* アクセント */
+    --color-primary: var(--palette-main);          /* 主要ブランドカラー */
+    --color-primary-hover: var(--palette-sub);     /* Primary のホバー色 (Subを使用) */
+    --color-accent: var(--palette-accent);         /* アクセントカラー */
 
     /* --- 意味を持つ色 (Semantic Colors) --- */
-    --color-danger: var(--palette-red-error);             /* 危険・エラー */
-    --color-success: var(--palette-green-success);        /* 成功 */
-    --color-alert: var(--palette-yellow-alert);           /* 警告・注意 */
+    --color-success: var(--palette-success);       /* 成功・完了 */
+    --color-alert: var(--palette-alert);         /* 注意・警告 */
+    --color-danger: var(--palette-error);        /* 危険・エラー・削除 */
 
-    /* --- UI要素 --- */
-    --color-hover-bg: var(--palette-gray-bg-light);       /* ホバー時の背景色 */
-    --color-active-bg: var(--palette-gray-bg-dark);       /* アクティブ時の背景色 */
-    --color-button-text: var(--palette-white);            /* ボタンの文字色 */
+    /* --- UI要素: Header / Navigation --- */
+    --color-header-bg: var(--color-primary);       /* ヘッダー背景 */
+    --color-header-logo: var(--color-accent);     /* ヘッダーロゴ文字色 */
+    --color-nav-link-hover-bg: var(--palette-black); /* ナビリンクホバー背景 */
+    --color-header-logo: var(--palette-white);     /* ナビゲーション文字色 */
+    --color-nav-link-active-bg: var(--palette-black);/* アクティブなナビリンク背景 */
+    --color-nav-link-active-text: var(--color-primary); /* アクティブなナビリンク文字色 */
+
+    /* --- UI要素: Button --- */
+    --color-button-text: var(--palette-white);             /* 基本ボタン文字色 (Primary, Secondary, Danger) */
+    --color-button-primary-bg: var(--color-primary);       /* Primaryボタン背景 */
+    --color-button-secondary-bg: var(--color-text-secondary); /* Secondaryボタン背景 (灰色系) */
+    --color-button-danger-bg: var(--color-danger);         /* Dangerボタン背景 */
+    --color-button-clear-bg: var(--color-background);      /* Clearボタン背景 */
+    --color-button-clear-text: var(--color-text-primary);  /* Clearボタン文字色 */
+    --color-button-clear-border: var(--color-border);      /* Clearボタンボーダー */
+    /* Note: ボタンのホバー色は各ボタンの定義箇所で直接指定 or 追加Token定義 */
+
+    /* --- UI要素: Table --- */
+    --color-table-header-bg: var(--palette-gray-ash);    /* テーブルヘッダー背景 */
+    /* Note: テーブル行ホバー色は --color-hover-bg を使用 */
+
+    /* --- UI要素: Form --- */
+    --color-form-control-bg: var(--color-surface);         /* フォーム入力背景 */
+    --color-form-control-border: var(--color-border);      /* フォーム入力ボーダー */
+    --color-form-control-focus-border: var(--palette-sub); /* フォーカス時ボーダー (Primary Hover/Sub) */
+    --color-form-control-focus-shadow: rgba(0, 0, 102, 0.25); /* フォーカス時影 (Primaryの薄い色) */
+
+    /* --- UI要素: Interaction States --- */
+    --color-hover-bg: var(--palette-gray-ash);      /* ホバー時の背景色 (リスト項目など) */
+    --color-active-bg: var(--palette-gray-ash);     /* アクティブ時の背景色 (ナビリンクなど) */
 
     /* --- フォント --- */
     --font-family-base: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "游ゴシック Medium", "Yu Gothic Medium", "メイリオ", Meiryo, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --font-size-xs: 0.75rem;     /* 12px */
-    --font-size-sm: 0.875rem;    /* 14px */
-    --font-size-base: 1rem;      /* 16px */
-    --font-size-lg: 1.25rem;     /* 20px */
-    --font-size-xl: 1.875rem;    /* 30px */
+    --font-size-xs: 0.75rem;  /* 12px */
+    --font-size-sm: 0.875rem; /* 14px */
+    --font-size-base: 1rem;    /* 16px */
+    --font-size-lg: 1.25rem;  /* 20px */
+    --font-size-xl: 1.875rem; /* 30px */
 
     /* --- その他 --- */
-    --border-radius: 0.375rem;
+    --border-radius: 0.375rem; /* 6px */
 }
 
 /* ==========================================================================
@@ -301,7 +333,7 @@ table {
 }
 .table thead th {
     font-weight: 600;
-    background-color: #f9f9f9; /* Note: This is a one-off color */
+background-color: var(--color-hover-bg); /* 例: ホバー背景色を使用 */
 }
 .table tbody td {
     text-align: center;
@@ -1196,7 +1228,7 @@ textarea.work-content {
 }
 
 /* ==========================================================================
-   Filter/Search Forms (Compact Layout)
+   Filter/Search Forms (Compact Layout) - daily_records.html 等から流用
    ========================================================================== */
 
 /* フィルターフォームの基本レイアウト (既存を拡張) */
@@ -1213,15 +1245,32 @@ textarea.work-content {
     margin-bottom: 0;
 }
 
-/* アクションボタンの配置 (削除) */
-/* .filter-actions { ... } (削除済み) */
-
 /* 画面幅が狭い場合（例: 600px以下）は1列にする */
 @media (max-width: 600px) {
     .filter-form {
         grid-template-columns: 1fr;
     }
 }
+
+/* ▼▼▼ 追加: daily_records.html 等から流用したインラインフォームスタイル ▼▼▼ */
+.filter-form-inline {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+.filter-form-inline .form-group {
+    margin-bottom: 0;
+    flex-grow: 1; /* フォームグループが横幅を分け合う */
+}
+/* .form-control の padding: 0.5rem, line-height: 1.5, border: 1px*2 に合わせる */
+.filter-form-inline .button-secondary {
+    margin-bottom: 0; /* align-items: flex-end のため */
+    height: calc(1.5em + 1rem + 2px); 
+    flex-shrink: 0; /* ボタンが縮まないようにする */
+}
+/* ▲▲▲ 追加ここまで ▲▲▲ */
+
 
 
 
@@ -1267,3 +1316,4 @@ textarea.work-content {
 #partner-contacts-tbody .clickable-row:hover {
     background-color: var(--color-hover-bg);
 }
+

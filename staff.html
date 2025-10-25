@@ -13,7 +13,7 @@
             <div>
                 <h1 class="header-logo"><a href="dashboard.html">p2508d</a></h1>
             </div>
-            
+
             <nav class="nav" id="side-nav">
                 <ul class="nav-list">
                     <li><a href="dashboard.html" class="nav-link">ダッシュボード</a></li>
@@ -33,7 +33,8 @@
         </header>
 
         <main class="mockup-main">
-            <div id="staff" class="mockup-page active"> <div class="list-page-header">
+            <div id="staff" class="mockup-page active">
+                <div class="list-page-header">
                     <h1 class="page-title">職員一覧</h1>
                     <button class="button button-primary" onclick="openModal('edit-staff-basic-modal')">＋ 新規作成</button>
                 </div>
@@ -66,35 +67,36 @@
                             </select>
                         </div>
                     </form>
-                </div>
-                <div class="table-wrapper" style="margin-top: 1.5rem;"> <table class="table">
-                        <thead>
-                            <tr>
-                                <th>職員名</th>
-                                <th>役職</th>
-                                <th>雇用形態</th>
+                    <div class="table-wrapper" style="margin-top: 1.5rem;">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>職員名</th>
+                                    <th>役職</th>
+                                    <th>雇用形態</th>
                                 </tr>
-                        </thead>
-                        <tbody id="staff-list-tbody">
-                            <tr class="clickable-row" onclick="showPage('staff-detail')">
-                                <td>管理者 太郎</td>
-                                <td>管理者</td>
-                                <td>常勤</td>
+                            </thead>
+                            <tbody id="staff-list-tbody">
+                                <tr class="clickable-row" onclick="showPage('staff-detail')">
+                                    <td>管理者 太郎</td>
+                                    <td>管理者</td>
+                                    <td>常勤</td>
                                 </tr>
-                            <tr class="clickable-row" onclick="showPage('staff-detail')">
-                                <td>支援員 次郎</td>
-                                <td>サービス管理責任者</td>
-                                <td>常勤</td>
+                                <tr class="clickable-row" onclick="showPage('staff-detail')">
+                                    <td>支援員 次郎</td>
+                                    <td>サービス管理責任者</td>
+                                    <td>常勤</td>
                                 </tr>
-                             <tr class="clickable-row" onclick="showPage('staff-detail')">
-                                <td>職業指導員 三郎</td>
-                                <td>職業指導員</td>
-                                <td>非常勤</td>
+                                 <tr class="clickable-row" onclick="showPage('staff-detail')">
+                                    <td>職業指導員 三郎</td>
+                                    <td>職業指導員</td>
+                                    <td>非常勤</td>
                                 </tr>
-                        </tbody>
+                            </tbody>
                         </table>
+                    </div>
                 </div>
-            </div>
+                </div>
 
             <div id="staff-detail" class="mockup-page"> <div class="list-page-header">
                     <h1 class="page-title">管理者 太郎</h1>
@@ -103,7 +105,7 @@
                         <button type="button" class="button button-danger" onclick="alert('「管理者 太郎」様のデータを削除します。よろしいですか？')">削除</button>
                     </div>
                 </div>
-                
+
                 <div class="sub-nav">
                     <ul id="staff-detail-subnav">
                         <li><a href="#" class="sub-nav-item active" data-tab="tab-basic-info">基本情報</a></li>
@@ -123,7 +125,7 @@
                             <div class="section-content">
                                 <dl class="detail-grid">
                                     <dt>氏名</dt><dd>管理者 太郎</dd>
-                                    <dt>フリガナ</dt><dd>カンリシャ タロウ</dd> 
+                                    <dt>フリガナ</dt><dd>カンリシャ タロウ</dd>
                                     <dt>役職</dt><dd>管理者</dd>
                                     <dt>雇用形態</dt><dd>常勤</dd>
                                     <dt>入社日</dt><dd>2023年4月1日</dd>
@@ -131,7 +133,7 @@
                                 </div>
                         </div>
                     </div>
-                    
+
                     <div id="tab-schedule" class="tab-content">
                         <div class="section">
                             <h2 class="section-title">2025年 10月</h2>
@@ -257,7 +259,7 @@
             </div>
         </div>
     </div>
-    
+
     <div id="edit-staff-payroll-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -315,7 +317,7 @@
         </div>
     </div>
     <script src="script.js"></script>
-    
+
     <script>
         // 職員一覧の簡易フィルタリング関数
         function filterStaff() {
@@ -354,20 +356,20 @@
         document.addEventListener('DOMContentLoaded', () => {
             // --- 職員詳細: サブナビゲーション（タブ）切り替え ---
             const subNavContainer = document.getElementById('staff-detail-subnav');
-            const tabContents = document.querySelectorAll('#staff-detail .tab-content-wrapper .tab-content'); 
-            
+            const tabContents = document.querySelectorAll('#staff-detail .tab-content-wrapper .tab-content');
+
             if (subNavContainer && tabContents.length > 0) {
                 subNavContainer.addEventListener('click', (e) => {
                     const navItem = e.target.closest('.sub-nav-item');
                     if (!navItem || navItem.classList.contains('active')) { return; }
                     e.preventDefault();
-                    
+
                     const targetTabId = navItem.dataset.tab;
-                    
+
                     // サブナビのアクティブ状態を更新
                     subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
                     navItem.classList.add('active');
-                    
+
                     // タブコンテンツの表示を切り替え
                     tabContents.forEach(content => {
                         content.classList.toggle('active', content.id === targetTabId);
@@ -380,20 +382,20 @@
                 const nameInputListener = document.getElementById('search-staff-name');
                 const roleSelectListener = document.getElementById('filter-staff-role');
                 const statusSelectListener = document.getElementById('filter-staff-status');
-                const clearButton = document.querySelector('#staff .section-header .button-secondary'); 
+                const clearButton = document.querySelector('#staff .section-header .button-secondary');
 
                 if(nameInputListener) nameInputListener.addEventListener('input', filterStaff);
                 if(roleSelectListener) roleSelectListener.addEventListener('change', filterStaff);
                 if(statusSelectListener) statusSelectListener.addEventListener('change', filterStaff);
-                
+
                 if(clearButton) {
                     clearButton.addEventListener('click', () => {
                          const form = document.querySelector('#staff .filter-form');
-                         if (form) form.reset(); 
+                         if (form) form.reset();
                          filterStaff();
                     });
                 }
-                
+
                 // 初期表示のための呼び出し
                 filterStaff();
             }
