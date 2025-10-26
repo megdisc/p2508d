@@ -889,7 +889,7 @@ textarea.work-content {
 
 .table td { vertical-align: top; }
 .readonly-text { padding: 0.5rem 0.75rem; display: block; min-height: calc(1.5em + 0.75rem + 2px); }
-.readonly-textarea { white-space: pre-wrap; padding: 0.5rem 0.75rem; display: block; min-height: 60px; }
+.readonly-textarea { white-space: pre-wrap; padding: 0.5rem 0.75rem; display: block; }
 .clinic-info { padding: 0.5rem 0.75rem; line-height: 1.4; }
 .clinic-info span { display: block; font-size: var(--font-size-sm); }
 .clinic-info .clinic-name { font-weight: 600; }

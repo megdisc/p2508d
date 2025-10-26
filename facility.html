@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>p2508d - 事業所設定モックアップ</title>
     <link rel="stylesheet" href="style.css">
-    </head>
+</head>
 <body>
     <div class="mockup-container">
         <header class="header">
@@ -37,13 +37,13 @@
                 <div class="list-page-header">
                     <h1 class="page-title">事業所一覧</h1>
                     <div>
-                        <a href="settings.html" class="button button-secondary">設定TOPへ戻る</a>
+                        <a href="settings.html" class="button button-secondary" style="margin-right: 0.5rem;">設定TOPへ戻る</a>
                         <button class="button button-primary">＋ 新規事業所</button>
                     </div>
                 </div>
 
                 <div class="section">
-                    <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--color-border);">
+                    <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem;">
                         <div class="form-group" style="flex-grow: 2;">
                             <label for="search-facility-name" class="form-label">事業所名</label>
                             <input type="text" id="search-facility-name" class="form-control" placeholder="事業所名で検索...">
@@ -76,7 +76,7 @@
                                     <th>サービス種別</th>
                                     <th>電話番号</th>
                                     <th>状態</th>
-                                    </tr>
+                                </tr>
                             </thead>
                             <tbody id="facility-list-tbody">
                                 <tr class="clickable-row" onclick="showPage('facility-detail')"
@@ -88,7 +88,7 @@
                                     <td>就労継続支援B型</td>
                                     <td>03-XXXX-XXXX</td>
                                     <td>有効</td>
-                                    </tr>
+                                </tr>
                                 <tr class="clickable-row" onclick="showPage('facility-detail')"
                                     data-facility-name="事業所B（他事業所）"
                                     data-service-type="生活介護"
@@ -98,7 +98,7 @@
                                     <td>生活介護</td>
                                     <td>045-XXX-XXXX</td>
                                     <td>有効</td>
-                                    </tr>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -540,8 +540,17 @@
 
                     tabContents.forEach(content => {
                         content.classList.toggle('active', content.id === targetTabId);
+                        content.style.display = (content.id === targetTabId) ? 'block' : 'none'; // displayも制御
                     });
                 });
+                // 初期表示制御
+                const initialActiveNavItem = subNavContainer.querySelector('.sub-nav-item.active');
+                const initialTargetTabId = initialActiveNavItem?.dataset.tab;
+                 tabContents.forEach(content => {
+                    const isActive = initialTargetTabId && content.id === initialTargetTabId;
+                     content.classList.toggle('active', isActive);
+                     content.style.display = isActive ? 'block' : 'none';
+                 });
             }
 
             // --- 事業所一覧: フィルタリングのイベントリスナー設定 ---

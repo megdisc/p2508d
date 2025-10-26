@@ -39,6 +39,23 @@
          }
          .cost-summary .unallocated { color: var(--color-danger); }
          .cost-summary .profit { color: var(--color-primary); }
+
+         /* members.html に合わせたインラインフィルタフォームのスタイル */
+         .filter-form-inline {
+            display: flex;
+            align-items: flex-end;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .filter-form-inline .form-group {
+            margin-bottom: 0;
+            flex-grow: 1;
+        }
+         .filter-form-inline .button-secondary {
+             margin-bottom: 0;
+             height: calc(1.5em + 1rem + 2px);
+             flex-shrink: 0;
+         }
     </style>
 </head>
 <body>
@@ -47,7 +64,7 @@
             <div>
                 <h1 class="header-logo"><a href="dashboard.html">p2508d</a></h1>
             </div>
-            
+
             <nav class="nav" id="side-nav">
                 <ul class="nav-list">
                     <li><a href="dashboard.html" class="nav-link">ダッシュボード</a></li>
@@ -67,7 +84,7 @@
         </header>
 
         <main class="mockup-main">
-            <div id="projects" class="mockup-page active"> 
+            <div id="projects" class="mockup-page active">
                 <div class="list-page-header">
                     <h1 class="page-title">案件一覧</h1>
                      <div>
@@ -77,16 +94,12 @@
                 </div>
 
                 <div class="section">
-                    <div class="section-header">
-                        <h2 class="section-title-in-header">検索条件</h2>
-                        <button type="button" class="button button-secondary">クリア</button>
-                    </div>
-                    <form class="section-content filter-form">
-                        <div class="form-group">
+                    <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem;">
+                        <div class="form-group" style="flex-grow: 1.5;">
                             <label for="search-project-name" class="form-label">案件名</label>
                             <input type="text" id="search-project-name" class="form-control" placeholder="案件名で検索...">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="flex-grow: 1.5;">
                             <label for="search-client-name" class="form-label">クライアント名</label>
                             <input type="text" id="search-client-name" class="form-control" placeholder="クライアント名で検索...">
                         </div>
@@ -101,43 +114,45 @@
                                 <option value="キャンセル">キャンセル</option>
                             </select>
                         </div>
-                        </form>
-                </div>
-                <div class="table-wrapper" style="margin-top: 1.5rem;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>案件名</th>
-                                <th>クライアント名</th>
-                                <th>ステータス</th>
-                                <th>納期</th>
+                        <button type="button" class="button button-secondary">クリア</button>
+                    </form>
+
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>案件名</th>
+                                    <th>クライアント名</th>
+                                    <th>ステータス</th>
+                                    <th>納期</th>
                                 </tr>
-                        </thead>
-                         <tbody id="project-list-tbody">
-                            <tr class="clickable-row" onclick="showPage('project-detail')">
-                                <td>A社 DM封入作業</td>
-                                <td>株式会社A</td>
-                                <td>作業中</td>
-                                <td>2025.10.31</td>
+                            </thead>
+                             <tbody id="project-list-tbody">
+                                <tr class="clickable-row" onclick="showPage('project-detail')">
+                                    <td>A社 DM封入作業</td>
+                                    <td>株式会社A</td>
+                                    <td>作業中</td>
+                                    <td>2025.10.31</td>
                                 </tr>
-                            <tr class="clickable-row" onclick="showPage('project-detail')">
-                                <td>B社 部品組み立て</td>
-                                <td>有限会社B</td>
-                                <td>完了</td>
-                                <td>2025.09.30</td>
+                                <tr class="clickable-row" onclick="showPage('project-detail')">
+                                    <td>B社 部品組み立て</td>
+                                    <td>有限会社B</td>
+                                    <td>完了</td>
+                                    <td>2025.09.30</td>
                                 </tr>
-                             <tr class="clickable-row" onclick="showPage('project-detail')">
-                                <td>C社 データ入力</td>
-                                <td>C-Tech</td>
-                                <td>納品済</td>
-                                <td>2025.09.15</td>
+                                 <tr class="clickable-row" onclick="showPage('project-detail')">
+                                    <td>C社 データ入力</td>
+                                    <td>C-Tech</td>
+                                    <td>納品済</td>
+                                    <td>2025.09.15</td>
                                 </tr>
-                        </tbody>
+                            </tbody>
                         </table>
+                    </div>
                 </div>
             </div>
 
-            <div id="project-detail" class="mockup-page"> 
+            <div id="project-detail" class="mockup-page">
                 <div class="list-page-header">
                     <h1 class="page-title">A社 DM封入作業</h1> <div>
                         <button class="button button-secondary" style="margin-right: 0.5rem;" onclick="showPage('projects')">一覧へ戻る</button>
@@ -652,7 +667,7 @@
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
 
             <div id="edit-project-basic-modal" class="modal">
@@ -798,101 +813,156 @@
     </div>
 
     <script src="script.js"></script>
-    
+
     <script>
-        // 案件一覧フィルタリング関数 (変更なし)
-        function filterProjects() { /* ... */ }
+        function filterProjects() {
+            const nameInput = document.getElementById('search-project-name');
+            const clientInput = document.getElementById('search-client-name');
+            const statusSelect = document.getElementById('filter-project-status');
+            const tableBody = document.getElementById('project-list-tbody');
 
-        // 予算タブ用 収支サマリー計算関数 (変更なし)
-        function updateBudgetSummary() { /* ... */ }
+            if (!nameInput || !clientInput || !statusSelect || !tableBody) return;
 
-        // --- タスク定義データ取得 (変更: スキル情報も取得) ---
+            const nameFilter = nameInput.value.toLowerCase();
+            const clientFilter = clientInput.value.toLowerCase();
+            const statusFilter = statusSelect.value;
+            const rows = tableBody.getElementsByTagName('tr');
+
+            Array.from(rows).forEach(row => {
+                const projectName = row.cells[0]?.textContent.toLowerCase() || '';
+                const clientName = row.cells[1]?.textContent.toLowerCase() || '';
+                const status = row.cells[2]?.textContent || '';
+
+                const nameMatch = projectName.includes(nameFilter);
+                const clientMatch = clientName.includes(clientFilter);
+                const statusMatch = statusFilter === "" || status === statusFilter;
+
+                row.style.display = (nameMatch && clientMatch && statusMatch) ? '' : 'none';
+            });
+        }
+
+        function updateBudgetSummary() {
+            const revenueInput = document.getElementById('project-revenue-input-budget');
+            const budgetTbody = document.getElementById('budget-allocation-table-body');
+            const expenseTbody = document.getElementById('expense-table-body-budget');
+            const summaryRevenue = document.getElementById('summary-revenue-budget');
+            const summaryAllocated = document.getElementById('summary-allocated-budget');
+            const summaryUnallocated = document.getElementById('summary-unallocated-budget');
+            const summaryPredictedProfit = document.getElementById('summary-predicted-profit');
+            const summaryOtherExpense = document.getElementById('summary-other-expense');
+
+            if (!revenueInput || !budgetTbody || !expenseTbody || !summaryRevenue || !summaryAllocated || !summaryUnallocated || !summaryPredictedProfit || !summaryOtherExpense) return;
+
+            let totalRevenue = parseFloat(revenueInput.value) || 0;
+            let totalAllocated = 0;
+            let totalExpense = 0;
+            let totalActualCost = 0;
+
+            budgetTbody.querySelectorAll('.budget-allocation-input').forEach(input => {
+                totalAllocated += parseFloat(input.value) || 0;
+            });
+            budgetTbody.querySelectorAll('.actual-cost-display').forEach(span => {
+                 const costText = span.textContent.replace(/,/g, ''); // カンマ除去
+                 const cost = parseFloat(costText);
+                 if (!isNaN(cost)) {
+                     totalActualCost += cost;
+                 }
+            });
+
+            expenseTbody.querySelectorAll('.expense-amount-input').forEach(input => {
+                totalExpense += parseFloat(input.value) || 0;
+            });
+
+            let unallocated = totalRevenue - totalAllocated;
+            // 利益予測: 受注額 - (実績原価合計 + その他経費)
+            // Note: 未計算の実績原価がある場合、予測の精度は下がる
+            let predictedProfit = totalRevenue - totalActualCost - totalExpense;
+
+            summaryRevenue.textContent = totalRevenue.toLocaleString();
+            summaryAllocated.textContent = totalAllocated.toLocaleString();
+            summaryUnallocated.textContent = unallocated.toLocaleString();
+            summaryPredictedProfit.textContent = predictedProfit.toLocaleString();
+            summaryOtherExpense.textContent = totalExpense.toLocaleString();
+        }
+
         function getTaskDefinitions() {
             const definitionTbody = document.getElementById('task-definition-table-body');
             if (!definitionTbody) return [];
-            
+
             const tasks = [];
             const rows = definitionTbody.querySelectorAll('tr');
             rows.forEach((row, index) => {
                 const nameInput = row.querySelector('td:nth-child(1) input.task-name-input');
-                const skillCell = row.querySelector('td:nth-child(4)'); // 4番目のセルがスキル
+                const skillCell = row.querySelector('td:nth-child(4)');
                 const skillTags = skillCell ? skillCell.querySelectorAll('.skill-tag') : [];
-                const skills = Array.from(skillTags).map(tag => tag.textContent); // スキルテキストを取得
+                const skills = Array.from(skillTags).map(tag => tag.textContent);
 
                 tasks.push({
-                    id: `task-${index}`, // 仮ID
+                    id: `task-${index}`,
                     name: nameInput ? nameInput.value : `タスク ${index + 1}`,
-                    requiredSkills: skills // スキル情報を追加
+                    requiredSkills: skills
                 });
             });
             return tasks;
         }
 
-        // --- 担当者割当データ取得 (内外製区分を取得) ---
         function getAssigneePlans() {
             const assigneeTbody = document.getElementById('assignee-assignment-table-body');
              if (!assigneeTbody) return {};
              const plans = {};
-             const taskDefs = getTaskDefinitions(); // タスク定義からIDと名前を取得
+             const taskDefs = getTaskDefinitions();
 
             assigneeTbody.querySelectorAll('tr').forEach((row, index) => {
-                 const task = taskDefs[index]; // 対応するタスクを取得
+                 const task = taskDefs[index];
                  if (!task) return;
 
-                 const typeSelect = row.querySelector('.task-type-select'); // 内外製Select
-                 const assigneeSelect = row.querySelector('.assignee-select'); // 担当者Select
+                 const typeSelect = row.querySelector('.task-type-select');
+                 const assigneeSelect = row.querySelector('.assignee-select');
 
                  plans[task.id] = {
                      name: task.name,
                      type: typeSelect ? typeSelect.value : 'internal',
-                     assignee: assigneeSelect ? assigneeSelect.value : '', // 担当者情報も追加
-                     requiredSkills: task.requiredSkills // タスク定義からスキルを継承
+                     assignee: assigneeSelect ? assigneeSelect.value : '',
+                     requiredSkills: task.requiredSkills
                  };
              });
              return plans;
         }
 
-        // --- 予算・原価管理テーブルを描画 ---
         function renderBudgetAllocationTable() {
             const budgetTbody = document.getElementById('budget-allocation-table-body');
             const budgetTemplate = document.getElementById('budget-allocation-row-template');
             if (!budgetTbody || !budgetTemplate) return;
 
-            budgetTbody.innerHTML = ''; // クリア
-            const tasks = getTaskDefinitions(); // 最新のタスクリストを取得
+            budgetTbody.innerHTML = '';
+            const tasks = getTaskDefinitions();
 
             tasks.forEach(task => {
                 const clone = budgetTemplate.content.cloneNode(true);
                 const newRow = clone.querySelector('tr');
                 newRow.querySelector('.task-name-readonly').textContent = task.name;
-                // TODO: 保存された分配額、実績原価を読み込んで設定する
                 budgetTbody.appendChild(newRow);
             });
-            updateBudgetSummary(); // テーブル描画後にサマリー計算
+            updateBudgetSummary();
         }
 
-        // --- 担当者割当テーブルを描画 (変更: 内外製Selectとスキル表示を追加) ---
          function renderAssigneeAssignmentTable() {
             const assigneeTbody = document.getElementById('assignee-assignment-table-body');
             const assigneeTemplate = document.getElementById('assignee-assignment-row-template');
-            // ▼▼▼ 変更: getTaskDefinitions を直接使う ▼▼▼
-            const taskDefs = getTaskDefinitions(); 
-            // ▲▲▲ 変更ここまで ▲▲▲
+            const taskDefs = getTaskDefinitions();
 
             if (!assigneeTbody || !assigneeTemplate) return;
 
-            assigneeTbody.innerHTML = ''; // クリア
+            assigneeTbody.innerHTML = '';
 
-            // ▼▼▼ 変更: taskDefs をループ ▼▼▼
-            taskDefs.forEach(task => { 
+            taskDefs.forEach(task => {
                 const clone = assigneeTemplate.content.cloneNode(true);
                 const newRow = clone.querySelector('tr');
-                
+
                 newRow.querySelector('.task-name-readonly').textContent = task.name;
 
-                // スキル表示
-                 const skillCell = newRow.querySelector('.skill-display-cell');
-                 skillCell.innerHTML = ''; // クリア
+                const skillCell = newRow.querySelector('.skill-display-cell');
+                 skillCell.innerHTML = '';
                  task.requiredSkills.forEach(skillText => {
                      const span = document.createElement('span');
                      span.className = 'skill-tag';
@@ -902,31 +972,20 @@
 
                 const taskTypeSelect = newRow.querySelector('.task-type-select');
                 const assigneeSelect = newRow.querySelector('.assignee-select');
-                
-                // TODO: 保存された内外製区分を読み込んで設定する
-                // const savedType = 'internal'; // 例
-                // taskTypeSelect.value = savedType; 
 
-                // 内外製に応じて担当者リストを更新
                 updateAssigneeOptions(taskTypeSelect.value, assigneeSelect);
-                
-                // TODO: 保存された担当者を読み込んで選択状態にする
-                // assigneeSelect.value = savedAssignee;
 
                 assigneeTbody.appendChild(newRow);
             });
-            // ▲▲▲ 変更ここまで ▲▲▲
         }
 
-        // --- 担当者選択肢を更新するヘルパー関数 ---
         function updateAssigneeOptions(taskType, assigneeSelectElement) {
-            assigneeSelectElement.innerHTML = '<option value="">（未割当）</option>'; // クリア
-            assigneeSelectElement.dataset.taskType = taskType; // data属性を更新
+            assigneeSelectElement.innerHTML = '<option value="">（未割当）</option>';
+            assigneeSelectElement.dataset.taskType = taskType;
 
              if (taskType === 'internal') {
-                 // 内製の場合：利用者と職員を追加 (スキル考慮は未実装)
                  const memberOptgroup = document.createElement('optgroup');
-                 memberOptgroup.label = '利用者'; 
+                 memberOptgroup.label = '利用者';
                  memberOptgroup.appendChild(new Option('青木 誠', 'member:A001'));
                  memberOptgroup.appendChild(new Option('五十嵐 直人', 'member:A002'));
                  memberOptgroup.appendChild(new Option('遠藤 雅彦', 'member:A003'));
@@ -937,8 +996,7 @@
                  staffOptgroup.appendChild(new Option('支援員 次郎', 'staff:S002'));
                  staffOptgroup.appendChild(new Option('職業指導員 三郎', 'staff:S003'));
                  assigneeSelectElement.appendChild(staffOptgroup);
-             } else { // external
-                 // 外注の場合：外注先を追加
+             } else {
                  const partnerOptgroup = document.createElement('optgroup');
                  partnerOptgroup.label = '外注先';
                  partnerOptgroup.appendChild(new Option('〇〇印刷', 'partner:P001'));
@@ -947,71 +1005,127 @@
              }
         }
 
-        // --- 進捗管理テーブルを描画 (変更なし) ---
         function renderProgressManagementTable() {
             const progressTbody = document.getElementById('progress-management-table-body');
             const progressTemplate = document.getElementById('progress-management-row-template');
              if (!progressTbody || !progressTemplate) return;
 
-            progressTbody.innerHTML = ''; // クリア
+            progressTbody.innerHTML = '';
             const tasks = getTaskDefinitions();
 
             tasks.forEach(task => {
                 const clone = progressTemplate.content.cloneNode(true);
                 const newRow = clone.querySelector('tr');
                 newRow.querySelector('.task-name-readonly').textContent = task.name;
-                // TODO: 保存された進捗情報を読み込んで設定する
                 progressTbody.appendChild(newRow);
             });
         }
 
-
         document.addEventListener('DOMContentLoaded', () => {
-            // (タブ切り替えロジック - 上記で修正済み) ...
-            // (案件一覧フィルタリング - 変更なし) ...
-            // (基本情報モーダル保存 - 変更なし) ...
-            // (工程管理テーブル 行追加・削除 - 変更なし) ...
-            // (収支管理タブ 計算 - 変更なしだが、予算タブと役割分担が必要) ...
+            const subNavContainer = document.getElementById('project-detail-subnav');
+            const tabContents = document.querySelectorAll('#project-detail .tab-content-wrapper .tab-content');
 
-            // --- タスク定義テーブル 行追加・削除 ---
+            if (subNavContainer && tabContents.length > 0) {
+                subNavContainer.addEventListener('click', (e) => {
+                    const navItem = e.target.closest('.sub-nav-item');
+                    if (!navItem || navItem.classList.contains('active')) { return; }
+                    e.preventDefault();
+                    const targetTabId = navItem.dataset.tab;
+                    subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => item.classList.remove('active'));
+                    navItem.classList.add('active');
+                    tabContents.forEach(content => {
+                        content.classList.toggle('active', content.id === targetTabId);
+                    });
+                });
+            }
+
+            if (typeof window.filterProjects === 'function') {
+                const nameInputListener = document.getElementById('search-project-name');
+                const clientInputListener = document.getElementById('search-client-name');
+                const statusSelectListener = document.getElementById('filter-project-status');
+                const clearButton = document.querySelector('#projects .filter-form-inline .button-secondary');
+
+                if (nameInputListener) nameInputListener.addEventListener('input', filterProjects);
+                if (clientInputListener) clientInputListener.addEventListener('input', filterProjects);
+                if (statusSelectListener) statusSelectListener.addEventListener('change', filterProjects);
+                if (clearButton) {
+                    clearButton.addEventListener('click', () => {
+                        const form = document.querySelector('#projects .filter-form-inline');
+                        if (form) form.reset();
+                        filterProjects();
+                    });
+                }
+                filterProjects();
+            }
+
+             const projectSummaryTextarea = document.getElementById('edit-project-summary-textarea');
+             const projectSummaryDisplay = document.getElementById('project-summary-display');
+             const saveProjectBasicButton = document.querySelector('#edit-project-basic-modal .button-primary');
+
+             if (saveProjectBasicButton && projectSummaryTextarea && projectSummaryDisplay) {
+                 saveProjectBasicButton.addEventListener('click', () => {
+                     projectSummaryDisplay.textContent = projectSummaryTextarea.value;
+                     closeModal('edit-project-basic-modal');
+                 });
+             }
+
+             const addProcessButton = document.getElementById('add-process-row');
+             const processTableBody = document.querySelector('#process-table tbody');
+             if (addProcessButton && processTableBody) {
+                 addProcessButton.addEventListener('click', () => {
+                     const newRow = processTableBody.insertRow();
+                     const rowCount = processTableBody.rows.length;
+                     newRow.innerHTML = `
+                         <td>${rowCount}</td>
+                         <td><input type="text" class="form-control" placeholder="工程名"></td>
+                         <td><input type="text" class="form-control" placeholder="担当者"></td>
+                         <td><input type="text" class="form-control" placeholder="進捗"></td>
+                         <td><input type="text" class="form-control" placeholder="予定/実績"></td>
+                         <td class="col-actions"><div class="table-button-group"><button type="button" class="button button-danger">削除</button></div></td>
+                     `;
+                 });
+                 processTableBody.addEventListener('click', (e) => {
+                     if (e.target.classList.contains('button-danger')) {
+                         const row = e.target.closest('tr');
+                         if(row) {
+                             row.remove();
+                             Array.from(processTableBody.rows).forEach((r, i) => {
+                                 r.cells[0].textContent = i + 1;
+                             });
+                         }
+                     }
+                 });
+             }
+
             if (window.setupTableRowAdder) {
                 setupTableRowAdder('task-definition-table-body', 'add-task-definition-row', 'task-definition-row-template');
             }
-             // タスク定義が変更されたら他のタブも更新
             const taskDefTbody = document.getElementById('task-definition-table-body');
             if (taskDefTbody) {
-                 // 行追加/削除時の更新 (MutationObserver)
                 const observer = new MutationObserver((mutations) => {
-                    // 追加・削除があった場合のみ再描画
                     if (mutations.some(m => m.type === 'childList')) {
                         renderBudgetAllocationTable();
                         renderAssigneeAssignmentTable();
                         renderProgressManagementTable();
                     }
                 });
-                observer.observe(taskDefTbody, { childList: true }); 
+                observer.observe(taskDefTbody, { childList: true });
 
-                 // Input変更時の更新 (イベント委任)
-                 taskDefTbody.addEventListener('input', (e) => { 
-                     if (e.target.classList.contains('task-name-input')) { // タスク名変更時のみ
-                        // 少し遅延させて、入力完了後に再描画
+                 taskDefTbody.addEventListener('input', (e) => {
+                     if (e.target.classList.contains('task-name-input')) {
                         setTimeout(() => {
                             renderBudgetAllocationTable();
                             renderAssigneeAssignmentTable();
                             renderProgressManagementTable();
-                        }, 300); 
+                        }, 300);
                     }
                  });
-                  // スキル選択ボタンのダミー処理はHTML側にonclickで記述済み
-                  // TODO: スキル選択後のコールバックで担当者タブを更新する renderAssigneeAssignmentTable();
             }
 
-            // --- 予算・原価管理タブ ---
             const budgetTbody = document.getElementById('budget-allocation-table-body');
             const expenseTbodyBudget = document.getElementById('expense-table-body-budget');
             const revenueInputBudget = document.getElementById('project-revenue-input-budget');
 
-            // 予算分配額変更時のサマリー更新
             if(budgetTbody) {
                  budgetTbody.addEventListener('input', (e) => {
                     if (e.target.classList.contains('budget-allocation-input')) {
@@ -1019,11 +1133,9 @@
                     }
                  });
             }
-             // その他経費テーブル 行追加・削除
             if (window.setupTableRowAdder) {
                 setupTableRowAdder('expense-table-body-budget', 'add-expense-row-budget', 'expense-row-template-budget');
             }
-            // その他経費変更・削除時のサマリー更新
             if (expenseTbodyBudget) {
                 expenseTbodyBudget.addEventListener('input', (e) => {
                      if (e.target.classList.contains('expense-amount-input')) {
@@ -1032,7 +1144,7 @@
                  });
                  expenseTbodyBudget.addEventListener('click', (e) => {
                      if (e.target.closest('.button-danger')) {
-                         setTimeout(updateBudgetSummary, 50); 
+                         setTimeout(updateBudgetSummary, 50);
                      }
                  });
                  const addExpenseButton = document.getElementById('add-expense-row-budget');
@@ -1042,17 +1154,13 @@
                      });
                  }
             }
-            // 受注金額変更時のサマリー更新
              if(revenueInputBudget) {
                  revenueInputBudget.addEventListener('input', updateBudgetSummary);
              }
-             // 初期計算実行
              updateBudgetSummary();
 
-             // --- 担当者割当タブ ---
              const assigneeTbody = document.getElementById('assignee-assignment-table-body');
              if (assigneeTbody) {
-                 // 内外製Select変更時に担当者選択肢を更新 (イベント委任)
                  assigneeTbody.addEventListener('change', (e) => {
                      if (e.target.classList.contains('task-type-select')) {
                          const assigneeSelect = e.target.closest('tr').querySelector('.assignee-select');
@@ -1063,12 +1171,45 @@
                  });
              }
 
-             // --- 初期描画 ---
-             renderBudgetAllocationTable(); // 予算タブ
-             renderAssigneeAssignmentTable(); // 担当者タブ
-             renderProgressManagementTable(); // 進捗タブ
+             const deliveryDateInput = document.getElementById('delivery-date');
+             const clearDeliveryDateButton = document.getElementById('clear-delivery-date');
+             const deliveryStatusText = document.getElementById('delivery-status-text');
 
-        }); // End of DOMContentLoaded
+             const billingDateInput = document.getElementById('billing-date');
+             const clearBillingDateButton = document.getElementById('clear-billing-date');
+             const paymentStatusText = document.getElementById('payment-status-text');
+
+             function updateDeliveryStatus() {
+                 if (deliveryDateInput && deliveryStatusText) {
+                    deliveryStatusText.textContent = deliveryDateInput.value ? '納品済' : '未納品';
+                 }
+                 updatePaymentStatus(); // 納品状態が変わると請求状態も影響受ける可能性
+             }
+             function updatePaymentStatus() {
+                 if(billingDateInput && paymentStatusText && deliveryDateInput){
+                    if(billingDateInput.value){
+                        // TODO: 実際の入金状況を反映させる
+                        paymentStatusText.textContent = '請求済 (未入金)';
+                    } else if (deliveryDateInput.value) {
+                         paymentStatusText.textContent = '未請求 (納品済)';
+                    } else {
+                         paymentStatusText.textContent = '未請求 (未納品)';
+                    }
+                 }
+             }
+
+             if(deliveryDateInput) deliveryDateInput.addEventListener('change', updateDeliveryStatus);
+             if(clearDeliveryDateButton) clearDeliveryDateButton.addEventListener('click', () => { deliveryDateInput.value = ''; updateDeliveryStatus(); });
+             if(billingDateInput) billingDateInput.addEventListener('change', updatePaymentStatus);
+             if(clearBillingDateButton) clearBillingDateButton.addEventListener('click', () => { billingDateInput.value = ''; updatePaymentStatus(); });
+
+             updateDeliveryStatus(); // 初期表示
+
+             renderBudgetAllocationTable();
+             renderAssigneeAssignmentTable();
+             renderProgressManagementTable();
+
+        });
     </script>
 </body>
 </html>

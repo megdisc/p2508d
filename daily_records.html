@@ -6,35 +6,6 @@
     <meta name="robots" content="noindex, nofollow">
     <title>p2508d - 記録・書類管理モックアップ</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .filter-form-inline {
-            display: flex;
-            align-items: flex-end;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .filter-form-inline .form-group {
-            margin-bottom: 0;
-            flex-grow: 1;
-        }
-         .filter-form-inline .button-secondary {
-             margin-bottom: 0;
-             height: calc(1.5em + 1rem + 2px);
-             flex-shrink: 0;
-         }
-         .date-selector-section .section-content {
-             display: flex;
-             align-items: center;
-             gap: 0.5rem;
-         }
-         .date-selector-section .form-label {
-             margin-bottom: 0;
-             font-weight: 500;
-         }
-         .date-selector-section .form-control {
-            width: auto;
-         }
-    </style>
 </head>
 <body>
     <div class="mockup-container">
@@ -42,7 +13,7 @@
             <div>
                 <h1 class="header-logo"><a href="dashboard.html">p2508d</a></h1>
             </div>
-            
+
             <nav class="nav" id="side-nav">
                 <ul class="nav-list">
                     <li><a href="dashboard.html" class="nav-link">ダッシュボード</a></li>
@@ -65,8 +36,10 @@
 
             <div class="list-page-header" style="margin-bottom: 1.5rem;">
                 <h1 class="page-title">日々の記録</h1>
+                <div>
+                    <button class="button button-primary" id="new-incident-report-button" style="display: none;">＋ 新規報告作成</button>
+                </div>
             </div>
-
             <div class="sub-nav">
                 <ul id="records-subnav">
                     <li><a href="#" class="sub-nav-item active" data-tab="tab-daily-logs">業務日誌</a></li>
@@ -87,8 +60,8 @@
                     <div class="section">
                         <h2 class="section-title">利用状況</h2>
 
-                        <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem; padding-bottom: 1.5rem;">
-                        <div class="form-group" style="flex-grow: 2;">
+                        <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem;">
+                            <div class="form-group" style="flex-grow: 2;">
                                 <label for="search-log-member-name" class="form-label">利用者名</label>
                                 <input type="text" id="search-log-member-name" class="form-control" placeholder="氏名で検索...">
                             </div>
@@ -175,11 +148,8 @@
 
                 <div id="tab-incident-reports" class="tab-content">
                     <div class="section">
-                        <div class="section-header">
-                            <h2 class="section-title-in-header">検索条件</h2>
-                            <button type="button" class="button button-secondary">クリア</button>
-                        </div>
-                        <form class="section-content filter-form" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+                        <h2 class="section-title">ヒヤリハット・事故報告一覧</h2>
+                        <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem;">
                             <div class="form-group">
                                 <label for="search-incident-date-start" class="form-label">発生日(始)</label>
                                 <input type="date" id="search-incident-date-start" class="form-control">
@@ -213,45 +183,44 @@
                                     <option value="未確認">未確認</option>
                                 </select>
                             </div>
+                            <button type="button" class="button button-secondary">クリア</button>
                         </form>
-                    </div>
-                    <div class="table-wrapper" style="margin-top: 1.5rem;">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>発生日時</th>
-                                    <th>種別</th>
-                                    <th>報告者</th>
-                                    <th>状況</th>
-                                </tr>
-                            </thead>
-                            <tbody id="incident-reports-tbody">
-                                <tr class="clickable-row"
-                                    data-datetime="2025-10-14 11:00"
-                                    data-type="ヒヤリハット"
-                                    data-reporter="支援員 次郎"
-                                    data-status="確認済">
-                                    <td>2025/10/14 11:00</td>
-                                    <td>ヒヤリハット</td>
-                                    <td>支援員 次郎</td>
-                                    <td>確認済</td>
-                                </tr>
-                                <tr class="clickable-row"
-                                    data-datetime="2025-09-20 15:30"
-                                    data-type="事故報告"
-                                    data-reporter="管理者 太郎"
-                                    data-status="対応完了">
-                                    <td>2025/09/20 15:30</td>
-                                    <td>事故報告</td>
-                                    <td>管理者 太郎</td>
-                                    <td>対応完了</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                     <div class="list-page-header" style="justify-content: flex-end; margin-top: 1.5rem;">
-                        <button class="button button-primary">＋ 新規報告作成</button>
-                    </div>
+
+                        <div class="table-wrapper">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>発生日時</th>
+                                        <th>種別</th>
+                                        <th>報告者</th>
+                                        <th>状況</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="incident-reports-tbody">
+                                    <tr class="clickable-row"
+                                        data-datetime="2025-10-14 11:00"
+                                        data-type="ヒヤリハット"
+                                        data-reporter="支援員 次郎"
+                                        data-status="確認済">
+                                        <td>2025/10/14 11:00</td>
+                                        <td>ヒヤリハット</td>
+                                        <td>支援員 次郎</td>
+                                        <td>確認済</td>
+                                    </tr>
+                                    <tr class="clickable-row"
+                                        data-datetime="2025-09-20 15:30"
+                                        data-type="事故報告"
+                                        data-reporter="管理者 太郎"
+                                        data-status="対応完了">
+                                        <td>2025/09/20 15:30</td>
+                                        <td>事故報告</td>
+                                        <td>管理者 太郎</td>
+                                        <td>対応完了</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        </div>
                 </div>
 
             </div>
@@ -374,7 +343,7 @@
         }
 
         // --- ヒヤリハット・事故報告タブ ---
-        function filterIncidents() { /* ... (変更なし) ... */
+        function filterIncidents() {
              const dateStartInput = document.getElementById('search-incident-date-start');
             const dateEndInput = document.getElementById('search-incident-date-end');
             const typeSelect = document.getElementById('filter-incident-type');
@@ -406,41 +375,59 @@
             // --- サブナビゲーション（タブ）切り替え ---
             const subNavContainer = document.getElementById('records-subnav');
             const tabContents = document.querySelectorAll('.tab-content-wrapper .tab-content');
+            const newReportButton = document.getElementById('new-incident-report-button'); // ボタン取得
+
+            // タブの状態に応じてボタン表示を切り替える関数
+            function toggleNewReportButtonVisibility(targetTabId) {
+                if (newReportButton) {
+                    newReportButton.style.display = (targetTabId === 'tab-incident-reports') ? 'inline-flex' : 'none';
+                }
+            }
+
             if (subNavContainer && tabContents.length > 0) {
-                 subNavContainer.addEventListener('click', (e) => { /* ... (変更なし) ... */
+                 subNavContainer.addEventListener('click', (e) => {
                     const navItem = e.target.closest('.sub-nav-item');
                     if (!navItem || navItem.classList.contains('active')) { return; }
                     e.preventDefault();
                     const targetTabId = navItem.dataset.tab;
-                    window.location.hash = '#' + targetTabId;
+                    // window.location.hash = '#' + targetTabId; // ハッシュ更新は任意
                     subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
                     navItem.classList.add('active');
                     tabContents.forEach(content => {
-                        content.classList.toggle('active', content.id === targetTabId);
-                        content.style.display = (content.id === targetTabId) ? 'block' : 'none';
+                        const isActive = content.id === targetTabId;
+                        content.classList.toggle('active', isActive);
+                        content.style.display = isActive ? 'block' : 'none';
                     });
+                    toggleNewReportButtonVisibility(targetTabId);
                 });
+
                  // 初期表示 (URLハッシュに基づく)
-                 const initialTabId = window.location.hash ? window.location.hash.substring(1) : 'tab-daily-logs';
+                 let initialTabId = window.location.hash ? window.location.hash.substring(1) : 'tab-daily-logs';
                  const initialNavItem = subNavContainer.querySelector(`.sub-nav-item[data-tab="${initialTabId}"]`);
                  const initialTabContent = document.getElementById(initialTabId);
-                 if (initialNavItem && initialTabContent) {
-                     subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
-                     tabContents.forEach(content => { content.classList.remove('active'); content.style.display = 'none'; });
-                     initialNavItem.classList.add('active');
-                     initialTabContent.classList.add('active');
-                     initialTabContent.style.display = 'block';
-                 } else {
+
+                 // デフォルトタブIDを再確認
+                 if (!initialNavItem || !initialTabContent) {
+                     initialTabId = 'tab-daily-logs'; // デフォルトに戻す
                      const defaultNavItem = subNavContainer.querySelector('.sub-nav-item[data-tab="tab-daily-logs"]');
                      const defaultTabContent = document.getElementById('tab-daily-logs');
-                     if(defaultNavItem && defaultTabContent){
+                     if (defaultNavItem && defaultTabContent) {
                          subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
                          tabContents.forEach(content => { content.classList.remove('active'); content.style.display = 'none'; });
                          defaultNavItem.classList.add('active');
                          defaultTabContent.classList.add('active');
                          defaultTabContent.style.display = 'block';
                      }
+                 } else {
+                     // ハッシュ指定のタブを表示
+                     subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                     tabContents.forEach(content => { content.classList.remove('active'); content.style.display = 'none'; });
+                     initialNavItem.classList.add('active');
+                     initialTabContent.classList.add('active');
+                     initialTabContent.style.display = 'block';
                  }
+
+                 toggleNewReportButtonVisibility(initialTabId);
             }
 
             // --- 業務日誌: フィルタリングのイベントリスナー設定 ---
@@ -465,7 +452,7 @@
             // --- 業務日誌: 利用状況テーブル行クリック処理 ---
             const dailyRecordsTbody = document.getElementById('daily-records-tbody');
             if (dailyRecordsTbody) {
-                dailyRecordsTbody.addEventListener('click', (e) => { /* ... (変更なし) ... */
+                dailyRecordsTbody.addEventListener('click', (e) => {
                      const clickedRow = e.target.closest('tr.clickable-row');
                      if (clickedRow) {
                          const rowIndex = Array.from(dailyRecordsTbody.children).indexOf(clickedRow);
@@ -499,7 +486,7 @@
             // --- 業務日誌: 利用記録モーダル保存処理 ---
             const saveServiceRecordButton = document.getElementById('save-service-record-button');
             if(saveServiceRecordButton){
-                 saveServiceRecordButton.addEventListener('click', () => { /* ... (変更なし) ... */
+                 saveServiceRecordButton.addEventListener('click', () => {
                      const rowIndex = parseInt(document.getElementById('modal-record-row-index')?.value, 10);
                      const tableBody = document.getElementById('daily-records-tbody');
                      if(tableBody && !isNaN(rowIndex) && rowIndex >= 0 && rowIndex < tableBody.rows.length){
@@ -544,7 +531,7 @@
                 const typeSelectListener = document.getElementById('filter-incident-type');
                 const reporterSelectListener = document.getElementById('filter-incident-reporter');
                 const statusSelectListener = document.getElementById('filter-incident-status');
-                const clearButton = document.querySelector('#tab-incident-reports .section-header .button-secondary');
+                const clearButton = document.querySelector('#tab-incident-reports .filter-form-inline .button-secondary');
                 if(dateStartListener) dateStartListener.addEventListener('change', filterIncidents);
                 if(dateEndListener) dateEndListener.addEventListener('change', filterIncidents);
                 if(typeSelectListener) typeSelectListener.addEventListener('change', filterIncidents);
@@ -552,7 +539,7 @@
                 if(statusSelectListener) statusSelectListener.addEventListener('change', filterIncidents);
                 if(clearButton) {
                     clearButton.addEventListener('click', () => {
-                         const form = document.querySelector('#tab-incident-reports .filter-form');
+                         const form = document.querySelector('#tab-incident-reports .filter-form-inline');
                          if (form) form.reset();
                          filterIncidents();
                     });
@@ -563,7 +550,7 @@
             // --- ヒヤリハット・事故報告一覧: 行クリック処理 ---
             const incidentTableBody = document.getElementById('incident-reports-tbody');
             if (incidentTableBody) {
-                 incidentTableBody.addEventListener('click', (e) => { /* ... (変更なし) ... */
+                 incidentTableBody.addEventListener('click', (e) => {
                      const clickedRow = e.target.closest('tr.clickable-row');
                      if (clickedRow) {
                          const dateTime = clickedRow.dataset.datetime;

@@ -13,7 +13,7 @@
             <div>
                 <h1 class="header-logo"><a href="dashboard.html">p2508d</a></h1>
             </div>
-            
+
             <nav class="nav" id="side-nav">
                 <ul class="nav-list">
                     <li><a href="dashboard.html" class="nav-link">ダッシュボード</a></li>
@@ -34,38 +34,58 @@
 
         <main class="mockup-main">
             <div id="users" class="mockup-page active">
-            <div class="list-page-header">
+                <div class="list-page-header">
                     <h1 class="page-title">アカウント管理</h1>
                     <div>
-                        <a href="settings.html" class="button button-secondary">設定TOPへ戻る</a>
+                        <a href="settings.html" class="button button-secondary" style="margin-right: 0.5rem;">設定TOPへ戻る</a>
                         <button class="button button-primary" onclick="openModal('new-user-modal')">＋ 新規作成</button>
-                        </div>
+                    </div>
                 </div>
-                <div class="table-wrapper">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>ユーザー名</th>
-                                <th>ログインID</th>
-                                <th>権限</th>
-                                <th>最終ログイン</th>
+
+                <div class="section">
+                    <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem;">
+                         <div class="form-group" style="flex-grow: 2;">
+                            <label for="search-user-name" class="form-label">ユーザー名</label>
+                            <input type="text" id="search-user-name" class="form-control" placeholder="ユーザー名 or ログインIDで検索...">
+                        </div>
+                        <div class="form-group">
+                            <label for="filter-user-role" class="form-label">権限</label>
+                            <select id="filter-user-role" class="form-control">
+                                <option value="">すべて</option>
+                                <option value="管理者">管理者</option>
+                                <option value="一般職員">一般職員</option>
+                                <option value="閲覧のみ">閲覧のみ</option>
+                            </select>
+                        </div>
+                        <button type="button" class="button button-secondary">クリア</button>
+                    </form>
+
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ユーザー名</th>
+                                    <th>ログインID</th>
+                                    <th>権限</th>
+                                    <th>最終ログイン</th>
                                 </tr>
-                        </thead>
-                        <tbody id="user-list-tbody">
-                            <tr class="clickable-row" onclick="openModal('edit-user-modal')">
-                                <td>職員A（管理者）</td>
-                                <td>admin-user</td>
-                                <td>管理者</td>
-                                <td>2025.10.31 09:00</td>
+                            </thead>
+                            <tbody id="user-list-tbody">
+                                <tr class="clickable-row" onclick="openModal('edit-user-modal')">
+                                    <td>職員A（管理者）</td>
+                                    <td>admin-user</td>
+                                    <td>管理者</td>
+                                    <td>2025.10.31 09:00</td>
                                 </tr>
-                            <tr class="clickable-row" onclick="openModal('edit-user-modal')">
-                                <td>職員B（一般）</td>
-                                <td>staff-b</td>
-                                <td>一般職員</td>
-                                <td>2025.10.30 17:00</td>
+                                <tr class="clickable-row" onclick="openModal('edit-user-modal')">
+                                    <td>職員B（一般）</td>
+                                    <td>staff-b</td>
+                                    <td>一般職員</td>
+                                    <td>2025.10.30 17:00</td>
                                 </tr>
-                        </tbody>
+                            </tbody>
                         </table>
+                    </div>
                 </div>
             </div>
 
@@ -75,7 +95,7 @@
                         <h2 class="modal-title">アカウント編集</h2>
                         <span class="modal-close" onclick="closeModal('edit-user-modal')">&times;</span>
                     </div>
-                    
+
                     <div class="modal-body">
                         <div class="form-group">
                             <label>ユーザー名</label>
@@ -111,7 +131,7 @@
                         <h2 class="modal-title">アカウント新規作成</h2>
                         <span class="modal-close" onclick="closeModal('new-user-modal')">&times;</span>
                     </div>
-                    
+
                     <div class="modal-body">
                          <div class="form-group">
                             <label>ユーザー（職員）</label>
@@ -150,5 +170,48 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        // 簡易フィルタリング関数 (例)
+        function filterUsers() {
+            const searchInput = document.getElementById('search-user-name');
+            const roleSelect = document.getElementById('filter-user-role');
+            const tableBody = document.getElementById('user-list-tbody');
+
+            if (!searchInput || !roleSelect || !tableBody) return;
+
+            const searchTerm = searchInput.value.toLowerCase();
+            const roleFilter = roleSelect.value;
+            const rows = tableBody.getElementsByTagName('tr');
+
+            Array.from(rows).forEach(row => {
+                const userName = row.cells[0]?.textContent.toLowerCase() || '';
+                const loginId = row.cells[1]?.textContent.toLowerCase() || '';
+                const role = row.cells[2]?.textContent || '';
+
+                const termMatch = userName.includes(searchTerm) || loginId.includes(searchTerm);
+                const roleMatch = roleFilter === "" || role === roleFilter;
+
+                row.style.display = (termMatch && roleMatch) ? '' : 'none';
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+             // フィルタリングイベントリスナー設定
+            const searchInputListener = document.getElementById('search-user-name');
+            const roleSelectListener = document.getElementById('filter-user-role');
+            const clearButton = document.querySelector('#users .filter-form-inline .button-secondary');
+
+            if (searchInputListener) searchInputListener.addEventListener('input', filterUsers);
+            if (roleSelectListener) roleSelectListener.addEventListener('change', filterUsers);
+            if (clearButton) {
+                clearButton.addEventListener('click', () => {
+                    const form = document.querySelector('#users .filter-form-inline');
+                    if (form) form.reset();
+                    filterUsers();
+                });
+            }
+            filterUsers(); // 初期実行
+        });
+    </script>
 </body>
 </html>

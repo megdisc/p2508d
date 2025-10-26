@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
     <title>p2508d - 取引先管理モックアップ</title>
-    <link rel="stylesheet" href="style.css"></head>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="mockup-container">
@@ -13,7 +13,7 @@
             <div>
                 <h1 class="header-logo"><a href="dashboard.html">p2508d</a></h1>
             </div>
-            
+
             <nav class="nav" id="side-nav">
                 <ul class="nav-list">
                     <li><a href="dashboard.html" class="nav-link">ダッシュボード</a></li>
@@ -43,8 +43,8 @@
                 </div>
 
                 <div class="section">
-                    <form class="section-content filter-form">
-                        <div class="form-group">
+                    <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem;">
+                        <div class="form-group" style="flex-grow: 2;">
                             <label for="search-partner-name" class="form-label">会社名</label>
                             <input type="text" id="search-partner-name" class="form-control" placeholder="会社名で検索..." oninput="filterPartners()">
                         </div>
@@ -58,45 +58,46 @@
                                 <option value="other">その他</option>
                             </select>
                         </div>
-                        <button type="button" class="button button-secondary filter-clear-button" onclick="document.querySelector('#contacts .filter-form').reset(); filterPartners();">クリア</button>
+                        <button type="button" class="button button-secondary" onclick="document.querySelector('#contacts .filter-form-inline').reset(); filterPartners();">クリア</button>
                     </form>
-                </div>
-                <div class="table-wrapper" style="margin-top: 1.5rem;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>会社名</th>
-                                <th>種別</th>
-                                <th>電話番号</th>
-                                <th>最終取引日</th>
-                            </tr>
-                        </thead>
-                        <tbody id="partner-list-tbody">
-                            <tr class="clickable-row" data-partner-type="customer" onclick="showPage('contact-detail')">
-                                <td>株式会社A</td>
-                                <td>顧客</td>
-                                <td>03-XXXX-XXXX</td>
-                                <td>2025.10.31</td>
-                            </tr>
-                            <tr class="clickable-row" data-partner-type="customer" onclick="showPage('contact-detail')">
-                                <td>有限会社B</td>
-                                <td>顧客</td>
-                                <td>045-XXX-XXXX</td>
-                                <td>2025.09.30</td>
-                            </tr>
-                            <tr class="clickable-row" data-partner-type="outsourcer" onclick="showPage('contact-detail')">
-                                <td>○○印刷</td>
-                                <td>外注先</td>
-                                <td>03-YYYY-YYYY</td>
-                                <td>2025.10.31</td>
-                            </tr>
-                             <tr class="clickable-row" data-partner-type="supplier customer" onclick="showPage('contact-detail')"> <td>□□商事</td>
-                                <td>仕入先, 顧客</td>
-                                <td>03-ZZZZ-ZZZZ</td>
-                                <td>2025.11.01</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>会社名</th>
+                                    <th>種別</th>
+                                    <th>電話番号</th>
+                                    <th>最終取引日</th>
+                                </tr>
+                            </thead>
+                            <tbody id="partner-list-tbody">
+                                <tr class="clickable-row" data-partner-type="customer" onclick="showPage('contact-detail')">
+                                    <td>株式会社A</td>
+                                    <td>顧客</td>
+                                    <td>03-XXXX-XXXX</td>
+                                    <td>2025.10.31</td>
+                                </tr>
+                                <tr class="clickable-row" data-partner-type="customer" onclick="showPage('contact-detail')">
+                                    <td>有限会社B</td>
+                                    <td>顧客</td>
+                                    <td>045-XXX-XXXX</td>
+                                    <td>2025.09.30</td>
+                                </tr>
+                                <tr class="clickable-row" data-partner-type="outsourcer" onclick="showPage('contact-detail')">
+                                    <td>○○印刷</td>
+                                    <td>外注先</td>
+                                    <td>03-YYYY-YYYY</td>
+                                    <td>2025.10.31</td>
+                                </tr>
+                                 <tr class="clickable-row" data-partner-type="supplier customer" onclick="showPage('contact-detail')"> <td>□□商事</td>
+                                    <td>仕入先, 顧客</td>
+                                    <td>03-ZZZZ-ZZZZ</td>
+                                    <td>2025.11.01</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -116,91 +117,93 @@
                     </ul>
                 </div>
 
-                <div id="tab-company-info" class="tab-content active" style="border-top: none; padding-top: 0;">
-                    <div class="section">
-                         <div class="section-header">
-                            <h2 class="section-title-in-header">基本情報</h2>
-                            <button class="button button-primary" onclick="openModal('edit-partner-basic-modal')">編集</button>
+                <div class="tab-content-wrapper">
+                    <div id="tab-company-info" class="tab-content active">
+                        <div class="section">
+                             <div class="section-header">
+                                <h2 class="section-title-in-header">基本情報</h2>
+                                <button class="button button-primary" onclick="openModal('edit-partner-basic-modal')">編集</button>
+                            </div>
+                            <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>会社名</dt><dd>株式会社A</dd>
+                                    <dt>住所</dt><dd>〒XXX-XXXX 東京都...</dd>
+                                    <dt>電話番号</dt><dd>03-XXXX-XXXX</dd>
+                                    <dt>種別</dt><dd>顧客</dd>
+                                </dl>
+                            </div>
                         </div>
-                        <div class="section-content">
-                            <dl class="detail-grid">
-                                <dt>会社名</dt><dd>株式会社A</dd>
-                                <dt>住所</dt><dd>〒XXX-XXXX 東京都...</dd>
-                                <dt>電話番号</dt><dd>03-XXXX-XXXX</dd>
-                                <dt>種別</dt><dd>顧客</dd>
-                            </dl>
+
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">担当者一覧</h2>
+                                <button class="button button-primary" onclick="openModal('edit-contact-person-modal')">＋ 担当者を追加</button>
+                            </div>
+                            <div class="table-wrapper">
+                                <table class="table" id="contact-person-readonly-table">
+                                    <thead>
+                                        <tr>
+                                            <th>氏名</th><th>部署/役職</th><th>メールアドレス</th><th>電話番号</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="partner-contacts-tbody">
+                                        <tr class="clickable-row" onclick="openModal('edit-contact-person-modal')">
+                                            <td>鈴木 一郎</td>
+                                            <td>営業部/部長</td>
+                                            <td>suzuki@a-corp.jp</td>
+                                            <td>090-XXXX-XXXX</td>
+                                        </tr>
+                                        <tr class="clickable-row" onclick="openModal('edit-contact-person-modal')">
+                                            <td>佐藤 花子</td>
+                                            <td>営業部</td>
+                                            <td>sato@a-corp.jp</td>
+                                            <td>090-YYYY-YYYY</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="section">
-                        <div class="section-header">
-                            <h2 class="section-title-in-header">担当者一覧</h2>
-                            <button class="button button-primary" onclick="openModal('edit-contact-person-modal')">＋ 担当者を追加</button>
-                        </div>
-                        <div class="table-wrapper">
-                            <table class="table" id="contact-person-readonly-table">
-                                <thead>
-                                    <tr>
-                                        <th>氏名</th><th>部署/役職</th><th>メールアドレス</th><th>電話番号</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="partner-contacts-tbody">
-                                    <tr class="clickable-row" onclick="openModal('edit-contact-person-modal')">
-                                        <td>鈴木 一郎</td>
-                                        <td>営業部/部長</td>
-                                        <td>suzuki@a-corp.jp</td>
-                                        <td>090-XXXX-XXXX</td>
-                                    </tr>
-                                    <tr class="clickable-row" onclick="openModal('edit-contact-person-modal')">
-                                        <td>佐藤 花子</td>
-                                        <td>営業部</td>
-                                        <td>sato@a-corp.jp</td>
-                                        <td>090-YYYY-YYYY</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="tab-trade-history" class="tab-content" style="border-top: none; padding-top: 0;">
-                    <div class="section">
-                        <form class="section-content filter-form">
-                            <div class="form-group">
-                                <label for="search-history-project-name" class="form-label">案件名</label>
-                                <input type="text" id="search-history-project-name" class="form-control" placeholder="案件名で検索...">
+                    <div id="tab-trade-history" class="tab-content">
+                        <div class="section">
+                            <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem;">
+                                <div class="form-group" style="flex-grow: 2;">
+                                    <label for="search-history-project-name" class="form-label">案件名</label>
+                                    <input type="text" id="search-history-project-name" class="form-control" placeholder="案件名で検索...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="filter-history-project-status" class="form-label">ステータス</label>
+                                    <select id="filter-history-project-status" class="form-control">
+                                        <option value="">すべて</option>
+                                        <option value="作業中">作業中</option>
+                                        <option value="完了">完了</option>
+                                        <option value="納品済">納品済</option>
+                                        <option value="キャンセル">キャンセル</option>
+                                    </select>
+                                </div>
+                                <button type="button" class="button button-secondary" onclick="document.querySelector('#tab-trade-history .filter-form-inline').reset();">クリア</button>
+                            </form>
+                            <div class="table-wrapper">
+                                <table class="table">
+                                    <thead><tr><th>案件名</th><th>ステータス</th><th>納期</th><th>受注金額</th></tr></thead>
+                                    <tbody id="partner-history-tbody">
+                                        <tr class="clickable-row" onclick="location.href='../projects/index.html#project-detail'">
+                                            <td>A社 DM封入作業</td>
+                                            <td>作業中</td>
+                                            <td>2025.10.31</td>
+                                            <td>100,000円</td>
+                                        </tr>
+                                        <tr class="clickable-row" onclick="location.href='../projects/index.html#project-detail'">
+                                            <td>(過去の案件)</td>
+                                            <td>納品済み</td>
+                                            <td>2025.05.20</td>
+                                            <td>50,000円</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="form-group">
-                                <label for="filter-history-project-status" class="form-label">ステータス</label>
-                                <select id="filter-history-project-status" class="form-control">
-                                    <option value="">すべて</option>
-                                    <option value="作業中">作業中</option>
-                                    <option value="完了">完了</option>
-                                    <option value="納品済">納品済</option>
-                                    <option value="キャンセル">キャンセル</option>
-                                </select>
-                            </div>
-                            <button type="button" class="button button-secondary filter-clear-button" onclick="document.querySelector('#tab-trade-history .filter-form').reset();">クリア</button>
-                        </form>
-                    </div>
-                    <div class="table-wrapper" style="margin-top: 1.5rem;">
-                        <table class="table">
-                            <thead><tr><th>案件名</th><th>ステータス</th><th>納期</th><th>受注金額</th></tr></thead>
-                            <tbody id="partner-history-tbody">
-                                <tr class="clickable-row" onclick="location.href='../projects/index.html#project-detail'">
-                                    <td>A社 DM封入作業</td>
-                                    <td>作業中</td>
-                                    <td>2025.10.31</td>
-                                    <td>100,000円</td>
-                                </tr>
-                                <tr class="clickable-row" onclick="location.href='../projects/index.html#project-detail'">
-                                    <td>(過去の案件)</td>
-                                    <td>納品済み</td>
-                                    <td>2025.05.20</td>
-                                    <td>50,000円</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -309,7 +312,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const subNavContainer = document.getElementById('partner-detail-subnav');
-            const tabContents = document.querySelectorAll('#contact-detail .tab-content');
+            const tabContents = document.querySelectorAll('#contact-detail .tab-content-wrapper .tab-content'); // Selector fixed
 
             if (subNavContainer && tabContents.length > 0) {
                 subNavContainer.addEventListener('click', (e) => {
@@ -323,22 +326,73 @@
                     navItem.classList.add('active');
 
                     tabContents.forEach(content => {
-                        if (content.id === targetTabId) {
-                            content.classList.add('active');
-                        } else {
-                            content.classList.remove('active');
-                        }
+                        // Use classList.toggle for cleaner switching
+                        content.classList.toggle('active', content.id === targetTabId);
+                        // Also manage display style for hiding/showing
+                        content.style.display = (content.id === targetTabId) ? 'block' : 'none';
                     });
                 });
+                 // Ensure initial state shows the active tab content
+                 const initialActiveNavItem = subNavContainer.querySelector('.sub-nav-item.active');
+                 const initialTargetTabId = initialActiveNavItem?.dataset.tab;
+                 tabContents.forEach(content => {
+                    const isActive = initialTargetTabId && content.id === initialTargetTabId;
+                     content.classList.toggle('active', isActive);
+                     content.style.display = isActive ? 'block' : 'none';
+                 });
             }
 
             if (typeof window.filterPartners === 'function') {
                 const nameInputForListener = document.getElementById('search-partner-name');
                 const typeSelectForListener = document.getElementById('filter-partner-type');
+                const clearButton = document.querySelector('#contacts .filter-form-inline .button-secondary'); // Corrected clear button selector
+
                 if(nameInputForListener) nameInputForListener.addEventListener('input', filterPartners);
                 if(typeSelectForListener) typeSelectForListener.addEventListener('change', filterPartners);
-                filterPartners();
+                 if(clearButton) {
+                    clearButton.addEventListener('click', () => {
+                        const form = document.querySelector('#contacts .filter-form-inline');
+                        if(form) form.reset();
+                        filterPartners();
+                    });
+                }
+                filterPartners(); // Initial filter on load
             }
+
+            //取引履歴タブのフィルター機能
+            const historyProjectInput = document.getElementById('search-history-project-name');
+            const historyStatusSelect = document.getElementById('filter-history-project-status');
+            const historyClearButton = document.querySelector('#tab-trade-history .filter-form-inline .button-secondary');
+            const historyTableBody = document.getElementById('partner-history-tbody');
+
+            function filterHistory() {
+                if(!historyProjectInput || !historyStatusSelect || !historyTableBody) return;
+
+                const projectFilter = historyProjectInput.value.toLowerCase();
+                const statusFilter = historyStatusSelect.value;
+                const rows = historyTableBody.getElementsByTagName('tr');
+
+                Array.from(rows).forEach(row => {
+                    const projectName = row.cells[0]?.textContent.toLowerCase() || '';
+                    const status = row.cells[1]?.textContent || '';
+                    const projectMatch = projectName.includes(projectFilter);
+                    const statusMatch = statusFilter === "" || status === statusFilter;
+
+                    row.style.display = (projectMatch && statusMatch) ? '' : 'none';
+                });
+            }
+
+            if(historyProjectInput) historyProjectInput.addEventListener('input', filterHistory);
+            if(historyStatusSelect) historyStatusSelect.addEventListener('change', filterHistory);
+            if(historyClearButton){
+                historyClearButton.addEventListener('click', () => {
+                    const form = document.querySelector('#tab-trade-history .filter-form-inline');
+                    if(form) form.reset();
+                    filterHistory();
+                });
+            }
+            filterHistory(); // 初期実行
+
         });
     </script>
 

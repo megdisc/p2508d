@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="section">
-                    <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--color-border);">
+                    <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem;">
                         <div class="form-group" style="flex-grow: 2;">
                             <label for="search-staff-name" class="form-label">職員名</label>
                             <input type="text" id="search-staff-name" class="form-control" placeholder="氏名で検索...">
@@ -372,7 +372,16 @@
                     // タブコンテンツの表示を切り替え
                     tabContents.forEach(content => {
                         content.classList.toggle('active', content.id === targetTabId);
+                        content.style.display = (content.id === targetTabId) ? 'block' : 'none'; // displayも制御
                     });
+                });
+                // 初期表示制御
+                const initialActiveNavItem = subNavContainer.querySelector('.sub-nav-item.active');
+                const initialTargetTabId = initialActiveNavItem?.dataset.tab;
+                tabContents.forEach(content => {
+                    const isActive = initialTargetTabId && content.id === initialTargetTabId;
+                    content.classList.toggle('active', isActive);
+                    content.style.display = isActive ? 'block' : 'none';
                 });
             }
 

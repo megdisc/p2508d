@@ -6,42 +6,6 @@
     <meta name="robots" content="noindex, nofollow">
     <title>取引一覧 - p2508d</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* インラインスタイル filter-form-inline を流用 */
-        .filter-form-inline {
-            display: flex;
-            align-items: flex-end;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .filter-form-inline .form-group {
-            margin-bottom: 0;
-            flex-grow: 1;
-        }
-         .filter-form-inline .button-secondary {
-             margin-bottom: 0;
-             height: calc(1.5em + 1rem + 2px);
-             flex-shrink: 0;
-         }
-         /* テーブルヘッダーのソートリンク */
-        .sort-link {
-            color: inherit;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .sort-link:hover {
-            text-decoration: underline;
-        }
-         /* 金額列の右寄せ */
-         .col-amount {
-             text-align: right !important;
-         }
-         /* 詳細モーダルのグリッド調整 */
-         #edit-transaction-modal .detail-grid {
-             grid-template-columns: 100px 1fr; /* ラベル幅調整 */
-         }
-
-    </style>
 </head>
 <body>
     <div class="mockup-container">
@@ -49,7 +13,7 @@
             <div>
                 <h1 class="header-logo"><a href="dashboard.html">p2508d</a></h1>
             </div>
-            
+
             <nav class="nav" id="side-nav">
                 <ul class="nav-list">
                     <li><a href="dashboard.html" class="nav-link">ダッシュボード</a></li>
@@ -78,11 +42,7 @@
                 </div>
 
                 <div class="section">
-                    <div class="section-header">
-                        <h2 class="section-title-in-header">検索条件</h2>
-                        <button type="button" class="button button-secondary">クリア</button>
-                    </div>
-                    <form class="section-content filter-form" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+                    <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem;">
                         <div class="form-group">
                             <label for="search-transaction-date-start" class="form-label">計上日(始)</label>
                             <input type="date" id="search-transaction-date-start" class="form-control">
@@ -112,103 +72,104 @@
                                 <option value="消耗品店">消耗品店</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="flex-grow: 1.5;">
                             <label for="search-transaction-keyword" class="form-label">キーワード</label>
                             <input type="text" id="search-transaction-keyword" class="form-control" placeholder="摘要などで検索...">
                         </div>
+                        <button type="button" class="button button-secondary">クリア</button>
                     </form>
-                     </div>
 
-                <div class="table-wrapper" style="margin-top: 1.5rem;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th><a href="#" class="sort-link">計上日</a></th>
-                                <th><a href="#" class="sort-link">種別</a></th>
-                                <th><a href="#" class="sort-link">取引先</a></th>
-                                <th><a href="#" class="sort-link">勘定科目</a></th>
-                                <th><a href="#" class="sort-link">摘要</a></th>
-                                <th class="col-amount"><a href="#" class="sort-link">金額（円）</a></th>
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>計上日</th>
+                                    <th>種別</th>
+                                    <th>取引先</th>
+                                    <th>勘定科目</th>
+                                    <th>摘要</th>
+                                    <th class="col-amount">金額（円）</th>
                                 </tr>
-                        </thead>
-                        <tbody id="transaction-list-tbody">
-                            <tr class="clickable-row"
-                                data-date="2025-09-30"
-                                data-type="売上"
-                                data-partner="株式会社〇〇"
-                                data-account="売上高"
-                                data-project="Webサイト制作"
-                                data-summary="9月分請求"
-                                data-amount="500000">
-                                <td>2025/09/30</td>
-                                <td>売上</td>
-                                <td>株式会社〇〇</td>
-                                <td>売上高</td>
-                                <td style="text-align: left;">Webサイト制作 (9月分請求)</td>
-                                <td class="col-amount">500,000</td>
-                            </tr>
-                            <tr class="clickable-row"
-                                data-date="2025-09-28"
-                                data-type="経費"
-                                data-partner="光熱費"
-                                data-account="水道光熱費"
-                                data-project=""
-                                data-summary="事務所電気代 9月分"
-                                data-amount="15000">
-                                <td>2025/09/28</td>
-                                <td>経費</td>
-                                <td>光熱費</td>
-                                <td>水道光熱費</td>
-                                <td style="text-align: left;">事務所電気代 9月分</td>
-                                <td class="col-amount">15,000</td>
-                            </tr>
-                            <tr class="clickable-row"
-                                data-date="2025-09-25"
-                                data-type="売上"
-                                data-partner="△△デザイン"
-                                data-account="売上高"
-                                data-project="ロゴデザイン"
-                                data-summary=""
-                                data-amount="150000">
-                                <td>2025/09/25</td>
-                                <td>売上</td>
-                                <td>△△デザイン</td>
-                                <td>売上高</td>
-                                <td style="text-align: left;">ロゴデザイン</td>
-                                <td class="col-amount">150,000</td>
-                            </tr>
-                             <tr class="clickable-row"
-                                data-date="2025-09-15"
-                                data-type="売上"
-                                data-partner="NPO法人□□"
-                                data-account="売上高"
-                                data-project="データ入力"
-                                data-summary=""
-                                data-amount="80000">
-                                <td>2025/09/15</td>
-                                <td>売上</td>
-                                <td>NPO法人□□</td>
-                                <td>売上高</td>
-                                <td style="text-align: left;">データ入力</td>
-                                <td class="col-amount">80,000</td>
-                            </tr>
-                             <tr class="clickable-row"
-                                data-date="2025-09-10"
-                                data-type="経費"
-                                data-partner="消耗品店"
-                                data-account="消耗品費"
-                                data-project=""
-                                data-summary="コピー用紙、文房具"
-                                data-amount="5000">
-                                <td>2025/09/10</td>
-                                <td>経費</td>
-                                <td>消耗品店</td>
-                                <td>消耗品費</td>
-                                <td style="text-align: left;">コピー用紙、文房具</td>
-                                <td class="col-amount">5,000</td>
-                            </tr>
-                             </tbody>
-                    </table>
+                            </thead>
+                            <tbody id="transaction-list-tbody">
+                                <tr class="clickable-row"
+                                    data-date="2025-09-30"
+                                    data-type="売上"
+                                    data-partner="株式会社〇〇"
+                                    data-account="売上高"
+                                    data-project="Webサイト制作"
+                                    data-summary="9月分請求"
+                                    data-amount="500000">
+                                    <td>2025/09/30</td>
+                                    <td>売上</td>
+                                    <td>株式会社〇〇</td>
+                                    <td>売上高</td>
+                                    <td style="text-align: left;">Webサイト制作 (9月分請求)</td>
+                                    <td class="col-amount">500,000</td>
+                                </tr>
+                                <tr class="clickable-row"
+                                    data-date="2025-09-28"
+                                    data-type="経費"
+                                    data-partner="光熱費"
+                                    data-account="水道光熱費"
+                                    data-project=""
+                                    data-summary="事務所電気代 9月分"
+                                    data-amount="15000">
+                                    <td>2025/09/28</td>
+                                    <td>経費</td>
+                                    <td>光熱費</td>
+                                    <td>水道光熱費</td>
+                                    <td style="text-align: left;">事務所電気代 9月分</td>
+                                    <td class="col-amount">15,000</td>
+                                </tr>
+                                <tr class="clickable-row"
+                                    data-date="2025-09-25"
+                                    data-type="売上"
+                                    data-partner="△△デザイン"
+                                    data-account="売上高"
+                                    data-project="ロゴデザイン"
+                                    data-summary=""
+                                    data-amount="150000">
+                                    <td>2025/09/25</td>
+                                    <td>売上</td>
+                                    <td>△△デザイン</td>
+                                    <td>売上高</td>
+                                    <td style="text-align: left;">ロゴデザイン</td>
+                                    <td class="col-amount">150,000</td>
+                                </tr>
+                                 <tr class="clickable-row"
+                                    data-date="2025-09-15"
+                                    data-type="売上"
+                                    data-partner="NPO法人□□"
+                                    data-account="売上高"
+                                    data-project="データ入力"
+                                    data-summary=""
+                                    data-amount="80000">
+                                    <td>2025/09/15</td>
+                                    <td>売上</td>
+                                    <td>NPO法人□□</td>
+                                    <td>売上高</td>
+                                    <td style="text-align: left;">データ入力</td>
+                                    <td class="col-amount">80,000</td>
+                                </tr>
+                                 <tr class="clickable-row"
+                                    data-date="2025-09-10"
+                                    data-type="経費"
+                                    data-partner="消耗品店"
+                                    data-account="消耗品費"
+                                    data-project=""
+                                    data-summary="コピー用紙、文房具"
+                                    data-amount="5000">
+                                    <td>2025/09/10</td>
+                                    <td>経費</td>
+                                    <td>消耗品店</td>
+                                    <td>消耗品費</td>
+                                    <td style="text-align: left;">コピー用紙、文房具</td>
+                                    <td class="col-amount">5,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -219,7 +180,7 @@
                         <span class="modal-close" onclick="closeModal('edit-transaction-modal')">&times;</span>
                     </div>
                     <div class="modal-body">
-                        <dl class="detail-grid">
+                        <dl class="detail-grid" style="grid-template-columns: 100px 1fr;">
                             <dt><label for="modal-transaction-date" class="form-label">計上日</label></dt>
                             <dd><input type="date" id="modal-transaction-date" class="form-control" value="2025-09-30"></dd>
 
@@ -387,7 +348,7 @@
                 const typeSelectListener = document.getElementById('filter-transaction-type');
                 const partnerSelectListener = document.getElementById('filter-transaction-partner');
                 const keywordInputListener = document.getElementById('search-transaction-keyword');
-                const clearButton = document.querySelector('#transactions .section-header .button-secondary'); // セレクタ修正
+                const clearButton = document.querySelector('#transactions .filter-form-inline .button-secondary'); // セレクタ修正
 
                 // change または input イベントを適切に設定
                 if(dateStartListener) dateStartListener.addEventListener('change', filterTransactions);
@@ -398,7 +359,7 @@
 
                 if(clearButton) {
                     clearButton.addEventListener('click', () => {
-                         const form = document.querySelector('#transactions .filter-form'); // セレクタ修正
+                         const form = document.querySelector('#transactions .filter-form-inline'); // セレクタ修正
                          if (form) form.reset();
                          filterTransactions(); // フィルタリング実行
                     });
