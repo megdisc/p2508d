@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>給与評価一覧 - p2508d</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 必要に応じて給与評価画面固有のスタイルを追加 */
+        .col-memo { /* メモ列のスタイル調整 */
+            text-align: left;
+            max-width: 300px; /* 最大幅を設定 */
+            white-space: nowrap; /* 改行させない */
+            overflow: hidden; /* はみ出した内容を隠す */
+            text-overflow: ellipsis; /* 省略記号(...)を表示 */
+        }
+        .table tbody tr:hover .col-memo { /* ホバー時に全文表示（オプション） */
+            white-space: normal;
+            overflow: visible;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <header class="header">
+            <div>
+                <h1 class="header-logo"><a href="dashboard.html">p2508d</a></h1>
+            </div>
+
+            <nav class="nav" id="side-nav">
+                <ul class="nav-list">
+                    <li><a href="dashboard.html" class="nav-link">ダッシュボード</a></li>
+                    <li><a href="daily_records.html" class="nav-link">日々の記録</a></li>
+                    <li><a href="members_menu.html" class="nav-link">利用者支援</a></li>
+                    <li><a href="staff.html" class="nav-link">職員管理</a></li>
+                    <li><a href="work_activities_menu.html" class="nav-link">生産活動</a></li>
+                    <li><a href="accounting_menu.html" class="nav-link active">会計管理</a></li>
+                    <li><a href="claims.html" class="nav-link">国保連請求</a></li>
+                    <li><a href="analytics.html" class="nav-link">データ分析</a></li>
+                    <li><a href="settings.html" class="nav-link">設定</a></li>
+                </ul>
+                <div class="nav-logout-section">
+                    <a href="index.html" class="nav-link">ログアウト</a>
+                </div>
+            </nav>
+            </header>
+
+        <main class="mockup-main">
+
+            <div id="salary-evaluation-list" class="mockup-page active">
+                <div class="list-page-header">
+                    <h1 class="page-title">給与評価一覧</h1>
+                     <div>
+                        <a href="accounting_menu.html" class="button button-secondary" style="margin-right: 0.5rem;">会計メニューへ</a>
+                        </div>
+                </div>
+                <div class="section">
+                    <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem;">
+                        <div class="form-group" style="flex-grow: 2;">
+                            <label for="search-salary-staff-name" class="form-label">職員名</label>
+                            <input type="text" id="search-salary-staff-name" class="form-control" placeholder="氏名で検索...">
+                        </div>
+                        <div class="form-group">
+                            <label for="filter-salary-grade" class="form-label">給与等級</label>
+                            <select id="filter-salary-grade" class="form-control">
+                                <option value="">すべて</option>
+                                <option value="等級1">等級1</option>
+                                <option value="等級2">等級2</option>
+                                <option value="等級3">等級3</option>
+                            </select>
+                        </div>
+                         <div class="form-group">
+                            <label for="filter-salary-employment-type" class="form-label">雇用形態</label>
+                            <select id="filter-salary-employment-type" class="form-control">
+                                <option value="">すべて</option>
+                                <option value="常勤">常勤</option>
+                                <option value="非常勤">非常勤</option>
+                            </select>
+                        </div>
+                        <button type="button" class="button button-secondary">クリア</button>
+                    </form>
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>職員名</th>
+                                    <th>給与等級</th>
+                                    <th class="col-amount">基本給(円)</th>
+                                    <th class="col-amount">諸手当計(円)</th>
+                                    <th class="col-amount">総支給額(円)</th>
+                                    <th>評価メモ</th>
+                                    <th>最終更新日</th>
+                                </tr>
+                            </thead>
+                            <tbody id="staff-salary-list-tbody">
+                                <tr class="clickable-row"
+                                    data-staff-name="管理者 太郎"
+                                    data-salary-grade="等級3"
+                                    data-base-salary="240000"
+                                    data-allowances-total="45000"
+                                    data-total-salary="285000"
+                                    data-memo="管理者手当、通勤手当支給。"
+                                    data-updated-date="2025-10-25">
+                                    <td>管理者 太郎</td>
+                                    <td>等級3</td>
+                                    <td class="col-amount">240,000</td>
+                                    <td class="col-amount">45,000</td>
+                                    <td class="col-amount">285,000</td>
+                                    <td class="col-memo" title="管理者手当、通勤手当支給。">管理者手当、通勤手当支給。</td>
+                                    <td>2025/10/25</td>
+                                </tr>
+                                <tr class="clickable-row"
+                                    data-staff-name="支援員 次郎"
+                                    data-salary-grade="等級2"
+                                    data-base-salary="220000"
+                                    data-allowances-total="40000"
+                                    data-total-salary="260000"
+                                    data-memo="サビ管手当適用。"
+                                    data-updated-date="2025-10-25">
+                                    <td>支援員 次郎</td>
+                                    <td>等級2</td>
+                                    <td class="col-amount">220,000</td>
+                                    <td class="col-amount">40,000</td>
+                                    <td class="col-amount">260,000</td>
+                                    <td class="col-memo" title="サビ管手当適用。">サビ管手当適用。</td>
+                                    <td>2025/10/25</td>
+                                </tr>
+                                 <tr class="clickable-row"
+                                    data-staff-name="職業指導員 三郎"
+                                    data-salary-grade="等級1"
+                                    data-base-salary="200000"
+                                    data-allowances-total="5000"
+                                    data-total-salary="205000"
+                                    data-memo="非常勤。基本給は月額換算（実際は時給計算）。"
+                                    data-updated-date="2025-10-25">
+                                    <td>職業指導員 三郎</td>
+                                    <td>等級1</td>
+                                    <td class="col-amount">200,000</td>
+                                    <td class="col-amount">5,000</td>
+                                    <td class="col-amount">205,000</td>
+                                    <td class="col-memo" title="非常勤。基本給は月額換算（実際は時給計算）。">非常勤。基本給は月額換算（実際は時給計算）。</td>
+                                    <td>2025/10/25</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="edit-staff-salary-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">給与評価編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-staff-salary-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p><strong>職員:</strong> <span id="modal-salary-staff-name"></span></p>
+
+                <div class="form-group">
+                    <label for="modal-salary-grade-edit" class="form-label">給与等級</label>
+                    <select id="modal-salary-grade-edit" class="form-control">
+                         <option value="等級1">等級1</option>
+                         <option value="等級2">等級2</option>
+                         <option value="等級3">等級3</option>
+                    </select>
+                </div>
+                 <div class="form-group">
+                    <label for="modal-allowance-position-edit" class="form-label">役職手当（円）</label>
+                    <input type="number" id="modal-allowance-position-edit" class="form-control" placeholder="例: 30000">
+                 </div>
+                 <div class="form-group">
+                    <label for="modal-allowance-qualification-edit" class="form-label">資格手当（円）</label>
+                    <input type="number" id="modal-allowance-qualification-edit" class="form-control" placeholder="例: 10000">
+                 </div>
+                 <div class="form-group">
+                    <label for="modal-allowance-commute-edit" class="form-label">通勤手当（円）</label>
+                    <input type="number" id="modal-allowance-commute-edit" class="form-control" placeholder="例: 15000">
+                 </div>
+
+                 <div class="form-group">
+                    <label for="modal-salary-memo-edit" class="form-label">評価・備考メモ</label>
+                    <textarea id="modal-salary-memo-edit" class="form-control" rows="4"></textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-secondary" onclick="closeModal('edit-staff-salary-modal')">キャンセル</button>
+                <button type="button" class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+
+    <script>
+        function filterSalaries() {
+            const nameInput = document.getElementById('search-salary-staff-name');
+            const gradeSelect = document.getElementById('filter-salary-grade');
+            const employmentTypeSelect = document.getElementById('filter-salary-employment-type');
+            const tableBody = document.getElementById('staff-salary-list-tbody');
+
+            if (!nameInput || !gradeSelect || !employmentTypeSelect || !tableBody) {
+                console.warn("Filter elements or table body not found for salaries.");
+                return;
+            }
+
+            const nameFilter = nameInput.value.toLowerCase();
+            const gradeFilter = gradeSelect.value;
+            const employmentTypeFilter = employmentTypeSelect.value;
+            const rows = tableBody.getElementsByTagName('tr');
+
+            const employmentTypes = {
+                "管理者 太郎": "常勤",
+                "支援員 次郎": "常勤",
+                "職業指導員 三郎": "非常勤"
+            };
+
+            Array.from(rows).forEach(row => {
+                const staffName = row.dataset.staffName?.toLowerCase() || '';
+                const gradeData = row.dataset.salaryGrade || '';
+                const staffFullName = row.dataset.staffName || '';
+                const employmentTypeData = employmentTypes[staffFullName] || '';
+
+                const nameMatch = staffName.includes(nameFilter);
+                const gradeMatch = gradeFilter === "" || gradeData === gradeFilter;
+                const employmentTypeMatch = employmentTypeFilter === "" || employmentTypeData === employmentTypeFilter;
+
+                if (nameMatch && gradeMatch && employmentTypeMatch) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof window.filterSalaries === 'function') {
+                const nameInputListener = document.getElementById('search-salary-staff-name');
+                const gradeSelectListener = document.getElementById('filter-salary-grade');
+                const employmentTypeSelectListener = document.getElementById('filter-salary-employment-type');
+                const clearButton = document.querySelector('#salary-evaluation-list .filter-form-inline .button-secondary');
+
+                if(nameInputListener) nameInputListener.addEventListener('input', filterSalaries);
+                if(gradeSelectListener) gradeSelectListener.addEventListener('change', filterSalaries);
+                if(employmentTypeSelectListener) employmentTypeSelectListener.addEventListener('change', filterSalaries);
+
+                if(clearButton) {
+                    clearButton.addEventListener('click', () => {
+                         const form = document.querySelector('#salary-evaluation-list .filter-form-inline');
+                         if (form) {
+                             form.reset();
+                         }
+                         filterSalaries();
+                    });
+                }
+                filterSalaries();
+            }
+
+            const tableBody = document.getElementById('staff-salary-list-tbody');
+            if (tableBody && typeof window.openModal === 'function') {
+                tableBody.addEventListener('click', (e) => {
+                    const clickedRow = e.target.closest('tr.clickable-row');
+                    if (clickedRow) {
+                        const modalStaffName = document.getElementById('modal-salary-staff-name');
+                        const modalGradeSelect = document.getElementById('modal-salary-grade-edit');
+                        const modalMemoTextarea = document.getElementById('modal-salary-memo-edit');
+                        const modalAllowancePosition = document.getElementById('modal-allowance-position-edit');
+                        const modalAllowanceQualification = document.getElementById('modal-allowance-qualification-edit');
+                        const modalAllowanceCommute = document.getElementById('modal-allowance-commute-edit');
+
+                        const staffName = clickedRow.dataset.staffName;
+                        const grade = clickedRow.dataset.salaryGrade;
+                        const memo = clickedRow.dataset.memo;
+
+                        if (modalStaffName) modalStaffName.textContent = staffName || '';
+                        if (modalGradeSelect) modalGradeSelect.value = grade || '';
+                        if (modalMemoTextarea) modalMemoTextarea.value = memo || '';
+                        if (modalAllowancePosition) modalAllowancePosition.value = '';
+                        if (modalAllowanceQualification) modalAllowanceQualification.value = '';
+                        if (modalAllowanceCommute) modalAllowanceCommute.value = '';
+
+                        window.openModal('edit-staff-salary-modal');
+                    }
+                });
+            }
+        });
+    </script>
+    </body>
+</html>

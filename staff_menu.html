@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>会計管理 - p2508d</title>
+    <title>職員管理 - p2508d</title>
     <link rel="stylesheet" href="style.css">
     </head>
 <body>
@@ -13,15 +13,15 @@
             <div>
                 <h1 class="header-logo"><a href="dashboard.html">p2508d</a></h1>
             </div>
-            
+
             <nav class="nav" id="side-nav">
                 <ul class="nav-list">
                     <li><a href="dashboard.html" class="nav-link">ダッシュボード</a></li>
                     <li><a href="daily_records.html" class="nav-link">日々の記録</a></li>
                     <li><a href="members_menu.html" class="nav-link">利用者支援</a></li>
-                    <li><a href="staff.html" class="nav-link">職員管理</a></li>
+                    <li><a href="staff.html" class="nav-link active">職員管理</a></li> {/* staff.html をアクティブに */}
                     <li><a href="work_activities_menu.html" class="nav-link">生産活動</a></li>
-                    <li><a href="accounting_menu.html" class="nav-link active">会計管理</a></li>
+                    <li><a href="accounting_menu.html" class="nav-link">会計管理</a></li>
                     <li><a href="claims.html" class="nav-link">国保連請求</a></li>
                     <li><a href="analytics.html" class="nav-link">データ分析</a></li>
                     <li><a href="settings.html" class="nav-link">設定</a></li>
@@ -34,31 +34,42 @@
 
         <main class="mockup-main">
             <div class="list-page-header">
-                <h1 class="page-title">会計</h1>
+                <h1 class="page-title">職員管理</h1>
             </div>
             <div class="card-grid">
 
                 <div class="card">
-                    <a href="transactions.html">
+                    <a href="staff.html"> {/* staff.html へのリンク */}
                         <div class="card-content">
-                            <h3>取引情報</h3>
-                            <p>売上や経費などのすべての収支を記録・管理します。</p>
+                            <h3>職員情報</h3>
+                            <p>職員の基本情報、シフト、研修記録などを管理します。</p>
                         </div>
                     </a>
                 </div>
-                 <div class="card">
-                    <a href="wage_evaluation.html">
-                         <div class="card-content">
-                            <h3>工賃評価</h3>
-                            <p>利用者への工賃計算と明細発行を行います。</p>
-                        </div>
-                    </a>
-                </div>
+
                 <div class="card">
-                    <a href="salary_evaluation.html">
+                     <a href="salary_evaluation.html"> {/* salary_evaluation.html へのリンク */}
                          <div class="card-content">
                             <h3>給与評価</h3>
-                            <p>職員への給与計算と明細発行を行います。</p>
+                            <p>職員の給与計算や明細発行を行います。</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card">
+                    <a href="corporation.html"> {/* corporation.html へのリンク */}
+                        <div class="card-content">
+                            <h3>法人情報</h3>
+                            <p>運営法人の基本情報を確認・編集します。</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card">
+                    <a href="facility.html"> {/* facility.html へのリンク */}
+                        <div class="card-content">
+                            <h3>事業所情報</h3>
+                            <p>所属事業所の情報を確認・編集します。</p>
                         </div>
                     </a>
                 </div>
