@@ -4,103 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>p2508d - 国保連請求 (操作可能版)</title>
+    <title>国保連請求 - p2508d</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        /* globals.cssの内容をここに展開 (前回の応答と同様のため省略) */
-        :root {
-            --palette-navy-main: #000066;
-            --palette-navy-sub: #000099;
-            --palette-orange-accent: #FF9900;
-            --palette-white: #FFFFFF;
-            --palette-gray-dark: #333333;
-            --palette-gray-light: #CCCCCC;
-            --palette-red-error: #FF0000;
-            --color-background: var(--palette-white);
-            --color-text-primary: var(--palette-gray-dark);
-            --color-border: #e0e0e0;
-            --color-shadow: rgba(0, 0, 0, 0.05);
-            --color-primary: var(--palette-navy-main);
-            --color-primary-hover: var(--palette-navy-sub);
-            --color-danger: var(--palette-red-error);
-            --color-button-text: var(--palette-white);
-            --font-family-base: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "游ゴシック Medium", "Yu Gothic Medium", "メイリオ", Meiryo, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            --font-size-xs: 0.75rem;
-            --font-size-sm: 0.875rem;
-            --font-size-base: 1rem;
-            --font-size-lg: 1.25rem;
-            --font-size-xl: 1.875rem;
-            --border-radius: 0.375rem;
+        /* 必要に応じてclaims.html固有のスタイルを追加 */
+        .summary-actions {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--color-border);
+            text-align: right;
         }
-        *, *::before, *::after { box-sizing: border-box; }
-        body, h1, h2, h3, h4, p, ul, ol, table { margin: 0; }
-        ul, ol { padding: 0; list-style: none; }
-        body { font-family: var(--font-family-base); background-color: #f8f9fa; color: var(--color-text-primary); line-height: 1.5; }
-        button, input, select, textarea { font-family: inherit; font-size: 100%; margin: 0; }
-        button { background: none; border: none; cursor: pointer; padding: 0; }
-        table { border-collapse: collapse; border-spacing: 0; }
-
-        /* --- モックアップ用の全体レイアウト --- */
-        .mockup-container { display: flex; }
-        .mockup-main { margin-left: 240px; padding: 2rem; width: calc(100% - 240px); }
-        .mockup-page { display: block; }
-        
-        /* --- 各コンポーネントのスタイル --- */
-        /* Header */
-        .header {
-            width: 240px; height: 100vh; position: fixed; top: 0; left: 0; background-color: var(--color-background);
-            border-right: 1px solid var(--color-border); padding: 1.5rem; display: flex; flex-direction: column; gap: 2rem;
-            z-index: 1000;
+        .summary-actions .button {
+            margin-left: 0.5rem;
         }
-        .header-logo { font-size: var(--font-size-lg); font-weight: 700; text-align: center; }
-        .header-logo a { color: inherit; text-decoration: none; }
-
-        /* Navigation */
-        .nav { display: flex; flex-direction: column; justify-content: space-between; height: 100%; overflow-y: auto; }
-        .nav-list { display: flex; flex-direction: column; gap: 0.5rem; text-align: left; }
-        .nav-link { display: block; width: 100%; padding: 0.75rem 1rem; border-radius: var(--border-radius); text-decoration: none; color: var(--color-text-primary); font-weight: 500; transition: background-color 0.2s, color 0.2s; text-align: left; }
-        .nav-link:hover { background-color: #f1f3f5; }
-        .nav-link.active { font-weight: 700; background-color: #e9ecef; color: var(--color-primary); }
-        .nav-logout-section { margin-top: auto; padding-top: 1rem; }
-
-        /* Button */
-        .button { display: inline-flex; align-items: center; justify-content: center; padding: 0.5rem 1rem; border-radius: var(--border-radius); font-size: var(--font-size-sm); font-weight: 500; color: var(--color-button-text); border: none; cursor: pointer; transition: background-color 0.2s ease-in-out; }
-        .button-primary { background-color: var(--color-primary); }
-        .button-secondary { background-color: #6c757d; color: var(--color-button-text); }
-        .button-secondary:hover { background-color: #5a6268; }
-        .button-danger { background-color: var(--color-danger); }
-
-        /* PageTitle & ListPageLayout */
-        .page-title { font-size: var(--font-size-xl); font-weight: 700; }
-        .list-page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-
-        /* Section */
-        .section { width: 100%; border: 1px solid var(--color-border); border-radius: var(--border-radius); padding: 1.5rem; margin-top: 1rem; background-color: #fff; }
-        .section-title { font-size: var(--font-size-lg); font-weight: 600; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--color-border); }
-        .section-content { margin-top: 1rem; }
-
-        /* Table */
-        .table-wrapper { width: 100%; overflow-x: auto; border: 1px solid var(--color-border); border-radius: var(--border-radius); }
-        .table { width: 100%; border-collapse: collapse; }
-        .table th, .table td { padding: 0.75rem 1rem; vertical-align: middle; border-bottom: 1px solid var(--color-border); font-size: var(--font-size-sm); text-align: center; }
-        .table thead th { font-weight: 600; background-color: #f9f9f9; }
-        .table tbody tr:last-child td { border-bottom: none; }
-        .table-button-group { display: flex; justify-content: center; gap: 0.5rem; }
-        
-        /* Form (for filter) */
-        .filter-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
-        .form-group { display: flex; flex-direction: column; gap: 0.25rem; }
-        .form-label { font-size: var(--font-size-sm); font-weight: 500; }
-        .form-control {
-            width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--color-border);
-            border-radius: var(--border-radius); font-size: var(--font-size-sm);
-        }
-        .filter-actions { grid-column: 1 / -1; display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem; }
-        
-        /* Badge (for status) */
+         /* Badge (請求履歴用 - style.cssにあるが念のため) */
         .badge { padding: 0.25em 0.6em; font-size: 0.75rem; font-weight: 600; border-radius: 1rem; }
-        .badge-success { background-color: #d1e7dd; color: #0f5132; }
-        .badge-warning { background-color: #fff3cd; color: #664d03; }
-        .badge-pending { background-color: #e2e3e5; color: #41464b; }
+        .badge-success { background-color: #d1e7dd; color: #0f5132; } /* 入金済 */
+        .badge-info { background-color: #cff4fc; color: #055160; } /* 請求済 */
+        .badge-warning { background-color: #fff3cd; color: #664d03; } /* 作成中 */
+        .badge-danger { background-color: #f8d7da; color: #842029; } /* エラー/取下 */
+        .badge-secondary { background-color: #e2e3e5; color: #41464b; } /* その他 */
+
+        .simulation-results dl { margin-top: 1rem; }
 
     </style>
 </head>
@@ -111,14 +36,14 @@
             <div>
                 <h1 class="header-logo"><a href="dashboard.html">p2508d</a></h1>
             </div>
-            
+
             <nav class="nav" id="side-nav">
                 <ul class="nav-list">
                     <li><a href="dashboard.html" class="nav-link">ダッシュボード</a></li>
                     <li><a href="daily_records.html" class="nav-link">日々の記録</a></li>
                     <li><a href="members_menu.html" class="nav-link">利用者支援</a></li>
-                    <li><a href="staff_menu.html" class="nav-link">施設と職員</a></li>
                     <li><a href="work_activities_menu.html" class="nav-link">生産活動</a></li>
+                    <li><a href="staff_menu.html" class="nav-link">施設と職員</a></li>
                     <li><a href="accounting_menu.html" class="nav-link">会計</a></li>
                     <li><a href="claims.html" class="nav-link active">国保連請求</a></li>
                     <li><a href="analytics.html" class="nav-link">データ分析</a></li>
@@ -129,98 +54,263 @@
                     <a href="index.html" class="nav-link">ログアウト</a>
                 </div>
             </nav>
-            
         </header>
 
         <main class="mockup-main">
-            
-            <div id="billing-list" class="mockup-page">
-                
+
+            <div id="claims-page" class="mockup-page active">
                 <div class="list-page-header">
                     <h1 class="page-title">国保連請求</h1>
-                    <button type="button" class="button button-primary">新規請求作成</button>
                 </div>
 
-                <div class="section">
-                    <h2 class="section-title">検索条件</h2>
-                    <form class="section-content filter-form">
-                        <div class="form-group">
-                            <label for="billing-month" class="form-label">対象年月</label>
-                            <input type="month" id="billing-month" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="billing-status" class="form-label">ステータス</label>
-                            <select id="billing-status" class="form-control">
-                                <option value="">すべて</option>
-                                <option value="draft">作成中</option>
-                                <option value="submitted">請求済</option>
-                                <option value="confirmed">入金済</option>
-                                <option value="error">エラー</option>
-                            </select>
-                        </div>
-                        <div class="filter-actions">
-                            <button type="button" class="button button-secondary">クリア</button>
-                            <button type="submit" class="button button-primary">検索</button>
-                        </div>
-                    </form>
+                <div class="sub-nav">
+                    <ul id="claims-subnav">
+                        <li><a href="#" class="sub-nav-item active" data-tab="tab-claims-summary">月次集計</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-claims-history">請求履歴</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-claims-simulation">シミュレーション</a></li>
+                    </ul>
                 </div>
 
-                <div class="section">
-                    <h2 class="section-title">請求一覧</h2>
-                    <div class="section-content">
-                        <div class="table-wrapper">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>対象年月</th>
-                                        <th>請求額（円）</th>
-                                        <th>ステータス</th>
-                                        <th>作成日</th>
-                                        <th>最終更新日</th>
-                                        <th>操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>2024年10月</td>
-                                        <td>1,200,000</td>
-                                        <td><span class="badge badge-success">入金済</span></td>
-                                        <td>2024-11-01</td>
-                                        <td>2024-12-10</td>
-                                        <td class="table-button-group">
-                                            <button type="button" class="button button-secondary">詳細</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2024年11月</td>
-                                        <td>1,250,000</td>
-                                        <td><span class="badge badge-warning">請求済</span></td>
-                                        <td>2024-12-01</td>
-                                        <td>2024-12-05</td>
-                                        <td class="table-button-group">
-                                            <button type="button" class="button button-secondary">詳細</button>
-                                            <button type="button" class="button button-danger">取下</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2024年12月</td>
-                                        <td>(未確定)</td>
-                                        <td><span class="badge badge-pending">作成中</span></td>
-                                        <td>2025-01-01</td>
-                                        <td>2025-01-03</td>
-                                        <td class="table-button-group">
-                                            <button type="button" class="button button-secondary">編集</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <div class="tab-content-wrapper">
+
+                    <div id="tab-claims-summary" class="tab-content active">
+                        <div class="section">
+                            <h2 class="section-title">請求対象月</h2>
+                             <div class="section-content filter-form-inline" style="justify-content: flex-start;">
+                                <div class="form-group" style="flex-grow: 0;">
+                                    <label for="claim-target-month" class="form-label">対象年月</label>
+                                    <input type="month" id="claim-target-month" class="form-control" value="2025-10" style="width: auto;">
+                                </div>
+                                <button type="button" class="button button-primary">集計実行</button>
+                            </div>
+                        </div>
+
+                        <div class="section">
+                             <div class="section-header">
+                                <h2 class="section-title-in-header">利用者別 集計結果 (2025年10月)</h2>
+                                <button class="button button-secondary">実績記録票印刷</button>
+                             </div>
+                            <div class="table-wrapper">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>利用者名</th>
+                                            <th class="col-number">サービス提供日数</th>
+                                            <th class="col-number">請求額(円)</th>
+                                            <th>備考</th>
+                                            <th class="col-actions">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="claim-summary-tbody">
+                                        <tr>
+                                            <td>青木 誠</td>
+                                            <td class="col-number">22</td>
+                                            <td class="col-number">154,000</td>
+                                            <td></td>
+                                            <td class="col-actions"><button class="button button-secondary" onclick="alert('青木様の10月分の詳細を表示します')">詳細</button></td>
+                                        </tr>
+                                         <tr>
+                                            <td>五十嵐 直人</td>
+                                            <td class="col-number">20</td>
+                                            <td class="col-number">140,000</td>
+                                            <td></td>
+                                             <td class="col-actions"><button class="button button-secondary" onclick="alert('五十嵐様の10月分の詳細を表示します')">詳細</button></td>
+                                        </tr>
+                                         <tr>
+                                            <td>遠藤 雅彦</td>
+                                            <td class="col-number">15</td>
+                                            <td class="col-number">105,000</td>
+                                            <td style="color: var(--color-danger);">利用日数不足(要確認)</td>
+                                             <td class="col-actions"><button class="button button-secondary" onclick="alert('遠藤様の10月分の詳細を表示します')">詳細</button></td>
+                                        </tr>
+                                    </tbody>
+                                     <tfoot>
+                                        <tr style="font-weight: bold; background-color: var(--color-hover-bg);">
+                                            <td>合計</td>
+                                            <td class="col-number">57日</td>
+                                            <td class="col-number">399,000円</td>
+                                            <td colspan="2"></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="summary-actions">
+                                <button type="button" class="button button-primary">請求データ作成 (CSV出力)</button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                    <div id="tab-claims-history" class="tab-content">
+                        <div class="section">
+                            <h2 class="section-title">検索条件</h2>
+                            <form class="section-content filter-form-inline">
+                                <div class="form-group" style="flex-grow: 0;">
+                                    <label for="history-billing-month-start" class="form-label">対象年月(始)</label>
+                                    <input type="month" id="history-billing-month-start" class="form-control" style="width: auto;">
+                                </div>
+                                <div class="form-group" style="flex-grow: 0;">
+                                    <label for="history-billing-month-end" class="form-label">対象年月(終)</label>
+                                    <input type="month" id="history-billing-month-end" class="form-control" style="width: auto;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="history-billing-status" class="form-label">ステータス</label>
+                                    <select id="history-billing-status" class="form-control">
+                                        <option value="">すべて</option>
+                                        <option value="draft">作成中</option>
+                                        <option value="submitted">請求済</option>
+                                        <option value="confirmed">入金済</option>
+                                        <option value="error">エラー/取下</option>
+                                    </select>
+                                </div>
+                                <button type="button" class="button button-secondary">クリア</button>
+                                <button type="button" class="button button-primary">検索</button>
+                            </form>
+                        </div>
+
+                        <div class="section">
+                            <h2 class="section-title">請求履歴一覧</h2>
+                            <div class="table-wrapper">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>対象年月</th>
+                                            <th class="col-number">請求額（円）</th>
+                                            <th>ステータス</th>
+                                            <th>作成日</th>
+                                            <th>最終更新日</th>
+                                            <th class="col-actions">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="claim-history-tbody">
+                                        <tr>
+                                            <td>2025年09月</td>
+                                            <td class="col-number">1,200,000</td>
+                                            <td><span class="badge badge-success">入金済</span></td>
+                                            <td>2025-10-01</td>
+                                            <td>2025-11-10</td>
+                                            <td class="col-actions"><button class="button button-secondary">詳細</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025年08月</td>
+                                            <td class="col-number">1,150,000</td>
+                                            <td><span class="badge badge-success">入金済</span></td>
+                                            <td>2025-09-01</td>
+                                            <td>2025-10-10</td>
+                                            <td class="col-actions"><button class="button button-secondary">詳細</button></td>
+                                        </tr>
+                                         <tr>
+                                            <td>2025年07月</td>
+                                            <td class="col-number">1,180,000</td>
+                                            <td><span class="badge badge-danger">エラー/取下</span></td>
+                                            <td>2025-08-01</td>
+                                            <td>2025-08-15</td>
+                                            <td class="col-actions">
+                                                 <div class="table-button-group">
+                                                    <button class="button button-secondary">詳細</button>
+                                                    <button class="button button-primary">再請求作成</button>
+                                                </div>
+                                                </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-claims-simulation" class="tab-content">
+                        <div class="section">
+                            <h2 class="section-title">シミュレーション条件</h2>
+                            <form class="section-content filter-form-inline" style="justify-content: flex-start;">
+                                <div class="form-group" style="flex-grow: 0;">
+                                    <label for="sim-target-month" class="form-label">対象年月</label>
+                                    <input type="month" id="sim-target-month" class="form-control" value="2025-11" style="width: auto;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="sim-avg-days" class="form-label">想定平均利用日数/人</label>
+                                    <input type="number" id="sim-avg-days" class="form-control" value="20" step="0.1" style="width: 100px;">
+                                </div>
+                                 <div class="form-group">
+                                    <label for="sim-unit-price" class="form-label">想定単価/日</label>
+                                    <input type="number" id="sim-unit-price" class="form-control" value="7000" style="width: 120px;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="sim-member-count" class="form-label">対象利用者数</label>
+                                    <input type="number" id="sim-member-count" class="form-control" value="20" style="width: 80px;">
+                                </div>
+                                <button type="button" class="button button-primary">シミュレーション実行</button>
+                            </form>
+                        </div>
+                        <div class="section simulation-results">
+                             <h2 class="section-title">シミュレーション結果 (2025年11月)</h2>
+                             <div class="section-content">
+                                <dl class="detail-grid" style="grid-template-columns: 200px 1fr;">
+                                    <dt>予測 請求総額</dt><dd style="font-size: 1.2rem; font-weight: bold; color: var(--color-primary);">2,800,000 円</dd>
+                                    <dt>計算根拠</dt><dd>20人 × 20日 × 7,000円/日</dd>
+                                    <dt>前月実績 (10月)</dt><dd>1,234,567 円</dd>
+                                    <dt>前月比</dt><dd style="color: green;">+126.8 %</dd>
+                                    <dt>前年同月実績 (2024年11月)</dt><dd>2,500,000 円</dd>
+                                    <dt>前年同月比</dt><dd style="color: green;">+12.0 %</dd>
+                                </dl>
+                             </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            </main>
+        </main>
     </div>
 
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- サブナビゲーション（タブ）切り替え ---
+            const subNavContainer = document.getElementById('claims-subnav');
+            const tabContents = document.querySelectorAll('#claims-page .tab-content-wrapper .tab-content');
+
+            if (subNavContainer && tabContents.length > 0) {
+                 subNavContainer.addEventListener('click', (e) => {
+                    const navItem = e.target.closest('.sub-nav-item');
+                    if (!navItem || navItem.classList.contains('active')) { return; }
+                    e.preventDefault();
+                    const targetTabId = navItem.dataset.tab;
+
+                    subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                    navItem.classList.add('active');
+
+                    tabContents.forEach(content => {
+                        const isActive = content.id === targetTabId;
+                        content.classList.toggle('active', isActive);
+                        content.style.display = isActive ? 'block' : 'none';
+                    });
+                });
+                 // 初期表示
+                 const firstNavItem = subNavContainer.querySelector('.sub-nav-item');
+                 const firstTabContentId = firstNavItem?.dataset.tab;
+                 if(firstNavItem && firstTabContentId){
+                    const firstTabContent = document.getElementById(firstTabContentId);
+                     subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                     tabContents.forEach(content => { content.classList.remove('active'); content.style.display = 'none'; });
+                     firstNavItem.classList.add('active');
+                     if(firstTabContent) {
+                         firstTabContent.classList.add('active');
+                         firstTabContent.style.display = 'block';
+                     }
+                 }
+            }
+
+            // --- 各タブ内のフィルタリングや操作に関するJSは、必要に応じてここに追加 ---
+
+            // 例: 請求履歴タブのクリアボタン
+            const historyClearButton = document.querySelector('#tab-claims-history .filter-form-inline .button-secondary');
+            if (historyClearButton) {
+                historyClearButton.addEventListener('click', () => {
+                    const form = historyClearButton.closest('form');
+                    if (form) form.reset();
+                    // 必要であればフィルタリング関数を再実行
+                });
+            }
+
+        });
+    </script>
 </body>
 </html>

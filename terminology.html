@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>用語設定 - p2508d</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="mockup-container">
+        <header class="header">
+            <div>
+                <h1 class="header-logo"><a href="dashboard.html">p2508d</a></h1>
+            </div>
+
+            <nav class="nav" id="side-nav">
+                <ul class="nav-list">
+                    <li><a href="dashboard.html" class="nav-link">ダッシュボード</a></li>
+                    <li><a href="daily_records.html" class="nav-link">日々の記録</a></li>
+                    <li><a href="members_menu.html" class="nav-link">利用者支援</a></li>
+                    <li><a href="work_activities_menu.html" class="nav-link">生産活動</a></li>
+                    <li><a href="staff_menu.html" class="nav-link">施設と職員</a></li>
+                    <li><a href="accounting_menu.html" class="nav-link">会計</a></li>
+                    <li><a href="claims.html" class="nav-link">国保連請求</a></li>
+                    <li><a href="analytics.html" class="nav-link">データ分析</a></li>
+                    <li><a href="settings.html" class="nav-link active">設定</a></li>
+                    <li><a href="my_page.html" class="nav-link">マイページ</a></li>
+                </ul>
+                <div class="nav-logout-section">
+                    <a href="index.html" class="nav-link">ログアウト</a>
+                </div>
+            </nav>
+
+        </header>
+
+        <main class="mockup-main">
+
+            <div id="terminology" class="mockup-page active">
+                <div class="list-page-header">
+                     <h1 class="page-title">用語設定</h1>
+                     <div>
+                        <a href="settings.html" class="button button-secondary">設定TOPへ戻る</a>
+                     </div>
+                </div>
+
+                <div class="sub-nav">
+                    <ul id="terminology-subnav">
+                        <li><a href="#" class="sub-nav-item active" data-tab="tab-term-entities">人物・組織</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-term-concepts">主要概念</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-term-records">記録・書類</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-term-status">ステータス・選択肢</a></li>
+                    </ul>
+                </div>
+
+                <div class="tab-content-wrapper">
+
+                    <div id="tab-term-entities" class="tab-content active">
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">人物・組織に関する用語</h2>
+                                <button class="button button-primary" onclick="openModal('edit-term-entities-modal')">編集</button>
+                            </div>
+                            <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>利用者</dt><dd id="display-term-member">利用者</dd>
+                                    <dt>職員</dt><dd id="display-term-staff">職員</dd>
+                                    <dt>取引先</dt><dd id="display-term-partner">取引先</dd>
+                                    <dt>顧客</dt><dd id="display-term-customer">顧客</dd>
+                                    <dt>仕入先</dt><dd id="display-term-supplier">仕入先</dd>
+                                    <dt>外注先</dt><dd id="display-term-outsourcer">外注先</dd>
+                                    <dt>事業所</dt><dd id="display-term-facility">事業所</dd>
+                                    <dt>法人</dt><dd id="display-term-corporation">法人</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-term-concepts" class="tab-content">
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">主要概念に関する用語</h2>
+                                <button class="button button-primary" onclick="openModal('edit-term-concepts-modal')">編集</button>
+                            </div>
+                            <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>生産活動</dt><dd id="display-term-work-activity">生産活動</dd>
+                                    <dt>案件</dt><dd id="display-term-project">案件</dd>
+                                    <dt>スキル</dt><dd id="display-term-skill">スキル</dd>
+                                    <dt>工賃</dt><dd id="display-term-wage">工賃</dd>
+                                    <dt>給与</dt><dd id="display-term-salary">給与</dd>
+                                    <dt>会計</dt><dd id="display-term-accounting">会計</dd>
+                                    <dt>取引</dt><dd id="display-term-transaction">取引</dd>
+                                    <dt>請求</dt><dd id="display-term-claim">請求</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-term-records" class="tab-content">
+                         <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">記録・書類に関する用語</h2>
+                                <button class="button button-primary" onclick="openModal('edit-term-records-modal')">編集</button>
+                            </div>
+                            <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>日々の記録</dt><dd id="display-term-daily-record">日々の記録</dd>
+                                    <dt>業務日誌</dt><dd id="display-term-daily-log">業務日誌</dd>
+                                    <dt>支援計画</dt><dd id="display-term-support-plan">支援計画</dd>
+                                    <dt>モニタリング</dt><dd id="display-term-monitoring">モニタリング</dd>
+                                    <dt>研修記録</dt><dd id="display-term-training-record">研修記録</dd>
+                                    <dt>ヒヤリハット・事故報告</dt><dd id="display-term-incident-report">ヒヤリハット・事故報告</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-term-status" class="tab-content">
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">契約状態に関する用語</h2>
+                                <button class="button button-primary" onclick="openModal('edit-term-status-contract-modal')">編集</button>
+                            </div>
+                            <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>利用中</dt><dd id="display-status-active">利用中</dd>
+                                    <dt>利用終了</dt><dd id="display-status-inactive">利用終了</dd>
+                                    <dt>待機中</dt><dd id="display-status-pending">待機中</dd>
+                                </dl>
+                            </div>
+                        </div>
+
+                         <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">進捗状態に関する用語</h2>
+                                <button class="button button-primary" onclick="openModal('edit-term-status-progress-modal')">編集</button>
+                            </div>
+                            <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>未着手</dt><dd id="display-status-not-started">未着手</dd>
+                                    <dt>作業中</dt><dd id="display-status-in-progress">作業中</dd>
+                                    <dt>完了</dt><dd id="display-status-completed">完了</dd>
+                                    <dt>納品済</dt><dd id="display-status-delivered">納品済</dd>
+                                </dl>
+                            </div>
+                        </div>
+
+                         <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">利用実績に関する用語</h2>
+                                <button class="button button-primary" onclick="openModal('edit-term-status-attendance-modal')">編集</button>
+                            </div>
+                            <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>利用 (通所)</dt><dd id="display-attendance-present">利用 (通所)</dd>
+                                    <dt>利用 (在宅)</dt><dd id="display-attendance-remote">利用 (在宅)</dd>
+                                    <dt>欠席 (連絡あり)</dt><dd id="display-attendance-absent-notified">欠席 (連絡あり)</dd>
+                                    <dt>欠席 (連絡なし)</dt><dd id="display-attendance-absent-unnotified">欠席 (連絡なし)</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="edit-term-entities-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">人物・組織 用語 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-term-entities-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="modal-term-member">利用者</label>
+                    <input type="text" id="modal-term-member" class="form-control" value="利用者">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-staff">職員</label>
+                    <input type="text" id="modal-term-staff" class="form-control" value="職員">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-partner">取引先</label>
+                    <input type="text" id="modal-term-partner" class="form-control" value="取引先">
+                </div>
+                 <div class="form-group">
+                    <label for="modal-term-customer">顧客</label>
+                    <input type="text" id="modal-term-customer" class="form-control" value="顧客">
+                </div>
+                 <div class="form-group">
+                    <label for="modal-term-supplier">仕入先</label>
+                    <input type="text" id="modal-term-supplier" class="form-control" value="仕入先">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-outsourcer">外注先</label>
+                    <input type="text" id="modal-term-outsourcer" class="form-control" value="外注先">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-facility">事業所</label>
+                    <input type="text" id="modal-term-facility" class="form-control" value="事業所">
+                </div>
+                 <div class="form-group">
+                    <label for="modal-term-corporation">法人</label>
+                    <input type="text" id="modal-term-corporation" class="form-control" value="法人">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-secondary" onclick="closeModal('edit-term-entities-modal')">キャンセル</button>
+                <button type="button" class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+     <div id="edit-term-concepts-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">主要概念 用語 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-term-concepts-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                 <div class="form-group">
+                    <label for="modal-term-work-activity">生産活動</label>
+                    <input type="text" id="modal-term-work-activity" class="form-control" value="生産活動">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-project">案件</label>
+                    <input type="text" id="modal-term-project" class="form-control" value="案件">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-skill">スキル</label>
+                    <input type="text" id="modal-term-skill" class="form-control" value="スキル">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-wage">工賃</label>
+                    <input type="text" id="modal-term-wage" class="form-control" value="工賃">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-salary">給与</label>
+                    <input type="text" id="modal-term-salary" class="form-control" value="給与">
+                </div>
+                 <div class="form-group">
+                    <label for="modal-term-accounting">会計</label>
+                    <input type="text" id="modal-term-accounting" class="form-control" value="会計">
+                </div>
+                 <div class="form-group">
+                    <label for="modal-term-transaction">取引</label>
+                    <input type="text" id="modal-term-transaction" class="form-control" value="取引">
+                </div>
+                 <div class="form-group">
+                    <label for="modal-term-claim">請求</label>
+                    <input type="text" id="modal-term-claim" class="form-control" value="請求">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-secondary" onclick="closeModal('edit-term-concepts-modal')">キャンセル</button>
+                <button type="button" class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-term-records-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">記録・書類 用語 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-term-records-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                 <div class="form-group">
+                    <label for="modal-term-daily-record">日々の記録</label>
+                    <input type="text" id="modal-term-daily-record" class="form-control" value="日々の記録">
+                </div>
+                 <div class="form-group">
+                    <label for="modal-term-daily-log">業務日誌</label>
+                    <input type="text" id="modal-term-daily-log" class="form-control" value="業務日誌">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-support-plan">支援計画</label>
+                    <input type="text" id="modal-term-support-plan" class="form-control" value="支援計画">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-monitoring">モニタリング</label>
+                    <input type="text" id="modal-term-monitoring" class="form-control" value="モニタリング">
+                </div>
+                 <div class="form-group">
+                    <label for="modal-term-training-record">研修記録</label>
+                    <input type="text" id="modal-term-training-record" class="form-control" value="研修記録">
+                </div>
+                 <div class="form-group">
+                    <label for="modal-term-incident-report">ヒヤリハット・事故報告</label>
+                    <input type="text" id="modal-term-incident-report" class="form-control" value="ヒヤリハット・事故報告">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-secondary" onclick="closeModal('edit-term-records-modal')">キャンセル</button>
+                <button type="button" class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-term-status-contract-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">契約状態 用語 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-term-status-contract-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                 <div class="form-group">
+                    <label for="modal-status-active">利用中</label>
+                    <input type="text" id="modal-status-active" class="form-control" value="利用中">
+                </div>
+                 <div class="form-group">
+                    <label for="modal-status-inactive">利用終了</label>
+                    <input type="text" id="modal-status-inactive" class="form-control" value="利用終了">
+                </div>
+                <div class="form-group">
+                    <label for="modal-status-pending">待機中</label>
+                    <input type="text" id="modal-status-pending" class="form-control" value="待機中">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-secondary" onclick="closeModal('edit-term-status-contract-modal')">キャンセル</button>
+                <button type="button" class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-term-status-progress-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">進捗状態 用語 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-term-status-progress-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="modal-status-not-started">未着手</label>
+                    <input type="text" id="modal-status-not-started" class="form-control" value="未着手">
+                </div>
+                <div class="form-group">
+                    <label for="modal-status-in-progress">作業中</label>
+                    <input type="text" id="modal-status-in-progress" class="form-control" value="作業中">
+                </div>
+                <div class="form-group">
+                    <label for="modal-status-completed">完了</label>
+                    <input type="text" id="modal-status-completed" class="form-control" value="完了">
+                </div>
+                 <div class="form-group">
+                    <label for="modal-status-delivered">納品済</label>
+                    <input type="text" id="modal-status-delivered" class="form-control" value="納品済">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-secondary" onclick="closeModal('edit-term-status-progress-modal')">キャンセル</button>
+                <button type="button" class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-term-status-attendance-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">利用実績 用語 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-term-status-attendance-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                 <div class="form-group">
+                    <label for="modal-attendance-present">利用 (通所)</label>
+                    <input type="text" id="modal-attendance-present" class="form-control" value="利用 (通所)">
+                </div>
+                <div class="form-group">
+                    <label for="modal-attendance-remote">利用 (在宅)</label>
+                    <input type="text" id="modal-attendance-remote" class="form-control" value="利用 (在宅)">
+                </div>
+                <div class="form-group">
+                    <label for="modal-attendance-absent-notified">欠席 (連絡あり)</label>
+                    <input type="text" id="modal-attendance-absent-notified" class="form-control" value="欠席 (連絡あり)">
+                </div>
+                <div class="form-group">
+                    <label for="modal-attendance-absent-unnotified">欠席 (連絡なし)</label>
+                    <input type="text" id="modal-attendance-absent-unnotified" class="form-control" value="欠席 (連絡なし)">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-secondary" onclick="closeModal('edit-term-status-attendance-modal')">キャンセル</button>
+                <button type="button" class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // サブナビゲーション（タブ）切り替え (変更なし)
+            const subNavContainer = document.getElementById('terminology-subnav');
+            const tabContents = document.querySelectorAll('#terminology .tab-content-wrapper .tab-content');
+            if (subNavContainer && tabContents.length > 0) {
+                 subNavContainer.addEventListener('click', (e) => {
+                    const navItem = e.target.closest('.sub-nav-item');
+                    if (!navItem || navItem.classList.contains('active')) { return; }
+                    e.preventDefault();
+                    const targetTabId = navItem.dataset.tab;
+                    subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                    navItem.classList.add('active');
+                    tabContents.forEach(content => {
+                        const isActive = content.id === targetTabId;
+                        content.classList.toggle('active', isActive);
+                        content.style.display = isActive ? 'block' : 'none';
+                    });
+                });
+                 const firstNavItem = subNavContainer.querySelector('.sub-nav-item');
+                 const firstTabContentId = firstNavItem?.dataset.tab || tabContents[0]?.id;
+                 if(firstNavItem && firstTabContentId){
+                    const firstTabContent = document.getElementById(firstTabContentId);
+                     subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                     tabContents.forEach(content => { content.classList.remove('active'); content.style.display = 'none'; });
+                     firstNavItem.classList.add('active');
+                     if(firstTabContent) {
+                         firstTabContent.classList.add('active');
+                         firstTabContent.style.display = 'block';
+                     }
+                 }
+            }
+
+            // --- モーダル保存時の表示更新 (汎用化) ---
+            function setupTermSaveHandler(modalId, termMappings) {
+                const saveButton = document.querySelector(`#${modalId} .button-primary`);
+                if (!saveButton) return;
+
+                saveButton.addEventListener('click', () => {
+                    for (const modalInputId in termMappings) {
+                        const displayElementId = termMappings[modalInputId].displayId;
+                        const defaultValue = termMappings[modalInputId].default;
+                        const modalInput = document.getElementById(modalInputId);
+                        const displayElement = document.getElementById(displayElementId);
+
+                        if (modalInput && displayElement) {
+                            const newValue = modalInput.value.trim();
+                            displayElement.textContent = newValue || defaultValue;
+                            const dtElement = displayElement.previousElementSibling;
+                             if(dtElement && dtElement.tagName === 'DT'){
+                                 dtElement.textContent = newValue || defaultValue;
+                             }
+                            const labelElement = modalInput.previousElementSibling;
+                             if(labelElement && labelElement.tagName === 'LABEL'){
+                                 labelElement.textContent = newValue || defaultValue;
+                             }
+                        }
+                    }
+                    closeModal(modalId);
+                });
+            }
+
+            // 各モーダルと表示要素のマッピングを定義してハンドラを設定
+            setupTermSaveHandler('edit-term-entities-modal', {
+                'modal-term-member': { displayId: 'display-term-member', default: '利用者' },
+                'modal-term-staff': { displayId: 'display-term-staff', default: '職員' },
+                'modal-term-partner': { displayId: 'display-term-partner', default: '取引先' },
+                'modal-term-customer': { displayId: 'display-term-customer', default: '顧客' },
+                'modal-term-supplier': { displayId: 'display-term-supplier', default: '仕入先' },
+                'modal-term-outsourcer': { displayId: 'display-term-outsourcer', default: '外注先' },
+                'modal-term-facility': { displayId: 'display-term-facility', default: '事業所' },
+                'modal-term-corporation': { displayId: 'display-term-corporation', default: '法人' }
+            });
+
+             setupTermSaveHandler('edit-term-concepts-modal', {
+                'modal-term-work-activity': { displayId: 'display-term-work-activity', default: '生産活動' },
+                'modal-term-project': { displayId: 'display-term-project', default: '案件' },
+                'modal-term-skill': { displayId: 'display-term-skill', default: 'スキル' },
+                'modal-term-wage': { displayId: 'display-term-wage', default: '工賃' },
+                'modal-term-salary': { displayId: 'display-term-salary', default: '給与' },
+                'modal-term-accounting': { displayId: 'display-term-accounting', default: '会計' },
+                'modal-term-transaction': { displayId: 'display-term-transaction', default: '取引' },
+                'modal-term-claim': { displayId: 'display-term-claim', default: '請求' }
+            });
+
+            setupTermSaveHandler('edit-term-records-modal', {
+                'modal-term-daily-record': { displayId: 'display-term-daily-record', default: '日々の記録' },
+                'modal-term-daily-log': { displayId: 'display-term-daily-log', default: '業務日誌' },
+                'modal-term-support-plan': { displayId: 'display-term-support-plan', default: '支援計画' },
+                'modal-term-monitoring': { displayId: 'display-term-monitoring', default: 'モニタリング' },
+                'modal-term-training-record': { displayId: 'display-term-training-record', default: '研修記録' },
+                'modal-term-incident-report': { displayId: 'display-term-incident-report', default: 'ヒヤリハット・事故報告' }
+            });
+
+            // ステータス関連のモーダルを個別に設定
+             setupTermSaveHandler('edit-term-status-contract-modal', {
+                'modal-status-active': { displayId: 'display-status-active', default: '利用中' },
+                'modal-status-inactive': { displayId: 'display-status-inactive', default: '利用終了' },
+                'modal-status-pending': { displayId: 'display-status-pending', default: '待機中' }
+            });
+
+             setupTermSaveHandler('edit-term-status-progress-modal', {
+                'modal-status-not-started': { displayId: 'display-status-not-started', default: '未着手' },
+                'modal-status-in-progress': { displayId: 'display-status-in-progress', default: '作業中' },
+                'modal-status-completed': { displayId: 'display-status-completed', default: '完了' },
+                'modal-status-delivered': { displayId: 'display-status-delivered', default: '納品済' }
+            });
+
+            setupTermSaveHandler('edit-term-status-attendance-modal', {
+                'modal-attendance-present': { displayId: 'display-attendance-present', default: '利用 (通所)' },
+                'modal-attendance-remote': { displayId: 'display-attendance-remote', default: '利用 (在宅)' },
+                'modal-attendance-absent-notified': { displayId: 'display-attendance-absent-notified', default: '欠席 (連絡あり)' },
+                'modal-attendance-absent-unnotified': { displayId: 'display-attendance-absent-unnotified', default: '欠席 (連絡なし)' }
+            });
+
+        });
+    </script>
+</body>
+</html>
