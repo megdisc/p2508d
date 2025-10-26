@@ -8,7 +8,8 @@
     --palette-accent: #FF9900;
 
     /* --- セマンティッククカラー --- */
-    --palette-success: #00FFFF; /* Note: 明るすぎる可能性あり */
+    --palette-success: #00FFFF;
+    /* Note: 明るすぎる可能性あり */
     --palette-alert: #FF9999;
     --palette-error: #FF0000;
 
@@ -25,73 +26,113 @@
 
     /* --- シャドーー --- */
     --color-shadow-dark: rgba(0, 0, 0, 0.25);
-    --color-shadow-medium: rgba(0, 0, 0, 0.15); /* 修正: 0.5 -> 0.15 など軽めに調整推奨 */
-    --color-shadow-light: rgba(0, 0, 0, 0.005); /* 修正: 0.75 -> 0.05 元々の意図に近い軽い影に */
+    --color-shadow-medium: rgba(0, 0, 0, 0.15);
+    /* 修正: 0.5 -> 0.15 など軽めに調整推奨 */
+    --color-shadow-light: rgba(0, 0, 0, 0.005);
+    /* 修正: 0.75 -> 0.05 元々の意図に近い軽い影に */
 
-/* ============================================= */
-/* 第2層：セマンティック・トークン (Semantic Tokens) */
-/* ============================================= */
+    /* ============================================= */
+    /* 第2層：セマンティック・トークン (Semantic Tokens) */
+    /* ============================================= */
 
     /* --- 基本色 --- */
-    --color-background: var(--palette-gray-ash); /* ページ全体の背景 */
-    --color-surface: var(--palette-white);    /* コンポーネント表面 (カード、モーダルなど) */
-    --color-text-primary: var(--palette-gray-dark); /* 主要テキスト */
-    --color-text-secondary: var(--palette-gray-dark-medium); /* 補助テキスト */
-    --color-border: var(--palette-gray-light);    /* 境界線 */
-    --color-shadow: var(--color-shadow-light);   /* 基本の影 */
+    --color-background: var(--palette-gray-ash);
+    /* ページ全体の背景 */
+    --color-surface: var(--palette-white);
+    /* コンポーネント表面 (カード、モーダルなど) */
+    --color-text-primary: var(--palette-gray-dark);
+    /* 主要テキスト */
+    --color-text-secondary: var(--palette-gray-dark-medium);
+    /* 補助テキスト */
+    --color-border: var(--palette-gray-light);
+    /* 境界線 */
+    --color-shadow: var(--color-shadow-light);
+    /* 基本の影 */
 
     /* --- ブランドカラー --- */
-    --color-primary: var(--palette-main);          /* 主要ブランドカラー */
-    --color-primary-hover: var(--palette-sub);     /* Primary のホバー色 (Subを使用) */
-    --color-accent: var(--palette-accent);         /* アクセントカラー */
+    --color-primary: var(--palette-main);
+    /* 主要ブランドカラー */
+    --color-primary-hover: var(--palette-sub);
+    /* Primary のホバー色 (Subを使用) */
+    --color-accent: var(--palette-accent);
+    /* アクセントカラー */
 
     /* --- 意味を持つ色 (Semantic Colors) --- */
-    --color-success: var(--palette-success);       /* 成功・完了 */
-    --color-alert: var(--palette-alert);         /* 注意・警告 */
-    --color-danger: var(--palette-error);        /* 危険・エラー・削除 */
+    --color-success: var(--palette-success);
+    /* 成功・完了 */
+    --color-alert: var(--palette-alert);
+    /* 注意・警告 */
+    --color-danger: var(--palette-error);
+    /* 危険・エラー・削除 */
 
     /* --- UI要素: Header / Navigation --- */
-    --color-header-bg: var(--color-primary);       /* ヘッダー背景 */
-    --color-header-logo: var(--color-accent);     /* ヘッダーロゴ文字色 */
-    --color-nav-link-hover-bg: var(--palette-black); /* ナビリンクホバー背景 */
-    --color-header-logo: var(--palette-white);     /* ナビゲーション文字色 */
-    --color-nav-link-active-bg: var(--palette-black);/* アクティブなナビリンク背景 */
-    --color-nav-link-active-text: var(--color-primary); /* アクティブなナビリンク文字色 */
+    --color-header-bg: var(--color-primary);
+    /* ヘッダー背景 */
+    --color-header-logo: var(--color-accent);
+    /* ヘッダーロゴ文字色 */
+    --color-nav-link-hover-bg: var(--palette-black);
+    /* ナビリンクホバー背景 */
+    --color-header-logo: var(--palette-white);
+    /* ナビゲーション文字色 */
+    --color-nav-link-active-bg: var(--palette-black);
+    /* アクティブなナビリンク背景 */
+    --color-nav-link-active-text: var(--color-primary);
+    /* アクティブなナビリンク文字色 */
 
     /* --- UI要素: Button --- */
-    --color-button-text: var(--palette-white);             /* 基本ボタン文字色 (Primary, Secondary, Danger) */
-    --color-button-primary-bg: var(--color-primary);       /* Primaryボタン背景 */
-    --color-button-secondary-bg: var(--color-text-secondary); /* Secondaryボタン背景 (灰色系) */
-    --color-button-danger-bg: var(--color-danger);         /* Dangerボタン背景 */
-    --color-button-clear-bg: var(--color-background);      /* Clearボタン背景 */
-    --color-button-clear-text: var(--color-text-primary);  /* Clearボタン文字色 */
-    --color-button-clear-border: var(--color-border);      /* Clearボタンボーダー */
+    --color-button-text: var(--palette-white);
+    /* 基本ボタン文字色 (Primary, Secondary, Danger) */
+    --color-button-primary-bg: var(--color-primary);
+    /* Primaryボタン背景 */
+    --color-button-secondary-bg: var(--color-text-secondary);
+    /* Secondaryボタン背景 (灰色系) */
+    --color-button-danger-bg: var(--color-danger);
+    /* Dangerボタン背景 */
+    --color-button-clear-bg: var(--color-background);
+    /* Clearボタン背景 */
+    --color-button-clear-text: var(--color-text-primary);
+    /* Clearボタン文字色 */
+    --color-button-clear-border: var(--color-border);
+    /* Clearボタンボーダー */
     /* Note: ボタンのホバー色は各ボタンの定義箇所で直接指定 or 追加Token定義 */
 
     /* --- UI要素: Table --- */
-    --color-table-header-bg: var(--palette-gray-ash);    /* テーブルヘッダー背景 */
+    --color-table-header-bg: var(--palette-gray-ash);
+    /* テーブルヘッダー背景 */
     /* Note: テーブル行ホバー色は --color-hover-bg を使用 */
 
     /* --- UI要素: Form --- */
-    --color-form-control-bg: var(--color-surface);         /* フォーム入力背景 */
-    --color-form-control-border: var(--color-border);      /* フォーム入力ボーダー */
-    --color-form-control-focus-border: var(--palette-sub); /* フォーカス時ボーダー (Primary Hover/Sub) */
-    --color-form-control-focus-shadow: rgba(0, 0, 102, 0.25); /* フォーカス時影 (Primaryの薄い色) */
+    --color-form-control-bg: var(--color-surface);
+    /* フォーム入力背景 */
+    --color-form-control-border: var(--color-border);
+    /* フォーム入力ボーダー */
+    --color-form-control-focus-border: var(--palette-sub);
+    /* フォーカス時ボーダー (Primary Hover/Sub) */
+    --color-form-control-focus-shadow: rgba(0, 0, 102, 0.25);
+    /* フォーカス時影 (Primaryの薄い色) */
 
     /* --- UI要素: Interaction States --- */
-    --color-hover-bg: var(--palette-gray-ash);      /* ホバー時の背景色 (リスト項目など) */
-    --color-active-bg: var(--palette-gray-ash);     /* アクティブ時の背景色 (ナビリンクなど) */
+    --color-hover-bg: var(--palette-gray-ash);
+    /* ホバー時の背景色 (リスト項目など) */
+    --color-active-bg: var(--palette-gray-ash);
+    /* アクティブ時の背景色 (ナビリンクなど) */
 
     /* --- フォント --- */
     --font-family-base: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "游ゴシック Medium", "Yu Gothic Medium", "メイリオ", Meiryo, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --font-size-xs: 0.75rem;  /* 12px */
-    --font-size-sm: 0.875rem; /* 14px */
-    --font-size-base: 1rem;    /* 16px */
-    --font-size-lg: 1.25rem;  /* 20px */
-    --font-size-xl: 1.875rem; /* 30px */
+    --font-size-xs: 0.75rem;
+    /* 12px */
+    --font-size-sm: 0.875rem;
+    /* 14px */
+    --font-size-base: 1rem;
+    /* 16px */
+    --font-size-lg: 1.25rem;
+    /* 20px */
+    --font-size-xl: 1.875rem;
+    /* 30px */
 
     /* --- その他 --- */
-    --border-radius: 0.375rem; /* 6px */
+    --border-radius: 0.375rem;
+    /* 6px */
 }
 
 /* ==========================================================================
@@ -103,25 +144,40 @@
 *::after {
     box-sizing: border-box;
 }
-body, h1, h2, h3, h4, p, ul, ol, table, dl {
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+table,
+dl {
     margin: 0;
 }
-ul, ol {
+
+ul,
+ol {
     padding: 0;
     list-style: none;
 }
+
 body {
     font-family: var(--font-family-base);
     background-color: var(--color-background);
     color: var(--color-text-primary);
     line-height: 1.5;
 }
+
 button,
 a.button {
     border: none;
     cursor: pointer;
     text-decoration: none;
 }
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -135,21 +191,30 @@ table {
 .mockup-container {
     display: flex;
 }
+
 .mockup-main {
     margin-left: 240px;
     padding: 2rem;
     width: calc(100% - 240px);
 }
+
 .mockup-page {
     display: none;
     animation: fadeIn 0.5s ease-in-out;
 }
+
 .mockup-page.active {
     display: block;
 }
+
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* ==========================================================================
@@ -172,11 +237,13 @@ table {
     gap: 2rem;
     z-index: 1000;
 }
+
 .header-logo {
     font-size: var(--font-size-lg);
     font-weight: 700;
     text-align: center;
 }
+
 .header-logo a {
     color: inherit;
     text-decoration: none;
@@ -189,25 +256,31 @@ table {
     justify-content: space-between;
     height: 100%;
     overflow-y: auto;
-    
+
     /* ▼▼▼ 追加: スクロールバー非表示 ▼▼▼ */
-    -ms-overflow-style: none;  /* IE/Edge */
-    scrollbar-width: none;     /* Firefox */
+    -ms-overflow-style: none;
+    /* IE/Edge */
+    scrollbar-width: none;
+    /* Firefox */
     /* ▲▲▲ 追加 ▲▲▲ */
 }
+
 /* ▼▼▼ 追加: Webkit系スクロールバー非表示 ▼▼▼ */
 .nav::-webkit-scrollbar {
-    display: none; /* Chrome/Safari/Edge */
+    display: none;
+    /* Chrome/Safari/Edge */
 }
+
 /* ▲▲▲ 追加 ▲▲▲ */
 
 .nav-list {
-/* ... (変更なし) ... */
+    /* ... (変更なし) ... */
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     text-align: left;
 }
+
 .nav-link {
     display: block;
     width: 100%;
@@ -219,14 +292,17 @@ table {
     transition: background-color 0.2s, color 0.2s;
     text-align: left;
 }
+
 .nav-link:hover {
     background-color: var(--color-hover-bg);
 }
+
 .nav-link.active {
     font-weight: 700;
     background-color: var(--color-active-bg);
     color: var(--color-primary);
 }
+
 .nav-logout-section {
     margin-top: auto;
     padding-top: 1rem;
@@ -248,15 +324,19 @@ table {
     transition: background-color 0.2s ease-in-out;
     text-decoration: none;
 }
+
 .button-primary {
     background-color: var(--color-primary);
 }
+
 .button-secondary {
     background-color: var(--color-text-secondary);
 }
+
 .button-danger {
     background-color: var(--color-danger);
 }
+
 .button-clear {
     background-color: var(--color-background);
     color: var(--color-text-primary);
@@ -276,8 +356,10 @@ table {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem; /* 2rem -> 1.5rem に戻す */
+    margin-bottom: 1.5rem;
+    /* 2rem -> 1.5rem に戻す */
 }
+
 /* ▲▲▲ 変更ここまで ▲▲▲ */
 
 
@@ -288,9 +370,11 @@ table {
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
     padding: 1.5rem;
-    margin-top: 1.5rem; /* 変更なし (元々 1.5rem だったと想定) */
+    margin-top: 1.5rem;
+    /* 変更なし (元々 1.5rem だったと想定) */
     background-color: var(--color-surface);
 }
+
 /* ▲▲▲ 変更ここまで ▲▲▲ */
 
 .section-title {
@@ -300,13 +384,16 @@ table {
     /* padding-bottom: 0.5rem; (削除) */
     /* border-bottom: 1px solid var(--color-border); (削除) */
 }
+
 .section-content {
     margin-top: 0;
 }
+
 .section-footer {
     margin-top: 1.5rem;
     text-align: right;
 }
+
 /* ▲▲▲ 変更ここまで ▲▲▲ */
 
 
@@ -319,10 +406,12 @@ table {
     border-radius: var(--border-radius);
     background-color: var(--color-surface);
 }
+
 .table {
     width: 100%;
     border-collapse: collapse;
 }
+
 .table th,
 .table td {
     padding: 0.75rem 1rem;
@@ -331,22 +420,28 @@ table {
     font-size: var(--font-size-sm);
     text-align: center;
 }
+
 .table thead th {
     font-weight: 600;
-background-color: var(--color-hover-bg); /* 例: ホバー背景色を使用 */
+    background-color: var(--color-hover-bg);
+    /* 例: ホバー背景色を使用 */
 }
+
 .table tbody td {
     text-align: center;
 }
+
 .table tbody tr:last-child td {
     border-bottom: none;
 }
+
 .table-button-group {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
 }
+
 .table input[type="text"],
 .table input[type="number"],
 .table input[type="date"] {
@@ -363,6 +458,7 @@ background-color: var(--color-hover-bg); /* 例: ホバー背景色を使用 */
     border-bottom: 1px solid var(--color-border);
     margin-bottom: -1px;
 }
+
 .tab-item {
     padding: 0.75rem 1.5rem;
     cursor: pointer;
@@ -372,6 +468,7 @@ background-color: var(--color-hover-bg); /* 例: ホバー背景色を使用 */
     font-weight: 500;
     color: var(--color-text-secondary);
 }
+
 .tab-item.active {
     border-color: var(--color-border);
     border-bottom-color: var(--color-surface);
@@ -380,8 +477,9 @@ background-color: var(--color-hover-bg); /* 例: ホバー背景色を使用 */
     background-color: var(--color-surface);
     color: var(--color-primary);
 }
+
 .tab-content-wrapper {
-/* * 2025/10/23 ユーザーリクエストにより、タブコンテンツを囲う枠を削除。
+    /* * 2025/10/23 ユーザーリクエストにより、タブコンテンツを囲う枠を削除。
      * 各セクションが独立して表示されるようになります。
      */
     /* border: 1px solid var(--color-border); */
@@ -389,10 +487,12 @@ background-color: var(--color-hover-bg); /* 例: ホバー背景色を使用 */
     /* padding: 1.5rem; */
     /* background-color: var(--color-surface); */
 }
+
 .tab-content {
     display: none;
     animation: fadeIn 0.3s;
 }
+
 .tab-content.active {
     display: block;
 }
@@ -404,6 +504,7 @@ background-color: var(--color-hover-bg); /* 例: ホバー背景色を使用 */
 .form-group {
     margin-bottom: 1.5rem;
 }
+
 .form-group label,
 .form-label {
     display: block;
@@ -416,7 +517,8 @@ background-color: var(--color-hover-bg); /* 例: ホバー背景色を使用 */
     display: block;
     width: 100%;
     padding: 0.5rem 0.75rem;
-    font-size: var(--font-size-base); /* 基本のフォントサイズ */
+    font-size: var(--font-size-base);
+    /* 基本のフォントサイズ */
     line-height: 1.5;
     color: var(--color-text-primary);
     background-color: var(--color-surface);
@@ -442,8 +544,10 @@ textarea.form-control {
     background-color: var(--color-surface);
     border-color: var(--color-primary-hover);
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0, 0, 102, 0.25); /* --color-primary の薄い影 */
+    box-shadow: 0 0 0 0.2rem rgba(0, 0, 102, 0.25);
+    /* --color-primary の薄い影 */
 }
+
 /* ▲▲▲ 汎用フォームスタイルここまで ▲▲▲ */
 
 
@@ -455,32 +559,39 @@ textarea.form-control {
     gap: 1rem 1.5rem;
     align-items: center;
 }
+
 .detail-grid dt {
     font-weight: 600;
     text-align: right;
-    color: #495057; /* Note: This is a one-off color */
+    color: #495057;
+    /* Note: This is a one-off color */
 }
+
 .detail-grid dd {
     margin: 0;
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
+
 /* detail-grid内のフォーム要素は、汎用の.form-controlスタイルを使いつつ、一部上書き */
 .detail-grid input,
 .detail-grid select,
 .detail-grid textarea {
     width: 100%;
-    padding: 0.375rem 0.75rem; /* 汎用より少し小さめ */
+    padding: 0.375rem 0.75rem;
+    /* 汎用より少し小さめ */
     font-size: var(--font-size-base);
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
 }
+
 textarea.work-content {
     font-family: inherit;
     min-height: 120px;
     resize: vertical;
 }
+
 .memo-content {
     white-space: pre-wrap;
     background-color: var(--color-background);
@@ -497,22 +608,26 @@ textarea.work-content {
     border-radius: var(--border-radius);
     padding: 1rem;
 }
+
 .calendar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
 }
+
 .calendar-body {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 5px;
     text-align: center;
 }
+
 .calendar-day-name {
     font-weight: 600;
     font-size: var(--font-size-sm);
 }
+
 .calendar-day {
     padding: 0.5rem;
     border: 1px solid transparent;
@@ -520,6 +635,7 @@ textarea.work-content {
     cursor: pointer;
     transition: background-color 0.2s;
 }
+
 .calendar-day:hover {
     background-color: var(--color-active-bg);
 }
@@ -535,12 +651,15 @@ textarea.work-content {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     animation: fadeIn 0.3s;
 }
+
 .modal-content {
-    background-color: #fefefe; /* Note: This is a one-off color */
-    margin: 10% auto; /* 10% from top, auto horizontal */
+    background-color: #fefefe;
+    /* Note: This is a one-off color */
+    margin: 10% auto;
+    /* 10% from top, auto horizontal */
     padding: 2rem;
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
@@ -548,6 +667,7 @@ textarea.work-content {
     max-width: 700px;
     position: relative;
 }
+
 .modal-header {
     display: flex;
     justify-content: space-between;
@@ -556,52 +676,65 @@ textarea.work-content {
     padding-bottom: 1rem;
     margin-bottom: 1rem;
 }
+
 .modal-title {
     font-size: var(--font-size-lg);
     font-weight: 600;
 }
+
 .modal-close {
     font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
-    color: #aaa; /* Note: This is a one-off color */
+    color: #aaa;
+    /* Note: This is a one-off color */
 }
+
 .modal-close:hover,
 .modal-close:focus {
     color: black;
 }
+
 /* .modal-body .form-group は汎用スタイル .form-group を使用 */
 .modal-body .form-group {
-    margin-bottom: 1rem; /* モーダル内は少し狭く */
+    margin-bottom: 1rem;
+    /* モーダル内は少し狭く */
 }
+
 /* .modal-body label は汎用スタイル .form-label を使用 */
 .modal-body label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
 }
+
 /* modal-body 内のフォーム要素は、汎用の.form-controlスタイルを使いつつ、一部上書き */
 .modal-body input,
 .modal-body textarea,
 .modal-body select {
     width: 100%;
-    padding: 0.5rem; /* 汎用より少し小さめ */
+    padding: 0.5rem;
+    /* 汎用より少し小さめ */
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
 }
+
 .modal-body .time-input-group {
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
+
 .modal-body .checkbox-group {
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
+
 .modal-body .checkbox-group input {
     width: auto;
 }
+
 .modal-footer {
     text-align: right;
     margin-top: 2rem;
@@ -614,8 +747,10 @@ textarea.work-content {
    ========================================================================== */
 /* ... (変更なし) ... */
 .col-actions {
-    width: 120px; /* ボタンが収まるように幅を固定 */
-    white-space: nowrap; /* セル内での改行を防ぐ */
+    width: 120px;
+    /* ボタンが収まるように幅を固定 */
+    white-space: nowrap;
+    /* セル内での改行を防ぐ */
 }
 
 /* --- Accordion Styles --- */
@@ -629,9 +764,11 @@ textarea.work-content {
     font-size: 12px;
     transition: transform 0.2s ease-in-out;
 }
+
 .accordion-toggle.active::after {
     transform: translateY(-50%) rotate(90deg);
 }
+
 .nav-link.accordion-toggle {
     position: relative;
 }
@@ -645,7 +782,10 @@ textarea.work-content {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
+    grid-auto-rows: 1fr;
+    /* ← この行を追加 */
 }
+
 .card {
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -655,10 +795,12 @@ textarea.work-content {
     display: flex;
     flex-direction: column;
 }
+
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+
 .card a {
     text-decoration: none;
     color: inherit;
@@ -667,20 +809,25 @@ textarea.work-content {
     padding: 1.5rem;
     flex-grow: 1;
 }
+
 .card-icon {
-    font-size: 2.5rem; /* 40px */
+    font-size: 2.5rem;
+    /* 40px */
     color: var(--color-primary);
     margin-bottom: 1rem;
 }
+
 .card-content h3 {
     font-size: var(--font-size-lg);
     margin-bottom: 0.5rem;
 }
+
 .card-content p {
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
     line-height: 1.4;
 }
+
 .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
@@ -703,31 +850,35 @@ textarea.work-content {
    Dashboard Page (Cards) - p2508d_mocks/dashboard/index.html より統合
    ========================================================================== */
 /* ... (変更なし) ... */
-.dashboard-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-    gap: 1.5rem; 
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
 }
-.dashboard-card { 
-    border: 1px solid var(--color-border); 
-    border-radius: var(--border-radius); 
-    padding: 1.5rem; 
-    background-color: #fff; 
+
+.dashboard-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    background-color: #fff;
 }
-.dashboard-card-title { 
-    font-size: 1.1rem; 
-    font-weight: 600; 
-    margin-bottom: 1rem; 
+
+.dashboard-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
 }
-.dashboard-card-content { 
-    font-size: 1.8rem; 
-    font-weight: bold; 
-    color: var(--color-primary); 
+
+.dashboard-card-content {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--color-primary);
 }
-.dashboard-card-subtext { 
-    font-size: 1rem; 
-    color: #6c757d; 
-    font-weight: normal; 
+
+.dashboard-card-subtext {
+    font-size: 1rem;
+    color: #6c757d;
+    font-weight: normal;
 }
 
 /* ==========================================================================
@@ -739,25 +890,36 @@ textarea.work-content {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: var(--color-background); /* 既存の背景色 */
+    background-color: var(--color-background);
+    /* 既存の背景色 */
     padding: 1rem;
 }
+
 .login-box {
     width: 100%;
-    max-width: 420px; /* ログインボックスの最大幅 */
-    padding: 2.5rem;  /* 内側余白を広めに設定 */
-    background-color: var(--color-surface); /* 既存の表面色 (白) */
-    border: 1px solid var(--color-border); /* 既存の境界線色 */
-    border-radius: var(--border-radius); /* 既存の角丸 */
-    box-shadow: 0 4px 12px var(--color-shadow); /* 既存の影 */
+    max-width: 420px;
+    /* ログインボックスの最大幅 */
+    padding: 2.5rem;
+    /* 内側余白を広めに設定 */
+    background-color: var(--color-surface);
+    /* 既存の表面色 (白) */
+    border: 1px solid var(--color-border);
+    /* 既存の境界線色 */
+    border-radius: var(--border-radius);
+    /* 既存の角丸 */
+    box-shadow: 0 4px 12px var(--color-shadow);
+    /* 既存の影 */
 }
+
 .login-title {
     text-align: center;
     font-size: var(--font-size-lg);
     font-weight: 700;
-    color: var(--color-primary); /* 既存のプライマリカラー */
+    color: var(--color-primary);
+    /* 既存のプライマリカラー */
     margin-bottom: 2rem;
 }
+
 /* .form-group は汎用スタイルを使用 */
 /* .form-group label は汎用スタイルを使用 */
 
@@ -765,20 +927,24 @@ textarea.work-content {
 .login-box input[type="email"],
 .login-box input[type="password"] {
     width: 100%;
-    padding: 0.75rem 1rem; /* ログインボックスは少し大きめ */
+    padding: 0.75rem 1rem;
+    /* ログインボックスは少し大きめ */
     font-size: var(--font-size-base);
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
     line-height: 1.5;
     background-color: var(--color-surface);
     color: var(--color-text-primary);
-    box-sizing: border-box; /* paddingを含めてwidth: 100%にするため */
+    box-sizing: border-box;
+    /* paddingを含めてwidth: 100%にするため */
 }
+
 .button-full-width {
     width: 100%;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
-    margin-top: 1rem; /* 最後のフォームグループとの間隔 */
+    margin-top: 1rem;
+    /* 最後のフォームグループとの間隔 */
     font-size: var(--font-size-base);
 }
 
@@ -793,6 +959,7 @@ textarea.work-content {
     vertical-align: middle;
     height: 60px;
 }
+
 .schedule-grid-table thead th:first-child,
 .schedule-grid-table tbody tr td:first-child {
     font-weight: 600;
@@ -800,14 +967,17 @@ textarea.work-content {
     width: 80px;
     font-size: var(--font-size-sm);
 }
+
 .schedule-cell {
     font-size: var(--font-size-sm);
     cursor: pointer;
     transition: background-color 0.2s;
 }
+
 .schedule-cell:hover {
     background-color: var(--color-hover-bg);
 }
+
 .schedule-cell.holiday {
     background-color: #fde2e2;
     color: var(--color-danger);
@@ -819,10 +989,13 @@ textarea.work-content {
    ========================================================================== */
 /* ... (変更なし) ... */
 .calendar-table td[style*="#fde2e2"] {
-     background-color: #fde2e2; /* For holiday */
+    background-color: #fde2e2;
+    /* For holiday */
 }
+
 .calendar-table td[style*="#ffe8cc"] {
-     background-color: #ffe8cc; /* For special holiday */
+    background-color: #ffe8cc;
+    /* For special holiday */
 }
 
 
@@ -831,12 +1004,17 @@ textarea.work-content {
     overflow-x: auto;
     white-space: nowrap;
     margin-bottom: 1.5rem;
-    -ms-overflow-style: none; /* IE/Edge スクロールバー非表示 */
-    scrollbar-width: none;    /* Firefox スクロールバー非表示 */
+    -ms-overflow-style: none;
+    /* IE/Edge スクロールバー非表示 */
+    scrollbar-width: none;
+    /* Firefox スクロールバー非表示 */
 }
-.sub-nav::-webkit-scrollbar { 
-    display: none; /* Chrome/Safari スクロールバー非表示 */
+
+.sub-nav::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari スクロールバー非表示 */
 }
+
 .sub-nav ul {
     display: flex;
     padding: 0;
@@ -845,64 +1023,108 @@ textarea.work-content {
     /* ナビゲーション全体の下に細い罫線を引く */
     border-bottom: 1px solid var(--color-border);
 }
+
 .sub-nav-item {
     display: inline-block;
     padding: 0.75rem 1.5rem;
     cursor: pointer;
     /* 罫線を削除し、下線用に透明なボーダーを設定 */
     border: none;
-    border-bottom: 3px solid transparent; /* アクティブ時の下線分の高さを確保 */
+    border-bottom: 3px solid transparent;
+    /* アクティブ時の下線分の高さを確保 */
     font-weight: 500;
     color: var(--color-text-secondary);
     text-decoration: none;
     /* トランジションの対象を変更 */
     transition: color 0.2s, border-color 0.2s;
 }
+
 .sub-nav-item:hover {
     color: var(--color-primary);
     /* ホバー時に薄い下線を表示 */
     border-bottom-color: var(--color-border);
 }
+
 .sub-nav-item.active {
     font-weight: 600;
     color: var(--color-primary);
     /* アクティブ時は太い下線を表示 */
     border-bottom-color: var(--color-primary);
 }
+
 /* --- ▲▲▲ 新しいサブナビゲーションスタイル ▲▲▲ --- */
 
 
 /* .textarea.form-control は汎用スタイルでカバー */
 
 /* ▼▼▼ 変更: 見出しの下線を削除 ▼▼▼ */
-.section-header { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    margin-bottom: 1rem; /* コンテンツとのマージン */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    /* コンテンツとのマージン */
     /* padding-bottom: 0.5rem; (削除) */
     /* border-bottom: 1px solid var(--color-border); (削除) */
 }
-.section-title-in-header { font-size: var(--font-size-lg); font-weight: 600; margin: 0; padding: 0; border: none; }
+
+.section-title-in-header {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
 /* ▲▲▲ 変更ここまで ▲▲▲ */
 
 
-.table td { vertical-align: top; }
-.readonly-text { padding: 0.5rem 0.75rem; display: block; min-height: calc(1.5em + 0.75rem + 2px); }
-.readonly-textarea { white-space: pre-wrap; padding: 0.5rem 0.75rem; display: block; }
-.clinic-info { padding: 0.5rem 0.75rem; line-height: 1.4; }
-.clinic-info span { display: block; font-size: var(--font-size-sm); }
-.clinic-info .clinic-name { font-weight: 600; }
-.clinic-info .clinic-dept-doctor { color: var(--color-text-secondary); font-size: var(--font-size-xs); }
-#usage-settings-table tbody tr:hover {
-     background-color: var(--color-hover-bg);
+.table td {
+    vertical-align: top;
 }
+
+.readonly-text {
+    padding: 0.5rem 0.75rem;
+    display: block;
+    min-height: calc(1.5em + 0.75rem + 2px);
+}
+
+.readonly-textarea {
+    white-space: pre-wrap;
+    padding: 0.5rem 0.75rem;
+    display: block;
+}
+
+.clinic-info {
+    padding: 0.5rem 0.75rem;
+    line-height: 1.4;
+}
+
+.clinic-info span {
+    display: block;
+    font-size: var(--font-size-sm);
+}
+
+.clinic-info .clinic-name {
+    font-weight: 600;
+}
+
+.clinic-info .clinic-dept-doctor {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-xs);
+}
+
+#usage-settings-table tbody tr:hover {
+    background-color: var(--color-hover-bg);
+}
+
 .form-group-inline {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     margin-bottom: 0;
 }
+
 .form-group-inline label {
     font-weight: normal;
     font-size: var(--font-size-sm);
@@ -911,21 +1133,27 @@ textarea.work-content {
     align-items: center;
     gap: 0.25rem;
 }
+
 .section-header-controls {
     display: flex;
     align-items: center;
     gap: 1.5rem;
 }
+
 .section-header-controls .button {
-     margin-left: auto;
+    margin-left: auto;
 }
+
 .skill-tree-table {
     width: 100%;
-    border-collapse: separate; /* セルのボーダーを独立させる */
+    border-collapse: separate;
+    /* セルのボーダーを独立させる */
     border-spacing: 0;
     background-color: var(--color-surface);
-    overflow: hidden; /* 角丸のため */
+    overflow: hidden;
+    /* 角丸のため */
 }
+
 .skill-tree-table th,
 .skill-tree-table td {
     padding: 0.75rem 1rem;
@@ -934,24 +1162,31 @@ textarea.work-content {
     font-size: var(--font-size-sm);
     text-align: left;
 }
+
 .skill-tree-table thead th {
     font-weight: 600;
     background-color: #f9f9f9;
     text-align: left;
 }
+
 .skill-tree-table tbody tr:last-child td {
     border-bottom: none;
 }
+
 .skill-tree-table tbody tr:hover {
     background-color: var(--color-hover-bg);
 }
+
 .skill-tree-table .col-level {
-    width: 200px; /* 習熟度レベル選択の列幅を固定 */
+    width: 200px;
+    /* 習熟度レベル選択の列幅を固定 */
 }
+
 .skill-name-cell {
     display: flex;
     align-items: center;
 }
+
 .toggle-icon {
     display: inline-block;
     width: 20px;
@@ -965,10 +1200,12 @@ textarea.work-content {
     font-family: monospace;
     flex-shrink: 0;
 }
+
 .toggle-icon.no-child {
     cursor: default;
     color: transparent;
 }
+
 .tree-prefix {
     flex-shrink: 0;
     font-family: monospace;
@@ -979,24 +1216,45 @@ textarea.work-content {
     display: inline-block;
     text-align: center;
 }
-.skill-name-cell.indent-0 { padding-left: 0.5rem; }
-.skill-name-cell.indent-1 { padding-left: 2.0rem; } /* 0.5rem + 1.5rem (24px) */
-.skill-name-cell.indent-2 { padding-left: 3.5rem; } /* 0.5rem + 1.5rem * 2 */
-.skill-name-cell.indent-3 { padding-left: 5.0rem; } /* 0.5rem + 1.5rem * 3 */
+
+.skill-name-cell.indent-0 {
+    padding-left: 0.5rem;
+}
+
+.skill-name-cell.indent-1 {
+    padding-left: 2.0rem;
+}
+
+/* 0.5rem + 1.5rem (24px) */
+.skill-name-cell.indent-2 {
+    padding-left: 3.5rem;
+}
+
+/* 0.5rem + 1.5rem * 2 */
+.skill-name-cell.indent-3 {
+    padding-left: 5.0rem;
+}
+
+/* 0.5rem + 1.5rem * 3 */
 .skill-category-row {
     font-weight: 600;
-    background-color: #fdfdfd; /* カテゴリ行を少し目立たせる */
+    background-color: #fdfdfd;
+    /* カテゴリ行を少し目立たせる */
 }
+
 .skill-category-row[data-toggle="collapse"] {
     cursor: pointer;
 }
+
 .skill-item-row .skill-name-cell {
-     font-weight: normal;
+    font-weight: normal;
 }
+
 .skill-level-select {
     width: 100%;
     min-width: 160px;
 }
+
 .skill-node.collapsed {
     display: none;
 }
@@ -1004,11 +1262,12 @@ textarea.work-content {
 
 /* ▼▼▼ 追加: list-page-header 内の h2.section-title のスタイルを定義 ▼▼▼ */
 /* ... (変更なし) ... */
-.list-page-header > h2.section-title {
+.list-page-header>h2.section-title {
     margin: 0;
     border: none;
     padding: 0;
 }
+
 /* ▲▲▲ 追加 ▲▲▲ */
 
 /* ==========================================================================
@@ -1017,12 +1276,15 @@ textarea.work-content {
 
 /* 利用者一覧の行をクリック可能にするスタイル */
 #member-list-tbody .clickable-row {
-    cursor: pointer; /* カーソルを手の形に変更 */
-    transition: background-color 0.2s ease-in-out; /* 背景色の変化を滑らかに */
+    cursor: pointer;
+    /* カーソルを手の形に変更 */
+    transition: background-color 0.2s ease-in-out;
+    /* 背景色の変化を滑らかに */
 }
 
 #member-list-tbody .clickable-row:hover {
-    background-color: var(--color-hover-bg); /* ホバー時の背景色 (style.cssで定義済みの変数) */
+    background-color: var(--color-hover-bg);
+    /* ホバー時の背景色 (style.cssで定義済みの変数) */
 }
 
 /* 職員一覧の行をクリック可能にするスタイル */
@@ -1045,6 +1307,7 @@ textarea.work-content {
 #member-skill-list-tbody .clickable-row:hover {
     background-color: var(--color-hover-bg);
 }
+
 /* ▲▲▲ 追加ここまで ▲▲▲ */
 
 /* 工賃管理(利用者別)一覧の行をクリック可能にするスタイル */
@@ -1077,18 +1340,22 @@ textarea.work-content {
 #clinic-table-body .clickable-row:hover {
     background-color: var(--color-hover-bg);
 }
+
 /* ▲▲▲ 追加ここまで ▲▲▲ */
 
 /* ▼▼▼ 追加 ▼▼▼ */
 /* 事業所詳細 > 所属職員テーブルの行をクリック可能にするスタイル */
-#facility-staff-tbody .clickable-row { /* IDを変更 */
+#facility-staff-tbody .clickable-row {
+    /* IDを変更 */
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
 }
 
-#facility-staff-tbody .clickable-row:hover { /* IDを変更 */
+#facility-staff-tbody .clickable-row:hover {
+    /* IDを変更 */
     background-color: var(--color-hover-bg);
 }
+
 /* ▲▲▲ 追加ここまで ▲▲▲ */
 
 /* ▼▼▼ 追加 ▼▼▼ */
@@ -1101,6 +1368,7 @@ textarea.work-content {
 #incident-reports-tbody .clickable-row:hover {
     background-color: var(--color-hover-bg);
 }
+
 /* ▲▲▲ 追加ここまで ▲▲▲ */
 
 /* ▼▼▼ 追加 ▼▼▼ */
@@ -1113,6 +1381,7 @@ textarea.work-content {
 #daily-records-tbody .clickable-row:hover {
     background-color: var(--color-hover-bg);
 }
+
 /* ▲▲▲ 追加ここまで ▲▲▲ */
 
 /* ▼▼▼ 追加 ▼▼▼ */
@@ -1125,6 +1394,7 @@ textarea.work-content {
 #transaction-list-tbody .clickable-row:hover {
     background-color: var(--color-hover-bg);
 }
+
 /* ▲▲▲ 追加ここまで ▲▲▲ */
 
 /* ▼▼▼ 追加 ▼▼▼ */
@@ -1133,6 +1403,7 @@ textarea.work-content {
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
 }
+
 #utilization-tbody .clickable-row:hover {
     background-color: var(--color-hover-bg);
 }
@@ -1142,9 +1413,11 @@ textarea.work-content {
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
 }
+
 #production-tbody .clickable-row:hover {
     background-color: var(--color-hover-bg);
 }
+
 /* ▲▲▲ 追加ここまで ▲▲▲ */
 
 
@@ -1187,23 +1460,28 @@ textarea.work-content {
 /* セクション内のグリッドレイアウト */
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 最小幅200pxで自動調整 */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* 最小幅200pxで自動調整 */
     gap: 1.5rem;
 }
 
 /* フォームグループ内の要素間隔調整 (汎用.form-groupはmargin-bottomのみ) */
 .detail-form .form-group,
 .form-grid .form-group {
-    display: flex; /* form-labelとform-controlを縦に並べる */
+    display: flex;
+    /* form-labelとform-controlを縦に並べる */
     flex-direction: column;
-    gap: 0.25rem; /* ラベルと入力欄の間の隙間 */
-    margin-bottom: 0; /* form-gridやdetail-formのgapで制御するためリセット */
+    gap: 0.25rem;
+    /* ラベルと入力欄の間の隙間 */
+    margin-bottom: 0;
+    /* form-gridやdetail-formのgapで制御するためリセット */
 }
 
 /* フォームアクション（保存ボタンなど）のスタイル */
 .form-actions {
     display: flex;
-    justify-content: flex-end; /* 右寄せ */
+    justify-content: flex-end;
+    /* 右寄せ */
     margin-top: 1.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--color-border);
@@ -1211,15 +1489,20 @@ textarea.work-content {
 
 /* テーブル内のフォームコントロールのスタイル */
 /* 既存の .table input[...] スタイルと競合しないよう、より詳細に指定 */
-.table td > .form-control { /* td 直下の .form-control に限定 */
+.table td>.form-control {
+    /* td 直下の .form-control に限定 */
     width: 100%;
-    padding: 0.375rem 0.5rem; /* テーブル内は少し小さく */
+    padding: 0.375rem 0.5rem;
+    /* テーブル内は少し小さく */
     font-size: var(--font-size-sm);
-    box-sizing: border-box; /* paddingを含めて幅100%にする */
-    margin: 0; /* 不要なマージンをリセット */
+    box-sizing: border-box;
+    /* paddingを含めて幅100%にする */
+    margin: 0;
+    /* 不要なマージンをリセット */
 }
+
 /* テーブル内の select も同様 */
-.table td > select.form-control {
+.table td>select.form-control {
     width: 100%;
     padding: 0.375rem 0.5rem;
     font-size: var(--font-size-sm);
@@ -1236,8 +1519,10 @@ textarea.work-content {
     display: grid;
     /* 2列レイアウトを基本とし、小さい画面では1列に */
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem 1.5rem; /* 縦横の隙間 */
-    align-items: end; /* 要素を下に揃える */
+    gap: 1rem 1.5rem;
+    /* 縦横の隙間 */
+    align-items: end;
+    /* 要素を下に揃える */
 }
 
 /* フィルターフォーム内の各グループのマージンをリセット */
@@ -1259,16 +1544,22 @@ textarea.work-content {
     gap: 1.5rem;
     flex-wrap: wrap;
 }
+
 .filter-form-inline .form-group {
     margin-bottom: 0;
-    flex-grow: 1; /* フォームグループが横幅を分け合う */
+    flex-grow: 1;
+    /* フォームグループが横幅を分け合う */
 }
+
 /* .form-control の padding: 0.5rem, line-height: 1.5, border: 1px*2 に合わせる */
 .filter-form-inline .button-secondary {
-    margin-bottom: 0; /* align-items: flex-end のため */
-    height: calc(1.5em + 1rem + 2px); 
-    flex-shrink: 0; /* ボタンが縮まないようにする */
+    margin-bottom: 0;
+    /* align-items: flex-end のため */
+    height: calc(1.5em + 1rem + 2px);
+    flex-shrink: 0;
+    /* ボタンが縮まないようにする */
 }
+
 /* ▲▲▲ 追加ここまで ▲▲▲ */
 
 
@@ -1316,4 +1607,3 @@ textarea.work-content {
 #partner-contacts-tbody .clickable-row:hover {
     background-color: var(--color-hover-bg);
 }
-
