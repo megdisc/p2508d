@@ -18,16 +18,16 @@
         .kpi-card .subtext { font-size: var(--font-size-xs); font-weight: normal; color: var(--color-text-secondary); }
         .col-number { text-align: right !important; }
         .detail-view { display: none; }
-        /* ▼▼▼ 追加: 期間選択セクション用スタイル ▼▼▼ */
         .period-selector-section .section-content {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 1.5rem; /* 要素間のスペース */
-            flex-wrap: wrap;
+            gap: 1rem; /* 各段の間隔を調整 */
         }
         .period-unit-buttons {
             display: flex;
-            gap: 0.5rem; /* ボタン間のスペース */
+            gap: 0.5rem;
+            margin-bottom: 0.5rem; /* 単位ボタンと表示の間隔 */
         }
         .period-unit-button {
             padding: 0.5rem 1rem;
@@ -48,21 +48,54 @@
             border-color: var(--color-primary);
             font-weight: 500;
         }
+        .period-main-selector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 500px;
+        }
+        .period-navigation-buttons .button {
+            padding: 0.75rem;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+        .period-display {
+            text-align: center;
+            flex-grow: 1;
+        }
+        .period-display-label { /* 事業年度ラベル */
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            margin-bottom: 0.25rem;
+        }
+        .period-display-main {
+            font-size: 2.2rem; /* さらに大きく */
+            font-weight: bold;
+            color: var(--color-primary);
+            line-height: 1.1;
+        }
+        .period-display-sub {
+            font-size: var(--font-size-xs); /* 少し小さく */
+            color: var(--color-text-secondary);
+            margin-top: 0.25rem;
+        }
         .period-detail-selectors {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            margin-top: 0.5rem; /* 表示との間隔 */
         }
         .period-detail-selectors .form-control {
-            width: auto; /* selectの幅を自動調整 */
-            padding: 0.5rem 0.75rem; /* .form-control に合わせる */
+            width: auto;
+            padding: 0.5rem 0.75rem;
         }
         .period-detail-selectors label {
-            margin-bottom: 0; /* ラベル下のマージン削除 */
-            font-weight: normal; /* 太字解除 */
+            margin-bottom: 0;
+            font-weight: normal;
             font-size: var(--font-size-sm);
         }
-        /* ▲▲▲ 追加ここまで ▲▲▲ */
     </style>
 </head>
 <body>
@@ -90,54 +123,64 @@
             <div id="analytics" class="mockup-page active">
                 <div class="list-page-header">
                     <h1 class="page-title">データ分析</h1>
-                     </div>
+                </div>
 
                 <div class="sub-nav">
                     <ul id="analytics-subnav">
-                        <li><a href="#" class="sub-nav-item active" data-tab="tab-financial-overview">財務状況</a></li>
-                         <li><a href="#" class="sub-nav-item" data-tab="tab-utilization">利用状況</a></li>
-                        <li><a href="#" class="sub-nav-item" data-tab="tab-production">生産活動</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-financial-overview">財務状況</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-utilization">利用状況</a></li>
+                        <li><a href="#" class="sub-nav-item active" data-tab="tab-production">生産活動</a></li>
                     </ul>
                 </div>
                 <div class="tab-content-wrapper">
 
-                    <div id="tab-financial-overview" class="tab-content active">
-
+                    <div id="tab-financial-overview" class="tab-content">
                         <div class="section period-selector-section" style="margin-bottom: 1.5rem;">
                             <div class="section-content">
-                                <label class="form-label">集計単位:</label>
-                                <div class="period-unit-buttons">
+                                <div class="period-unit-buttons" data-target-tab="tab-financial-overview">
                                     <button class="period-unit-button" data-unit="monthly">月次</button>
                                     <button class="period-unit-button active" data-unit="yearly">年次</button>
                                     <button class="period-unit-button" data-unit="all">全期間</button>
                                 </div>
-                                <div class="period-detail-selectors">
+                                <div class="period-main-selector">
+                                    <div class="period-navigation-buttons">
+                                        <button class="button button-secondary period-prev-button">‹</button>
+                                    </div>
+                                    <div class="period-display">
+                                        <p class="period-display-label">事業年度</p>
+                                        <p class="period-display-main" id="financial-period-display-main">2025年度</p>
+                                        <p class="period-display-sub" id="financial-period-display-sub">2025年4月1日～2026年3月31日</p>
+                                    </div>
+                                    <div class="period-navigation-buttons">
+                                        <button class="button button-secondary period-next-button">›</button>
+                                    </div>
+                                </div>
+                                <div class="period-detail-selectors" id="financial-period-details">
                                     <label for="financial-year-select">年度:</label>
-                                    <select id="financial-year-select" class="form-control">
+                                    <select id="financial-year-select" class="form-control period-year-select">
                                         <option value="2025" selected>2025年度</option>
                                         <option value="2024">2024年度</option>
                                         <option value="2023">2023年度</option>
                                     </select>
-                                    <label for="financial-month-select" style="display: none; margin-left: 1rem;">月:</label>
-                                    <select id="financial-month-select" class="form-control" style="display: none;">
-                                        <option value="1">1月</option> <option value="2">2月</option> <option value="3">3月</option>
+                                    <label for="financial-month-select" class="period-month-label" style="display: none; margin-left: 1rem;">月:</label>
+                                    <select id="financial-month-select" class="form-control period-month-select" style="display: none;">
                                         <option value="4">4月</option> <option value="5">5月</option> <option value="6">6月</option>
                                         <option value="7">7月</option> <option value="8">8月</option> <option value="9">9月</option>
                                         <option value="10" selected>10月</option> <option value="11">11月</option> <option value="12">12月</option>
+                                        <option value="1">1月</option> <option value="2">2月</option> <option value="3">3月</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="summary-view">
                             <div class="section">
-                                <h2 class="section-title">主要指標</h2>
+                                <h2 class="section-title">主要指標 (<span class="selected-period-display">2025年度</span>)</h2>
                                 <div class="kpi-grid">
                                     <div class="kpi-card"> <h4>総売上</h4> <p>15,850,000 <span class="subtext">円</span></p> </div>
                                     <div class="kpi-card"> <h4>総支出</h4> <p>13,100,000 <span class="subtext">円</span></p> </div>
                                     <div class="kpi-card"> <h4>経常利益</h4> <p>2,750,000 <span class="subtext">円</span></p> </div>
                                     <div class="kpi-card"> <h4>利益率</h4> <p>17.3 <span class="subtext">%</span></p> </div>
                                 </div>
-                                <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary); text-align: right;">※表示期間: 2025年度</p>
                             </div>
                             <div class="section">
                                 <div class="section-header">
@@ -162,7 +205,7 @@
                         <div class="detail-view">
                             <div class="section">
                                 <div class="section-header">
-                                    <h2 class="section-title-in-header">月次収支明細 (2025年度)</h2>
+                                    <h2 class="section-title-in-header">月次収支明細 (<span class="selected-period-display">2025年度</span>)</h2>
                                     <button class="button button-secondary" onclick="showDetailView('tab-financial-overview', false)">サマリーへ戻る</button>
                                 </div>
                                 <div class="table-wrapper">
@@ -177,7 +220,8 @@
                                 </div>
                             </div>
                         </div>
-                        </div>
+                    </div>
+
                     <div id="tab-utilization" class="tab-content">
                         <div class="summary-view">
                             <div class="section">
@@ -236,11 +280,50 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div id="tab-production" class="tab-content active">
+                        <div class="section period-selector-section" style="margin-bottom: 1.5rem;">
+                            <div class="section-content">
+                                <div class="period-unit-buttons" data-target-tab="tab-production">
+                                    <button class="period-unit-button" data-unit="monthly">月次</button>
+                                    <button class="period-unit-button active" data-unit="yearly">年次</button>
+                                    <button class="period-unit-button" data-unit="all">全期間</button>
+                                </div>
+                                <div class="period-main-selector">
+                                    <div class="period-navigation-buttons">
+                                        <button class="button button-secondary period-prev-button">‹</button>
+                                    </div>
+                                    <div class="period-display">
+                                        <p class="period-display-label">事業年度</p>
+                                        <p class="period-display-main" id="production-period-display-main">2025年度</p>
+                                        <p class="period-display-sub" id="production-period-display-sub">2025年4月1日～2026年3月31日</p>
+                                    </div>
+                                    <div class="period-navigation-buttons">
+                                        <button class="button button-secondary period-next-button">›</button>
+                                    </div>
+                                </div>
+                                <div class="period-detail-selectors" id="production-period-details">
+                                    <label for="production-year-select">年度:</label>
+                                    <select id="production-year-select" class="form-control period-year-select">
+                                        <option value="2025" selected>2025年度</option>
+                                        <option value="2024">2024年度</option>
+                                        <option value="2023">2023年度</option>
+                                    </select>
+                                    <label for="production-month-select" class="period-month-label" style="display: none; margin-left: 1rem;">月:</label>
+                                    <select id="production-month-select" class="form-control period-month-select" style="display: none;">
+                                        <option value="4">4月</option> <option value="5">5月</option> <option value="6">6月</option>
+                                        <option value="7">7月</option> <option value="8">8月</option> <option value="9">9月</option>
+                                        <option value="10" selected>10月</option> <option value="11">11月</option> <option value="12">12月</option>
+                                        <option value="1">1月</option> <option value="2">2月</option> <option value="3">3月</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    <div id="tab-production" class="tab-content">
+
                          <div class="summary-view">
                             <div class="section">
-                                <h2 class="section-title">主要指標 (2025年度)</h2>
+                                <h2 class="section-title">主要指標 (<span class="selected-period-display">2025年度</span>)</h2>
                                 <div class="kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
                                     <div class="kpi-card"> <h4>生産活動収入</h4> <p>3,500,000 <span class="subtext">円</span></p> </div>
                                     <div class="kpi-card"> <h4>平均工賃 (月額)</h4> <p>16,800 <span class="subtext">円</span></p> </div>
@@ -249,13 +332,13 @@
                             </div>
                             <div class="section">
                                  <div class="section-header">
-                                    <h2 class="section-title-in-header">平均工賃推移 (月額)</h2>
+                                    <h2 class="section-title-in-header">平均工賃推移 (月次)</h2>
                                     <button class="button button-secondary" onclick="showDetailView('tab-production', true)">詳細を表示</button>
                                 </div>
                                 <div class="section-content"> <div class="chart-placeholder">（平均工賃月額の推移を示す折れ線グラフまたは棒グラフ）</div> </div>
                             </div>
                              <div class="section">
-                                <h2 class="section-title">案件別 収支分析 サマリー (2025年度)</h2>
+                                <h2 class="section-title">案件別 収支分析 サマリー (<span class="selected-period-display">2025年度</span>)</h2>
                                  <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem;">
                                     <div class="form-group" style="flex-grow: 2;"> <label for="search-prod-project-name-summary" class="form-label">案件名/取引先</label> <input type="text" id="search-prod-project-name-summary" class="form-control" placeholder="キーワードで検索..."> </div>
                                     <div class="form-group"> <label for="filter-prod-profit-margin-summary" class="form-label">利益率</label> <select id="filter-prod-profit-margin-summary" class="form-control"> <option value="">すべて</option> <option value="high">50%以上</option> <option value="medium">20%-50%</option> <option value="low">20%未満</option> <option value="negative">赤字</option> </select> </div>
@@ -276,7 +359,7 @@
                         <div class="detail-view">
                              <div class="section">
                                 <div class="section-header">
-                                     <h2 class="section-title-in-header">月次 平均工賃 明細 (2025年度)</h2>
+                                     <h2 class="section-title-in-header">月次 平均工賃 明細 (<span class="selected-period-display">2025年度</span>)</h2>
                                      <button class="button button-secondary" onclick="showDetailView('tab-production', false)">サマリーへ戻る</button>
                                 </div>
                                 <div class="table-wrapper">
@@ -290,9 +373,9 @@
                                     </table>
                                 </div>
                             </div>
-                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         </main>
     </div>
@@ -301,7 +384,6 @@
     <script>
     document.addEventListener('DOMContentLoaded', function() {
 
-        // --- サブナビゲーション（タブ）切り替え ---
         const subNavContainer = document.getElementById('analytics-subnav');
         const tabContents = document.querySelectorAll('#analytics .tab-content-wrapper .tab-content');
         if (subNavContainer && tabContents.length > 0) {
@@ -310,32 +392,37 @@
                 if (!navItem || navItem.classList.contains('active')) { return; }
                 e.preventDefault();
                 const targetTabId = navItem.dataset.tab;
-                // window.location.hash = '#' + targetTabId;
                 subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
                 navItem.classList.add('active');
                 tabContents.forEach(content => {
                     const isActive = content.id === targetTabId;
                     content.classList.toggle('active', isActive);
                     content.style.display = isActive ? 'block' : 'none';
-                    showDetailView(content.id, false); // タブ切り替え時はサマリー表示に戻す
+                    showDetailView(content.id, false);
                 });
             });
-             // 初期表示
-             const firstNavItem = subNavContainer.querySelector('.sub-nav-item');
-             const firstTabContentId = firstNavItem?.dataset.tab;
-             if(firstNavItem && firstTabContentId){
-                const firstTabContent = document.getElementById(firstTabContentId);
-                 subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
-                 tabContents.forEach(content => { content.classList.remove('active'); content.style.display = 'none'; });
-                 firstNavItem.classList.add('active');
-                 if(firstTabContent) {
-                     firstTabContent.classList.add('active');
-                     firstTabContent.style.display = 'block';
+             const initialTabId = 'tab-production';
+             const initialNavItem = subNavContainer.querySelector(`.sub-nav-item[data-tab="${initialTabId}"]`);
+             const initialTabContent = document.getElementById(initialTabId);
+
+             subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+             tabContents.forEach(content => { content.classList.remove('active'); content.style.display = 'none'; });
+
+             if (initialNavItem && initialTabContent) {
+                 initialNavItem.classList.add('active');
+                 initialTabContent.classList.add('active');
+                 initialTabContent.style.display = 'block';
+             } else {
+                 const firstNavItem = subNavContainer.querySelector('.sub-nav-item');
+                 const firstTabContent = tabContents[0];
+                 if (firstNavItem && firstTabContent) {
+                    firstNavItem.classList.add('active');
+                    firstTabContent.classList.add('active');
+                    firstTabContent.style.display = 'block';
                  }
              }
         }
 
-        // --- 詳細表示/サマリー表示 切り替え ---
         window.showDetailView = function(tabId, showDetail) {
             const tabContent = document.getElementById(tabId);
             if (!tabContent) return;
@@ -347,59 +434,201 @@
             }
         }
 
-        // --- 期間選択ボタンの処理 ---
-        const periodUnitButtons = document.querySelectorAll('.period-unit-button');
-        const financialYearSelect = document.getElementById('financial-year-select');
-        const financialMonthSelect = document.getElementById('financial-month-select');
-        const financialMonthLabel = document.querySelector('label[for="financial-month-select"]');
+        function setupPeriodSelector(tabId) {
+            const tabElement = document.getElementById(tabId);
+            if (!tabElement) return;
 
-        periodUnitButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                periodUnitButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                const unit = this.dataset.unit;
+            const unitButtonsContainer = tabElement.querySelector('.period-unit-buttons');
+            const periodDetailsContainer = tabElement.querySelector('.period-detail-selectors');
+            const yearSelect = tabElement.querySelector('.period-year-select');
+            const monthSelect = tabElement.querySelector('.period-month-select');
+            const monthLabel = tabElement.querySelector('.period-month-label');
+            const prevButton = tabElement.querySelector('.period-prev-button');
+            const nextButton = tabElement.querySelector('.period-next-button');
+            const periodDisplayMain = tabElement.querySelector('.period-display-main');
+            const periodDisplaySub = tabElement.querySelector('.period-display-sub');
+            const periodDisplaySpans = tabElement.querySelectorAll('.selected-period-display');
 
-                // 年度・月の表示切り替え
-                if (unit === 'monthly') {
-                    financialYearSelect.style.display = '';
-                    financialMonthSelect.style.display = '';
-                    if(financialMonthLabel) financialMonthLabel.style.display = '';
-                } else if (unit === 'yearly') {
-                    financialYearSelect.style.display = '';
-                    financialMonthSelect.style.display = 'none';
-                     if(financialMonthLabel) financialMonthLabel.style.display = 'none';
-                } else { // all
-                    financialYearSelect.style.display = 'none';
-                    financialMonthSelect.style.display = 'none';
-                     if(financialMonthLabel) financialMonthLabel.style.display = 'none';
+            function getPeriodStartEnd(year, month) {
+                const yearNum = parseInt(year);
+                let startMonth, endMonth, startDay, endDay;
+
+                startMonth = 4;
+                startDay = 1;
+                endMonth = 3;
+                endDay = 31;
+
+                let startDate, endDate;
+
+                if (month) {
+                    const monthNum = parseInt(month);
+                    let targetYear = yearNum;
+                    if (monthNum >= 1 && monthNum <= 3) {
+                        targetYear += 1;
+                    }
+                    startDate = new Date(targetYear, monthNum - 1, 1);
+                    endDate = new Date(targetYear, monthNum, 0);
+                } else {
+                    startDate = new Date(yearNum, startMonth - 1, startDay);
+                    endDate = new Date(yearNum + 1, endMonth - 1, endDay);
                 }
-                // TODO: 選択された期間に応じてデータを再描画する処理を呼び出す
-                console.log('Period unit changed to:', unit);
-                // 例: reloadFinancialData();
-            });
-        });
-        // 初期表示のために一度呼び出す（デフォルトは年次）
-         if (financialYearSelect) financialYearSelect.style.display = '';
-         if (financialMonthSelect) financialMonthSelect.style.display = 'none';
-         if (financialMonthLabel) financialMonthLabel.style.display = 'none';
 
-         // 年度・月セレクタの変更イベント (データ再描画をトリガー)
-         if(financialYearSelect) {
-             financialYearSelect.addEventListener('change', () => {
-                 console.log('Year changed to:', financialYearSelect.value);
-                 // 例: reloadFinancialData();
-             });
-         }
-         if(financialMonthSelect) {
-             financialMonthSelect.addEventListener('change', () => {
-                 console.log('Month changed to:', financialMonthSelect.value);
-                 // 例: reloadFinancialData();
-             });
-         }
+                const formatDate = (date) => {
+                    return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+                }
+
+                return {
+                    start: formatDate(startDate),
+                    end: formatDate(endDate)
+                };
+            }
+
+            function updatePeriodDisplay() {
+                const activeUnitButton = unitButtonsContainer.querySelector('.period-unit-button.active');
+                let displayMain = '';
+                let displaySub = '';
+                let displaySpan = '';
+
+                if (activeUnitButton) {
+                    const unit = activeUnitButton.dataset.unit;
+                    if (unit === 'monthly' && yearSelect && monthSelect) {
+                        const yearText = yearSelect.options[yearSelect.selectedIndex]?.text || '';
+                        const monthText = monthSelect.options[monthSelect.selectedIndex]?.text || '';
+                        const yearValue = yearSelect.value;
+                        const monthValue = monthSelect.value;
+                        displayMain = `${yearText} ${monthText}`;
+                        const { start, end } = getPeriodStartEnd(yearValue, monthValue);
+                        displaySub = `${start}～${end}`;
+                        displaySpan = displayMain;
+                    } else if (unit === 'yearly' && yearSelect) {
+                        const yearText = yearSelect.options[yearSelect.selectedIndex]?.text || '';
+                        const yearValue = yearSelect.value;
+                        displayMain = yearText;
+                        const { start, end } = getPeriodStartEnd(yearValue);
+                        displaySub = `${start}～${end}`;
+                        displaySpan = displayMain;
+                    } else if (unit === 'all') {
+                        displayMain = '全期間';
+                        displaySub = '';
+                        displaySpan = displayMain;
+                    }
+                }
+                if(periodDisplayMain) periodDisplayMain.textContent = displayMain;
+                if(periodDisplaySub) periodDisplaySub.textContent = displaySub;
+                periodDisplaySpans.forEach(span => span.textContent = displaySpan);
+            }
+
+            if (unitButtonsContainer) {
+                unitButtonsContainer.addEventListener('click', (e) => {
+                    const button = e.target.closest('.period-unit-button');
+                    if (!button || button.classList.contains('active')) return;
+
+                    unitButtonsContainer.querySelectorAll('.period-unit-button').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const unit = button.dataset.unit;
+
+                    if (periodDetailsContainer && yearSelect && monthSelect && monthLabel) {
+                        yearSelect.style.display = (unit === 'monthly' || unit === 'yearly') ? '' : 'none';
+                        yearSelect.previousElementSibling.style.display = yearSelect.style.display;
+                        monthSelect.style.display = (unit === 'monthly') ? '' : 'none';
+                        monthLabel.style.display = monthSelect.style.display;
+                    }
+                     if (prevButton) prevButton.style.visibility = (unit === 'all') ? 'hidden' : 'visible';
+                     if (nextButton) nextButton.style.visibility = (unit === 'all') ? 'hidden' : 'visible';
+
+                    console.log(`Tab ${tabId} - Period unit changed to:`, unit);
+                    updatePeriodDisplay();
+                });
+            }
+
+            if (yearSelect) {
+                yearSelect.addEventListener('change', () => {
+                     console.log(`Tab ${tabId} - Year changed to:`, yearSelect.value);
+                     updatePeriodDisplay();
+                });
+            }
+             if (monthSelect) {
+                 monthSelect.addEventListener('change', () => {
+                     console.log(`Tab ${tabId} - Month changed to:`, monthSelect.value);
+                     updatePeriodDisplay();
+                 });
+             }
+
+            if (prevButton) {
+                prevButton.addEventListener('click', () => {
+                    const activeUnitButton = unitButtonsContainer.querySelector('.period-unit-button.active');
+                    if (!activeUnitButton) return;
+                    const unit = activeUnitButton.dataset.unit;
+
+                    if (unit === 'monthly' && monthSelect && yearSelect) {
+                        let currentMonthIndex = monthSelect.selectedIndex;
+                        let currentYearIndex = yearSelect.selectedIndex;
+                        if (currentMonthIndex > 0) {
+                            monthSelect.selectedIndex = currentMonthIndex - 1;
+                        } else {
+                            if (currentYearIndex + 1 < yearSelect.options.length) {
+                                yearSelect.selectedIndex = currentYearIndex + 1;
+                                monthSelect.selectedIndex = monthSelect.options.length - 1;
+                            }
+                        }
+                    } else if (unit === 'yearly' && yearSelect) {
+                        let currentYearIndex = yearSelect.selectedIndex;
+                        if (currentYearIndex + 1 < yearSelect.options.length) {
+                             yearSelect.selectedIndex = currentYearIndex + 1;
+                        }
+                    }
+                    console.log(`Tab ${tabId} - Prev period clicked`);
+                    updatePeriodDisplay();
+                });
+            }
+            if (nextButton) {
+                nextButton.addEventListener('click', () => {
+                    const activeUnitButton = unitButtonsContainer.querySelector('.period-unit-button.active');
+                    if (!activeUnitButton) return;
+                    const unit = activeUnitButton.dataset.unit;
+
+                    if (unit === 'monthly' && monthSelect && yearSelect) {
+                        let currentMonthIndex = monthSelect.selectedIndex;
+                        let currentYearIndex = yearSelect.selectedIndex;
+                        if (currentMonthIndex < monthSelect.options.length - 1) {
+                            monthSelect.selectedIndex = currentMonthIndex + 1;
+                        } else {
+                            if (currentYearIndex > 0) {
+                                yearSelect.selectedIndex = currentYearIndex - 1;
+                                monthSelect.selectedIndex = 0;
+                            }
+                        }
+                    } else if (unit === 'yearly' && yearSelect) {
+                        let currentYearIndex = yearSelect.selectedIndex;
+                         if (currentYearIndex > 0) {
+                             yearSelect.selectedIndex = currentYearIndex - 1;
+                         }
+                    }
+                     console.log(`Tab ${tabId} - Next period clicked`);
+                     updatePeriodDisplay();
+                 });
+            }
+
+            const initialActiveButton = unitButtonsContainer?.querySelector('.period-unit-button.active');
+            if (initialActiveButton) {
+                const initialUnit = initialActiveButton.dataset.unit;
+                if (periodDetailsContainer && yearSelect && monthSelect && monthLabel) {
+                    yearSelect.style.display = (initialUnit === 'monthly' || initialUnit === 'yearly') ? '' : 'none';
+                    yearSelect.previousElementSibling.style.display = yearSelect.style.display;
+                    monthSelect.style.display = (initialUnit === 'monthly') ? '' : 'none';
+                    monthLabel.style.display = monthSelect.style.display;
+                }
+                 if (prevButton) prevButton.style.visibility = (initialUnit === 'all') ? 'hidden' : 'visible';
+                 if (nextButton) nextButton.style.visibility = (initialUnit === 'all') ? 'hidden' : 'visible';
+                 updatePeriodDisplay();
+            }
+        }
+
+        setupPeriodSelector('tab-financial-overview');
+        setupPeriodSelector('tab-production');
 
 
-        // --- フィルタリング関数 (利用者別利用状況 - サマリー用) ---
-        function filterUtilizationTableSummary() { /* ... (変更なし) ... */
+        function filterUtilizationTableSummary() {
              const nameInput = document.getElementById('search-util-member-name-summary');
              const statusSelect = document.getElementById('filter-util-status-summary');
              const tableBody = document.getElementById('utilization-tbody-summary');
@@ -418,8 +647,7 @@
                  row.style.display = (nameMatch && statusMatch) ? '' : 'none';
              });
         }
-        // --- フィルタリング関数 (利用者別利用状況 - 詳細用) ---
-        function filterUtilizationTableDetail() { /* ... (変更なし) ... */
+        function filterUtilizationTableDetail() {
              const nameInput = document.getElementById('search-util-member-name-detail');
              const tableBody = document.getElementById('utilization-monthly-tbody-detail');
              if (!nameInput || !tableBody) return;
@@ -431,8 +659,7 @@
                  row.style.display = nameMatch ? '' : 'none';
              });
         }
-        // --- フィルタリング関数 (案件別収支 - サマリー用) ---
-        function filterProductionTableSummary() { /* ... (変更なし) ... */
+        function filterProductionTableSummary() {
              const keywordInput = document.getElementById('search-prod-project-name-summary');
              const marginSelect = document.getElementById('filter-prod-profit-margin-summary');
              const tableBody = document.getElementById('production-tbody-summary');
@@ -454,44 +681,23 @@
              });
         }
 
-        // --- イベントリスナー設定 ---
-        // 利用状況タブ (サマリー)
         const nameUtilInputSummary = document.getElementById('search-util-member-name-summary');
         const statusUtilSelectSummary = document.getElementById('filter-util-status-summary');
         const clearUtilButtonSummary = document.querySelector('#tab-utilization .summary-view .filter-form-inline .button-secondary');
         if(nameUtilInputSummary) nameUtilInputSummary.addEventListener('input', filterUtilizationTableSummary);
         if(statusUtilSelectSummary) statusUtilSelectSummary.addEventListener('change', filterUtilizationTableSummary);
-        if(clearUtilButtonSummary) { /* ... (クリア処理) ... */
-            clearUtilButtonSummary.addEventListener('click', () => {
-                const form = clearUtilButtonSummary.closest('form'); if(form) form.reset(); filterUtilizationTableSummary();
-            });
-        }
-        // 利用状況タブ (詳細)
+        if(clearUtilButtonSummary) { clearUtilButtonSummary.addEventListener('click', () => { const form = clearUtilButtonSummary.closest('form'); if(form) form.reset(); filterUtilizationTableSummary(); }); }
         const nameUtilInputDetail = document.getElementById('search-util-member-name-detail');
         const clearUtilButtonDetail = document.querySelector('#tab-utilization .detail-view .filter-form-inline .button-secondary');
         if(nameUtilInputDetail) nameUtilInputDetail.addEventListener('input', filterUtilizationTableDetail);
-        if(clearUtilButtonDetail) { /* ... (クリア処理) ... */
-             clearUtilButtonDetail.addEventListener('click', () => {
-                const form = clearUtilButtonDetail.closest('form'); if(form) form.reset(); filterUtilizationTableDetail();
-            });
-        }
-
-        // 生産活動タブ (サマリー)
+        if(clearUtilButtonDetail) { clearUtilButtonDetail.addEventListener('click', () => { const form = clearUtilButtonDetail.closest('form'); if(form) form.reset(); filterUtilizationTableDetail(); }); }
         const keywordProdInputSummary = document.getElementById('search-prod-project-name-summary');
         const marginProdSelectSummary = document.getElementById('filter-prod-profit-margin-summary');
         const clearProdButtonSummary = document.querySelector('#tab-production .summary-view .filter-form-inline .button-secondary');
         if(keywordProdInputSummary) keywordProdInputSummary.addEventListener('input', filterProductionTableSummary);
         if(marginProdSelectSummary) marginProdSelectSummary.addEventListener('change', filterProductionTableSummary);
-        if(clearProdButtonSummary) { /* ... (クリア処理) ... */
-            clearProdButtonSummary.addEventListener('click', () => {
-                const form = clearProdButtonSummary.closest('form'); if(form) form.reset(); filterProductionTableSummary();
-            });
-        }
+        if(clearProdButtonSummary) { clearProdButtonSummary.addEventListener('click', () => { const form = clearProdButtonSummary.closest('form'); if(form) form.reset(); filterProductionTableSummary(); }); }
 
-        // --- 行クリック処理 (変更なし) ---
-        // ...
-
-        // 初期フィルタリング実行
         filterUtilizationTableSummary();
         filterUtilizationTableDetail();
         filterProductionTableSummary();
