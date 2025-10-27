@@ -12,10 +12,56 @@
         .filter-form-inline .button-secondary { margin-bottom: 0; height: calc(1.5em + 1rem + 2px); flex-shrink: 0; }
         .chart-placeholder { text-align: center; padding: 4rem 1rem; background-color: var(--color-hover-bg); border: 1px dashed var(--color-border); border-radius: var(--border-radius); color: var(--color-text-secondary); font-size: var(--font-size-sm); }
         .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem; }
-        .kpi-card { border: 1px solid var(--color-border); border-radius: var(--border-radius); padding: 1rem 1.5rem; background-color: var(--color-surface); text-align: center; }
+        .kpi-card {
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 1rem 1.5rem;
+            background-color: var(--color-surface);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
         .kpi-card h4 { font-size: var(--font-size-sm); font-weight: 500; color: var(--color-text-secondary); margin-bottom: 0.5rem; }
-        .kpi-card p { font-size: 1.5rem; font-weight: bold; color: var(--color-primary); }
+        .kpi-card p { font-size: 1.5rem; font-weight: bold; color: var(--color-primary); margin-bottom: 0.5rem; }
         .kpi-card .subtext { font-size: var(--font-size-xs); font-weight: normal; color: var(--color-text-secondary); }
+        .kpi-card .breakdown-list {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-secondary);
+            margin-top: 0.75rem;
+            text-align: left;
+            border-top: 1px solid var(--color-border-light);
+            padding-top: 0.75rem;
+            width: 100%;
+        }
+        .kpi-card .breakdown-list h5 {
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        .kpi-card .breakdown-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .kpi-card .breakdown-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.25rem 0;
+            gap: 0.5rem;
+        }
+        .kpi-card .breakdown-list li span:first-child {
+            flex-shrink: 0;
+        }
+        .kpi-card .breakdown-list li span:last-child {
+            font-weight: 500;
+            color: var(--color-text-primary);
+            text-align: right;
+            flex-shrink: 1;
+        }
         .col-number { text-align: right !important; }
         .detail-view { display: none; }
         .period-selector-section .section-content {
@@ -368,10 +414,27 @@
                             <div class="section">
                                 <h2 class="section-title">主要指標</h2>
                                 <div class="kpi-grid">
-                                    <div class="kpi-card"> <h4>生産活動収入</h4> <p>3,500,000 <span class="subtext">円</span></p> </div>
-                                    <div class="kpi-card"> <h4>生産活動支出</h4> <p>1,450,000 <span class="subtext">円</span></p> </div>
-                                    <div class="kpi-card"> <h4>生産活動利益</h4> <p>2,050,000 <span class="subtext">円</span></p> </div>
-                                    <div class="kpi-card"> <h4>工賃支払総額</h4> <p>2,032,700 <span class="subtext">円</span></p> </div>
+                                    <div class="kpi-card">
+                                        <h4>就労支援事業収益</h4>
+                                        <p>3,500,000 <span class="subtext">円</span></p>
+                                    </div>
+                                    <div class="kpi-card kpi-card-with-breakdown">
+                                        <h4>就労支援事業費用</h4>
+                                        <p>1,450,000 <span class="subtext">円</span></p>
+                                        <div class="breakdown-list">
+                                            <h5>主な内訳</h5>
+                                            <ul>
+                                                <li><span>材料費:</span> <span>800,000 円</span></li>
+                                                <li><span>利用者工賃:</span> <span>400,000 円</span></li>
+                                                <li><span>外注加工費:</span> <span>100,000 円</span></li>
+                                                <li><span>その他経費:</span> <span>150,000 円</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="kpi-card">
+                                        <h4>就労支援事業活動増減差額</h4>
+                                        <p>2,050,000 <span class="subtext">円</span></p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="section">
@@ -379,7 +442,7 @@
                                     <h2 class="section-title-in-header">生産活動収支推移 (月次)</h2>
                                     <button class="button button-secondary" onclick="showDetailView('tab-production', true)">詳細を表示</button>
                                 </div>
-                                <div class="section-content"> <div class="chart-placeholder">（生産活動収入・支出・利益の月次推移を示すグラフ）</div> </div>
+                                <div class="section-content"> <div class="chart-placeholder">（就労支援事業収益・費用・増減差額の月次推移を示すグラフ）</div> </div>
                             </div>
                              <div class="section">
                                 <h2 class="section-title">案件別 収支分析 サマリー</h2>
@@ -408,7 +471,7 @@
                                 </div>
                                 <div class="table-wrapper">
                                     <table class="table" id="production-monthly-detail-table">
-                                        <thead> <tr> <th>月</th> <th class="col-number">生産活動収入(円)</th> <th class="col-number">生産活動支出(円)</th> <th class="col-number">生産活動利益(円)</th> <th class="col-number">工賃支払総額(円)</th> </tr> </thead>
+                                        <thead> <tr> <th>月</th> <th class="col-number">就労支援事業収益(円)</th> <th class="col-number">就労支援事業費用(円)</th> <th class="col-number">増減差額(円)</th> <th class="col-number">工賃支払総額(円)</th> </tr> </thead>
                                         <tbody id="production-monthly-tbody-detail">
                                             <tr> <td>4月</td> <td class="col-number">300,000</td> <td class="col-number">120,000</td> <td class="col-number">180,000</td> <td class="col-number">280,500</td> </tr>
                                             <tr> <td>5月</td> <td class="col-number">320,000</td> <td class="col-number">130,000</td> <td class="col-number">190,000</td> <td class="col-number">282,200</td> </tr>
@@ -442,13 +505,13 @@
                     const isActive = content.id === targetTabId;
                     content.classList.toggle('active', isActive);
                     content.style.display = isActive ? 'block' : 'none';
-                    showDetailView(content.id, false); // Switch back to summary view when changing tabs
+                    showDetailView(content.id, false);
                 });
             });
-             // Initialize tabs: Set default active tab
-             let initialTabId = 'tab-production'; // Default
+
+             let initialTabId = 'tab-production';
              const activeNavItem = subNavContainer.querySelector('.sub-nav-item.active');
-             if(activeNavItem) initialTabId = activeNavItem.dataset.tab; // Use existing active if set in HTML
+             if(activeNavItem) initialTabId = activeNavItem.dataset.tab;
 
              subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => item.classList.remove('active'));
              tabContents.forEach(content => { content.classList.remove('active'); content.style.display = 'none'; });
@@ -460,7 +523,7 @@
                  targetNavItem.classList.add('active');
                  targetTabContent.classList.add('active');
                  targetTabContent.style.display = 'block';
-             } else { // Fallback if default wasn't found
+             } else {
                  const firstNavItem = subNavContainer.querySelector('.sub-nav-item');
                  const firstTabContent = tabContents[0];
                  if (firstNavItem && firstTabContent) {
@@ -480,13 +543,12 @@
                 summaryView.style.display = showDetail ? 'none' : 'block';
                 detailView.style.display = showDetail ? 'block' : 'none';
 
-                // Update section titles in detail view when shown
                 if(showDetail){
                      const periodDisplaySpan = tabContent.querySelector('.selected-period-display');
                      const detailTitle = detailView.querySelector('.section-title-in-header');
                      if(periodDisplaySpan && detailTitle){
                          const currentPeriodText = periodDisplaySpan.textContent;
-                         // Remove potential old period text and append new one
+
                          detailTitle.textContent = detailTitle.textContent.split('(')[0].trim() + ` (${currentPeriodText})`;
                      }
                 }
@@ -506,31 +568,31 @@
             const nextButton = tabElement.querySelector('.period-next-button');
             const periodDisplayMain = tabElement.querySelector('.period-display-main');
             const periodDisplaySub = tabElement.querySelector('.period-display-sub');
-            const periodDisplaySpans = tabElement.querySelectorAll('.selected-period-display'); // Used for titles
-            const periodDisplayLabel = tabElement.querySelector('.period-display-label'); // Label above main display
+            const periodDisplaySpans = tabElement.querySelectorAll('.selected-period-display');
+            const periodDisplayLabel = tabElement.querySelector('.period-display-label');
 
             function getPeriodStartEnd(year, month) {
                 const yearNum = parseInt(year);
                 let startMonth, endMonth, startDay, endDay;
 
-                startMonth = 4; // Assuming April start for fiscal year
+                startMonth = 4;
                 startDay = 1;
                 endMonth = 3;
                 endDay = 31;
 
                 let startDate, endDate;
 
-                if (month) { // Monthly view
+                if (month) {
                     const monthNum = parseInt(month);
                     let targetYear = yearNum;
-                    if (monthNum >= 1 && monthNum <= 3) { // Jan-Mar belongs to the next calendar year for the fiscal year
+                    if (monthNum >= 1 && monthNum <= 3) {
                         targetYear += 1;
                     }
                     startDate = new Date(targetYear, monthNum - 1, 1);
-                    endDate = new Date(targetYear, monthNum, 0); // Last day of the month
-                } else { // Yearly view (Fiscal Year)
+                    endDate = new Date(targetYear, monthNum, 0);
+                } else {
                     startDate = new Date(yearNum, startMonth - 1, startDay);
-                    endDate = new Date(yearNum + 1, endMonth - 1, endDay); // Ends March 31st of next year
+                    endDate = new Date(yearNum + 1, endMonth - 1, endDay);
                 }
 
                 const formatDate = (date) => {
@@ -547,8 +609,8 @@
                 const activeUnitButton = unitButtonsContainer.querySelector('.period-unit-button.active');
                 let displayMain = '';
                 let displaySub = '';
-                let displaySpan = ''; // For titles
-                let displayLabelText = '期間'; // Default label
+                let displaySpan = '';
+                let displayLabelText = '期間';
 
                 if (activeUnitButton) {
                     const unit = activeUnitButton.dataset.unit;
@@ -569,11 +631,11 @@
                         const { start, end } = getPeriodStartEnd(yearValue);
                         displaySub = `${start}～${end}`;
                         displaySpan = displayMain;
-                         // Adjust label based on the tab's context
+
                          if (tabId === 'tab-welfare-service') {
                              displayLabelText = '会計年度';
                          } else {
-                             displayLabelText = '事業年度'; // Default for others like finance, production
+                             displayLabelText = '事業年度';
                          }
                     } else if (unit === 'all') {
                         displayMain = '全期間';
@@ -584,12 +646,12 @@
                 }
                 if(periodDisplayMain) periodDisplayMain.textContent = displayMain;
                 if(periodDisplaySub) periodDisplaySub.textContent = displaySub;
-                if(periodDisplayLabel) periodDisplayLabel.textContent = displayLabelText; // Update the label text
+                if(periodDisplayLabel) periodDisplayLabel.textContent = displayLabelText;
 
-                // Update titles that use selected-period-display span
+
                 periodDisplaySpans.forEach(span => span.textContent = displaySpan);
 
-                 // Also update titles in the detail view if it's currently visible
+
                  const detailView = tabElement.querySelector('.detail-view');
                  if(detailView && detailView.style.display !== 'none'){
                      const detailTitle = detailView.querySelector('.section-title-in-header');
@@ -608,40 +670,40 @@
                     button.classList.add('active');
                     const unit = button.dataset.unit;
 
-                    // Toggle visibility of year/month selectors
+
                     if (periodDetailsContainer && yearSelect && monthSelect && monthLabel) {
                         yearSelect.style.display = (unit === 'monthly' || unit === 'yearly') ? '' : 'none';
-                        yearSelect.previousElementSibling.style.display = yearSelect.style.display; // Show/hide "年度:" label
+                        yearSelect.previousElementSibling.style.display = yearSelect.style.display;
                         monthSelect.style.display = (unit === 'monthly') ? '' : 'none';
-                        monthLabel.style.display = monthSelect.style.display; // Show/hide "月:" label
+                        monthLabel.style.display = monthSelect.style.display;
                     }
-                     // Toggle visibility of navigation buttons
+
                      if (prevButton) prevButton.style.visibility = (unit === 'all') ? 'hidden' : 'visible';
                      if (nextButton) nextButton.style.visibility = (unit === 'all') ? 'hidden' : 'visible';
 
                     console.log(`Tab ${tabId} - Period unit changed to:`, unit);
-                    updatePeriodDisplay(); // Update display based on new unit
-                    // Potentially trigger data reload here based on the new period
+                    updatePeriodDisplay();
+
                 });
             }
 
-            // Event listeners for year/month select changes
+
             if (yearSelect) {
                 yearSelect.addEventListener('change', () => {
                      console.log(`Tab ${tabId} - Year changed to:`, yearSelect.value);
                      updatePeriodDisplay();
-                     // Potentially trigger data reload
+
                 });
             }
              if (monthSelect) {
                  monthSelect.addEventListener('change', () => {
                      console.log(`Tab ${tabId} - Month changed to:`, monthSelect.value);
                      updatePeriodDisplay();
-                     // Potentially trigger data reload
+
                  });
              }
 
-            // Event listeners for previous/next buttons
+
             if (prevButton) {
                 prevButton.addEventListener('click', () => {
                     const activeUnitButton = unitButtonsContainer.querySelector('.period-unit-button.active');
@@ -653,21 +715,21 @@
                         let currentYearIndex = yearSelect.selectedIndex;
                         if (currentMonthIndex > 0) {
                             monthSelect.selectedIndex = currentMonthIndex - 1;
-                        } else { // Wrap around to previous year's last month (March)
-                            if (currentYearIndex + 1 < yearSelect.options.length) { // Check if there's a previous year available
-                                yearSelect.selectedIndex = currentYearIndex + 1; // Move to previous year
-                                monthSelect.selectedIndex = monthSelect.options.length - 1; // Set to March (last option)
+                        } else {
+                            if (currentYearIndex + 1 < yearSelect.options.length) {
+                                yearSelect.selectedIndex = currentYearIndex + 1;
+                                monthSelect.selectedIndex = monthSelect.options.length - 1;
                             }
                         }
                     } else if (unit === 'yearly' && yearSelect) {
                         let currentYearIndex = yearSelect.selectedIndex;
-                        if (currentYearIndex + 1 < yearSelect.options.length) { // Check if there's a previous year
-                             yearSelect.selectedIndex = currentYearIndex + 1; // Move to previous year
+                        if (currentYearIndex + 1 < yearSelect.options.length) {
+                             yearSelect.selectedIndex = currentYearIndex + 1;
                         }
                     }
                     console.log(`Tab ${tabId} - Prev period clicked`);
                     updatePeriodDisplay();
-                    // Potentially trigger data reload
+
                 });
             }
             if (nextButton) {
@@ -681,29 +743,29 @@
                         let currentYearIndex = yearSelect.selectedIndex;
                         if (currentMonthIndex < monthSelect.options.length - 1) {
                             monthSelect.selectedIndex = currentMonthIndex + 1;
-                        } else { // Wrap around to next year's first month (April)
-                            if (currentYearIndex > 0) { // Check if there's a next year available
-                                yearSelect.selectedIndex = currentYearIndex - 1; // Move to next year
-                                monthSelect.selectedIndex = 0; // Set to April (first option)
+                        } else {
+                            if (currentYearIndex > 0) {
+                                yearSelect.selectedIndex = currentYearIndex - 1;
+                                monthSelect.selectedIndex = 0;
                             }
                         }
                     } else if (unit === 'yearly' && yearSelect) {
                         let currentYearIndex = yearSelect.selectedIndex;
-                         if (currentYearIndex > 0) { // Check if there's a next year
-                             yearSelect.selectedIndex = currentYearIndex - 1; // Move to next year
+                         if (currentYearIndex > 0) {
+                             yearSelect.selectedIndex = currentYearIndex - 1;
                          }
                     }
                      console.log(`Tab ${tabId} - Next period clicked`);
                      updatePeriodDisplay();
-                     // Potentially trigger data reload
+
                  });
             }
 
-            // Initial setup based on the default active button
+
             const initialActiveButton = unitButtonsContainer?.querySelector('.period-unit-button.active');
             if (initialActiveButton) {
                 const initialUnit = initialActiveButton.dataset.unit;
-                // Set initial visibility of selectors and buttons
+
                 if (periodDetailsContainer && yearSelect && monthSelect && monthLabel) {
                     yearSelect.style.display = (initialUnit === 'monthly' || initialUnit === 'yearly') ? '' : 'none';
                     yearSelect.previousElementSibling.style.display = yearSelect.style.display;
@@ -712,28 +774,28 @@
                 }
                  if (prevButton) prevButton.style.visibility = (initialUnit === 'all') ? 'hidden' : 'visible';
                  if (nextButton) nextButton.style.visibility = (initialUnit === 'all') ? 'hidden' : 'visible';
-                 updatePeriodDisplay(); // Update display text
+                 updatePeriodDisplay();
             }
         }
 
-        // Setup selectors for each relevant tab
+
         setupPeriodSelector('tab-financial-overview');
-        setupPeriodSelector('tab-welfare-service'); // Updated ID
+        setupPeriodSelector('tab-welfare-service');
         setupPeriodSelector('tab-production');
 
 
-        // --- Filter Functions ---
-        function filterWelfareTableSummary() { // Renamed function
-             const nameInput = document.getElementById('search-welfare-member-name-summary'); // Updated ID
-             const statusSelect = document.getElementById('filter-welfare-status-summary'); // Updated ID
-             const tableBody = document.getElementById('welfare-tbody-summary'); // Updated ID
+
+        function filterWelfareTableSummary() {
+             const nameInput = document.getElementById('search-welfare-member-name-summary');
+             const statusSelect = document.getElementById('filter-welfare-status-summary');
+             const tableBody = document.getElementById('welfare-tbody-summary');
              if (!nameInput || !statusSelect || !tableBody) return;
              const nameFilter = nameInput.value.toLowerCase();
              const statusFilter = statusSelect.value;
              const rows = tableBody.getElementsByTagName('tr');
              Array.from(rows).forEach(row => {
                  const memberName = row.cells[0]?.textContent.toLowerCase() || '';
-                 const utilRate = parseFloat(row.dataset.utilRate || 0); // Assuming data-util-rate still exists
+                 const utilRate = parseFloat(row.dataset.utilRate || 0);
                  const nameMatch = memberName.includes(nameFilter);
                  let statusMatch = true;
                  if(statusFilter === "high" && utilRate < 90) statusMatch = false;
@@ -742,9 +804,9 @@
                  row.style.display = (nameMatch && statusMatch) ? '' : 'none';
              });
         }
-        function filterWelfareTableDetail() { // Renamed function
-             const nameInput = document.getElementById('search-welfare-member-name-detail'); // Updated ID
-             const tableBody = document.getElementById('welfare-monthly-tbody-detail'); // Updated ID
+        function filterWelfareTableDetail() {
+             const nameInput = document.getElementById('search-welfare-member-name-detail');
+             const tableBody = document.getElementById('welfare-monthly-tbody-detail');
              if (!nameInput || !tableBody) return;
              const nameFilter = nameInput.value.toLowerCase();
              const rows = tableBody.getElementsByTagName('tr');
@@ -776,8 +838,7 @@
              });
         }
 
-        // --- Event Listener Setup ---
-        // Welfare Service Tab Filters
+
         const nameWelfareInputSummary = document.getElementById('search-welfare-member-name-summary');
         const statusWelfareSelectSummary = document.getElementById('filter-welfare-status-summary');
         const clearWelfareButtonSummary = document.querySelector('#tab-welfare-service .summary-view .filter-form-inline .button-secondary');
@@ -790,7 +851,7 @@
         if(nameWelfareInputDetail) nameWelfareInputDetail.addEventListener('input', filterWelfareTableDetail);
         if(clearWelfareButtonDetail) { clearWelfareButtonDetail.addEventListener('click', () => { const form = clearWelfareButtonDetail.closest('form'); if(form) form.reset(); filterWelfareTableDetail(); }); }
 
-        // Production Tab Filters (No changes needed here)
+
         const keywordProdInputSummary = document.getElementById('search-prod-project-name-summary');
         const marginProdSelectSummary = document.getElementById('filter-prod-profit-margin-summary');
         const clearProdButtonSummary = document.querySelector('#tab-production .summary-view .filter-form-inline .button-secondary');
@@ -798,7 +859,7 @@
         if(marginProdSelectSummary) marginProdSelectSummary.addEventListener('change', filterProductionTableSummary);
         if(clearProdButtonSummary) { clearProdButtonSummary.addEventListener('click', () => { const form = clearProdButtonSummary.closest('form'); if(form) form.reset(); filterProductionTableSummary(); }); }
 
-        // --- Initial Filter Execution ---
+
         filterWelfareTableSummary();
         filterWelfareTableDetail();
         filterProductionTableSummary();
