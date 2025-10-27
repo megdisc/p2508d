@@ -49,6 +49,7 @@
                     <ul id="terminology-subnav">
                         <li><a href="#" class="sub-nav-item active" data-tab="tab-term-entities">人物・組織</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-term-concepts">主要概念</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-term-accounting">会計用語</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-term-records">記録・書類</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-term-status">ステータス・選択肢</a></li>
                     </ul>
@@ -93,6 +94,23 @@
                                     <dt>会計</dt><dd id="display-term-accounting">会計</dd>
                                     <dt>取引</dt><dd id="display-term-transaction">取引</dd>
                                     <dt>請求</dt><dd id="display-term-claim">請求</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-term-accounting" class="tab-content">
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">会計関連用語（データ分析画面等で使用）</h2>
+                                <button class="button button-primary" onclick="openModal('edit-term-accounting-modal')">編集</button>
+                            </div>
+                            <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>生産活動収入</dt><dd id="display-term-prod-revenue">生産活動収入</dd>
+                                    <dt>生産活動支出</dt><dd id="display-term-prod-expense">生産活動支出</dd>
+                                    <dt>生産活動利益</dt><dd id="display-term-prod-profit">生産活動利益</dd>
+                                    <dt>工賃支払総額</dt><dd id="display-term-wage-total">工賃支払総額</dd>
                                 </dl>
                             </div>
                         </div>
@@ -263,6 +281,41 @@
         </div>
     </div>
 
+    <div id="edit-term-accounting-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">会計関連用語 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-term-accounting-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                 <div class="form-group">
+                    <label for="modal-term-prod-revenue">生産活動事業収益</label>
+                    <input type="text" id="modal-term-prod-revenue" class="form-control" value="生産活動収入">
+                    <small>データ分析画面などで「生産活動収入」として表示されます。</small>
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-prod-expense">生産活動事業費用</label>
+                    <input type="text" id="modal-term-prod-expense" class="form-control" value="生産活動支出">
+                     <small>データ分析画面などで「生産活動支出」として表示されます。（工賃は含みません）</small>
+               </div>
+                <div class="form-group">
+                    <label for="modal-term-prod-profit">生産活動事業利益</label>
+                    <input type="text" id="modal-term-prod-profit" class="form-control" value="生産活動利益">
+                    <small>データ分析画面などで「生産活動利益」として表示されます。</small>
+                </div>
+                 <div class="form-group">
+                    <label for="modal-term-wage-total">工賃</label>
+                    <input type="text" id="modal-term-wage-total" class="form-control" value="工賃支払総額">
+                    <small>データ分析画面などで「工賃支払総額」として表示されます。</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-secondary" onclick="closeModal('edit-term-accounting-modal')">キャンセル</button>
+                <button type="button" class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
     <div id="edit-term-records-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -395,7 +448,7 @@
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // サブナビゲーション（タブ）切り替え (変更なし)
+            // サブナビゲーション（タブ）切り替え
             const subNavContainer = document.getElementById('terminology-subnav');
             const tabContents = document.querySelectorAll('#terminology .tab-content-wrapper .tab-content');
             if (subNavContainer && tabContents.length > 0) {
@@ -412,18 +465,21 @@
                         content.style.display = isActive ? 'block' : 'none';
                     });
                 });
+                 // 初期表示を最初のタブに設定
                  const firstNavItem = subNavContainer.querySelector('.sub-nav-item');
-                 const firstTabContentId = firstNavItem?.dataset.tab || tabContents[0]?.id;
-                 if(firstNavItem && firstTabContentId){
-                    const firstTabContent = document.getElementById(firstTabContentId);
-                     subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
-                     tabContents.forEach(content => { content.classList.remove('active'); content.style.display = 'none'; });
-                     firstNavItem.classList.add('active');
-                     if(firstTabContent) {
-                         firstTabContent.classList.add('active');
-                         firstTabContent.style.display = 'block';
-                     }
+                 let firstTabContentId = null;
+                 if (firstNavItem) {
+                     firstTabContentId = firstNavItem.dataset.tab;
+                     firstNavItem.classList.add('active'); // Add active class to first nav item
+                 } else if (tabContents.length > 0) {
+                     firstTabContentId = tabContents[0].id; // Fallback to first tab content ID
                  }
+
+                 tabContents.forEach(content => {
+                     const isActive = content.id === firstTabContentId;
+                     content.classList.toggle('active', isActive);
+                     content.style.display = isActive ? 'block' : 'none';
+                 });
             }
 
             // --- モーダル保存時の表示更新 (汎用化) ---
@@ -434,78 +490,91 @@
                 saveButton.addEventListener('click', () => {
                     for (const modalInputId in termMappings) {
                         const displayElementId = termMappings[modalInputId].displayId;
-                        const defaultValue = termMappings[modalInputId].default;
+                        const defaultLabel = termMappings[modalInputId].defaultLabel; // Default label from mapping
                         const modalInput = document.getElementById(modalInputId);
                         const displayElement = document.getElementById(displayElementId);
 
                         if (modalInput && displayElement) {
                             const newValue = modalInput.value.trim();
-                            displayElement.textContent = newValue || defaultValue;
+                            // Update display text (dd)
+                            displayElement.textContent = newValue || defaultLabel; // Use new value or default label if empty
+
+                            // Update corresponding label text (dt)
                             const dtElement = displayElement.previousElementSibling;
                              if(dtElement && dtElement.tagName === 'DT'){
-                                 dtElement.textContent = newValue || defaultValue;
+                                 dtElement.textContent = newValue || defaultLabel; // Update dt with new value or default label
                              }
-                            const labelElement = modalInput.previousElementSibling;
-                             if(labelElement && labelElement.tagName === 'LABEL'){
-                                 labelElement.textContent = newValue || defaultValue;
-                             }
+                            // Keep modal label as the default/formal name
+                            // const labelElement = modalInput.previousElementSibling;
+                            // if(labelElement && labelElement.tagName === 'LABEL'){
+                            //     // labelElement.textContent = defaultLabel; // Ensure modal label stays as default
+                            // }
                         }
                     }
                     closeModal(modalId);
                 });
             }
 
+
             // 各モーダルと表示要素のマッピングを定義してハンドラを設定
             setupTermSaveHandler('edit-term-entities-modal', {
-                'modal-term-member': { displayId: 'display-term-member', default: '利用者' },
-                'modal-term-staff': { displayId: 'display-term-staff', default: '職員' },
-                'modal-term-partner': { displayId: 'display-term-partner', default: '取引先' },
-                'modal-term-customer': { displayId: 'display-term-customer', default: '顧客' },
-                'modal-term-supplier': { displayId: 'display-term-supplier', default: '仕入先' },
-                'modal-term-outsourcer': { displayId: 'display-term-outsourcer', default: '外注先' },
-                'modal-term-facility': { displayId: 'display-term-facility', default: '事業所' },
-                'modal-term-corporation': { displayId: 'display-term-corporation', default: '法人' }
+                'modal-term-member': { displayId: 'display-term-member', defaultLabel: '利用者' },
+                'modal-term-staff': { displayId: 'display-term-staff', defaultLabel: '職員' },
+                'modal-term-partner': { displayId: 'display-term-partner', defaultLabel: '取引先' },
+                'modal-term-customer': { displayId: 'display-term-customer', defaultLabel: '顧客' },
+                'modal-term-supplier': { displayId: 'display-term-supplier', defaultLabel: '仕入先' },
+                'modal-term-outsourcer': { displayId: 'display-term-outsourcer', defaultLabel: '外注先' },
+                'modal-term-facility': { displayId: 'display-term-facility', defaultLabel: '事業所' },
+                'modal-term-corporation': { displayId: 'display-term-corporation', defaultLabel: '法人' }
             });
 
              setupTermSaveHandler('edit-term-concepts-modal', {
-                'modal-term-work-activity': { displayId: 'display-term-work-activity', default: '生産活動' },
-                'modal-term-project': { displayId: 'display-term-project', default: '案件' },
-                'modal-term-skill': { displayId: 'display-term-skill', default: 'スキル' },
-                'modal-term-wage': { displayId: 'display-term-wage', default: '工賃' },
-                'modal-term-salary': { displayId: 'display-term-salary', default: '給与' },
-                'modal-term-accounting': { displayId: 'display-term-accounting', default: '会計' },
-                'modal-term-transaction': { displayId: 'display-term-transaction', default: '取引' },
-                'modal-term-claim': { displayId: 'display-term-claim', default: '請求' }
+                'modal-term-work-activity': { displayId: 'display-term-work-activity', defaultLabel: '生産活動' },
+                'modal-term-project': { displayId: 'display-term-project', defaultLabel: '案件' },
+                'modal-term-skill': { displayId: 'display-term-skill', defaultLabel: 'スキル' },
+                'modal-term-wage': { displayId: 'display-term-wage', defaultLabel: '工賃' },
+                'modal-term-salary': { displayId: 'display-term-salary', defaultLabel: '給与' },
+                'modal-term-accounting': { displayId: 'display-term-accounting', defaultLabel: '会計' },
+                'modal-term-transaction': { displayId: 'display-term-transaction', defaultLabel: '取引' },
+                'modal-term-claim': { displayId: 'display-term-claim', defaultLabel: '請求' }
             });
 
+             setupTermSaveHandler('edit-term-accounting-modal', {
+                 'modal-term-prod-revenue': { displayId: 'display-term-prod-revenue', defaultLabel: '生産活動事業収益' },
+                 'modal-term-prod-expense': { displayId: 'display-term-prod-expense', defaultLabel: '生産活動事業費用' },
+                 'modal-term-prod-profit': { displayId: 'display-term-prod-profit', defaultLabel: '生産活動事業利益' },
+                 'modal-term-wage-total': { displayId: 'display-term-wage-total', defaultLabel: '工賃' }
+            });
+
+
             setupTermSaveHandler('edit-term-records-modal', {
-                'modal-term-daily-record': { displayId: 'display-term-daily-record', default: '日々の記録' },
-                'modal-term-daily-log': { displayId: 'display-term-daily-log', default: '業務日誌' },
-                'modal-term-support-plan': { displayId: 'display-term-support-plan', default: '支援計画' },
-                'modal-term-monitoring': { displayId: 'display-term-monitoring', default: 'モニタリング' },
-                'modal-term-training-record': { displayId: 'display-term-training-record', default: '研修記録' },
-                'modal-term-incident-report': { displayId: 'display-term-incident-report', default: 'ヒヤリハット・事故報告' }
+                'modal-term-daily-record': { displayId: 'display-term-daily-record', defaultLabel: '日々の記録' },
+                'modal-term-daily-log': { displayId: 'display-term-daily-log', defaultLabel: '業務日誌' },
+                'modal-term-support-plan': { displayId: 'display-term-support-plan', defaultLabel: '支援計画' },
+                'modal-term-monitoring': { displayId: 'display-term-monitoring', defaultLabel: 'モニタリング' },
+                'modal-term-training-record': { displayId: 'display-term-training-record', defaultLabel: '研修記録' },
+                'modal-term-incident-report': { displayId: 'display-term-incident-report', defaultLabel: 'ヒヤリハット・事故報告' }
             });
 
             // ステータス関連のモーダルを個別に設定
              setupTermSaveHandler('edit-term-status-contract-modal', {
-                'modal-status-active': { displayId: 'display-status-active', default: '利用中' },
-                'modal-status-inactive': { displayId: 'display-status-inactive', default: '利用終了' },
-                'modal-status-pending': { displayId: 'display-status-pending', default: '待機中' }
+                'modal-status-active': { displayId: 'display-status-active', defaultLabel: '利用中' },
+                'modal-status-inactive': { displayId: 'display-status-inactive', defaultLabel: '利用終了' },
+                'modal-status-pending': { displayId: 'display-status-pending', defaultLabel: '待機中' }
             });
 
              setupTermSaveHandler('edit-term-status-progress-modal', {
-                'modal-status-not-started': { displayId: 'display-status-not-started', default: '未着手' },
-                'modal-status-in-progress': { displayId: 'display-status-in-progress', default: '作業中' },
-                'modal-status-completed': { displayId: 'display-status-completed', default: '完了' },
-                'modal-status-delivered': { displayId: 'display-status-delivered', default: '納品済' }
+                'modal-status-not-started': { displayId: 'display-status-not-started', defaultLabel: '未着手' },
+                'modal-status-in-progress': { displayId: 'display-status-in-progress', defaultLabel: '作業中' },
+                'modal-status-completed': { displayId: 'display-status-completed', defaultLabel: '完了' },
+                'modal-status-delivered': { displayId: 'display-status-delivered', defaultLabel: '納品済' }
             });
 
             setupTermSaveHandler('edit-term-status-attendance-modal', {
-                'modal-attendance-present': { displayId: 'display-attendance-present', default: '利用 (通所)' },
-                'modal-attendance-remote': { displayId: 'display-attendance-remote', default: '利用 (在宅)' },
-                'modal-attendance-absent-notified': { displayId: 'display-attendance-absent-notified', default: '欠席 (連絡あり)' },
-                'modal-attendance-absent-unnotified': { displayId: 'display-attendance-absent-unnotified', default: '欠席 (連絡なし)' }
+                'modal-attendance-present': { displayId: 'display-attendance-present', defaultLabel: '利用 (通所)' },
+                'modal-attendance-remote': { displayId: 'display-attendance-remote', defaultLabel: '利用 (在宅)' },
+                'modal-attendance-absent-notified': { displayId: 'display-attendance-absent-notified', defaultLabel: '欠席 (連絡あり)' },
+                'modal-attendance-absent-unnotified': { displayId: 'display-attendance-absent-unnotified', defaultLabel: '欠席 (連絡なし)' }
             });
 
         });
