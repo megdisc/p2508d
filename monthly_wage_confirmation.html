@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>月次工賃確定 - p2508d</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .summary-totals {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--color-border);
+            text-align: right;
+            font-size: var(--font-size-sm);
+        }
+        .summary-totals div {
+            margin-bottom: 0.5rem;
+        }
+        .summary-totals strong {
+            display: inline-block;
+            width: 120px;
+            text-align: right;
+            margin-left: 1rem;
+            font-size: 1.1em;
+        }
+        .total-net-payment strong {
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+        .badge { display: inline-block; padding: 0.25em 0.6em; font-size: 0.75rem; font-weight: 600; line-height: 1; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 1rem; }
+        .badge-warning { color: #664d03; background-color: #fff3cd; }
+        .badge-success { color: #0f5132; background-color: #d1e7dd; }
+        .col-checkbox { width: 50px; text-align: center; } /* チェックボックス列 */
+        .col-status { width: 100px; }
+        .col-actions { width: 180px; }
+
+        .statement-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem 2rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-sm);
+        }
+        .statement-header .label {
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            width: 100px;
+            flex-shrink: 0;
+        }
+        .statement-header .value {
+            color: var(--color-text-primary);
+        }
+         .statement-header .value.large {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--color-primary);
+         }
+        .statement-header .info-group {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+        .statement-table th, .statement-table td {
+            text-align: left;
+            padding: 0.5rem 0.75rem;
+        }
+        .statement-table .col-amount {
+            text-align: right;
+            width: 120px;
+        }
+        .statement-table .col-formula {
+             color: var(--color-text-secondary);
+             font-size: var(--font-size-xs);
+        }
+        .statement-table tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+        .statement-footer-note {
+             margin-top: 1.5rem;
+             padding: 1rem;
+             background-color: var(--color-background);
+             border-radius: var(--border-radius);
+             font-size: var(--font-size-sm);
+             color: var(--color-text-secondary);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <header class="header">
+            <div>
+                <h1 class="header-logo"><a href="dashboard.html">p2508d</a></h1>
+            </div>
+
+            <nav class="nav" id="side-nav">
+                <ul class="nav-list">
+                    <li><a href="dashboard.html" class="nav-link">ダッシュボード</a></li>
+                    <li><a href="daily_records.html" class="nav-link">日々の記録</a></li>
+                    <li><a href="members_menu.html" class="nav-link">利用者支援</a></li>
+                    <li><a href="work_activities_menu.html" class="nav-link">生産活動</a></li>
+                    <li><a href="staff_menu.html" class="nav-link">施設と職員</a></li>
+                    <li><a href="accounting_menu.html" class="nav-link active">会計</a></li>
+                    <li><a href="claims.html" class="nav-link">国保連請求</a></li>
+                    <li><a href="analytics.html" class="nav-link">データ分析</a></li>
+                    <li><a href="settings.html" class="nav-link">設定</a></li>
+                    <li><a href="my_page.html" class="nav-link">マイページ</a></li>
+                </ul>
+                <div class="nav-logout-section">
+                    <a href="index.html" class="nav-link">ログアウト</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="mockup-main">
+            <div id="monthly-wage-confirmation" class="mockup-page active">
+                <div class="list-page-header">
+                    <h1 class="page-title">月次工賃確定</h1>
+                    <div>
+                        <a href="accounting_menu.html" class="button button-secondary">会計メニューへ</a>
+                    </div>
+                </div>
+
+                <div class="sub-nav">
+                    <ul id="wage-confirmation-subnav">
+                        <li><a href="#" class="sub-nav-item active" data-tab="tab-confirmation">確定処理</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-statement">工賃明細書</a></li>
+                    </ul>
+                </div>
+
+                <div class="tab-content-wrapper">
+
+                    <div id="tab-confirmation" class="tab-content active">
+                        <div class="section">
+                             <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem; justify-content: flex-start;">
+                                <div class="form-group" style="flex-grow: 0;">
+                                    <label for="target-month" class="form-label">対象年月</label>
+                                    <input type="month" id="target-month" class="form-control" value="2025-09" style="width: auto;">
+                                </div>
+                                <div class="form-group" style="flex-grow: 2;">
+                                    <label for="search-member-name" class="form-label">利用者名</label>
+                                    <input type="text" id="search-member-name" class="form-control" placeholder="氏名で検索...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="filter-status" class="form-label">ステータス</label>
+                                    <select id="filter-status" class="form-control">
+                                        <option value="">すべて</option>
+                                        <option value="unconfirmed">未確定</option>
+                                        <option value="confirmed">確定済</option>
+                                    </select>
+                                </div>
+                                <button type="button" class="button button-secondary">クリア</button>
+                            </form>
+
+                            <div class="table-wrapper">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-checkbox"><input type="checkbox" id="select-all-checkbox"></th>
+                                            <th>利用者名</th>
+                                            <th class="col-amount">工賃合計(円)</th>
+                                            <th class="col-amount">控除合計(円)</th>
+                                            <th class="col-amount">差引支給額(円)</th>
+                                            <th class="col-status">ステータス</th>
+                                            <th class="col-actions">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="wage-confirmation-tbody">
+                                        <tr class="clickable-row" data-member-name="青木 誠" data-status="unconfirmed"
+                                            data-wage-total="16000" data-deduction-total="500" data-net-payment="15500">
+                                            <td class="col-checkbox"><input type="checkbox" class="row-checkbox"></td>
+                                            <td>青木 誠</td>
+                                            <td class="col-amount">16,000</td>
+                                            <td class="col-amount">500</td>
+                                            <td class="col-amount">15,500</td>
+                                            <td class="col-status"><span class="badge badge-warning">未確定</span></td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button class="button button-secondary">詳細</button>
+                                                    <button class="button button-primary">確定</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="clickable-row" data-member-name="五十嵐 直人" data-status="unconfirmed"
+                                            data-wage-total="15000" data-deduction-total="500" data-net-payment="14500">
+                                            <td class="col-checkbox"><input type="checkbox" class="row-checkbox"></td>
+                                            <td>五十嵐 直人</td>
+                                            <td class="col-amount">15,000</td>
+                                            <td class="col-amount">500</td>
+                                            <td class="col-amount">14,500</td>
+                                            <td class="col-status"><span class="badge badge-warning">未確定</span></td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button class="button button-secondary">詳細</button>
+                                                    <button class="button button-primary">確定</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="clickable-row" data-member-name="遠藤 雅彦" data-status="confirmed"
+                                            data-wage-total="12000" data-deduction-total="500" data-net-payment="11500">
+                                            <td class="col-checkbox"><input type="checkbox" class="row-checkbox"></td>
+                                            <td>遠藤 雅彦</td>
+                                            <td class="col-amount">12,000</td>
+                                            <td class="col-amount">500</td>
+                                            <td class="col-amount">11,500</td>
+                                            <td class="col-status"><span class="badge badge-success">確定済</span></td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button class="button button-secondary">詳細</button>
+                                                    <button class="button button-secondary">確定解除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="summary-totals">
+                                <div>工賃合計: <strong id="total-wages">43,000 円</strong></div>
+                                <div>控除合計: <strong id="total-deductions">1,500 円</strong></div>
+                                <div class="total-net-payment">差引支給額合計: <strong id="total-net-payment">41,500 円</strong></div>
+                            </div>
+                             <div class="section-footer" style="display: flex; justify-content: space-between; align-items: center;">
+                                 <div>
+                                     <button class="button button-secondary" id="print-selected-button">選択明細書印刷</button>
+                                     <button class="button button-secondary" id="print-all-button">明細書一括印刷</button>
+                                 </div>
+                                <div>
+                                     <button class="button button-primary" id="confirm-selected-button">選択した項目を確定</button>
+                                     <button class="button button-danger" id="confirm-all-button" style="margin-left: 0.5rem;">全件確定</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-statement" class="tab-content">
+                        <div class="section">
+                            <form class="section-content filter-form-inline" style="margin-bottom: 1.5rem; justify-content: flex-start;">
+                                <div class="form-group" style="flex-grow: 0;">
+                                    <label for="statement-target-month" class="form-label">対象年月</label>
+                                    <input type="month" id="statement-target-month" class="form-control" value="2025-09" style="width: auto;">
+                                </div>
+                                <div class="form-group" style="flex-grow: 0;">
+                                    <label for="statement-member-select" class="form-label">利用者選択</label>
+                                    <select id="statement-member-select" class="form-control" style="width: auto;">
+                                        <option value="A001">青木 誠</option>
+                                        <option value="A002">五十嵐 直人</option>
+                                        <option value="A003">遠藤 雅彦</option>
+                                    </select>
+                                </div>
+                                <button type="button" class="button button-primary">明細表示</button>
+                                <button type="button" class="button button-secondary" style="margin-left: auto;">印刷</button>
+                            </form>
+                        </div>
+
+                         <div class="section">
+                            <h2 class="section-title">工賃明細書 (2025年9月分 - 青木 誠 様)</h2>
+                            <div class="section-content">
+                                <div class="statement-header">
+                                    <div>
+                                        <div class="info-group">
+                                            <span class="label">利用者名:</span>
+                                            <span class="value" id="st-member-name">青木 誠 様</span>
+                                        </div>
+                                        <div class="info-group">
+                                            <span class="label">対象年月:</span>
+                                            <span class="value" id="st-target-month">2025年9月度</span>
+                                        </div>
+                                         <div class="info-group">
+                                            <span class="label">差引支給額:</span>
+                                            <span class="value large" id="st-net-payment">15,500 円</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="info-group">
+                                            <span class="label">明細書番号:</span>
+                                            <span class="value" id="st-statement-no">202509-A001</span>
+                                        </div>
+                                        <div class="info-group">
+                                            <span class="label">発行日:</span>
+                                            <span class="value" id="st-issue-date">2025年10月29日</span>
+                                        </div>
+                                         <div class="info-group">
+                                            <span class="label">法人名称:</span>
+                                            <span class="value" id="st-corp-name">社会福祉法人〇〇会</span>
+                                        </div>
+                                        <div class="info-group">
+                                            <span class="label">事業所名称:</span>
+                                            <span class="value" id="st-facility-name">事業所A</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-wrapper">
+                                    <table class="table statement-table">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 100px;">区分1</th>
+                                                <th style="width: 100px;">区分2</th>
+                                                <th>区分3・摘要</th>
+                                                <th class="col-formula">計算式</th>
+                                                <th class="col-amount">金額(円)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="statement-details-tbody">
+                                            <tr>
+                                                <td>工賃</td>
+                                                <td>基本</td>
+                                                <td>A等級 (時給350円)</td>
+                                                <td class="col-formula">350円 × 45.75時間</td>
+                                                <td class="col-amount">16,013</td>
+                                            </tr>
+                                             <tr>
+                                                <td></td>
+                                                <td>加算</td>
+                                                <td>精勤手当 (利用日数20日以上)</td>
+                                                <td class="col-formula"></td>
+                                                <td class="col-amount">3,000</td>
+                                            </tr>
+                                            <tr style="font-weight: bold;">
+                                                <td colspan="4" style="text-align: right;">工賃計</td>
+                                                <td class="col-amount" id="st-total-wage">19,013</td>
+                                            </tr>
+                                            <tr>
+                                                <td>控除</td>
+                                                <td></td>
+                                                <td>昼食費 (月額)</td>
+                                                <td class="col-formula"></td>
+                                                <td class="col-amount">-3,000</td>
+                                            </tr>
+                                             <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td>行事費</td>
+                                                <td class="col-formula"></td>
+                                                <td class="col-amount">-500</td>
+                                            </tr>
+                                             <tr style="font-weight: bold;">
+                                                <td colspan="4" style="text-align: right;">控除計</td>
+                                                <td class="col-amount" id="st-total-deduction">-3,500</td>
+                                            </tr>
+                                            <tr style="font-weight: bold; background-color: var(--color-hover-bg) !important;">
+                                                <td colspan="4" style="text-align: right;">差引支給額</td>
+                                                <td class="col-amount" id="st-final-payment">15,513</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="statement-footer-note">
+                                    備考: 今月も作業お疲れ様でした。来月は新しい案件が始まる予定です。
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="wage-detail-modal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h2 class="modal-title">工賃計算詳細 (<span id="modal-detail-month"></span> <span id="modal-detail-member-name"></span>)</h2>
+                <span class="modal-close" onclick="closeModal('wage-detail-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="sub-nav">
+                     <ul id="wage-detail-subnav">
+                        <li><a href="#" class="sub-nav-item active" data-tab="tab-detail-summary">サマリー</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-detail-daily">日別実績</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-detail-allowance">加算項目</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-detail-deduction">控除項目</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content-wrapper" style="margin-top: 1.5rem;">
+                    <div id="tab-detail-summary" class="tab-content active">
+                        <dl class="detail-grid">
+                            <dt>工賃合計</dt><dd id="modal-summary-wage-total">16,000 円</dd>
+                            <dt>控除合計</dt><dd id="modal-summary-deduction-total">500 円</dd>
+                            <dt>差引支給額</dt><dd id="modal-summary-net-payment" style="font-weight: bold; color: var(--color-primary);">15,500 円</dd>
+                            <dt>工賃等級</dt><dd id="modal-summary-wage-rank">A等級 (時給 350円)</dd>
+                            <dt>総利用時間</dt><dd id="modal-summary-total-hours">45.75 時間</dd>
+                            <dt>利用日数</dt><dd id="modal-summary-work-days">21 日</dd>
+                        </dl>
+                    </div>
+                    <div id="tab-detail-daily" class="tab-content">
+                        <div class="table-wrapper" style="max-height: 300px; overflow-y: auto;">
+                            <table class="table">
+                                <thead><tr><th>日付</th><th>利用時間</th><th>基本工賃(円)</th></tr></thead>
+                                <tbody id="modal-daily-tbody">
+                                    <tr><td>2025/09/01</td><td>5.5 時間</td><td class="col-amount">1,925</td></tr>
+                                    <tr><td>2025/09/02</td><td>5.5 時間</td><td class="col-amount">1,925</td></tr>
+                                    <tr><td>...</td><td>...</td><td class="col-amount">...</td></tr>
+                                    <tr><td>2025/09/30</td><td>5.75 時間</td><td class="col-amount">2,013</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tab-detail-allowance" class="tab-content">
+                         <div class="table-wrapper">
+                            <table class="table">
+                                <thead><tr><th>項目名</th><th>計算根拠</th><th class="col-amount">金額(円)</th></tr></thead>
+                                <tbody id="modal-allowance-tbody">
+                                     <tr><td>精勤手当</td><td>利用日数 21日</td><td class="col-amount">3,000</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                         <div style="text-align: right; margin-top: 0.5rem;">
+                             <button class="button button-secondary" onclick="alert('手当の手動調整画面を表示')">手当を手動調整</button>
+                         </div>
+                    </div>
+                     <div id="tab-detail-deduction" class="tab-content">
+                         <div class="table-wrapper">
+                            <table class="table">
+                                <thead><tr><th>項目名</th><th>計算根拠</th><th class="col-amount">金額(円)</th></tr></thead>
+                                <tbody id="modal-deduction-tbody">
+                                    <tr><td>昼食費</td><td>月額</td><td class="col-amount">-3,000</td></tr>
+                                    <tr><td>行事費</td><td>9月BBQ</td><td class="col-amount">-500</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                         <div style="text-align: right; margin-top: 0.5rem;">
+                            <button class="button button-secondary" onclick="alert('控除の手動調整画面を表示')">控除を手動調整</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-secondary" onclick="closeModal('wage-detail-modal')">閉じる</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function filterWagesConfirmation() {
+            const nameInput = document.getElementById('search-member-name');
+            const statusSelect = document.getElementById('filter-status');
+            const tableBody = document.getElementById('wage-confirmation-tbody');
+            const targetMonth = document.getElementById('target-month').value;
+
+            if (!nameInput || !statusSelect || !tableBody || !targetMonth) {
+                console.warn("Filter elements or table body not found.");
+                return;
+            }
+
+            const nameFilter = nameInput.value.toLowerCase();
+            const statusFilter = statusSelect.value;
+            const rows = tableBody.getElementsByTagName('tr');
+
+            Array.from(rows).forEach(row => {
+                const memberName = row.dataset.memberName?.toLowerCase() || '';
+                const statusData = row.dataset.status || '';
+
+                const nameMatch = memberName.includes(nameFilter);
+                const statusMatch = statusFilter === "" || statusData === statusFilter;
+
+                row.style.display = (nameMatch && statusMatch) ? '' : 'none';
+            });
+             updateSelectAllCheckboxState(); // フィルター後に全選択チェックボックスの状態を更新
+        }
+
+        function openWageDetailModal(rowData) {
+             const modal = document.getElementById('wage-detail-modal');
+             if (!modal) return;
+
+             const targetMonth = document.getElementById('target-month')?.value || 'YYYY-MM';
+             const [year, month] = targetMonth.split('-');
+
+             document.getElementById('modal-detail-month').textContent = `${year}年${parseInt(month, 10)}月度`;
+             document.getElementById('modal-detail-member-name').textContent = rowData.memberName || '';
+             document.getElementById('modal-summary-wage-total').textContent = (rowData.wageTotal || 0).toLocaleString() + ' 円';
+             document.getElementById('modal-summary-deduction-total').textContent = (rowData.deductionTotal || 0).toLocaleString() + ' 円';
+             document.getElementById('modal-summary-net-payment').textContent = (rowData.netPayment || 0).toLocaleString() + ' 円';
+
+             openModal('wage-detail-modal');
+        }
+
+        // 全選択チェックボックスの状態を更新する関数
+        function updateSelectAllCheckboxState() {
+            const selectAllCheckbox = document.getElementById('select-all-checkbox');
+            const rowCheckboxes = document.querySelectorAll('#wage-confirmation-tbody tr:not([style*="display: none"]) .row-checkbox'); // 表示されている行のみ対象
+            if (!selectAllCheckbox || rowCheckboxes.length === 0) return;
+
+            const allChecked = Array.from(rowCheckboxes).every(cb => cb.checked);
+            const someChecked = Array.from(rowCheckboxes).some(cb => cb.checked);
+
+            selectAllCheckbox.checked = allChecked;
+            selectAllCheckbox.indeterminate = !allChecked && someChecked;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+             const mainSubNavContainer = document.getElementById('wage-confirmation-subnav');
+             const mainTabContents = document.querySelectorAll('#monthly-wage-confirmation > .tab-content-wrapper > .tab-content');
+
+             if (mainSubNavContainer && mainTabContents.length > 0) {
+                 mainSubNavContainer.addEventListener('click', (e) => {
+                     const navItem = e.target.closest('.sub-nav-item');
+                     if (!navItem || navItem.classList.contains('active')) { return; }
+                     e.preventDefault();
+                     const targetTabId = navItem.dataset.tab;
+                     mainSubNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                     navItem.classList.add('active');
+                     mainTabContents.forEach(content => {
+                        const isActive = content.id === targetTabId;
+                        content.classList.toggle('active', isActive);
+                        content.style.display = isActive ? 'block' : 'none';
+                     });
+                 });
+                 const initialNavItem = mainSubNavContainer.querySelector('.sub-nav-item[data-tab="tab-confirmation"]');
+                 const initialTabContent = document.getElementById('tab-confirmation');
+                 if (initialNavItem && initialTabContent) {
+                     mainSubNavContainer.querySelectorAll('.sub-nav-item').forEach(item => item.classList.remove('active'));
+                     mainTabContents.forEach(content => { content.classList.remove('active'); content.style.display = 'none'; });
+                     initialNavItem.classList.add('active');
+                     initialTabContent.classList.add('active');
+                     initialTabContent.style.display = 'block';
+                 }
+             }
+
+             const modalSubNavContainer = document.getElementById('wage-detail-subnav');
+             const modalTabContents = document.querySelectorAll('#wage-detail-modal .tab-content-wrapper .tab-content');
+              if (modalSubNavContainer && modalTabContents.length > 0) {
+                  modalSubNavContainer.addEventListener('click', (e) => {
+                      const navItem = e.target.closest('.sub-nav-item');
+                      if (!navItem || navItem.classList.contains('active')) { return; }
+                      e.preventDefault();
+                      const targetTabId = navItem.dataset.tab;
+                      modalSubNavContainer.querySelectorAll('.sub-nav-item').forEach(item => item.classList.remove('active'));
+                      navItem.classList.add('active');
+                      modalTabContents.forEach(content => {
+                         const isActive = content.id === targetTabId;
+                         content.classList.toggle('active', isActive);
+                         content.style.display = isActive ? 'block' : 'none';
+                      });
+                  });
+                  const initialModalNavItem = modalSubNavContainer.querySelector('.sub-nav-item[data-tab="tab-detail-summary"]');
+                  const initialModalTabContent = document.getElementById('tab-detail-summary');
+                  if (initialModalNavItem && initialModalTabContent) {
+                      modalSubNavContainer.querySelectorAll('.sub-nav-item').forEach(item => item.classList.remove('active'));
+                      modalTabContents.forEach(content => { content.classList.remove('active'); content.style.display = 'none'; });
+                      initialModalNavItem.classList.add('active');
+                      initialModalTabContent.classList.add('active');
+                      initialModalTabContent.style.display = 'block';
+                  }
+              }
+
+             if (typeof window.filterWagesConfirmation === 'function') {
+                 const targetMonthInput = document.getElementById('target-month');
+                 const nameInputListener = document.getElementById('search-member-name');
+                 const statusSelectListener = document.getElementById('filter-status');
+                 const clearButton = document.querySelector('#tab-confirmation .filter-form-inline .button-secondary');
+
+                 if(targetMonthInput) targetMonthInput.addEventListener('change', filterWagesConfirmation);
+                 if(nameInputListener) nameInputListener.addEventListener('input', filterWagesConfirmation);
+                 if(statusSelectListener) statusSelectListener.addEventListener('change', filterWagesConfirmation);
+
+                 if(clearButton) {
+                     clearButton.addEventListener('click', () => {
+                         const form = document.querySelector('#tab-confirmation .filter-form-inline');
+                          if (form) form.reset();
+                          filterWagesConfirmation();
+                     });
+                 }
+                 filterWagesConfirmation();
+             }
+
+             const tableBody = document.getElementById('wage-confirmation-tbody');
+             if(tableBody) {
+                  tableBody.addEventListener('click', (e) => {
+                     const row = e.target.closest('tr.clickable-row');
+                     const confirmButton = e.target.closest('.button-primary');
+                     const unconfirmButton = e.target.closest('td.col-actions .button-secondary');
+                     const checkbox = e.target.closest('.row-checkbox');
+
+                     if (checkbox) {
+                        updateSelectAllCheckboxState(); // 個別チェックボックス変更時に全選択の状態を更新
+                        return; // チェックボックス操作時はモーダルを開かない
+                     }
+
+                     if (row && !confirmButton && !(unconfirmButton && unconfirmButton.textContent !== '詳細')) {
+                          openWageDetailModal(row.dataset);
+                     } else if (confirmButton && confirmButton.textContent === '確定') {
+                         if (row) {
+                             row.dataset.status = 'confirmed';
+                             row.querySelector('.col-status').innerHTML = '<span class="badge badge-success">確定済</span>';
+                             const actionButtons = row.querySelector('.table-button-group');
+                             actionButtons.innerHTML = `
+                                 <button class="button button-secondary">詳細</button>
+                                 <button class="button button-secondary">確定解除</button>
+                             `;
+                             alert(`${row.dataset.memberName}さんの工賃を確定しました。`);
+                             filterWagesConfirmation();
+                         }
+                     } else if (unconfirmButton && unconfirmButton.textContent === '確定解除') {
+                          if (row) {
+                             row.dataset.status = 'unconfirmed';
+                             row.querySelector('.col-status').innerHTML = '<span class="badge badge-warning">未確定</span>';
+                             const actionButtons = row.querySelector('.table-button-group');
+                             actionButtons.innerHTML = `
+                                 <button class="button button-secondary">詳細</button>
+                                 <button class="button button-primary">確定</button>
+                             `;
+                             alert(`${row.dataset.memberName}さんの工賃確定を解除しました。`);
+                             filterWagesConfirmation();
+                          }
+                     } else if (unconfirmButton && unconfirmButton.textContent === '詳細') {
+                          if(row) {
+                             openWageDetailModal(row.dataset);
+                          }
+                     }
+                 });
+             }
+
+             // --- 全選択チェックボックス ---
+             const selectAllCheckbox = document.getElementById('select-all-checkbox');
+             if (selectAllCheckbox && tableBody) {
+                 selectAllCheckbox.addEventListener('change', (e) => {
+                     const isChecked = e.target.checked;
+                     const rowCheckboxes = tableBody.querySelectorAll('tr:not([style*="display: none"]) .row-checkbox'); // 表示されている行のみ対象
+                     rowCheckboxes.forEach(cb => cb.checked = isChecked);
+                     updateSelectAllCheckboxState(); // indeterminate状態のクリアのため
+                 });
+             }
+
+             // --- フッターボタンのアクション (ダミー) ---
+             const printSelectedButton = document.getElementById('print-selected-button');
+             const confirmSelectedButton = document.getElementById('confirm-selected-button');
+             const confirmAllButton = document.getElementById('confirm-all-button'); // 全件確定ボタン追加
+
+             if (printSelectedButton && confirmSelectedButton && confirmAllButton && tableBody) {
+                printSelectedButton.addEventListener('click', () => {
+                    const selectedNames = [];
+                    tableBody.querySelectorAll('.row-checkbox:checked').forEach(cb => {
+                        const row = cb.closest('tr');
+                        if (row && row.dataset.memberName) {
+                            selectedNames.push(row.dataset.memberName);
+                        }
+                    });
+                    if (selectedNames.length > 0) {
+                        alert(`選択された利用者の明細書を印刷します:\n${selectedNames.join(', ')}`);
+                    } else {
+                        alert('印刷する利用者を選択してください。');
+                    }
+                });
+
+                confirmSelectedButton.addEventListener('click', () => {
+                     const selectedNames = [];
+                     const rowsToConfirm = [];
+                     tableBody.querySelectorAll('.row-checkbox:checked').forEach(cb => {
+                        const row = cb.closest('tr');
+                        if (row && row.dataset.memberName && row.dataset.status === 'unconfirmed') {
+                             selectedNames.push(row.dataset.memberName);
+                             rowsToConfirm.push(row);
+                        }
+                     });
+
+                     if (rowsToConfirm.length > 0) {
+                         rowsToConfirm.forEach(row => {
+                            row.dataset.status = 'confirmed';
+                            row.querySelector('.col-status').innerHTML = '<span class="badge badge-success">確定済</span>';
+                            const actionButtons = row.querySelector('.table-button-group');
+                            actionButtons.innerHTML = `
+                                <button class="button button-secondary">詳細</button>
+                                <button class="button button-secondary">確定解除</button>
+                            `;
+                            row.querySelector('.row-checkbox').checked = false; // 確定後はチェックを外す
+                         });
+                         alert(`選択された利用者の工賃を確定しました:\n${selectedNames.join(', ')}`);
+                         filterWagesConfirmation(); // フィルタと全選択チェックボックスの状態を更新
+                     } else {
+                         alert('確定する未確定の利用者を選択してください。');
+                     }
+                 });
+
+                 confirmAllButton.addEventListener('click', () => {
+                    const unconfirmedRows = tableBody.querySelectorAll('tr[data-status="unconfirmed"]:not([style*="display: none"])'); // 表示されている未確定行
+                    if (unconfirmedRows.length > 0) {
+                         if (confirm(`${unconfirmedRows.length}件の未確定項目をすべて確定しますか？`)) {
+                             unconfirmedRows.forEach(row => {
+                                 row.dataset.status = 'confirmed';
+                                 row.querySelector('.col-status').innerHTML = '<span class="badge badge-success">確定済</span>';
+                                 const actionButtons = row.querySelector('.table-button-group');
+                                 actionButtons.innerHTML = `
+                                     <button class="button button-secondary">詳細</button>
+                                     <button class="button button-secondary">確定解除</button>
+                                 `;
+                                 const checkbox = row.querySelector('.row-checkbox');
+                                 if(checkbox) checkbox.checked = false;
+                             });
+                             alert(`${unconfirmedRows.length}件の工賃を確定しました。`);
+                             filterWagesConfirmation(); // フィルタと全選択チェックボックスの状態を更新
+                         }
+                    } else {
+                         alert('確定対象の未確定項目がありません。');
+                    }
+                 });
+             }
+
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>財務状況分析 - p2508d</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .filter-form-inline { display: flex; align-items: flex-end; gap: 1.5rem; flex-wrap: wrap; }
+        .filter-form-inline .form-group { margin-bottom: 0; flex-grow: 1; }
+        .filter-form-inline .button-secondary { margin-bottom: 0; height: calc(1.5em + 1rem + 2px); flex-shrink: 0; }
+        .chart-placeholder { text-align: center; padding: 4rem 1rem; background-color: var(--color-hover-bg); border: 1px dashed var(--color-border); border-radius: var(--border-radius); color: var(--color-text-secondary); font-size: var(--font-size-sm); }
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem; }
+        .kpi-card {
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 1rem 1.5rem;
+            background-color: var(--color-surface);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .kpi-card h4 { font-size: var(--font-size-sm); font-weight: 500; color: var(--color-text-secondary); margin-bottom: 0.5rem; }
+        .kpi-card p { font-size: 1.5rem; font-weight: bold; color: var(--color-primary); margin-bottom: 0.5rem; }
+        .kpi-card .subtext { font-size: var(--font-size-xs); font-weight: normal; color: var(--color-text-secondary); }
+        .col-number { text-align: right !important; }
+
+        .period-selector-section .section-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .period-unit-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .period-unit-button {
+            padding: 0.5rem 1rem;
+            font-size: var(--font-size-sm);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            background-color: var(--color-surface);
+            color: var(--color-text-primary);
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+        }
+        .period-unit-button:hover {
+            background-color: var(--color-hover-bg);
+        }
+        .period-unit-button.active {
+            background-color: var(--color-primary);
+            color: var(--color-button-text);
+            border-color: var(--color-primary);
+            font-weight: 500;
+        }
+        .period-main-selector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 500px;
+        }
+        .period-navigation-buttons .button {
+            padding: 0.75rem;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+        .period-display {
+            text-align: center;
+            flex-grow: 1;
+        }
+        .period-display-label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            margin-bottom: 0.25rem;
+        }
+        .period-display-main {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--color-primary);
+            line-height: 1.1;
+        }
+        .period-display-sub {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-secondary);
+            margin-top: 0.25rem;
+        }
+        .period-detail-selectors {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .period-detail-selectors .form-control {
+            width: auto;
+            padding: 0.5rem 0.75rem;
+        }
+        .period-detail-selectors label {
+            margin-bottom: 0;
+            font-weight: normal;
+            font-size: var(--font-size-sm);
+        }
+         .section-header-controls {
+             display: flex;
+             align-items: center;
+             gap: 0.5rem;
+             margin-left: auto;
+         }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <header class="header">
+            <div> <h1 class="header-logo"><a href="dashboard.html">p2508d</a></h1> </div>
+            <nav class="nav" id="side-nav">
+                <ul class="nav-list">
+                    <li><a href="dashboard.html" class="nav-link">ダッシュボード</a></li>
+                    <li><a href="daily_records.html" class="nav-link">日々の記録</a></li>
+                    <li><a href="members_menu.html" class="nav-link">利用者支援</a></li>
+                    <li><a href="work_activities_menu.html" class="nav-link">生産活動</a></li>
+                    <li><a href="staff_menu.html" class="nav-link">施設と職員</a></li>
+                    <li><a href="accounting_menu.html" class="nav-link">会計</a></li>
+                    <li><a href="claims.html" class="nav-link">国保連請求</a></li>
+                    <li><a href="analytics_menu.html" class="nav-link active">データ分析</a></li>
+                    <li><a href="settings.html" class="nav-link">設定</a></li>
+                    <li><a href="my_page.html" class="nav-link">マイページ</a></li>
+                </ul>
+                <div class="nav-logout-section"> <a href="index.html" class="nav-link">ログアウト</a> </div>
+            </nav>
+        </header>
+
+        <main class="mockup-main">
+            <div id="analytics-financial" class="mockup-page active">
+                <div class="list-page-header">
+                    <h1 class="page-title">財務状況分析</h1>
+                     <div>
+                        <a href="analytics_menu.html" class="button button-secondary" style="margin-right: 0.5rem;">分析メニューへ</a>
+                        <button class="button button-secondary" onclick="alert('表示項目カスタマイズ画面（未実装）')">表示項目設定</button>
+                    </div>
+                </div>
+
+                <div class="section period-selector-section" style="margin-bottom: 1.5rem;">
+                    <div class="section-content">
+                        <div class="period-unit-buttons">
+                            <button class="period-unit-button" data-unit="monthly">月次</button>
+                            <button class="period-unit-button active" data-unit="yearly">年次</button>
+                            <button class="period-unit-button" data-unit="all">全期間</button>
+                        </div>
+                        <div class="period-main-selector">
+                            <div class="period-navigation-buttons">
+                                <button class="button button-secondary period-prev-button">‹</button>
+                            </div>
+                            <div class="period-display">
+                                <p class="period-display-label">事業年度</p>
+                                <p class="period-display-main" id="financial-period-display-main">2025年度</p>
+                                <p class="period-display-sub" id="financial-period-display-sub">2025年4月1日～2026年3月31日</p>
+                            </div>
+                            <div class="period-navigation-buttons">
+                                <button class="button button-secondary period-next-button">›</button>
+                            </div>
+                        </div>
+                        <div class="period-detail-selectors" id="financial-period-details">
+                            <label for="financial-year-select">年度:</label>
+                            <select id="financial-year-select" class="form-control period-year-select">
+                                <option value="2025" selected>2025年度</option>
+                                <option value="2024">2024年度</option>
+                                <option value="2023">2023年度</option>
+                            </select>
+                            <label for="financial-month-select" class="period-month-label" style="display: none; margin-left: 1rem;">月:</label>
+                            <select id="financial-month-select" class="form-control period-month-select" style="display: none;">
+                                <option value="4">4月</option> <option value="5">5月</option> <option value="6">6月</option>
+                                <option value="7">7月</option> <option value="8">8月</option> <option value="9">9月</option>
+                                <option value="10" selected>10月</option> <option value="11">11月</option> <option value="12">12月</option>
+                                <option value="1">1月</option> <option value="2">2月</option> <option value="3">3月</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sub-nav">
+                    <ul id="financial-subnav">
+                        <li><a href="#" class="sub-nav-item active" data-tab="tab-financial-overview-main">概要・KPI</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-financial-breakdown">収支内訳</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-financial-transition">収支推移</a></li>
+                    </ul>
+                </div>
+
+                <div class="tab-content-wrapper">
+                    <div id="tab-financial-overview-main" class="tab-content active">
+                        <div class="section">
+                            <h2 class="section-title">主要KPI</h2>
+                            <div class="kpi-grid">
+                                <div class="kpi-card"> <h4>総収益</h4> <p>15,850,000 <span class="subtext">円</span></p> </div>
+                                <div class="kpi-card"> <h4>総費用</h4> <p>13,100,000 <span class="subtext">円</span></p> </div>
+                                <div class="kpi-card"> <h4>経常増減差額</h4> <p>2,750,000 <span class="subtext">円</span></p> </div>
+                                <div class="kpi-card"> <h4>経常増減差額率</h4> <p>17.3 <span class="subtext">%</span></p> </div>
+                            </div>
+                             <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary); text-align: right;">※表示するKPIは「表示項目設定」でカスタマイズ可能です。</p>
+                        </div>
+                    </div>
+                    <div id="tab-financial-breakdown" class="tab-content">
+                        <div class="section">
+                            <h2 class="section-title">収益内訳</h2>
+                             <div class="kpi-grid">
+                                <div class="kpi-card"> <h4>訓練等給付費</h4> <p>9,500,000 <span class="subtext">円</span></p> </div>
+                                <div class="kpi-card"> <h4>生産活動収入</h4> <p>5,500,000 <span class="subtext">円</span></p> </div>
+                                <div class="kpi-card"> <h4>その他収入</h4> <p>850,000 <span class="subtext">円</span></p> </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-content">
+                                     <h4>収益内訳グラフ</h4>
+                                     <div class="chart-placeholder">（訓練等給付費 / 生産活動収入 / その他 の円グラフ）</div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="section">
+                            <h2 class="section-title">費用内訳</h2>
+                             <div class="kpi-grid">
+                                <div class="kpi-card"> <h4>利用者工賃</h4> <p>2,032,700 <span class="subtext">円</span></p> </div>
+                                <div class="kpi-card"> <h4>職員給与</h4> <p>6,500,000 <span class="subtext">円</span></p> </div>
+                                <div class="kpi-card"> <h4>地代家賃</h4> <p>1,800,000 <span class="subtext">円</span></p> </div>
+                                <div class="kpi-card"> <h4>水道光熱費</h4> <p>600,000 <span class="subtext">円</span></p> </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-content">
+                                    <h4>費用内訳グラフ</h4>
+                                    <div class="chart-placeholder">（工賃 / 職員給与 / 地代家賃 / 水道光熱費 / その他 の円グラフ）</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div id="tab-financial-transition" class="tab-content">
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">収支推移グラフ</h2>
+                                <div class="section-header-controls">
+                                     <button class="button button-secondary" onclick="alert('CSVダウンロード（未実装）')">CSV</button>
+                                </div>
+                            </div>
+                            <div class="section-content">
+                                <div class="chart-placeholder">（収益・費用・差額の月次推移を示すグラフ）</div>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">収支推移 (一覧表)</h2>
+                                <div class="section-header-controls">
+                                     <button class="button button-secondary" onclick="alert('CSVダウンロード（未実装）')">CSV</button>
+                                </div>
+                            </div>
+                            <div class="table-wrapper">
+                                <table class="table" id="financial-monthly-detail-table-main">
+                                    <thead> <tr> <th>月</th> <th class="col-number">収益(円)</th> <th class="col-number">費用(円)</th> <th class="col-number">差額(円)</th> <th class="col-number">差額率(%)</th> </tr> </thead>
+                                    <tbody>
+                                        <tr> <td>4月</td> <td class="col-number">1,500,000</td> <td class="col-number">1,200,000</td> <td class="col-number">300,000</td> <td class="col-number">20.0%</td> </tr>
+                                        <tr> <td>5月</td> <td class="col-number">1,550,000</td> <td class="col-number">1,250,000</td> <td class="col-number">300,000</td> <td class="col-number">19.4%</td> </tr>
+                                        <tr> <td>...</td> <td class="col-number">...</td> <td class="col-number">...</td> <td class="col-number">...</td> <td class="col-number">...</td> </tr>
+                                        <tr style="font-weight: bold; background-color: var(--color-hover-bg);"> <td>合計</td> <td class="col-number">15,850,000</td> <td class="col-number">13,100,000</td> <td class="col-number">2,750,000</td> <td class="col-number">17.3%</td> </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        function setupPeriodSelector(pageId) {
+            const pageElement = document.getElementById(pageId);
+            if (!pageElement) return;
+
+            const unitButtonsContainer = pageElement.querySelector('.period-unit-buttons');
+            const periodDetailsContainer = pageElement.querySelector('.period-detail-selectors');
+            const yearSelect = pageElement.querySelector('.period-year-select');
+            const monthSelect = pageElement.querySelector('.period-month-select');
+            const monthLabel = pageElement.querySelector('.period-month-label');
+            const prevButton = pageElement.querySelector('.period-prev-button');
+            const nextButton = pageElement.querySelector('.period-next-button');
+            const periodDisplayMain = pageElement.querySelector('.period-display-main');
+            const periodDisplaySub = pageElement.querySelector('.period-display-sub');
+            const periodDisplayLabel = pageElement.querySelector('.period-display-label');
+
+            if (!unitButtonsContainer || !periodDetailsContainer || !yearSelect || !monthSelect || !monthLabel || !prevButton || !nextButton || !periodDisplayMain || !periodDisplaySub || !periodDisplayLabel) {
+                return;
+            }
+
+
+            function getPeriodStartEnd(year, month) {
+                const yearNum = parseInt(year);
+                let startMonth, endMonth, startDay, endDay;
+
+                startMonth = 4;
+                startDay = 1;
+                endMonth = 3;
+                endDay = 31;
+
+                let startDate, endDate;
+
+                if (month) {
+                    const monthNum = parseInt(month);
+                    let targetYear = yearNum;
+                    if (monthNum >= 1 && monthNum <= 3) {
+                        targetYear += 1;
+                    }
+                    startDate = new Date(targetYear, monthNum - 1, 1);
+                    endDate = new Date(targetYear, monthNum, 0);
+                } else {
+                    startDate = new Date(yearNum, startMonth - 1, startDay);
+                    endDate = new Date(yearNum + 1, endMonth - 1, endDay);
+                }
+
+                const formatDate = (date) => {
+                    return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+                }
+
+                return {
+                    start: formatDate(startDate),
+                    end: formatDate(endDate)
+                };
+            }
+
+            function updatePeriodDisplay() {
+                const activeUnitButton = unitButtonsContainer.querySelector('.period-unit-button.active');
+                let displayMain = '';
+                let displaySub = '';
+                let displaySpan = '';
+                let displayLabelText = '期間';
+
+                if (activeUnitButton) {
+                    const unit = activeUnitButton.dataset.unit;
+                    if (unit === 'monthly' && yearSelect && monthSelect) {
+                        const yearText = yearSelect.options[yearSelect.selectedIndex]?.text || '';
+                        const monthText = monthSelect.options[monthSelect.selectedIndex]?.text || '';
+                        const yearValue = yearSelect.value;
+                        const monthValue = monthSelect.value;
+                        displayMain = `${yearText.replace('年度','')} ${monthText}`;
+                        const { start, end } = getPeriodStartEnd(yearValue, monthValue);
+                        displaySub = `${start}～${end}`;
+                        displaySpan = displayMain;
+                        displayLabelText = '対象月';
+                    } else if (unit === 'yearly' && yearSelect) {
+                        const yearText = yearSelect.options[yearSelect.selectedIndex]?.text || '';
+                        const yearValue = yearSelect.value;
+                        displayMain = yearText;
+                        const { start, end } = getPeriodStartEnd(yearValue);
+                        displaySub = `${start}～${end}`;
+                        displaySpan = displayMain;
+                        displayLabelText = '事業年度';
+                    } else if (unit === 'all') {
+                        displayMain = '全期間';
+                        displaySub = '';
+                        displaySpan = displayMain;
+                        displayLabelText = '全期間';
+                    }
+                }
+                if(periodDisplayMain) periodDisplayMain.textContent = displayMain;
+                if(periodDisplaySub) periodDisplaySub.textContent = displaySub;
+                if(periodDisplayLabel) periodDisplayLabel.textContent = displayLabelText;
+
+
+                const detailTables = pageElement.querySelectorAll('.section table');
+                 detailTables.forEach(table => {
+                    const tableHeader = table.closest('.section').querySelector('.section-title-in-header, .section-title');
+                     if(tableHeader){
+                         tableHeader.textContent = tableHeader.textContent.split('(')[0].trim() + ` (${displaySpan})`;
+                     }
+                 });
+            }
+
+            unitButtonsContainer.addEventListener('click', (e) => {
+                const button = e.target.closest('.period-unit-button');
+                if (!button || button.classList.contains('active')) return;
+
+                unitButtonsContainer.querySelectorAll('.period-unit-button').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                const unit = button.dataset.unit;
+
+                yearSelect.style.display = (unit === 'monthly' || unit === 'yearly') ? '' : 'none';
+                yearSelect.previousElementSibling.style.display = yearSelect.style.display;
+                monthSelect.style.display = (unit === 'monthly') ? '' : 'none';
+                monthLabel.style.display = monthSelect.style.display;
+
+                 prevButton.style.visibility = (unit === 'all') ? 'hidden' : 'visible';
+                 nextButton.style.visibility = (unit === 'all') ? 'hidden' : 'visible';
+
+                updatePeriodDisplay();
+
+            });
+
+            yearSelect.addEventListener('change', updatePeriodDisplay);
+            monthSelect.addEventListener('change', updatePeriodDisplay);
+
+            prevButton.addEventListener('click', () => {
+                const activeUnitButton = unitButtonsContainer.querySelector('.period-unit-button.active');
+                if (!activeUnitButton) return;
+                const unit = activeUnitButton.dataset.unit;
+
+                if (unit === 'monthly') {
+                    let currentMonthIndex = monthSelect.selectedIndex;
+                    let currentYearIndex = yearSelect.selectedIndex;
+                    if (currentMonthIndex > 0) {
+                        monthSelect.selectedIndex = currentMonthIndex - 1;
+                    } else {
+                        if (currentYearIndex + 1 < yearSelect.options.length) {
+                            yearSelect.selectedIndex = currentYearIndex + 1;
+                            monthSelect.selectedIndex = monthSelect.options.length - 1;
+                        }
+                    }
+                } else if (unit === 'yearly') {
+                    let currentYearIndex = yearSelect.selectedIndex;
+                    if (currentYearIndex + 1 < yearSelect.options.length) {
+                         yearSelect.selectedIndex = currentYearIndex + 1;
+                    }
+                }
+                updatePeriodDisplay();
+            });
+
+            nextButton.addEventListener('click', () => {
+                const activeUnitButton = unitButtonsContainer.querySelector('.period-unit-button.active');
+                if (!activeUnitButton) return;
+                const unit = activeUnitButton.dataset.unit;
+
+                if (unit === 'monthly') {
+                    let currentMonthIndex = monthSelect.selectedIndex;
+                    let currentYearIndex = yearSelect.selectedIndex;
+                    if (currentMonthIndex < monthSelect.options.length - 1) {
+                        monthSelect.selectedIndex = currentMonthIndex + 1;
+                    } else {
+                        if (currentYearIndex > 0) {
+                            yearSelect.selectedIndex = currentYearIndex - 1;
+                            monthSelect.selectedIndex = 0;
+                        }
+                    }
+                } else if (unit === 'yearly') {
+                    let currentYearIndex = yearSelect.selectedIndex;
+                     if (currentYearIndex > 0) {
+                         yearSelect.selectedIndex = currentYearIndex - 1;
+                     }
+                }
+                 updatePeriodDisplay();
+             });
+
+            const initialActiveButton = unitButtonsContainer.querySelector('.period-unit-button.active');
+            if (initialActiveButton) {
+                const initialUnit = initialActiveButton.dataset.unit;
+                yearSelect.style.display = (initialUnit === 'monthly' || initialUnit === 'yearly') ? '' : 'none';
+                yearSelect.previousElementSibling.style.display = yearSelect.style.display;
+                monthSelect.style.display = (initialUnit === 'monthly') ? '' : 'none';
+                monthLabel.style.display = monthSelect.style.display;
+                 prevButton.style.visibility = (initialUnit === 'all') ? 'hidden' : 'visible';
+                 nextButton.style.visibility = (initialUnit === 'all') ? 'hidden' : 'visible';
+                 updatePeriodDisplay();
+            }
+        }
+
+        setupPeriodSelector('analytics-financial');
+
+        const subNavContainer = document.getElementById('financial-subnav');
+        const tabContents = document.querySelectorAll('#analytics-financial .tab-content-wrapper .tab-content');
+        if (subNavContainer && tabContents.length > 0) {
+            subNavContainer.addEventListener('click', (e) => {
+                const navItem = e.target.closest('.sub-nav-item');
+                if (!navItem || navItem.classList.contains('active')) { return; }
+                e.preventDefault();
+                const targetTabId = navItem.dataset.tab;
+                subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
+                navItem.classList.add('active');
+                tabContents.forEach(content => {
+                    const isActive = content.id === targetTabId;
+                    content.classList.toggle('active', isActive);
+                    content.style.display = isActive ? 'block' : 'none';
+                });
+            });
+            const firstNavItem = subNavContainer.querySelector('.sub-nav-item');
+            const firstTabContent = tabContents[0];
+             if (firstNavItem && firstTabContent) {
+                 subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => item.classList.remove('active'));
+                 tabContents.forEach(content => { content.classList.remove('active'); content.style.display = 'none'; });
+                 firstNavItem.classList.add('active');
+                 firstTabContent.classList.add('active');
+                 firstTabContent.style.display = 'block';
+             }
+        }
+
+    });
+</script>
+</body>
+</html>

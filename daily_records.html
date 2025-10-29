@@ -70,10 +70,9 @@
                                 <label for="filter-log-status" class="form-label">利用実績</label>
                                 <select id="filter-log-status" class="form-control">
                                     <option value="">すべて</option>
-                                    <option value="利用 (通所)">利用 (通所)</option>
-                                    <option value="利用 (在宅)">利用 (在宅)</option>
-                                    <option value="欠席 (連絡あり)">欠席 (連絡あり)</option>
-                                    <option value="欠席 (連絡なし)">欠席 (連絡なし)</option>
+                                    <option value="利用">利用</option>
+                                    <option value="欠席">欠席</option>
+                                    <option value="お休み">お休み</option>
                                 </select>
                             </div>
                             <button type="button" class="button button-secondary">クリア</button>
@@ -93,7 +92,11 @@
                                     </tr>
                                 </thead>
                                 <tbody id="daily-records-tbody">
-                                    <tr class="clickable-row" data-member-name="青木 誠" data-status="利用 (通所)" data-start-time="09:30" data-end-time="15:30" data-lunch="yes" data-pickup="roundtrip" data-work-memo="データ入力作業 (A案件) を実施。" data-support-memo="集中して取り組めていた。15時にやや疲れが見られたため声掛け。">
+                                    <tr class="clickable-row"
+                                        data-member-name="青木 誠" data-status="利用" data-status-detail="通所"
+                                        data-start-time="09:30" data-end-time="15:30" data-lunch="yes" data-pickup="roundtrip"
+                                        data-absence-reason="" data-greeting="yes" data-cleaning="no"
+                                        data-work-memo="データ入力作業 (A案件) を実施。" data-support-memo="集中して取り組めていた。15時にやや疲れが見られたため声掛け。">
                                         <td>青木 誠</td>
                                         <td>利用 (通所)</td>
                                         <td>09:30-15:30</td>
@@ -102,7 +105,11 @@
                                         <td style="text-align: left; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="データ入力作業 (A案件) を実施。">データ入力作業...</td>
                                         <td style="text-align: left; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="集中して取り組めていた。15時にやや疲れが見られたため声掛け。">集中して取り組めて...</td>
                                     </tr>
-                                    <tr class="clickable-row" data-member-name="五十嵐 直人" data-status="利用 (通所)" data-start-time="09:00" data-end-time="15:00" data-lunch="yes" data-pickup="none" data-work-memo="B社 部品組み立て" data-support-memo="">
+                                    <tr class="clickable-row"
+                                        data-member-name="五十嵐 直人" data-status="利用" data-status-detail="通所"
+                                        data-start-time="09:00" data-end-time="15:00" data-lunch="yes" data-pickup="none"
+                                        data-absence-reason="" data-greeting="yes" data-cleaning="yes"
+                                        data-work-memo="B社 部品組み立て" data-support-memo="">
                                         <td>五十嵐 直人</td>
                                         <td>利用 (通所)</td>
                                         <td>09:00-15:00</td>
@@ -111,14 +118,18 @@
                                         <td style="text-align: left;">B社 部品組み立て</td>
                                         <td style="text-align: left;"></td>
                                     </tr>
-                                    <tr class="clickable-row" data-member-name="遠藤 雅彦" data-status="欠席 (連絡あり)" data-start-time="" data-end-time="" data-lunch="no" data-pickup="none" data-work-memo="" data-support-memo="体調不良のため欠席（連絡あり）">
+                                    <tr class="clickable-row"
+                                        data-member-name="遠藤 雅彦" data-status="欠席" data-status-detail=""
+                                        data-start-time="" data-end-time="" data-lunch="no" data-pickup="none"
+                                        data-absence-reason="体調不良のため欠席（連絡あり）" data-greeting="no" data-cleaning="no"
+                                        data-work-memo="" data-support-memo="自宅へ連絡、様子伺い。">
                                         <td>遠藤 雅彦</td>
-                                        <td>欠席 (連絡あり)</td>
+                                        <td>欠席</td>
                                         <td>-</td>
                                         <td>不要</td>
                                         <td>無</td>
                                         <td style="text-align: left;"></td>
-                                        <td style="text-align: left;">体調不良のため...</td>
+                                        <td style="text-align: left;" title="自宅へ連絡、様子伺い。">自宅へ連絡、様子伺い。</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -258,12 +269,26 @@
                 <div class="form-group">
                     <label for="modal-record-status">利用実績</label>
                     <select id="modal-record-status" class="form-control">
-                        <option value="利用 (通所)">利用 (通所)</option>
-                        <option value="利用 (在宅)">利用 (在宅)</option>
-                        <option value="欠席 (連絡あり)">欠席 (連絡あり)</option>
-                        <option value="欠席 (連絡なし)">欠席 (連絡なし)</option>
+                        <option value="利用">利用</option>
+                        <option value="欠席">欠席</option>
+                        <option value="お休み">お休み</option>
                     </select>
                 </div>
+
+                <div id="modal-record-status-details">
+                    <div class="form-group" id="modal-record-attendance-type-group" style="display: none;">
+                        <label for="modal-record-attendance-type">利用種別</label>
+                        <select id="modal-record-attendance-type" class="form-control">
+                            <option value="通所">通所</option>
+                            <option value="在宅">在宅</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="modal-record-absence-reason-group" style="display: none;">
+                        <label for="modal-record-absence-reason">欠席時対応欄</label>
+                        <textarea id="modal-record-absence-reason" class="form-control" rows="2"></textarea>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label>利用時間</label>
                     <div style="display: flex; align-items: center; gap: 0.5rem;">
@@ -273,20 +298,18 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="modal-record-lunch">昼食</label>
-                    <select id="modal-record-lunch" class="form-control">
-                        <option value="yes">要</option>
-                        <option value="no">不要</option>
-                    </select>
+                    <label>控除項目</label>
+                    <div style="display: flex; gap: 1rem;">
+                         <label style="font-weight: normal;"><input type="checkbox" id="modal-record-lunch"> 昼食</label>
+                         <label style="font-weight: normal;"><input type="checkbox" id="modal-record-pickup"> 送迎</label>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="modal-record-pickup">送迎</label>
-                    <select id="modal-record-pickup" class="form-control">
-                        <option value="none">無</option>
-                        <option value="roundtrip">往復</option>
-                        <option value="oneway_go">往（迎えのみ）</option>
-                        <option value="oneway_back">復（送りのみ）</option>
-                    </select>
+                 <div class="form-group">
+                    <label>加算項目</label>
+                    <div style="display: flex; gap: 1rem;">
+                         <label style="font-weight: normal;"><input type="checkbox" id="modal-record-greeting"> 挨拶</label>
+                         <label style="font-weight: normal;"><input type="checkbox" id="modal-record-cleaning"> 掃除</label>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="modal-record-work-memo">作業内容メモ</label>
@@ -307,7 +330,6 @@
     <script src="script.js"></script>
 
     <script>
-        // --- 業務日誌タブ ---
         function filterDailyRecords() {
             const nameInput = document.getElementById('search-log-member-name');
             const statusSelect = document.getElementById('filter-log-status');
@@ -343,7 +365,6 @@
             });
         }
 
-        // --- ヒヤリハット・事故報告タブ ---
         function filterIncidents() {
              const dateStartInput = document.getElementById('search-incident-date-start');
             const dateEndInput = document.getElementById('search-incident-date-end');
@@ -373,12 +394,10 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // --- サブナビゲーション（タブ）切り替え ---
             const subNavContainer = document.getElementById('records-subnav');
             const tabContents = document.querySelectorAll('.tab-content-wrapper .tab-content');
-            const newReportButton = document.getElementById('new-incident-report-button'); // ボタン取得
+            const newReportButton = document.getElementById('new-incident-report-button');
 
-            // タブの状態に応じてボタン表示を切り替える関数
             function toggleNewReportButtonVisibility(targetTabId) {
                 if (newReportButton) {
                     newReportButton.style.display = (targetTabId === 'tab-incident-reports') ? 'inline-flex' : 'none';
@@ -391,7 +410,6 @@
                     if (!navItem || navItem.classList.contains('active')) { return; }
                     e.preventDefault();
                     const targetTabId = navItem.dataset.tab;
-                    // window.location.hash = '#' + targetTabId; // ハッシュ更新は任意
                     subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
                     navItem.classList.add('active');
                     tabContents.forEach(content => {
@@ -402,14 +420,12 @@
                     toggleNewReportButtonVisibility(targetTabId);
                 });
 
-                 // 初期表示 (URLハッシュに基づく)
                  let initialTabId = window.location.hash ? window.location.hash.substring(1) : 'tab-daily-logs';
                  const initialNavItem = subNavContainer.querySelector(`.sub-nav-item[data-tab="${initialTabId}"]`);
                  const initialTabContent = document.getElementById(initialTabId);
 
-                 // デフォルトタブIDを再確認
                  if (!initialNavItem || !initialTabContent) {
-                     initialTabId = 'tab-daily-logs'; // デフォルトに戻す
+                     initialTabId = 'tab-daily-logs';
                      const defaultNavItem = subNavContainer.querySelector('.sub-nav-item[data-tab="tab-daily-logs"]');
                      const defaultTabContent = document.getElementById('tab-daily-logs');
                      if (defaultNavItem && defaultTabContent) {
@@ -420,7 +436,6 @@
                          defaultTabContent.style.display = 'block';
                      }
                  } else {
-                     // ハッシュ指定のタブを表示
                      subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => { item.classList.remove('active'); });
                      tabContents.forEach(content => { content.classList.remove('active'); content.style.display = 'none'; });
                      initialNavItem.classList.add('active');
@@ -431,7 +446,6 @@
                  toggleNewReportButtonVisibility(initialTabId);
             }
 
-            // --- 業務日誌: フィルタリングのイベントリスナー設定 ---
             if (typeof window.filterDailyRecords === 'function') {
                 const nameInputListener = document.getElementById('search-log-member-name');
                 const statusSelectListener = document.getElementById('filter-log-status');
@@ -450,7 +464,6 @@
                 filterDailyRecords();
             }
 
-            // --- 業務日誌: 利用状況テーブル行クリック処理 ---
             const dailyRecordsTbody = document.getElementById('daily-records-tbody');
             if (dailyRecordsTbody) {
                 dailyRecordsTbody.addEventListener('click', (e) => {
@@ -459,32 +472,52 @@
                          const rowIndex = Array.from(dailyRecordsTbody.children).indexOf(clickedRow);
                          const memberName = clickedRow.dataset.memberName;
                          const logDate = document.getElementById('daily-log-date-selector')?.value || '';
-                         const modalDate = document.getElementById('modal-record-date');
-                         const modalMemberName = document.getElementById('modal-record-member-name');
-                         const modalStatus = document.getElementById('modal-record-status');
-                         const modalStartTime = document.getElementById('modal-record-start-time');
-                         const modalEndTime = document.getElementById('modal-record-end-time');
-                         const modalLunch = document.getElementById('modal-record-lunch');
-                         const modalPickup = document.getElementById('modal-record-pickup');
-                         const modalWorkMemo = document.getElementById('modal-record-work-memo');
-                         const modalSupportMemo = document.getElementById('modal-record-support-memo');
-                         const modalRowIndex = document.getElementById('modal-record-row-index');
-                         if(modalDate) modalDate.textContent = logDate;
-                         if(modalMemberName) modalMemberName.textContent = memberName || '';
-                         if(modalStatus) modalStatus.value = clickedRow.dataset.status || '';
-                         if(modalStartTime) modalStartTime.value = clickedRow.dataset.startTime || '';
-                         if(modalEndTime) modalEndTime.value = clickedRow.dataset.endTime || '';
-                         if(modalLunch) modalLunch.value = clickedRow.dataset.lunch || 'no';
-                         if(modalPickup) modalPickup.value = clickedRow.dataset.pickup || 'none';
-                         if(modalWorkMemo) modalWorkMemo.value = clickedRow.dataset.workMemo || '';
-                         if(modalSupportMemo) modalSupportMemo.value = clickedRow.dataset.supportMemo || '';
-                         if(modalRowIndex) modalRowIndex.value = rowIndex;
+                         document.getElementById('modal-record-date').textContent = logDate;
+                         document.getElementById('modal-record-member-name').textContent = memberName || '';
+                         document.getElementById('modal-record-status').value = clickedRow.dataset.status || '利用';
+                         document.getElementById('modal-record-attendance-type').value = clickedRow.dataset.statusDetail || '通所';
+                         document.getElementById('modal-record-absence-reason').value = clickedRow.dataset.absenceReason || '';
+                         document.getElementById('modal-record-start-time').value = clickedRow.dataset.startTime || '';
+                         document.getElementById('modal-record-end-time').value = clickedRow.dataset.endTime || '';
+                         document.getElementById('modal-record-lunch').checked = clickedRow.dataset.lunch === 'yes';
+                         document.getElementById('modal-record-pickup').checked = clickedRow.dataset.pickup === 'roundtrip'; // Simplified: assumes roundtrip means checked
+                         document.getElementById('modal-record-greeting').checked = clickedRow.dataset.greeting === 'yes';
+                         document.getElementById('modal-record-cleaning').checked = clickedRow.dataset.cleaning === 'yes';
+                         document.getElementById('modal-record-work-memo').value = clickedRow.dataset.workMemo || '';
+                         document.getElementById('modal-record-support-memo').value = clickedRow.dataset.supportMemo || '';
+                         document.getElementById('modal-record-row-index').value = rowIndex;
+
+                         handleStatusChange(); // Update visibility based on loaded data
                          openModal('service-record-modal');
                      }
                 });
             }
 
-            // --- 業務日誌: 利用記録モーダル保存処理 ---
+             const statusSelectModal = document.getElementById('modal-record-status');
+             const attendanceTypeGroup = document.getElementById('modal-record-attendance-type-group');
+             const absenceReasonGroup = document.getElementById('modal-record-absence-reason-group');
+             const startTimeInput = document.getElementById('modal-record-start-time');
+             const endTimeInput = document.getElementById('modal-record-end-time');
+
+             function handleStatusChange() {
+                 const selectedStatus = statusSelectModal.value;
+                 attendanceTypeGroup.style.display = selectedStatus === '利用' ? 'block' : 'none';
+                 absenceReasonGroup.style.display = selectedStatus === '欠席' ? 'block' : 'none';
+
+                 const timeInputsDisabled = selectedStatus !== '利用';
+                 startTimeInput.disabled = timeInputsDisabled;
+                 endTimeInput.disabled = timeInputsDisabled;
+                 if (timeInputsDisabled) {
+                     startTimeInput.value = '';
+                     endTimeInput.value = '';
+                 }
+             }
+
+             if(statusSelectModal) {
+                 statusSelectModal.addEventListener('change', handleStatusChange);
+             }
+
+
             const saveServiceRecordButton = document.getElementById('save-service-record-button');
             if(saveServiceRecordButton){
                  saveServiceRecordButton.addEventListener('click', () => {
@@ -493,31 +526,49 @@
                      if(tableBody && !isNaN(rowIndex) && rowIndex >= 0 && rowIndex < tableBody.rows.length){
                          const targetRow = tableBody.rows[rowIndex];
                          const status = document.getElementById('modal-record-status')?.value || '';
-                         const startTime = document.getElementById('modal-record-start-time')?.value || '';
-                         const endTime = document.getElementById('modal-record-end-time')?.value || '';
-                         const lunch = document.getElementById('modal-record-lunch')?.value || '';
-                         const pickup = document.getElementById('modal-record-pickup')?.value || '';
+                         const statusDetail = status === '利用' ? document.getElementById('modal-record-attendance-type')?.value : '';
+                         const absenceReason = status === '欠席' ? document.getElementById('modal-record-absence-reason')?.value : '';
+                         const startTime = status === '利用' ? document.getElementById('modal-record-start-time')?.value : '';
+                         const endTime = status === '利用' ? document.getElementById('modal-record-end-time')?.value : '';
+                         const lunch = document.getElementById('modal-record-lunch')?.checked ? 'yes' : 'no';
+                         const pickupChecked = document.getElementById('modal-record-pickup')?.checked;
+                         const pickup = pickupChecked ? 'roundtrip' : 'none'; // Simplified logic
+                         const greeting = document.getElementById('modal-record-greeting')?.checked ? 'yes' : 'no';
+                         const cleaning = document.getElementById('modal-record-cleaning')?.checked ? 'yes' : 'no';
                          const workMemo = document.getElementById('modal-record-work-memo')?.value || '';
                          const supportMemo = document.getElementById('modal-record-support-memo')?.value || '';
+
                          targetRow.dataset.status = status;
+                         targetRow.dataset.statusDetail = statusDetail;
+                         targetRow.dataset.absenceReason = absenceReason;
                          targetRow.dataset.startTime = startTime;
                          targetRow.dataset.endTime = endTime;
                          targetRow.dataset.lunch = lunch;
                          targetRow.dataset.pickup = pickup;
+                         targetRow.dataset.greeting = greeting;
+                         targetRow.dataset.cleaning = cleaning;
                          targetRow.dataset.workMemo = workMemo;
                          targetRow.dataset.supportMemo = supportMemo;
-                         targetRow.cells[1].textContent = status;
+
+                         let statusDisplay = status;
+                         if (status === '利用' && statusDetail) {
+                             statusDisplay += ` (${statusDetail})`;
+                         }
+                         targetRow.cells[1].textContent = statusDisplay;
                          targetRow.cells[2].textContent = (startTime && endTime) ? `${startTime}-${endTime}` : '-';
                          targetRow.cells[3].textContent = (lunch === 'yes') ? '要' : '不要';
-                         targetRow.cells[4].textContent = {none: '無', roundtrip: '往復', oneway_go: '往', oneway_back: '復'}[pickup] || '無';
+                         targetRow.cells[4].textContent = (pickup === 'roundtrip') ? '往復' : '無'; // Simplified
+
                          const workMemoCell = targetRow.cells[5];
                          workMemoCell.textContent = workMemo;
                          workMemoCell.title = workMemo;
-                         if(workMemo.length > 20) workMemoCell.textContent = workMemo.substring(0, 18) + '...';
+                         if(workMemo.length > 20) workMemoCell.textContent = workMemo.substring(0, 18) + '...'; else workMemoCell.textContent = workMemo;
+
                          const supportMemoCell = targetRow.cells[6];
                          supportMemoCell.textContent = supportMemo;
                          supportMemoCell.title = supportMemo;
-                         if(supportMemo.length > 20) supportMemoCell.textContent = supportMemo.substring(0, 18) + '...';
+                         if(supportMemo.length > 20) supportMemoCell.textContent = supportMemo.substring(0, 18) + '...'; else supportMemoCell.textContent = supportMemo;
+
                          closeModal('service-record-modal');
                      } else {
                          console.error("Failed to find row to update or invalid row index.");
@@ -525,7 +576,6 @@
                  });
             }
 
-            // --- ヒヤリハット・事故報告一覧: フィルタリングのイベントリスナー設定 ---
             if (typeof window.filterIncidents === 'function') {
                 const dateStartListener = document.getElementById('search-incident-date-start');
                 const dateEndListener = document.getElementById('search-incident-date-end');
@@ -548,7 +598,6 @@
                 filterIncidents();
             }
 
-            // --- ヒヤリハット・事故報告一覧: 行クリック処理 ---
             const incidentTableBody = document.getElementById('incident-reports-tbody');
             if (incidentTableBody) {
                  incidentTableBody.addEventListener('click', (e) => {
