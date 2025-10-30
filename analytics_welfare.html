@@ -185,9 +185,9 @@
                 <div class="sub-nav">
                     <ul id="welfare-subnav">
                         <li><a href="#" class="sub-nav-item active" data-tab="tab-welfare-overview">概要・KPI</a></li>
-                        <li><a href="#" class="sub-nav-item" data-tab="tab-welfare-wage">工賃分析</a></li>
-                        <li><a href="#" class="sub-nav-item" data-tab="tab-welfare-utilization">利用状況分析</a></li>
-                        <li><a href="#" class="sub-nav-item" data-tab="tab-welfare-member">利用者別分析</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-welfare-wage">平均工賃</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-welfare-utilization">利用状況</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-welfare-member">利用者別状況</a></li>
                     </ul>
                 </div>
 
@@ -207,11 +207,12 @@
                     <div id="tab-welfare-wage" class="tab-content">
                          <div class="section">
                             <h2 class="section-title">工賃関連KPI</h2>
-                            <div class="kpi-grid">
+                            <div class="kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
                                 <div class="kpi-card"> <h4>平均工賃 (月額)</h4> <p>16,800 <span class="subtext">円</span></p> </div>
-                                <div class="kpi-card"> <h4>最高工賃 (月額)</h4> <p>25,500 <span class="subtext">円</span></p> </div>
-                                <div class="kpi-card"> <h4>最低工賃 (月額)</h4> <p>12,300 <span class="subtext">円</span></p> </div>
-                                <div class="kpi-card"> <h4>工賃中央値 (月額)</h4> <p>16,500 <span class="subtext">円</span></p> </div>
+                                <div class="kpi-card"> <h4>利用者工賃 (合計)</h4> <p>400,000 <span class="subtext">円</span></p> </div>
+                                <div class="kpi-card"> <h4>平均利用者数/日</h4> <p>19.2 <span class="subtext">人</span></p> </div>
+                                <div class="kpi-card"> <h4>延利用者数</h4> <p>20 <span class="subtext">人</span></p> </div>
+                                <div class="kpi-card"> <h4>開所日数</h4> <p>22 <span class="subtext">日</span></p> </div>
                             </div>
                         </div>
                         <div class="section">
@@ -553,9 +554,15 @@
         }
 
         const nameWelfareInputDetail = document.getElementById('search-welfare-member-name-detail');
-        const clearWelfareButtonDetail = document.querySelector('#analytics-welfare .detail-view[data-view-target="member-utilization"] .filter-form-inline .button-secondary');
+        const clearWelfareButtonDetail = document.querySelector('#analytics-welfare #tab-welfare-member .filter-form-inline .button-secondary');
         if(nameWelfareInputDetail) nameWelfareInputDetail.addEventListener('input', filterWelfareTableDetail);
-        if(clearWelfareButtonDetail) { clearWelfareButtonDetail.addEventListener('click', () => { const form = clearWelfareButtonDetail.closest('form'); if(form) form.reset(); filterWelfareTableDetail(); }); }
+        if(clearWelfareButtonDetail) {
+            clearWelfareButtonDetail.addEventListener('click', () => {
+                const form = clearWelfareButtonDetail.closest('form');
+                if(form) form.reset();
+                filterWelfareTableDetail();
+            });
+        }
 
         filterWelfareTableDetail();
 

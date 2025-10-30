@@ -186,8 +186,9 @@
                     <ul id="production-subnav">
                         <li><a href="#" class="sub-nav-item active" data-tab="tab-production-overview">概要・KPI</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-production-transition">生産活動収支</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-production-expenses">就労支援事業費訳</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-production-reserve">積立金状況</a></li>
-                        <li><a href="#" class="sub-nav-item" data-tab="tab-production-project">案件別分析</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-production-project">案件別状況</a></li>
                     </ul>
                 </div>
 
@@ -197,17 +198,10 @@
                             <h2 class="section-title">主要KPI</h2>
                             <div class="kpi-grid">
                                 <div class="kpi-card"> <h4>就労支援事業収益</h4> <p>3,500,000 <span class="subtext">円</span></p> </div>
-                                <div class="kpi-card"> <h4>就労支援事業費用</h4> <p>1,450,000 <span class="subtext">円</span></p> </div>
+                                <div class="kpi-card"> <h4>就労支援事業費</h4> <p>1,450,000 <span class="subtext">円</span></p> </div>
                                 <div class="kpi-card"> <h4>就労支援事業活動増減差額</h4> <p>2,050,000 <span class="subtext">円</span></p> </div>
-                                <div class="kpi-card"> <h4>利用者工賃支払総額</h4> <p>400,000 <span class="subtext">円</span></p> </div>
-                            </div>
-                            <div class="kpi-grid">
-                                <div class="kpi-card"> <h4>材料費</h4> <p>800,000 <span class="subtext">円</span></p> </div>
-                                <div class="kpi-card"> <h4>外注加工費</h4> <p>100,000 <span class="subtext">円</span></p> </div>
-                                <div class="kpi-card"> <h4>その他経費</h4> <p>150,000 <span class="subtext">円</span></p> </div>
                                 <div class="kpi-card"> <h4>工賃変動積立金 残高</h4> <p>1,250,000 <span class="subtext">円</span></p> </div>
                             </div>
-                             <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary); text-align: right;">※表示するKPIは「表示項目設定」でカスタマイズ可能です。</p>
                         </div>
                     </div>
                      <div id="tab-production-transition" class="tab-content">
@@ -215,9 +209,8 @@
                             <h2 class="section-title">収支関連KPI</h2>
                             <div class="kpi-grid">
                                 <div class="kpi-card"> <h4>就労支援事業収益</h4> <p>3,500,000 <span class="subtext">円</span></p> </div>
-                                <div class="kpi-card"> <h4>就労支援事業費用</h4> <p>1,450,000 <span class="subtext">円</span></p> </div>
+                                <div class="kpi-card"> <h4>就労支援事業費</h4> <p>1,450,000 <span class="subtext">円</span></p> </div>
                                 <div class="kpi-card"> <h4>就労支援事業活動増減差額</h4> <p>2,050,000 <span class="subtext">円</span></p> </div>
-                                <div class="kpi-card"> <h4>工賃支払総額</h4> <p>400,000 <span class="subtext">円</span></p> </div>
                             </div>
                         </div>
                         <div class="section">
@@ -227,7 +220,7 @@
                                      <button class="button button-secondary" onclick="alert('CSVダウンロード（未実装）')">CSV</button>
                                 </div>
                             </div>
-                            <div class="section-content"> <div class="chart-placeholder">（就労支援事業収益・費用・増減差額の月次推移を示すグラフ）</div> </div>
+                            <div class="section-content"> <div class="chart-placeholder">（就労支援事業収益・事業費・増減差額の月次推移を示すグラフ）</div> </div>
                         </div>
                         <div class="section">
                             <div class="section-header">
@@ -238,12 +231,62 @@
                             </div>
                            <div class="table-wrapper">
                                <table class="table" id="production-monthly-detail-table-main">
-                                   <thead> <tr> <th>月</th> <th class="col-number">就労支援事業収益(円)</th> <th class="col-number">就労支援事業費用(円)</th> <th class="col-number">増減差額(円)</th> <th class="col-number">工賃支払総額(円)</th> </tr> </thead>
+                                   <thead> <tr> <th>月</th> <th class="col-number">就労支援事業収益(円)</th> <th class="col-number">就労支援事業費(円)</th> <th class="col-number">就労支援事業活動増減差額(円)</th> </tr> </thead>
                                    <tbody id="production-monthly-tbody-detail-main">
-                                       <tr> <td>4月</td> <td class="col-number">300,000</td> <td class="col-number">120,000</td> <td class="col-number">180,000</td> <td class="col-number">40,500</td> </tr>
-                                       <tr> <td>5月</td> <td class="col-number">320,000</td> <td class="col-number">130,000</td> <td class="col-number">190,000</td> <td class="col-number">42,200</td> </tr>
-                                       <tr> <td>...</td> <td class="col-number">...</td> <td class="col-number">...</td> <td class="col-number">...</td> <td class="col-number">...</td> </tr>
-                                       <tr style="font-weight: bold; background-color: var(--color-hover-bg);"> <td>合計</td> <td class="col-number">3,500,000</td> <td class="col-number">1,450,000</td> <td class="col-number">2,050,000</td> <td class="col-number">400,000</td> </tr>
+                                       <tr> <td>4月</td> <td class="col-number">300,000</td> <td class="col-number">120,000</td> <td class="col-number">180,000</td> </tr>
+                                       <tr> <td>5月</td> <td class="col-number">320,000</td> <td class="col-number">130,000</td> <td class="col-number">190,000</td> </tr>
+                                       <tr> <td>...</td> <td class="col-number">...</td> <td class="col-number">...</td> <td class="col-number">...</td> </tr>
+                                       <tr style="font-weight: bold; background-color: var(--color-hover-bg);"> <td>合計</td> <td class="col-number">3,500,000</td> <td class="col-number">1,450,000</td> <td class="col-number">2,050,000</td> </tr>
+                                   </tbody>
+                               </table>
+                           </div>
+                       </div>
+                    </div>
+                    <div id="tab-production-expenses" class="tab-content">
+                        <div class="section">
+                            <h2 class="section-title">費用内訳KPI</h2>
+                            <div class="kpi-grid">
+                                <div class="kpi-card"> <h4>利用者工賃</h4> <p>400,000 <span class="subtext">円</span></p> </div>
+                                <div class="kpi-card"> <h4>材料費</h4> <p>800,000 <span class="subtext">円</span></p> </div>
+                                <div class="kpi-card"> <h4>外注加工費</h4> <p>100,000 <span class="subtext">円</span></p> </div>
+                                <div class="kpi-card"> <h4>その他経費</h4> <p>150,000 <span class="subtext">円</span></p> </div>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">費用内訳構成グラフ</h2>
+                                <div class="section-header-controls">
+                                     <button class="button button-secondary" onclick="alert('CSVダウンロード（未実装）')">CSV</button>
+                                </div>
+                            </div>
+                            <div class="section-content">
+                                <div class="chart-placeholder">（工賃・材料費・外注費・その他経費の構成比を示す円グラフまたは積み上げ棒グラフ）</div>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">費用内訳推移 (一覧表)</h2>
+                                <div class="section-header-controls">
+                                     <button class="button button-secondary" onclick="alert('CSVダウンロード（未実装）')">CSV</button>
+                                </div>
+                           </div>
+                           <div class="table-wrapper">
+                               <table class="table" id="production-expenses-monthly-detail-table">
+                                   <thead>
+                                       <tr>
+                                           <th>月</th>
+                                           <th class="col-number">利用者工賃(円)</th>
+                                           <th class="col-number">材料費(円)</th>
+                                           <th class="col-number">外注加工費(円)</th>
+                                           <th class="col-number">その他経費(円)</th>
+                                           <th class="col-number">就労支援事業費（円）</th>
+                                       </tr>
+                                   </thead>
+                                   <tbody id="production-expenses-monthly-tbody-detail">
+                                       <tr> <td>4月</td> <td class="col-number">40,500</td> <td class="col-number">60,000</td> <td class="col-number">10,000</td> <td class="col-number">9,500</td> <td class="col-number">120,000</td> </tr>
+                                       <tr> <td>5月</td> <td class="col-number">42,200</td> <td class="col-number">65,000</td> <td class="col-number">10,000</td> <td class="col-number">12,800</td> <td class="col-number">130,000</td> </tr>
+                                       <tr> <td>...</td> <td class="col-number">...</td> <td class="col-number">...</td> <td class="col-number">...</td> <td class="col-number">...</td> <td class="col-number">...</td> </tr>
+                                       <tr style="font-weight: bold; background-color: var(--color-hover-bg);"> <td>合計</td> <td class="col-number">400,000</td> <td class="col-number">800,000</td> <td class="col-number">100,000</td> <td class="col-number">150,000</td> <td class="col-number">1,450,000</td> </tr>
                                    </tbody>
                                </table>
                            </div>
@@ -315,7 +358,7 @@
                                      <button class="button button-secondary" onclick="alert('CSVダウンロード（未実装）')">CSV</button>
                                 </div>
                             </div>
-                           <div class="section-content"> <div class="chart-placeholder">（案件別の売上・費用・利益を示すグラフ）</div> </div>
+                           <div class="section-content"> <div class="chart-placeholder">（案件別の収益・費用・利益を示すグラフ）</div> </div>
                        </div>
                        <div class="section">
                            <div class="section-header">
@@ -331,7 +374,7 @@
                            </form>
                            <div class="table-wrapper">
                                <table class="table">
-                                   <thead> <tr> <th>案件名</th> <th>取引先</th> <th class="col-number">売上(円)</th> <th class="col-number">費用(円)</th> <th class="col-number">利益(円)</th> <th class="col-number">利益率(%)</th> </tr> </thead>
+                                   <thead> <tr> <th>案件名</th> <th>取引先</th> <th class="col-number">収益（円）</th> <th class="col-number">費用(円)</th> <th class="col-number">利益(円)</th> <th class="col-number">利益率(%)</th> </tr> </thead>
                                    <tbody id="production-tbody-summary">
                                        <tr class="clickable-row" data-project-name="DM封入作業" data-partner-name="株式会社A" data-profit-margin="75"> <td style="text-align: left;">DM封入作業</td> <td style="text-align: left;">株式会社A</td> <td class="col-number">1,200,000</td> <td class="col-number">300,000</td> <td class="col-number">900,000</td> <td class="col-number">75.0%</td> </tr>
                                        <tr class="clickable-row" data-project-name="部品組み立て" data-partner-name="有限会社B" data-profit-margin="43.8"> <td style="text-align: left;">部品組み立て</td> <td style="text-align: left;">有限会社B</td> <td class="col-number">800,000</td> <td class="col-number">450,000</td> <td class="col-number">350,000</td> <td class="col-number">43.8%</td> </tr>
@@ -591,10 +634,16 @@
 
         const keywordProdInputSummary = document.getElementById('search-prod-project-name-summary');
         const marginProdSelectSummary = document.getElementById('filter-prod-profit-margin-summary');
-        const clearProdButtonSummary = document.querySelector('#analytics-production .detail-view[data-view-target="project-analysis"] .filter-form-inline .button-secondary');
+        const clearProdButtonSummary = document.querySelector('#analytics-production #tab-production-project .filter-form-inline .button-secondary');
         if(keywordProdInputSummary) keywordProdInputSummary.addEventListener('input', filterProductionTableSummary);
         if(marginProdSelectSummary) marginProdSelectSummary.addEventListener('change', filterProductionTableSummary);
-        if(clearProdButtonSummary) { clearProdButtonSummary.addEventListener('click', () => { const form = clearProdButtonSummary.closest('form'); if(form) form.reset(); filterProductionTableSummary(); }); }
+        if(clearProdButtonSummary) {
+             clearProdButtonSummary.addEventListener('click', () => {
+                 const form = clearProdButtonSummary.closest('form');
+                 if(form) form.reset();
+                 filterProductionTableSummary();
+             });
+        }
 
         filterProductionTableSummary();
 

@@ -49,7 +49,7 @@
                     <ul id="terminology-subnav">
                         <li><a href="#" class="sub-nav-item" data-tab="tab-term-entities">人物・組織</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-term-concepts">主要概念</a></li>
-                        <li><a href="#" class="sub-nav-item active" data-tab="tab-term-accounting">会計用語</a></li>
+                        <li><a href="#" class="sub-nav-item active" data-tab="tab-term-analytics">分析・会計用語</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-term-records">記録・書類</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-term-status">ステータス・選択肢</a></li>
                     </ul>
@@ -99,18 +99,50 @@
                         </div>
                     </div>
 
-                    <div id="tab-term-accounting" class="tab-content active">
+                    <div id="tab-term-analytics" class="tab-content active">
                         <div class="section">
                             <div class="section-header">
-                                <h2 class="section-title-in-header">会計関連用語</h2>
-                                <button class="button button-primary" onclick="openModal('edit-term-accounting-modal')">編集</button>
+                                <h2 class="section-title-in-header">財務状況分析 用語</h2>
+                                <button class="button button-primary" onclick="openModal('edit-term-analytics-financial-modal')">編集</button>
+                            </div>
+                            <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>総収益</dt><dd id="display-term-fin-revenue-total">総収益</dd>
+                                    <dt>総費用</dt><dd id="display-term-fin-expense-total">総費用</dd>
+                                    <dt>経常増減差額</dt><dd id="display-term-fin-profit">経常増減差額</dd>
+                                    <dt>訓練等給付費</dt><dd id="display-term-fin-claims">訓練等給付費</dd>
+                                    <dt>生産活動収入</dt><dd id="display-term-fin-prod-revenue">生産活動収入</dd>
+                                    <dt>利用者工賃</dt><dd id="display-term-fin-wage">利用者工賃</dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">福祉事業活動分析 用語</h2>
+                                <button class="button button-primary" onclick="openModal('edit-term-analytics-welfare-modal')">編集</button>
+                            </div>
+                            <div class="section-content">
+                                <dl class="detail-grid">
+                                    <dt>平均工賃</dt><dd id="display-term-wel-avg-wage">平均工賃</dd>
+                                    <dt>利用者工賃</dt><dd id="display-term-wel-total-wage">利用者工賃</dd>
+                                    <dt>利用率</dt><dd id="display-term-wel-usage-rate">利用率</dd>
+                                    <dt>延べ利用日数</dt><dd id="display-term-wel-total-days">延べ利用日数</dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title-in-header">生産活動分析 用語</h2>
+                                <button class="button button-primary" onclick="openModal('edit-term-analytics-production-modal')">編集</button>
                             </div>
                             <div class="section-content">
                                 <dl class="detail-grid">
                                     <dt>就労支援事業収益</dt><dd id="display-term-prod-revenue">就労支援事業収益</dd>
-                                    <dt>就労支援事業費用</dt><dd id="display-term-prod-expense">就労支援事業費用</dd>
+                                    <dt>就労支援事業費</dt><dd id="display-term-prod-expense">就労支援事業費</dd>
                                     <dt>就労支援事業活動増減差額</dt><dd id="display-term-prod-profit">就労支援事業活動増減差額</dd>
-                                    <dt>利用者工賃</dt><dd id="display-term-wage-total">利用者工賃</dd>
+                                    <dt>利用者工賃</dt><dd id="display-term-prod-wage">利用者工賃</dd>
+                                    <dt>材料費</dt><dd id="display-term-prod-material">材料費</dd>
+                                    <dt>外注加工費</dt><dd id="display-term-prod-subcontract">外注加工費</dd>
                                 </dl>
                             </div>
                         </div>
@@ -281,11 +313,81 @@
         </div>
     </div>
 
-    <div id="edit-term-accounting-modal" class="modal">
+    <div id="edit-term-analytics-financial-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">会計関連用語 編集</h2>
-                <span class="modal-close" onclick="closeModal('edit-term-accounting-modal')">&times;</span>
+                <h2 class="modal-title">財務状況分析 用語 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-term-analytics-financial-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="modal-term-fin-revenue-total">総収益</label>
+                    <input type="text" id="modal-term-fin-revenue-total" class="form-control" value="総収益">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-fin-expense-total">総費用</label>
+                    <input type="text" id="modal-term-fin-expense-total" class="form-control" value="総費用">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-fin-profit">経常増減差額</label>
+                    <input type="text" id="modal-term-fin-profit" class="form-control" value="経常増減差額">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-fin-claims">訓練等給付費</label>
+                    <input type="text" id="modal-term-fin-claims" class="form-control" value="訓練等給付費">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-fin-prod-revenue">生産活動収入</label>
+                    <input type="text" id="modal-term-fin-prod-revenue" class="form-control" value="生産活動収入">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-fin-wage">利用者工賃</label>
+                    <input type="text" id="modal-term-fin-wage" class="form-control" value="利用者工賃">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-secondary" onclick="closeModal('edit-term-analytics-financial-modal')">キャンセル</button>
+                <button type="button" class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-term-analytics-welfare-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">福祉事業活動分析 用語 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-term-analytics-welfare-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="modal-term-wel-avg-wage">平均工賃</label>
+                    <input type="text" id="modal-term-wel-avg-wage" class="form-control" value="平均工賃">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-wel-total-wage">利用者工賃</label>
+                    <input type="text" id="modal-term-wel-total-wage" class="form-control" value="利用者工賃">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-wel-usage-rate">利用率</label>
+                    <input type="text" id="modal-term-wel-usage-rate" class="form-control" value="利用率">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-wel-total-days">延べ利用日数</label>
+                    <input type="text" id="modal-term-wel-total-days" class="form-control" value="延べ利用日数">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-secondary" onclick="closeModal('edit-term-analytics-welfare-modal')">キャンセル</button>
+                <button type="button" class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-term-analytics-production-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">生産活動分析 用語 編集</h2>
+                <span class="modal-close" onclick="closeModal('edit-term-analytics-production-modal')">&times;</span>
             </div>
             <div class="modal-body">
                  <div class="form-group">
@@ -293,20 +395,28 @@
                     <input type="text" id="modal-term-prod-revenue" class="form-control" value="就労支援事業収益">
                 </div>
                 <div class="form-group">
-                    <label for="modal-term-prod-expense">就労支援事業費用</label>
-                    <input type="text" id="modal-term-prod-expense" class="form-control" value="就労支援事業費用">
+                    <label for="modal-term-prod-expense">就労支援事業費</label>
+                    <input type="text" id="modal-term-prod-expense" class="form-control" value="就労支援事業費">
                </div>
                 <div class="form-group">
                     <label for="modal-term-prod-profit">就労支援事業活動増減差額</label>
                     <input type="text" id="modal-term-prod-profit" class="form-control" value="就労支援事業活動増減差額">
                 </div>
                  <div class="form-group">
-                    <label for="modal-term-wage-total">利用者工賃</label>
-                    <input type="text" id="modal-term-wage-total" class="form-control" value="利用者工賃">
+                    <label for="modal-term-prod-wage">利用者工賃</label>
+                    <input type="text" id="modal-term-prod-wage" class="form-control" value="利用者工賃">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-prod-material">材料費</label>
+                    <input type="text" id="modal-term-prod-material" class="form-control" value="材料費">
+                </div>
+                <div class="form-group">
+                    <label for="modal-term-prod-subcontract">外注加工費</label>
+                    <input type="text" id="modal-term-prod-subcontract" class="form-control" value="外注加工費">
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="button button-secondary" onclick="closeModal('edit-term-accounting-modal')">キャンセル</button>
+                <button type="button" class="button button-secondary" onclick="closeModal('edit-term-analytics-production-modal')">キャンセル</button>
                 <button type="button" class="button button-primary">保存</button>
             </div>
         </div>
@@ -444,7 +554,6 @@
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // サブナビゲーション（タブ）切り替え
             const subNavContainer = document.getElementById('terminology-subnav');
             const tabContents = document.querySelectorAll('#terminology .tab-content-wrapper .tab-content');
             if (subNavContainer && tabContents.length > 0) {
@@ -461,19 +570,17 @@
                         content.style.display = isActive ? 'block' : 'none';
                     });
                 });
-                 // 初期表示をタブの状態に合わせて設定
                  const initialActiveNavItem = subNavContainer.querySelector('.sub-nav-item.active');
                  let initialTabContentId = null;
                  if (initialActiveNavItem) {
                      initialTabContentId = initialActiveNavItem.dataset.tab;
                  } else if (tabContents.length > 0) {
-                     // activeクラスがない場合、最初のタブをアクティブにする
                      const firstNavItem = subNavContainer.querySelector('.sub-nav-item');
                      if(firstNavItem){
                          initialTabContentId = firstNavItem.dataset.tab;
                          firstNavItem.classList.add('active');
                      } else {
-                         initialTabContentId = tabContents[0].id; // Fallback
+                         initialTabContentId = tabContents[0].id;
                      }
                  }
 
@@ -484,7 +591,6 @@
                  });
             }
 
-            // --- モーダル保存時の表示更新 (汎用化) ---
             function setupTermSaveHandler(modalId, termMappings) {
                 const saveButton = document.querySelector(`#${modalId} .button-primary`);
                 if (!saveButton) return;
@@ -492,19 +598,16 @@
                 saveButton.addEventListener('click', () => {
                     for (const modalInputId in termMappings) {
                         const displayElementId = termMappings[modalInputId].displayId;
-                        const defaultLabel = termMappings[modalInputId].defaultLabel; // Default label from mapping
+                        const defaultLabel = termMappings[modalInputId].defaultLabel;
                         const modalInput = document.getElementById(modalInputId);
                         const displayElement = document.getElementById(displayElementId);
 
                         if (modalInput && displayElement) {
                             const newValue = modalInput.value.trim();
-                            // Update display text (dd)
-                            displayElement.textContent = newValue || defaultLabel; // Use new value or default label if empty
-
-                            // Update corresponding label text (dt)
+                            displayElement.textContent = newValue || defaultLabel;
                             const dtElement = displayElement.previousElementSibling;
                              if(dtElement && dtElement.tagName === 'DT'){
-                                 dtElement.textContent = newValue || defaultLabel; // Update dt with new value or default label
+                                 dtElement.textContent = newValue || defaultLabel;
                              }
                         }
                     }
@@ -512,8 +615,6 @@
                 });
             }
 
-
-            // 各モーダルと表示要素のマッピングを定義してハンドラを設定
             setupTermSaveHandler('edit-term-entities-modal', {
                 'modal-term-member': { displayId: 'display-term-member', defaultLabel: '利用者' },
                 'modal-term-staff': { displayId: 'display-term-staff', defaultLabel: '職員' },
@@ -536,13 +637,30 @@
                 'modal-term-claim': { displayId: 'display-term-claim', defaultLabel: '請求' }
             });
 
-             setupTermSaveHandler('edit-term-accounting-modal', {
-                 'modal-term-prod-revenue': { displayId: 'display-term-prod-revenue', defaultLabel: '就労支援事業収益' },
-                 'modal-term-prod-expense': { displayId: 'display-term-prod-expense', defaultLabel: '就労支援事業費用' },
-                 'modal-term-prod-profit': { displayId: 'display-term-prod-profit', defaultLabel: '就労支援事業活動増減差額' },
-                 'modal-term-wage-total': { displayId: 'display-term-wage-total', defaultLabel: '利用者工賃' }
+            setupTermSaveHandler('edit-term-analytics-financial-modal', {
+                'modal-term-fin-revenue-total': { displayId: 'display-term-fin-revenue-total', defaultLabel: '総収益' },
+                'modal-term-fin-expense-total': { displayId: 'display-term-fin-expense-total', defaultLabel: '総費用' },
+                'modal-term-fin-profit': { displayId: 'display-term-fin-profit', defaultLabel: '経常増減差額' },
+                'modal-term-fin-claims': { displayId: 'display-term-fin-claims', defaultLabel: '訓練等給付費' },
+                'modal-term-fin-prod-revenue': { displayId: 'display-term-fin-prod-revenue', defaultLabel: '生産活動収入' },
+                'modal-term-fin-wage': { displayId: 'display-term-fin-wage', defaultLabel: '利用者工賃' }
             });
 
+            setupTermSaveHandler('edit-term-analytics-welfare-modal', {
+                'modal-term-wel-avg-wage': { displayId: 'display-term-wel-avg-wage', defaultLabel: '平均工賃' },
+                'modal-term-wel-total-wage': { displayId: 'display-term-wel-total-wage', defaultLabel: '利用者工賃' },
+                'modal-term-wel-usage-rate': { displayId: 'display-term-wel-usage-rate', defaultLabel: '利用率' },
+                'modal-term-wel-total-days': { displayId: 'display-term-wel-total-days', defaultLabel: '延べ利用日数' }
+            });
+
+            setupTermSaveHandler('edit-term-analytics-production-modal', {
+                 'modal-term-prod-revenue': { displayId: 'display-term-prod-revenue', defaultLabel: '就労支援事業収益' },
+                 'modal-term-prod-expense': { displayId: 'display-term-prod-expense', defaultLabel: '就労支援事業費' },
+                 'modal-term-prod-profit': { displayId: 'display-term-prod-profit', defaultLabel: '就労支援事業活動増減差額' },
+                 'modal-term-prod-wage': { displayId: 'display-term-prod-wage', defaultLabel: '利用者工賃' },
+                 'modal-term-prod-material': { displayId: 'display-term-prod-material', defaultLabel: '材料費' },
+                 'modal-term-prod-subcontract': { displayId: 'display-term-prod-subcontract', defaultLabel: '外注加工費' }
+            });
 
             setupTermSaveHandler('edit-term-records-modal', {
                 'modal-term-daily-record': { displayId: 'display-term-daily-record', defaultLabel: '日々の記録' },
@@ -553,7 +671,6 @@
                 'modal-term-incident-report': { displayId: 'display-term-incident-report', defaultLabel: 'ヒヤリハット・事故報告' }
             });
 
-            // ステータス関連のモーダルを個別に設定
              setupTermSaveHandler('edit-term-status-contract-modal', {
                 'modal-status-active': { displayId: 'display-status-active', defaultLabel: '利用中' },
                 'modal-status-inactive': { displayId: 'display-status-inactive', defaultLabel: '利用終了' },
