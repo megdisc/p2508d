@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>月次工賃確定 - p2508d</title>
+    <title>月次会計確定 - p2508d</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .summary-totals {
@@ -87,6 +87,35 @@
              font-size: var(--font-size-sm);
              color: var(--color-text-secondary);
         }
+        
+        /* --- ▼▼▼ 追加: 収支・積立セクション用のスタイル ▼▼▼ --- */
+        .profit-summary-grid {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 0.75rem 1rem;
+            align-items: center;
+            font-size: var(--font-size-sm);
+        }
+        .profit-summary-grid dt {
+            font-weight: 600;
+            text-align: right;
+            color: var(--color-text-secondary);
+        }
+        .profit-summary-grid dd {
+            font-weight: 600;
+            text-align: right;
+            font-size: 1.1em;
+        }
+        .profit-summary-grid dd.total-profit {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: var(--color-primary);
+            padding: 0.5rem 0;
+            border-top: 1px dashed var(--color-border);
+            border-bottom: 1px dashed var(--color-border);
+            margin: 0.5rem 0;
+        }
+        /* --- ▲▲▲ 追加ここまで ▲▲▲ --- */
 
     </style>
 </head>
@@ -119,7 +148,7 @@
         <main class="mockup-main">
             <div id="monthly-wage-confirmation" class="mockup-page active">
                 <div class="list-page-header">
-                    <h1 class="page-title">月次工賃確定</h1>
+                    <h1 class="page-title">月次会計確定</h1>
                     <div>
                         <a href="accounting_menu.html" class="button button-secondary">会計メニューへ</a>
                     </div>
@@ -223,14 +252,50 @@
                                 <div>控除合計: <strong id="total-deductions">1,500 円</strong></div>
                                 <div class="total-net-payment">差引支給額合計: <strong id="total-net-payment">41,500 円</strong></div>
                             </div>
-                             <div class="section-footer" style="display: flex; justify-content: space-between; align-items: center;">
+
+                            <div class="section" style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px dashed var(--color-border);">
+                                <h2 class="section-title-in-header" style="margin-bottom: 1.5rem;">今月の就労支援事業収支</h2>
+                                <div class="section-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                                    
+                                    <div>
+                                        <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem;">収支計算 (自動集計)</h3>
+                                        <dl class="profit-summary-grid">
+                                            <dt>就労支援事業収益</dt>
+                                            <dd id="profit-summary-revenue">350,000 円</dd>
+                                            
+                                            <dt>就労支援事業費 (工賃以外)</dt>
+                                            <dd id="profit-summary-expense-other">( -80,000 円)</dd>
+                                            
+                                            <dt>利用者工賃合計</dt>
+                                            <dd id="profit-summary-wage">( -43,000 円)</dd>
+                                            
+                                            <dt>就労支援事業活動増減差額</dt>
+                                            <dd class="total-profit" id="profit-summary-total">227,000 円</dd>
+                                        </dl>
+                                    </div>
+
+                                    <div>
+                                        <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem;">積立金への割り当て (入力)</h3>
+                                        <div class="form-group">
+                                            <label for="reserve-allocation-wage" class="form-label">工賃変動積立金への積立額</label>
+                                            <input type="number" id="reserve-allocation-wage" class="form-control" placeholder="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="reserve-allocation-facility" class="form-label">設備等整備積立金への積立額</label>
+                                            <input type="number" id="reserve-allocation-facility" class="form-control" placeholder="0">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="section-footer" style="display: flex; justify-content: space-between; align-items: center;">
                                  <div>
                                      <button class="button button-secondary" id="print-selected-button">選択明細書印刷</button>
                                      <button class="button button-secondary" id="print-all-button">明細書一括印刷</button>
                                  </div>
                                 <div>
-                                     <button class="button button-primary" id="confirm-selected-button">選択した項目を確定</button>
-                                     <button class="button button-danger" id="confirm-all-button" style="margin-left: 0.5rem;">全件確定</button>
+                                     <button class="button button-secondary" id="confirm-selected-button">選択した項目を確定</button>
+                                     <button class="button button-danger" id="confirm-all-button" style="margin-left: 0.5rem;">月次会計を確定する</button>
                                 </div>
                             </div>
                         </div>
@@ -676,26 +741,32 @@
                  });
 
                  confirmAllButton.addEventListener('click', () => {
+                    // ▼▼▼ 修正: 月次会計確定処理（ダミー） ▼▼▼
                     const unconfirmedRows = tableBody.querySelectorAll('tr[data-status="unconfirmed"]:not([style*="display: none"])'); // 表示されている未確定行
                     if (unconfirmedRows.length > 0) {
-                         if (confirm(`${unconfirmedRows.length}件の未確定項目をすべて確定しますか？`)) {
-                             unconfirmedRows.forEach(row => {
-                                 row.dataset.status = 'confirmed';
-                                 row.querySelector('.col-status').innerHTML = '<span class="badge badge-success">確定済</span>';
-                                 const actionButtons = row.querySelector('.table-button-group');
-                                 actionButtons.innerHTML = `
-                                     <button class="button button-secondary">詳細</button>
-                                     <button class="button button-secondary">確定解除</button>
-                                 `;
-                                 const checkbox = row.querySelector('.row-checkbox');
-                                 if(checkbox) checkbox.checked = false;
-                             });
-                             alert(`${unconfirmedRows.length}件の工賃を確定しました。`);
-                             filterWagesConfirmation(); // フィルタと全選択チェックボックスの状態を更新
-                         }
-                    } else {
-                         alert('確定対象の未確定項目がありません。');
+                         alert('表示されているすべての未確定工賃を「確定」状態にします。');
+                         // (工賃の確定処理...)
+                         unconfirmedRows.forEach(row => {
+                             row.dataset.status = 'confirmed';
+                             row.querySelector('.col-status').innerHTML = '<span class="badge badge-success">確定済</span>';
+                             const actionButtons = row.querySelector('.table-button-group');
+                             actionButtons.innerHTML = `
+                                 <button class="button button-secondary">詳細</button>
+                                 <button class="button button-secondary">確定解除</button>
+                             `;
+                             const checkbox = row.querySelector('.row-checkbox');
+                             if(checkbox) checkbox.checked = false;
+                         });
                     }
+
+                    const reserveWage = document.getElementById('reserve-allocation-wage')?.value || 0;
+                    const reserveFacility = document.getElementById('reserve-allocation-facility')?.value || 0;
+                    
+                    alert(`以下の内容で月次会計を確定します（実際にはtransactionsテーブルに記帳されます）:\n` +
+                          `工賃変動積立金: ${reserveWage} 円\n` +
+                          `設備等整備積立金: ${reserveFacility} 円`);
+                          
+                    filterWagesConfirmation(); // フィルタと全選択チェックボックスの状態を更新
                  });
              }
 
