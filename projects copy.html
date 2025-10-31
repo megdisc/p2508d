@@ -171,11 +171,11 @@
 
                 <div class="sub-nav">
                     <ul id="project-detail-subnav">
-                        <li><a href="#" class="sub-nav-item active" data-tab="tab-project-overview">基本情報</a></li>
+                        <li><a href="#" class="sub-nav-item active" data-tab="tab-project-overview">案件情報</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-project-task-definition">タスク定義</a></li>
-                        <li><a href="#" class="sub-nav-item" data-tab="tab-project-budget">予算配分</a></li>
-                        <li><a href="#" class="sub-nav-item" data-tab="tab-project-schedule">スケジュール</a></li>
-                        <li><a href="#" class="sub-nav-item" data-tab="tab-project-assignee">アサイン</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-project-schedule">日程作成</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-project-budget-revenue">予算・収支</a></li>
+                        <li><a href="#" class="sub-nav-item" data-tab="tab-project-assignee-assignment">担当者割当</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-project-progress">進捗管理</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-project-delivery">納品・請求</a></li>
                         <li><a href="#" class="sub-nav-item" data-tab="tab-project-files">関連ファイル</a></li>
@@ -206,7 +206,7 @@
                     <div id="tab-project-task-definition" class="tab-content">
                          <div class="section">
                             <div class="list-page-header" style="margin-bottom: 1rem;">
-                                <h2 class="section-title" style="margin: 0; border: none;">タスク定義 (What)</h2>
+                                <h2 class="section-title" style="margin: 0; border: none;">タスク定義 (What / How Long)</h2>
                                 <button type="button" class="button button-primary" id="add-task-definition-row">＋ タスクを追加</button>
                             </div>
                             <div class="table-wrapper">
@@ -215,6 +215,7 @@
                                         <tr>
                                             <th>タスク名</th>
                                             <th>作業指示/備考</th>
+                                            <th style="width: 100px;">想定工数(H)</th>
                                             <th style="width: 250px;">必要スキル</th>
                                             <th class="col-actions">操作</th>
                                         </tr>
@@ -223,6 +224,7 @@
                                          <tr>
                                             <td><input type="text" class="form-control task-name-input" value="チラシ折り"></td>
                                             <td><input type="text" class="form-control" value="三つ折りにする"></td>
+                                            <td><input type="number" class="form-control task-effort-input" value="20" style="width: 100px;"></td>
                                             <td class="skill-selection-cell">
                                                 <div>
                                                     <span class="skill-tag">軽作業 Lv.1</span>
@@ -239,6 +241,7 @@
                                          <tr>
                                             <td><input type="text" class="form-control task-name-input" value="封入"></td>
                                             <td><input type="text" class="form-control" value="チラシ、挨拶状、返信用封筒を封入"></td>
+                                            <td><input type="number" class="form-control task-effort-input" value="40" style="width: 100px;"></td>
                                             <td class="skill-selection-cell">
                                                 <div>
                                                     <span class="skill-tag">軽作業 Lv.1</span>
@@ -254,6 +257,7 @@
                                         <tr>
                                             <td><input type="text" class="form-control task-name-input" value="宛名貼り"></td>
                                             <td><input type="text" class="form-control" value="指定のラベルを貼付"></td>
+                                            <td><input type="number" class="form-control task-effort-input" value="15" style="width: 100px;"></td>
                                             <td class="skill-selection-cell">
                                                 <div>
                                                     <span class="skill-tag">PC基本操作 Lv.1</span>
@@ -276,7 +280,31 @@
                         </div>
                     </div>
                     
-                    <div id="tab-project-budget" class="tab-content">
+                    <div id="tab-project-schedule" class="tab-content">
+                         <div class="section">
+                            <div class="list-page-header" style="margin-bottom: 1rem;">
+                                <h2 class="section-title" style="margin: 0; border: none;">日程作成 (When)</h2>
+                            </div>
+                            <div class="table-wrapper">
+                                <table class="table" id="schedule-creation-table">
+                                    <thead>
+                                        <tr>
+                                            <th>タスク名</th>
+                                            <th style="width: 150px;">予定開始日</th>
+                                            <th style="width: 150px;">予定終了日</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="schedule-creation-table-body">
+                                    </tbody>
+                                </table>
+                            </div>
+                             <div class="section-footer">
+                                <button type="button" class="button button-primary">日程計画を保存</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-project-budget-revenue" class="tab-content">
                         <div class="section-divider">計画 (予算)</div>
                         <div class="section">
                             <h2 class="section-title">予算（収益）</h2>
@@ -329,86 +357,8 @@
                             <span>その他経費予算: <strong id="summary-other-expense-plan">0</strong>円</span> |
                             <span class="profit-plan">計画利益: <strong id="summary-planned-profit">0</strong>円</span>
                         </div>
-                         <div class="section-footer">
-                            <button type="button" class="button button-primary">予算計画を保存</button>
-                        </div>
-                    </div>
 
-                    <div id="tab-project-schedule" class="tab-content">
-                         <div class="section">
-                            <div class="list-page-header" style="margin-bottom: 1rem;">
-                                <h2 class="section-title" style="margin: 0; border: none;">スケジュール (When / How Long)</h2>
-                            </div>
-                            <div class="table-wrapper">
-                                <table class="table" id="schedule-creation-table">
-                                    <thead>
-                                        <tr>
-                                            <th>タスク名</th>
-                                            <th style="width: 150px;">予定開始日</th>
-                                            <th style="width: 150px;">予定終了日</th>
-                                            <th style="width: 120px;">想定工数(H)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="schedule-creation-table-body">
-                                    </tbody>
-                                </table>
-                            </div>
-                             <div class="section-footer">
-                                <button type="button" class="button button-primary">スケジュールを保存</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="tab-project-assignee" class="tab-content">
-                         <div class="section">
-                            <h2 class="section-title">アサイン (Who)</h2>
-                            <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: 1rem;">「タスク定義」タブで設定したタスクごとに、内外製区分と担当者（1名）を選択します。</p>
-                            <div class="table-wrapper">
-                                <table class="table" id="assignee-assignment-table">
-                                    <thead>
-                                        <tr>
-                                            <th>タスク名</th>
-                                            <th style="width: 120px;">内外製</th>
-                                            <th style="width: 300px;">必要スキル</th>
-                                            <th style="width: 250px;">担当者</th>
-                                            <th class="col-actions">操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="assignee-assignment-table-body">
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="section-footer">
-                                <button type="button" class="button button-primary">アサインを保存</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="tab-project-progress" class="tab-content">
-                         <div class="section-divider">実行・実績 (Do / Check)</div>
-                         <div class="section">
-                            <h2 class="section-title">進捗管理 (実績入力)</h2>
-                             <div style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;">
-                                 <label for="progress-month-select-progress" class="form-label" style="margin-bottom: 0;">対象月 (実績工数入力用):</label>
-                                 <input type="month" id="progress-month-select-progress" class="form-control" value="2025-10" style="width: auto;">
-                             </div>
-                            <div class="table-wrapper">
-                                <table class="table" id="progress-management-table">
-                                    <thead>
-                                        <tr>
-                                            <th>タスク名</th>
-                                            <th style="width: 220px;">予定期間</th>
-                                            <th style="width: 150px;">ステータス</th>
-                                            <th style="width: 120px;">進捗率(%)</th>
-                                            <th style="width: 120px;">実績工数(H)</th>
-                                            <th class="col-actions"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="progress-management-table-body">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <div class="section-divider">実績 (原価・収支)</div>
                         <div class="section">
                             <h2 class="section-title">タスク別 実績原価 (自動計算)</h2>
                             <div class="table-wrapper">
@@ -450,14 +400,67 @@
                             <span>その他経費実績: <strong id="summary-other-expense-actual">5,000</strong>円</span> |
                             <span class="profit">実績利益: <strong id="summary-actual-profit">0</strong>円</span>
                         </div>
+
+                        <div class="section-footer">
+                            <button type="button" class="button button-primary">予算・収支情報を保存</button>
+                        </div>
+                    </div>
+                    <div id="tab-project-assignee-assignment" class="tab-content">
+                         <div class="section">
+                            <h2 class="section-title">担当者割当</h2>
+                            <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: 1rem;">「タスク定義」タブで設定したタスクごとに、内外製区分と担当者（1名）を選択します。</p>
+                            <div class="table-wrapper">
+                                <table class="table" id="assignee-assignment-table">
+                                    <thead>
+                                        <tr>
+                                            <th>タスク名</th>
+                                            <th style="width: 120px;">内外製</th>
+                                            <th style="width: 300px;">必要スキル</th>
+                                            <th style="width: 250px;">担当者</th>
+                                            <th class="col-actions">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="assignee-assignment-table-body">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="section-footer">
+                                <button type="button" class="button button-primary">担当者割当を保存</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-project-progress" class="tab-content">
+                         <div class="section">
+                            <h2 class="section-title">進捗管理 (実績入力)</h2>
+                             <div style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                                 <label for="progress-month-select-progress" class="form-label" style="margin-bottom: 0;">対象月 (実績工数入力用):</label>
+                                 <input type="month" id="progress-month-select-progress" class="form-control" value="2025-10" style="width: auto;">
+                             </div>
+                            <div class="table-wrapper">
+                                <table class="table" id="progress-management-table">
+                                    <thead>
+                                        <tr>
+                                            <th>タスク名</th>
+                                            <th style="width: 220px;">予定期間</th>
+                                            <th style="width: 150px;">ステータス</th>
+                                            <th style="width: 120px;">進捗率(%)</th>
+                                            <th style="width: 120px;">実績工数(H)</th>
+                                            <th class="col-actions"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="progress-management-table-body">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="section-footer">
+                                <button type="button" class="button button-primary">進捗情報を保存</button>
+                            </div>
+                        </div>
                         <div class="section">
                             <h2 class="section-title">進捗サマリー（ガントチャート）</h2>
                             <div class="section-content">
-                                <div class="chart-placeholder">（「スケジュール」タブの予定期間と「進捗管理」タブの進捗率に基づいたガントチャートがここに表示されます）</div>
+                                <div class="chart-placeholder">（「日程作成」タブの予定期間と「進捗管理」タブの進捗率に基づいたガントチャートがここに表示されます）</div>
                             </div>
-                        </div>
-                        <div class="section-footer">
-                            <button type="button" class="button button-primary">進捗・実績を保存</button>
                         </div>
                     </div>
 
@@ -593,6 +596,7 @@
                 <tr>
                     <td><input type="text" class="form-control task-name-input" placeholder="新規タスク名"></td>
                     <td><input type="text" class="form-control" placeholder="作業指示や備考を入力"></td>
+                    <td><input type="number" class="form-control task-effort-input" placeholder="0" style="width: 100px;"></td>
                     <td class="skill-selection-cell">
                         <div></div>
                         <button type="button" class="button button-secondary" style="font-size: var(--font-size-xs); padding: 0.2rem 0.5rem; margin-top: 0.2rem;" onclick="alert('スキル選択モーダルを開く (未実装)')">スキル選択</button>
@@ -610,7 +614,6 @@
                     <td style="text-align: left;" class="task-name-readonly">（タスク名）</td>
                     <td><input type="date" class="form-control schedule-start-date-input"></td>
                     <td><input type="date" class="form-control schedule-end-date-input"></td>
-                    <td><input type="number" class="form-control schedule-effort-input" placeholder="0"></td>
                 </tr>
             </template>
 
@@ -722,16 +725,24 @@
 
         function updateBudgetSummary() {
             const revenueInput = document.getElementById('project-revenue-input-budget');
+            
             const budgetAllocationTbody = document.getElementById('budget-allocation-table-body');
             const expensePlanTbody = document.getElementById('expense-table-body-budget-plan');
-            
+            const actualCostTbody = document.getElementById('actual-cost-table-body');
+            const expenseActualTbody = document.getElementById('expense-table-body-actual');
+
             const summaryRevenuePlan = document.getElementById('summary-revenue-plan');
             const summaryAllocatedPlan = document.getElementById('summary-allocated-plan');
             const summaryUnallocatedPlan = document.getElementById('summary-unallocated-plan');
             const summaryOtherExpensePlan = document.getElementById('summary-other-expense-plan');
             const summaryPlannedProfit = document.getElementById('summary-planned-profit');
 
-            if (!revenueInput || !budgetAllocationTbody || !expensePlanTbody || !summaryRevenuePlan) return;
+            const summaryRevenueActual = document.getElementById('summary-revenue-actual');
+            const summaryTaskCostActual = document.getElementById('summary-task-cost-actual');
+            const summaryOtherExpenseActual = document.getElementById('summary-other-expense-actual');
+            const summaryActualProfit = document.getElementById('summary-actual-profit');
+
+            if (!revenueInput || !budgetAllocationTbody || !expensePlanTbody || !actualCostTbody || !expenseActualTbody) return;
 
             let totalRevenue = parseFloat(revenueInput.value) || 0;
 
@@ -744,30 +755,6 @@
             expensePlanTbody.querySelectorAll('.expense-amount-input-plan').forEach(input => {
                 totalExpensePlan += parseFloat(input.value) || 0;
             });
-
-            let unallocatedPlan = totalRevenue - totalAllocatedPlan;
-            let plannedProfit = totalRevenue - totalAllocatedPlan - totalExpensePlan;
-
-            summaryRevenuePlan.textContent = totalRevenue.toLocaleString();
-            summaryAllocatedPlan.textContent = totalAllocatedPlan.toLocaleString();
-            summaryUnallocatedPlan.textContent = unallocatedPlan.toLocaleString();
-            summaryOtherExpensePlan.textContent = totalExpensePlan.toLocaleString();
-            summaryPlannedProfit.textContent = plannedProfit.toLocaleString();
-        }
-
-        function updateActualSummary() {
-            const revenueInput = document.getElementById('project-revenue-input-budget');
-            const actualCostTbody = document.getElementById('actual-cost-table-body');
-            const expenseActualTbody = document.getElementById('expense-table-body-actual');
-
-            const summaryRevenueActual = document.getElementById('summary-revenue-actual');
-            const summaryTaskCostActual = document.getElementById('summary-task-cost-actual');
-            const summaryOtherExpenseActual = document.getElementById('summary-other-expense-actual');
-            const summaryActualProfit = document.getElementById('summary-actual-profit');
-
-            if (!revenueInput || !actualCostTbody || !expenseActualTbody || !summaryRevenueActual) return;
-
-            let totalRevenue = parseFloat(revenueInput.value) || 0;
 
             let totalActualTaskCost = 0;
             actualCostTbody.querySelectorAll('.actual-cost-display').forEach(span => {
@@ -783,7 +770,15 @@
                 totalExpenseActual += parseFloat(input.value) || 0;
             });
 
+            let unallocatedPlan = totalRevenue - totalAllocatedPlan;
+            let plannedProfit = totalRevenue - totalAllocatedPlan - totalExpensePlan;
             let actualProfit = totalRevenue - totalActualTaskCost - totalExpenseActual;
+
+            summaryRevenuePlan.textContent = totalRevenue.toLocaleString();
+            summaryAllocatedPlan.textContent = totalAllocatedPlan.toLocaleString();
+            summaryUnallocatedPlan.textContent = unallocatedPlan.toLocaleString();
+            summaryOtherExpensePlan.textContent = totalExpensePlan.toLocaleString();
+            summaryPlannedProfit.textContent = plannedProfit.toLocaleString();
 
             summaryRevenueActual.textContent = totalRevenue.toLocaleString();
             summaryTaskCostActual.textContent = totalActualTaskCost.toLocaleString();
@@ -800,20 +795,22 @@
             const rows = definitionTbody.querySelectorAll('tr');
             rows.forEach((row, index) => {
                 const nameInput = row.querySelector('td:nth-child(1) input.task-name-input');
-                const skillCell = row.querySelector('td:nth-child(3)'); 
+                const effortInput = row.querySelector('td:nth-child(3) input.task-effort-input');
+                const skillCell = row.querySelector('td:nth-child(4)'); 
                 const skillTags = skillCell ? skillCell.querySelectorAll('.skill-tag') : [];
                 const skills = Array.from(skillTags).map(tag => tag.textContent);
 
                 tasks.push({
                     id: `task-${index}`,
                     name: nameInput ? nameInput.value : `タスク ${index + 1}`,
+                    effort: effortInput ? effortInput.value : '0',
                     requiredSkills: skills
                 });
             });
             return tasks;
         }
         
-        function getScheduleData() {
+        function getScheduleDefinitions() {
             const scheduleTbody = document.getElementById('schedule-creation-table-body');
             if (!scheduleTbody) return {};
             
@@ -865,7 +862,6 @@
                 existingData[taskName] = {
                     startDate: row.querySelector('.schedule-start-date-input').value,
                     endDate: row.querySelector('.schedule-end-date-input').value,
-                    effort: row.querySelector('.schedule-effort-input').value,
                 };
             });
 
@@ -879,19 +875,15 @@
                 if (existingData[task.name]) {
                     newRow.querySelector('.schedule-start-date-input').value = existingData[task.name].startDate;
                     newRow.querySelector('.schedule-end-date-input').value = existingData[task.name].endDate;
-                    newRow.querySelector('.schedule-effort-input').value = existingData[task.name].effort;
                 } else if (task.name === 'チラシ折り') {
                     newRow.querySelector('.schedule-start-date-input').value = '2025-10-01';
                     newRow.querySelector('.schedule-end-date-input').value = '2025-10-10';
-                    newRow.querySelector('.schedule-effort-input').value = '20';
                 } else if (task.name === '封入') {
                     newRow.querySelector('.schedule-start-date-input').value = '2025-10-11';
                     newRow.querySelector('.schedule-end-date-input').value = '2025-10-25';
-                    newRow.querySelector('.schedule-effort-input').value = '40';
                 } else if (task.name === '宛名貼り') {
                     newRow.querySelector('.schedule-start-date-input').value = '2025-10-26';
                     newRow.querySelector('.schedule-end-date-input').value = '2025-10-31';
-                    newRow.querySelector('.schedule-effort-input').value = '15';
                 }
                 
                 scheduleTbody.appendChild(newRow);
@@ -968,7 +960,7 @@
                 newRow.querySelector('.actual-cost-display').textContent = costDisplay;
                 actualCostTbody.appendChild(newRow);
             });
-            updateActualSummary();
+            updateBudgetSummary();
         }
 
 
@@ -1063,7 +1055,7 @@
              if (!progressTbody || !progressTemplate) return;
 
             const tasks = getTaskDefinitions();
-            const scheduleMap = getScheduleData();
+            const scheduleMap = getScheduleDefinitions();
             
             const existingData = {};
             progressTbody.querySelectorAll('tr').forEach(row => {
@@ -1181,7 +1173,7 @@
                 observer.observe(taskDefTbody, { childList: true });
 
                  taskDefTbody.addEventListener('input', (e) => {
-                     if (e.target.classList.contains('task-name-input')) {
+                     if (e.target.classList.contains('task-name-input') || e.target.classList.contains('task-effort-input')) {
                         setTimeout(() => {
                             renderScheduleCreationTable();
                             renderBudgetAllocationTable();
@@ -1203,36 +1195,21 @@
             }
 
 
-            const budgetTab = document.getElementById('tab-project-budget');
+            const budgetTab = document.getElementById('tab-project-budget-revenue');
             if (budgetTab) {
                 budgetTab.addEventListener('input', (e) => {
-                    if (e.target.matches('#project-revenue-input-budget, .budget-allocation-input, .expense-amount-input-plan')) {
+                    if (e.target.matches('#project-revenue-input-budget, .budget-allocation-input, .expense-amount-input-plan, .expense-amount-input-actual')) {
                         updateBudgetSummary();
                     }
                 });
                 budgetTab.addEventListener('click', (e) => {
-                     if (e.target.closest('#add-expense-row-budget-plan') || e.target.closest('#expense-table-body-budget-plan .button-danger')) {
+                     if (e.target.closest('.button-danger')) {
                          setTimeout(updateBudgetSummary, 50);
-                     }
-                 });
-            }
-            
-            const progressTab = document.getElementById('tab-project-progress');
-            if (progressTab) {
-                progressTab.addEventListener('input', (e) => {
-                    if (e.target.matches('.expense-amount-input-actual')) {
-                        updateActualSummary();
-                    }
-                });
-                 progressTab.addEventListener('click', (e) => {
-                     if (e.target.closest('#add-expense-row-actual') || e.target.closest('#expense-table-body-actual .button-danger')) {
-                         setTimeout(updateActualSummary, 50);
                      }
                  });
             }
              
              updateBudgetSummary();
-             updateActualSummary();
 
              const assigneeTbody = document.getElementById('assignee-assignment-table-body');
              if (assigneeTbody) {
