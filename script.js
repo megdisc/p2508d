@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 else if (pageName === 'staff' && targetBaseId === 'staff') {
                     isActive = true; // 職員管理(staff) -> staff-detail
                 }
-                else if (pageName === 'work_activities_menu' && (targetBaseId === 'project' || targetBaseId === 'partner' || targetId === 'skill_evaluation')) {
+                else if (pageName === 'production_menu' && (targetBaseId === 'project' || targetBaseId === 'partner' || targetId === 'skill_evaluation')) {
                     // 生産活動(work_activities_menu) -> project-detail, contact-detail, skill_evaluation
                      isActive = true; 
                 }
