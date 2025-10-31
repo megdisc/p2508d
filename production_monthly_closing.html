@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>月次会計確定 - p2508d</title>
+    <title>生産活動 月次確定 - p2508d</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .summary-totals {
@@ -88,7 +88,7 @@
              color: var(--color-text-secondary);
         }
         
-        /* --- ▼▼▼ 追加: 収支・積立セクション用のスタイル ▼▼▼ --- */
+        /* --- 収支・積立セクション用のスタイル --- */
         .profit-summary-grid {
             display: grid;
             grid-template-columns: 200px 1fr;
@@ -115,7 +115,6 @@
             border-bottom: 1px dashed var(--color-border);
             margin: 0.5rem 0;
         }
-        /* --- ▲▲▲ 追加ここまで ▲▲▲ --- */
 
     </style>
 </head>
@@ -146,9 +145,9 @@
         </header>
 
         <main class="mockup-main">
-            <div id="monthly-wage-confirmation" class="mockup-page active">
+            <div id="monthly-wage-confirmation" class="mockup-page active"> 
                 <div class="list-page-header">
-                    <h1 class="page-title">月次会計確定</h1>
+                    <h1 class="page-title">生産活動 月次確定</h1>
                     <div>
                         <a href="accounting_menu.html" class="button button-secondary">会計メニューへ</a>
                     </div>
@@ -558,6 +557,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
              const mainSubNavContainer = document.getElementById('wage-confirmation-subnav');
+             // 修正: 親要素のIDが変わった場合（今回はID据え置き）
              const mainTabContents = document.querySelectorAll('#monthly-wage-confirmation > .tab-content-wrapper > .tab-content');
 
              if (mainSubNavContainer && mainTabContents.length > 0) {
@@ -741,7 +741,7 @@
                  });
 
                  confirmAllButton.addEventListener('click', () => {
-                    // ▼▼▼ 修正: 月次会計確定処理（ダミー） ▼▼▼
+                    // (前回修正) 月次会計確定処理（ダミー）
                     const unconfirmedRows = tableBody.querySelectorAll('tr[data-status="unconfirmed"]:not([style*="display: none"])'); // 表示されている未確定行
                     if (unconfirmedRows.length > 0) {
                          alert('表示されているすべての未確定工賃を「確定」状態にします。');
