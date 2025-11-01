@@ -206,7 +206,7 @@
                     <div id="tab-project-task-definition" class="tab-content">
                          <div class="section">
                             <div class="list-page-header" style="margin-bottom: 1rem;">
-                                <h2 class="section-title" style="margin: 0; border: none;">タスク定義 (What)</h2>
+                                <h2 class="section-title" style="margin: 0; border: none;">タスク定義</h2>
                                 <button type="button" class="button button-primary" id="add-task-definition-row">＋ タスクを追加</button>
                             </div>
                             <div class="table-wrapper">
@@ -277,9 +277,8 @@
                     </div>
                     
                     <div id="tab-project-budget" class="tab-content">
-                        <div class="section-divider">計画 (予算)</div>
                         <div class="section">
-                            <h2 class="section-title">予算（収益）</h2>
+                            <h2 class="section-title">総収益見込み</h2>
                             <div class="section-content">
                                  <dl class="detail-grid" style="grid-template-columns: 100px 1fr;">
                                     <dt>受注金額</dt><dd><input type="number" class="form-control" id="project-revenue-input-budget" value="100000"> 円</dd>
@@ -288,7 +287,7 @@
                         </div>
                          <div class="section">
                             <div class="list-page-header" style="margin-bottom: 1rem;">
-                                <h2 class="section-title" style="margin: 0; border: none;">タスク別 予算分配</h2>
+                                <h2 class="section-title" style="margin: 0; border: none;">予算配分（タスク）</h2>
                             </div>
                             <div class="table-wrapper">
                                 <table class="table" id="budget-allocation-table">
@@ -305,7 +304,7 @@
                         </div>
                         <div class="section">
                             <div class="list-page-header" style="margin-bottom: 1rem;">
-                                <h2 class="section-title" style="margin: 0; border: none;">その他経費（予算）</h2>
+                                <h2 class="section-title" style="margin: 0; border: none;">予算配分（その他経費）</h2>
                                 <button type="button" class="button button-primary" id="add-expense-row-budget-plan">＋ 経費予算を追加</button>
                             </div>
                             <div class="table-wrapper">
@@ -337,7 +336,7 @@
                     <div id="tab-project-schedule" class="tab-content">
                          <div class="section">
                             <div class="list-page-header" style="margin-bottom: 1rem;">
-                                <h2 class="section-title" style="margin: 0; border: none;">スケジュール (When / How Long)</h2>
+                                <h2 class="section-title" style="margin: 0; border: none;">スケジュール</h2>
                             </div>
                             <div class="table-wrapper">
                                 <table class="table" id="schedule-creation-table">
@@ -361,8 +360,7 @@
 
                     <div id="tab-project-assignee" class="tab-content">
                          <div class="section">
-                            <h2 class="section-title">アサイン (Who)</h2>
-                            <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: 1rem;">「タスク定義」タブで設定したタスクごとに、内外製区分と担当者（1名）を選択します。</p>
+                            <h2 class="section-title">アサイン</h2>
                             <div class="table-wrapper">
                                 <table class="table" id="assignee-assignment-table">
                                     <thead>
@@ -385,9 +383,8 @@
                     </div>
 
                     <div id="tab-project-progress" class="tab-content">
-                         <div class="section-divider">実行・実績 (Do / Check)</div>
                          <div class="section">
-                            <h2 class="section-title">進捗管理 (実績入力)</h2>
+                            <h2 class="section-title">進捗管理</h2>
                              <div style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;">
                                  <label for="progress-month-select-progress" class="form-label" style="margin-bottom: 0;">対象月 (実績工数入力用):</label>
                                  <input type="month" id="progress-month-select-progress" class="form-control" value="2025-10" style="width: auto;">
@@ -397,10 +394,11 @@
                                     <thead>
                                         <tr>
                                             <th>タスク名</th>
-                                            <th style="width: 220px;">予定期間</th>
-                                            <th style="width: 150px;">ステータス</th>
-                                            <th style="width: 120px;">進捗率(%)</th>
-                                            <th style="width: 120px;">実績工数(H)</th>
+                                            <th>予定期間</th>
+                                            <th>ステータス</th>
+                                            <th>進捗率(%)</th>
+                                            <th>実績工数(H)</th>
+                                            <th>貢献度(%)</th>
                                             <th class="col-actions"></th>
                                         </tr>
                                     </thead>
@@ -460,7 +458,6 @@
                             <button type="button" class="button button-primary">進捗・実績を保存</button>
                         </div>
                     </div>
-
                     <div id="tab-project-delivery" class="tab-content">
                          <div class="section">
                             <h2 class="section-title">納品情報</h2>
@@ -651,6 +648,7 @@
                     </td>
                 </tr>
              </template>
+
              <template id="progress-management-row-template">
                  <tr>
                     <td style="text-align: left;" class="task-name-readonly">（タスク名）</td>
@@ -666,7 +664,8 @@
                         </select>
                     </td>
                     <td class="progress-table-cell"><input type="number" class="form-control progress-rate-input" placeholder="0" min="0" max="100"></td>
-                    <td class="progress-table-cell"><input type="number" class="form-control contribution-input" placeholder="0.0"></td>
+                    <td class="progress-table-cell"><input type="number" class="form-control work-time-input" placeholder="0.0"></td>
+                    <td class="progress-table-cell"><input type="number" class="form-control contribution-input" placeholder="100" min="0" max="100"></td>
                     <td class="col-actions"></td>
                 </tr>
              </template>
@@ -813,7 +812,9 @@
             return tasks;
         }
         
+        // ▼▼▼ 修正 3/4: JavaScript関数名の変更 (変更なし、前回と同じ) ▼▼▼
         function getScheduleData() {
+        // ▲▲▲ 修正 3/4: JavaScript関数名の変更 ▲▲▲
             const scheduleTbody = document.getElementById('schedule-creation-table-body');
             if (!scheduleTbody) return {};
             
@@ -1057,13 +1058,14 @@
              }
         }
 
+        // ▼▼▼ 修正 4/4: JavaScript関数 `renderProgressManagementTable` の修正 (変更なし、前回と同じ) ▼▼▼
         function renderProgressManagementTable() {
             const progressTbody = document.getElementById('progress-management-table-body');
             const progressTemplate = document.getElementById('progress-management-row-template');
              if (!progressTbody || !progressTemplate) return;
 
             const tasks = getTaskDefinitions();
-            const scheduleMap = getScheduleData();
+            const scheduleMap = getScheduleData(); // 関数名 GSS 準拠
             
             const existingData = {};
             progressTbody.querySelectorAll('tr').forEach(row => {
@@ -1071,7 +1073,8 @@
                 existingData[taskName] = {
                     status: row.querySelector('.status-select').value,
                     progress: row.querySelector('.progress-rate-input').value,
-                    effort: row.querySelector('.contribution-input').value
+                    workTime: row.querySelector('.work-time-input')?.value, // 取得
+                    contribution: row.querySelector('.contribution-input')?.value // 取得
                 };
             });
 
@@ -1098,20 +1101,37 @@
                 if (existingData[task.name]) {
                     newRow.querySelector('.status-select').value = existingData[task.name].status;
                     newRow.querySelector('.progress-rate-input').value = existingData[task.name].progress;
-                    newRow.querySelector('.contribution-input').value = existingData[task.name].effort;
+                    if (newRow.querySelector('.work-time-input')) { // 設定
+                        newRow.querySelector('.work-time-input').value = existingData[task.name].workTime;
+                    }
+                    if (newRow.querySelector('.contribution-input')) { // 設定
+                        newRow.querySelector('.contribution-input').value = existingData[task.name].contribution;
+                    }
                 } else if (task.name === 'チラシ折り') {
                     newRow.querySelector('.status-select').value = 'done';
                     newRow.querySelector('.progress-rate-input').value = '100';
-                    newRow.querySelector('.contribution-input').value = '18.5';
+                    if (newRow.querySelector('.work-time-input')) { // サンプル
+                        newRow.querySelector('.work-time-input').value = '18.5';
+                    }
+                    if (newRow.querySelector('.contribution-input')) { // サンプル
+                        newRow.querySelector('.contribution-input').value = '100';
+                    }
                 } else if (task.name === '封入') {
                     newRow.querySelector('.status-select').value = 'inprogress';
                     newRow.querySelector('.progress-rate-input').value = '50';
-                    newRow.querySelector('.contribution-input').value = '25';
+                    if (newRow.querySelector('.work-time-input')) { // サンプル
+                        newRow.querySelector('.work-time-input').value = '25';
+                    }
+                    if (newRow.querySelector('.contribution-input')) { // サンプル
+                        newRow.querySelector('.contribution-input').value = '90';
+                    }
                 }
 
                 progressTbody.appendChild(newRow);
             });
         }
+        // ▲▲▲ 修正 4/4: JavaScript関数 `renderProgressManagementTable` の修正 ▲▲▲
+
 
         document.addEventListener('DOMContentLoaded', () => {
             const subNavContainer = document.getElementById('project-detail-subnav');
