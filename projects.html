@@ -29,6 +29,9 @@
         .progress-table-cell {
              vertical-align: middle !important;
         }
+        .assignee-type-display-cell {
+             vertical-align: middle !important;
+        }
          .cost-summary {
              text-align: right;
              font-size: var(--font-size-sm);
@@ -88,12 +91,13 @@
             width: 80px; /* 入力欄の幅を固定 */
             display: inline-block;
         }
-        #progress-management-table .progress-delta {
+        #progress-management-table .progress-delta-cell {
             font-size: var(--font-size-xs);
             color: var(--color-text-secondary);
-            margin-left: 0.5rem;
-            display: inline-block;
-            width: 70px; /* 先月比の幅を固定 */
+            text-align: right;
+            padding-right: 1rem;
+            width: 100px;
+            vertical-align: middle; /* 垂直中央揃え */
         }
         #progress-management-table .progress-delta.positive {
             color: green;
@@ -102,14 +106,18 @@
             color: red;
         }
         #progress-management-table .assignee-type-cell {
-             font-size: var(--font-size-xs);
-             color: var(--color-text-secondary);
+             font-size: var(--font-size-sm);
+             color: var(--color-text-primary);
              padding: 0.5rem 0.75rem;
              vertical-align: middle;
-             text-align: center;
+             text-align: left;
+        }
+        /* 貢献度セルのハイフン（-）のスタイル */
+        #progress-management-table .contribution-placeholder {
+            text-align: center;
+            color: var(--color-text-secondary);
         }
 
-        /* ▼▼▼ スキル選択モーダル用スタイル 修正 ▼▼▼ */
         #select-skill-modal .modal-content {
             max-width: 800px;
         }
@@ -131,7 +139,6 @@
         .skill-modal-list .table td:first-child {
             width: 50px; /* チェックボックス列 */
         }
-        /* (追加) スキル名(2)・カテゴリ(3)は自動、レベル(4)を固定 */
         .skill-modal-list .table th:nth-child(4),
         .skill-modal-list .table td:nth-child(4) {
              width: 140px; /* レベル選択プルダウン用 */
@@ -146,13 +153,48 @@
             font-weight: 600;
             margin-bottom: 0.5rem;
         }
-        /* (追加) モーダル内テーブル用プルダウンのスタイル調整 */
         .skill-modal-list .form-control {
             padding: 0.25rem 0.5rem;
             font-size: var(--font-size-xs);
             width: 100%;
         }
-        /* ▲▲▲ スキル選択モーダル用スタイル 修正 ▲▲▲ */
+        .budget-summary-grid {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 0.75rem 1rem;
+            align-items: center;
+            font-size: var(--font-size-sm);
+        }
+        .budget-summary-grid dt {
+            font-weight: 600;
+            text-align: right;
+            color: var(--color-text-secondary);
+        }
+        .budget-summary-grid dd {
+            font-weight: 600;
+            text-align: right;
+            font-size: 1.1em;
+            margin: 0;
+        }
+        .budget-summary-grid dt.sub-item {
+             padding-left: 2rem;
+             font-weight: 500;
+             color: var(--color-text-secondary);
+        }
+        .budget-summary-grid dd.sub-item {
+             font-size: 1.0em;
+             font-weight: 500;
+        }
+        
+        .budget-summary-grid dd.total-profit-plan {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: var(--color-primary);
+            padding: 0.5rem 0;
+            border-top: 1px dashed var(--color-border);
+            border-bottom: 1px dashed var(--color-border);
+            margin: 0.5rem 0;
+        }
 
     </style>
 </head>
@@ -305,6 +347,7 @@
                                             <th>タスク名</th>
                                             <th>作業指示/備考</th>
                                             <th style="width: 250px;">必要スキル</th>
+                                            <th style="width: 150px;">担当者種別</th> 
                                             <th class="col-actions">操作</th>
                                         </tr>
                                     </thead>
@@ -318,6 +361,14 @@
                                                     <span class="skill-tag">集中力 Lv.1</span>
                                                 </div>
                                                 <button type="button" class="button button-secondary" style="font-size: var(--font-size-xs); padding: 0.2rem 0.5rem; margin-top: 0.2rem;" onclick="openModal('select-skill-modal')">スキル選択</button>
+                                            </td>
+                                            <td>
+                                                <select class="form-control assignee-type-select" style="width: 100px; font-size: var(--font-size-sm);">
+                                                    <option value="member" selected>利用者</option>
+                                                    <option value="staff">職員</option>
+                                                    <option value="partner">外注先</option>
+                                                    <option value="customer">顧客</option>
+                                                </select>
                                             </td>
                                             <td class="col-actions">
                                                 <div class="table-button-group">
@@ -334,6 +385,14 @@
                                                 </div>
                                                 <button type="button" class="button button-secondary" style="font-size: var(--font-size-xs); padding: 0.2rem 0.5rem; margin-top: 0.2rem;" onclick="openModal('select-skill-modal')">スキル選択</button>
                                             </td>
+                                            <td>
+                                                <select class="form-control assignee-type-select" style="width: 100px; font-size: var(--font-size-sm);">
+                                                    <option value="member">利用者</option>
+                                                    <option value="staff" selected>職員</option>
+                                                    <option value="partner">外注先</option>
+                                                    <option value="customer">顧客</option>
+                                                </select>
+                                            </td>
                                             <td class="col-actions">
                                                 <div class="table-button-group">
                                                     <button type="button" class="button button-danger">削除</button>
@@ -349,6 +408,14 @@
                                                     <span class="skill-tag">正確性 Lv.2</span>
                                                 </div>
                                                 <button type="button" class="button button-secondary" style="font-size: var(--font-size-xs); padding: 0.2rem 0.5rem; margin-top: 0.2rem;" onclick="openModal('select-skill-modal')">スキル選択</button>
+                                            </td>
+                                            <td>
+                                                <select class="form-control assignee-type-select" style="width: 100px; font-size: var(--font-size-sm);">
+                                                    <option value="member">利用者</option>
+                                                    <option value="staff">職員</option>
+                                                    <option value="partner" selected>外注先</option>
+                                                    <option value="customer">顧客</option>
+                                                </select>
                                             </td>
                                             <td class="col-actions">
                                                 <div class="table-button-group">
@@ -367,34 +434,76 @@
                     
                     <div id="tab-project-budget" class="tab-content">
                         <div class="section">
-                            <h2 class="section-title">総収益見込み</h2>
-                            <div class="section-content">
-                                 <dl class="detail-grid" style="grid-template-columns: 100px 1fr;">
-                                    <dt>受注金額</dt><dd><input type="number" class="form-control" id="project-revenue-input-budget" value="100000"> 円</dd>
-                                </dl>
+                            <div class="list-page-header" style="margin-bottom: 1rem;">
+                                <h2 class="section-title" style="margin: 0; border: none;">総収益見込み</h2>
+                                <button type="button" class="button button-primary" id="add-revenue-row-budget-plan">＋ 収益を追加</button>
+                            </div>
+                            <div class="table-wrapper">
+                                <table class="table" id="revenue-table-budget-plan">
+                                    <thead>
+                                        <tr>
+                                            <th>収益項目</th>
+                                            <th>摘要</th>
+                                            <th style="width: 150px;">金額(円)</th>
+                                            <th class="col-actions">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="revenue-table-body-budget-plan">
+                                        <tr>
+                                            <td>
+                                                <select class="form-control" style="width: 100%; font-size: var(--font-size-sm);">
+                                                    <option value="sales" selected>生産活動収入 (売上)</option>
+                                                    <option value="grant">助成金</option>
+                                                    <option value="other">その他</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" class="form-control" value="DM封入作業 受注分"></td>
+                                            <td><input type="number" class="form-control revenue-amount-input-plan" value="100000"></td>
+                                            <td class="col-actions">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="button button-danger">削除</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr style="font-weight: bold; background-color: var(--color-hover-bg);">
+                                            <td colspan="2" style="text-align: right;">総収益 見込み (A)</td>
+                                            <td style="text-align: right;" id="summary-revenue-plan-footer">100,000</td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
+
                          <div class="section">
                             <div class="list-page-header" style="margin-bottom: 1rem;">
-                                <h2 class="section-title" style="margin: 0; border: none;">予算配分（タスク）</h2>
+                                <h2 class="section-title" style="margin: 0; border: none;">総費用見込み（タスク）</h2>
                             </div>
                             <div class="table-wrapper">
                                 <table class="table" id="budget-allocation-table">
                                     <thead>
                                         <tr>
                                             <th>タスク名</th>
-                                            <th>必要スキル</th>
+                                            <th style="width: 150px;">担当者種別</th>
                                             <th style="width: 150px;">分配額(円)</th>
                                         </tr>
                                     </thead>
                                     <tbody id="budget-allocation-table-body">
                                     </tbody>
+                                    <tfoot>
+                                        <tr style="font-weight: bold; background-color: var(--color-hover-bg);">
+                                            <td colspan="2" style="text-align: right;">タスク費用 合計 (B-1)</td>
+                                            <td style="text-align: right;" id="summary-allocated-plan-footer">0</td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
                         <div class="section">
                             <div class="list-page-header" style="margin-bottom: 1rem;">
-                                <h2 class="section-title" style="margin: 0; border: none;">予算配分（その他経費）</h2>
+                                <h2 class="section-title" style="margin: 0; border: none;">総費用見込み（その他経費）</h2>
                                 <button type="button" class="button button-primary" id="add-expense-row-budget-plan">＋ 経費予算を追加</button>
                             </div>
                             <div class="table-wrapper">
@@ -402,22 +511,52 @@
                                     <thead><tr><th>費目</th><th>内容</th><th>金額(円)</th><th class="col-actions">操作</th></tr></thead>
                                     <tbody id="expense-table-body-budget-plan">
                                         <tr>
-                                            <td><input type="text" class="form-control" value="材料費"></td>
+                                            <td>
+                                                <select class="form-control" style="width: 100%; font-size: var(--font-size-sm);">
+                                                    <option value="material" selected>材料費</option>
+                                                    <option value="consumables">消耗品費</option>
+                                                    <option value="shipping">発送費</option>
+                                                    <option value="other">その他経費</option>
+                                                </select>
+                                            </td>
                                             <td><input type="text" class="form-control" value="封筒・ラベル代 (見込み)"></td>
                                             <td><input type="number" class="form-control expense-amount-input-plan" value="4500"></td>
                                             <td class="col-actions"><div class="table-button-group"><button type="button" class="button button-danger">削除</button></div></td>
                                         </tr>
                                     </tbody>
+                                    <tfoot>
+                                        <tr style="font-weight: bold; background-color: var(--color-hover-bg);">
+                                            <td colspan="2" style="text-align: right;">その他経費 合計 (B-2)</td>
+                                            <td style="text-align: right;" id="summary-other-expense-plan-footer">4,500</td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
-                        <div class="cost-summary" id="budget-plan-summary">
-                            <span>受注金額: <strong id="summary-revenue-plan">100,000</strong>円</span> |
-                            <span>予算分配済: <strong id="summary-allocated-plan">0</strong>円</span> |
-                            <span class="unallocated">予算未分配: <strong id="summary-unallocated-plan">0</strong>円</span> |
-                            <span>その他経費予算: <strong id="summary-other-expense-plan">0</strong>円</span> |
-                            <span class="profit-plan">計画利益: <strong id="summary-planned-profit">0</strong>円</span>
+                        
+                        <div class="section">
+                             <h2 class="section-title">収支計画サマリー</h2>
+                             <div class="section-content">
+                                <dl class="budget-summary-grid">
+                                    <dt>総収益 見込み (A)</dt>
+                                    <dd id="summary-revenue-plan">100,000 円</dd>
+                                    
+                                    <dt>総費用 見込み (B)</dt>
+                                    <dd id="summary-total-cost-plan">64,500 円</dd>
+                                    
+                                    <dt class="sub-item">└ タスク費用 (B-1)</dt>
+                                    <dd class="sub-item" id="summary-allocated-plan">60,000 円</dd>
+                                    
+                                    <dt class="sub-item">└ その他経費 (B-2)</dt>
+                                    <dd class="sub-item" id="summary-other-expense-plan">4,500 円</dd>
+                                    
+                                    <dt>計画利益 (A - B)</dt>
+                                    <dd class="total-profit-plan" id="summary-planned-profit">35,500 円</dd>
+                                </dl>
+                             </div>
                         </div>
+                        
                          <div class="section-footer">
                             <button type="button" class="button button-primary">予算計画を保存</button>
                         </div>
@@ -433,7 +572,6 @@
                                     <thead>
                                         <tr>
                                             <th>タスク名</th>
-                                            <th>必要スキル</th>
                                             <th style="width: 150px;">予定開始日</th>
                                             <th style="width: 150px;">予定終了日</th>
                                             <th style="width: 120px;">想定工数(H)</th>
@@ -457,10 +595,9 @@
                                     <thead>
                                         <tr>
                                             <th>タスク名</th>
-                                            <th style="width: 150px;">担当者種別</th> 
+                                            <th style="width: 150px;">担当者種別 (計画)</th> 
                                             <th style="width: 300px;">必要スキル</th>
                                             <th style="width: 250px;">担当者</th>
-                                            <th class="col-actions">操作</th>
                                         </tr>
                                     </thead>
                                     <tbody id="assignee-assignment-table-body">
@@ -489,8 +626,9 @@
                                             <th>担当者</th>
                                             <th>担当者種別</th>
                                             <th>進捗率(%)</th>
+                                            <th>先月比(%)</th>
                                             <th>貢献度(%)</th>
-                                            <th>算定インセンティブ(円)</th>
+                                            <th>インセンティブ(円)</th>
                                         </tr>
                                     </thead>
                                     <tbody id="progress-management-table-body">
@@ -755,6 +893,8 @@
                     </div>
                 </div>
             </div>
+
+
             <template id="task-definition-row-template">
                 <tr>
                     <td><input type="text" class="form-control task-name-input" placeholder="新規タスク名"></td>
@@ -762,6 +902,14 @@
                     <td class="skill-selection-cell">
                         <div></div>
                         <button type="button" class="button button-secondary" style="font-size: var(--font-size-xs); padding: 0.2rem 0.5rem; margin-top: 0.2rem;" onclick="openModal('select-skill-modal')">スキル選択</button>
+                    </td>
+                    <td>
+                        <select class="form-control assignee-type-select" style="width: 100px; font-size: var(--font-size-sm);">
+                            <option value="member" selected>利用者</option>
+                            <option value="staff">職員</option>
+                            <option value="partner">外注先</option>
+                            <option value="customer">顧客</option>
+                        </select>
                     </td>
                     <td class="col-actions">
                         <div class="table-button-group">
@@ -774,7 +922,6 @@
             <template id="schedule-creation-row-template">
                 <tr>
                     <td style="text-align: left;" class="task-name-readonly">（タスク名）</td>
-                    <td class="skill-display-cell"></td>
                     <td><input type="date" class="form-control schedule-start-date-input"></td>
                     <td><input type="date" class="form-control schedule-end-date-input"></td>
                     <td><input type="number" class="form-control schedule-effort-input" placeholder="0"></td>
@@ -784,7 +931,9 @@
             <template id="budget-allocation-row-template">
                  <tr>
                     <td style="text-align: left;" class="task-name-readonly">（タスク名）</td>
-                    <td class="skill-display-cell"></td>
+                    <td class="assignee-type-display-cell">
+                        <span class="readonly-text" data-field="assigneeType" style="font-size: var(--font-size-sm); padding-left: 0.75rem;">（未設定）</span>
+                    </td>
                     <td><input type="number" class="form-control budget-allocation-input" placeholder="0"></td>
                 </tr>
             </template>
@@ -792,27 +941,19 @@
             <template id="assignee-assignment-row-template">
                  <tr>
                     <td style="text-align: left;" class="task-name-readonly">（タスク名）</td>
-                    <td>
-                        <select class="form-control assignee-type-select">
-                            <option value="member" selected>利用者</option>
-                            <option value="staff">職員</option>
-                            <option value="partner">外注先</option>
-                            <option value="customer">顧客</option>
-                        </select>
+                    <td class="assignee-type-display-cell">
+                        <span class="readonly-text" data-field="assigneeType" style="font-size: var(--font-size-sm); padding-left: 0.75rem;">（未設定）</span>
                     </td>
                     <td class="skill-display-cell">
                          </td>
                     <td class="assignee-select-cell">
-                        <select class="form-control assignee-select" data-task-type="member"> <option value="">（未割当）</option>
+                        <select class="form-control assignee-select">
+                            <option value="">（未割当）</option>
                         </select>
-                    </td>
-                     <td class="col-actions">
-                         <div class="table-button-group">
-                            <button type="button" class="button button-clear" style="border: 1px solid var(--color-border); color: var(--color-text-secondary); font-size: var(--font-size-xs);" onclick="this.closest('tr').querySelector('.assignee-select').value=''">クリア</button>
-                        </div>
                     </td>
                 </tr>
              </template>
+             
              <template id="progress-management-row-template">
                  <tr>
                     <td class="readonly-cell" data-field="taskName">（タスク名）</td>
@@ -820,18 +961,45 @@
                     <td class="assignee-type-cell" data-field="assigneeType">（種別）</td>
                     <td class="progress-table-cell">
                         <input type="number" class="form-control progress-rate-input" placeholder="0" min="0" max="100">
+                    </td>
+                    <td class="progress-delta-cell">
                         <span class="progress-delta"></span>
                     </td>
-                    <td class="progress-table-cell">
-                        <input type="number" class="form-control contribution-input" placeholder="100" min="0" max="100">
-                    </td>
+                    <td class="progress-table-cell" data-field="contribution-cell">
+                        </td>
                     <td class="calc-result-cell" data-field="calculatedIncentive">0</td>
                 </tr>
              </template>
 
+            <template id="revenue-row-template-plan">
+                 <tr>
+                    <td>
+                        <select class="form-control" style="width: 100%; font-size: var(--font-size-sm);">
+                            <option value="sales" selected>生産活動収入 (売上)</option>
+                            <option value="grant">助成金</option>
+                            <option value="other">その他</option>
+                        </select>
+                    </td>
+                    <td><input type="text" class="form-control" placeholder="摘要"></td>
+                    <td><input type="number" class="form-control revenue-amount-input-plan" value="0"></td>
+                    <td class="col-actions">
+                        <div class="table-button-group">
+                            <button type="button" class="button button-danger">削除</button>
+                        </div>
+                    </td>
+                </tr>
+            </template>
+
              <template id="expense-row-template-plan">
                 <tr>
-                    <td><input type="text" class="form-control" placeholder="例: 交通費"></td>
+                    <td>
+                        <select class="form-control" style="width: 100%; font-size: var(--font-size-sm);">
+                            <option value="material" selected>材料費</option>
+                            <option value="consumables">消耗品費</option>
+                            <option value="shipping">発送費</option>
+                            <option value="other">その他経費</option>
+                        </select>
+                    </td>
                     <td><input type="text" class="form-control" placeholder="内容"></td>
                     <td><input type="number" class="form-control expense-amount-input-plan" placeholder="0"></td>
                     <td class="col-actions"><div class="table-button-group"><button type="button" class="button button-danger">削除</button></div></td>
@@ -880,19 +1048,30 @@
         }
 
         function updateBudgetSummary() {
-            const revenueInput = document.getElementById('project-revenue-input-budget');
+            const revenueTbody = document.getElementById('revenue-table-body-budget-plan'); 
             const budgetAllocationTbody = document.getElementById('budget-allocation-table-body');
             const expensePlanTbody = document.getElementById('expense-table-body-budget-plan');
             
             const summaryRevenuePlan = document.getElementById('summary-revenue-plan');
+            const summaryTotalCostPlan = document.getElementById('summary-total-cost-plan');
             const summaryAllocatedPlan = document.getElementById('summary-allocated-plan');
-            const summaryUnallocatedPlan = document.getElementById('summary-unallocated-plan');
+            
             const summaryOtherExpensePlan = document.getElementById('summary-other-expense-plan');
             const summaryPlannedProfit = document.getElementById('summary-planned-profit');
+            
+            const summaryRevenuePlanFooter = document.getElementById('summary-revenue-plan-footer');
+            const summaryAllocatedPlanFooter = document.getElementById('summary-allocated-plan-footer');
+            const summaryOtherExpensePlanFooter = document.getElementById('summary-other-expense-plan-footer');
 
-            if (!revenueInput || !budgetAllocationTbody || !expensePlanTbody || !summaryRevenuePlan) return;
+            if (!revenueTbody || !budgetAllocationTbody || !expensePlanTbody || !summaryRevenuePlan || !summaryTotalCostPlan || !summaryAllocatedPlan || !summaryOtherExpensePlan || !summaryPlannedProfit || !summaryRevenuePlanFooter || !summaryAllocatedPlanFooter || !summaryOtherExpensePlanFooter) {
+                console.warn('Budget summary elements missing.');
+                return;
+            }
 
-            let totalRevenue = parseFloat(revenueInput.value) || 0;
+            let totalRevenue = 0;
+            revenueTbody.querySelectorAll('.revenue-amount-input-plan').forEach(input => {
+                totalRevenue += parseFloat(input.value) || 0;
+            });
 
             let totalAllocatedPlan = 0;
             budgetAllocationTbody.querySelectorAll('.budget-allocation-input').forEach(input => {
@@ -904,28 +1083,38 @@
                 totalExpensePlan += parseFloat(input.value) || 0;
             });
 
-            let unallocatedPlan = totalRevenue - totalAllocatedPlan;
-            let plannedProfit = totalRevenue - totalAllocatedPlan - totalExpensePlan;
+            let totalCostPlan = totalAllocatedPlan + totalExpensePlan;
+            let plannedProfit = totalRevenue - totalCostPlan;
 
-            summaryRevenuePlan.textContent = totalRevenue.toLocaleString();
-            summaryAllocatedPlan.textContent = totalAllocatedPlan.toLocaleString();
-            summaryUnallocatedPlan.textContent = unallocatedPlan.toLocaleString();
-            summaryOtherExpensePlan.textContent = totalExpensePlan.toLocaleString();
-            summaryPlannedProfit.textContent = plannedProfit.toLocaleString();
+            summaryRevenuePlanFooter.textContent = totalRevenue.toLocaleString();
+            summaryAllocatedPlanFooter.textContent = totalAllocatedPlan.toLocaleString();
+            summaryOtherExpensePlanFooter.textContent = totalExpensePlan.toLocaleString();
+
+            summaryRevenuePlan.textContent = totalRevenue.toLocaleString() + ' 円';
+            summaryTotalCostPlan.textContent = totalCostPlan.toLocaleString() + ' 円';
+            summaryAllocatedPlan.textContent = totalAllocatedPlan.toLocaleString() + ' 円';
+            
+            summaryOtherExpensePlan.textContent = totalExpensePlan.toLocaleString() + ' 円';
+            summaryPlannedProfit.textContent = plannedProfit.toLocaleString() + ' 円';
         }
 
         function updateActualSummary() {
-            const revenueInput = document.getElementById('project-revenue-input-budget');
+            const revenueTbody = document.getElementById('revenue-table-body-budget-plan'); 
             const expenseActualTbody = document.getElementById('expense-table-body-actual');
             const summaryRevenueActual = document.getElementById('summary-revenue-actual');
             const summaryOtherExpenseActual = document.getElementById('summary-other-expense-actual');
             const summaryActualProfit = document.getElementById('summary-actual-profit');
 
-            if (!revenueInput || !expenseActualTbody || !summaryRevenueActual || !summaryOtherExpenseActual || !summaryActualProfit) {
+            if (!revenueTbody || !expenseActualTbody || !summaryRevenueActual || !summaryOtherExpenseActual || !summaryActualProfit) {
+                console.warn('Actual summary elements missing.');
                 return;
             }
 
-            let totalRevenue = parseFloat(revenueInput.value) || 0;
+            let totalRevenue = 0;
+             revenueTbody.querySelectorAll('.revenue-amount-input-plan').forEach(input => {
+                totalRevenue += parseFloat(input.value) || 0;
+            });
+
             let totalExpenseActual = 0;
             expenseActualTbody.querySelectorAll('.expense-amount-input-actual').forEach(input => {
                 totalExpenseActual += parseFloat(input.value) || 0;
@@ -933,9 +1122,9 @@
 
             let actualProfit = totalRevenue - totalExpenseActual;
 
-            summaryRevenueActual.textContent = totalRevenue.toLocaleString();
-            summaryOtherExpenseActual.textContent = totalExpenseActual.toLocaleString();
-            summaryActualProfit.textContent = actualProfit.toLocaleString();
+            summaryRevenueActual.textContent = totalRevenue.toLocaleString() + ' 円';
+            summaryOtherExpenseActual.textContent = totalExpenseActual.toLocaleString() + ' 円';
+            summaryActualProfit.textContent = actualProfit.toLocaleString() + ' 円';
         }
 
 
@@ -946,14 +1135,18 @@
             const tasks = [];
             const rows = definitionTbody.querySelectorAll('tr');
             rows.forEach((row, index) => {
-                const nameInput = row.querySelector('td:nth-child(1) input.task-name-input');
+                const nameInput = row.querySelector('.task-name-input');
                 const skillCell = row.querySelector('.skill-selection-cell > div'); 
+                const typeSelect = row.querySelector('.assignee-type-select'); 
+                
                 const skillsHtml = skillCell ? skillCell.innerHTML : ''; 
+                const assigneeType = typeSelect ? typeSelect.value : 'member'; 
 
                 tasks.push({
                     id: `task-${index}`,
                     name: nameInput ? nameInput.value : `タスク ${index + 1}`,
-                    requiredSkillsHtml: skillsHtml 
+                    requiredSkillsHtml: skillsHtml,
+                    assigneeType: assigneeType 
                 });
             });
             return tasks;
@@ -975,50 +1168,6 @@
             return scheduleMap;
         }
 
-        function getAssigneePlans() {
-            const assigneeTbody = document.getElementById('assignee-assignment-table-body');
-             if (!assigneeTbody) return [];
-             
-             const taskDefs = getTaskDefinitions();
-             const plans = []; 
-
-            assigneeTbody.querySelectorAll('tr').forEach((row, index) => {
-                 const task = taskDefs[index]; 
-                 if (!task) return;
-
-                 const typeSelect = row.querySelector('.assignee-type-select'); // 修正
-                 const assigneeSelect = row.querySelector('.assignee-select');
-                 
-                 let assigneeId = assigneeSelect ? assigneeSelect.value : '';
-                 let assigneeName = assigneeSelect && assigneeSelect.value ? assigneeSelect.options[assigneeSelect.selectedIndex].text : '（未割当）';
-                 let taskType = typeSelect ? typeSelect.value : 'member'; 
-                 let assigneeType = '（未割当）'; 
-
-                 if (taskType === 'member') {
-                     assigneeType = '利用者';
-                     if (!assigneeId.startsWith('member:')) assigneeName = '（未割当）';
-                 } else if (taskType === 'staff') {
-                     assigneeType = '職員';
-                     if (!assigneeId.startsWith('staff:')) assigneeName = '（未割当）';
-                 } else if (taskType === 'partner') {
-                     assigneeType = '外注先';
-                     if (!assigneeId.startsWith('partner:')) assigneeName = '（未割当）';
-                 } else if (taskType === 'customer') {
-                     assigneeType = '顧客';
-                     if (!assigneeId.startsWith('customer:')) assigneeName = '（未割当）';
-                 }
-
-                 plans.push({
-                     taskName: task.name,
-                     assigneeId: assigneeId,
-                     assigneeName: assigneeName,
-                     assigneeType: assigneeType,
-                     requiredSkillsHtml: task.requiredSkillsHtml // スキル情報も渡す
-                 });
-             });
-             return plans;
-        }
-
         function getBudgetData() {
             const budgetTbody = document.getElementById('budget-allocation-table-body');
             if (!budgetTbody) return {};
@@ -1034,6 +1183,26 @@
             return budgetMap;
         }
 
+        function getAssigneeData() {
+            const assigneeTbody = document.getElementById('assignee-assignment-table-body');
+            if (!assigneeTbody) return {};
+            
+            const assigneeMap = {};
+            assigneeTbody.querySelectorAll('tr').forEach(row => {
+                const taskName = row.querySelector('.task-name-readonly')?.textContent;
+                const assigneeSelect = row.querySelector('.assignee-select');
+                
+                if (taskName && assigneeSelect && assigneeSelect.value) {
+                    assigneeMap[taskName] = {
+                        id: assigneeSelect.value,
+                        name: assigneeSelect.options[assigneeSelect.selectedIndex].text
+                    };
+                } else if (taskName) {
+                     assigneeMap[taskName] = { id: '', name: '（未割当）' };
+                }
+            });
+            return assigneeMap;
+        }
 
         function renderScheduleCreationTable() {
             const scheduleTbody = document.getElementById('schedule-creation-table-body');
@@ -1059,9 +1228,6 @@
                 const newRow = clone.querySelector('tr');
                 newRow.querySelector('.task-name-readonly').textContent = task.name;
                 
-                const skillCell = newRow.querySelector('.skill-display-cell');
-                if (skillCell) skillCell.innerHTML = task.requiredSkillsHtml;
-
                 if (existingData[task.name]) {
                     newRow.querySelector('.schedule-start-date-input').value = existingData[task.name].startDate;
                     newRow.querySelector('.schedule-end-date-input').value = existingData[task.name].endDate;
@@ -1089,33 +1255,39 @@
             const budgetTemplate = document.getElementById('budget-allocation-row-template');
             if (!budgetTbody || !budgetTemplate) return;
 
-            const tasks = getTaskDefinitions();
+            const tasks = getTaskDefinitions(); 
             
             const existingData = {};
             budgetTbody.querySelectorAll('tr').forEach(row => {
                 const taskName = row.querySelector('.task-name-readonly').textContent;
-                const value = row.querySelector('.budget-allocation-input').value;
-                existingData[taskName] = value;
+                const budgetValue = row.querySelector('.budget-allocation-input').value;
+                existingData[taskName] = { budget: budgetValue };
             });
 
             budgetTbody.innerHTML = '';
+            const typeMap = { member: '利用者', staff: '職員', partner: '外注先', customer: '顧客' };
 
             tasks.forEach(task => {
                 const clone = budgetTemplate.content.cloneNode(true);
                 const newRow = clone.querySelector('tr');
                 newRow.querySelector('.task-name-readonly').textContent = task.name;
+                
+                const typeDisplayCell = newRow.querySelector('[data-field="assigneeType"]');
+                if (typeDisplayCell) {
+                    typeDisplayCell.textContent = typeMap[task.assigneeType] || '（未設定）';
+                    typeDisplayCell.closest('tr').dataset.assigneeType = task.assigneeType;
+                }
 
-                const skillCell = newRow.querySelector('.skill-display-cell');
-                if (skillCell) skillCell.innerHTML = task.requiredSkillsHtml;
+                const budgetInput = newRow.querySelector('.budget-allocation-input');
 
                 if (existingData[task.name]) {
-                    newRow.querySelector('.budget-allocation-input').value = existingData[task.name];
+                    budgetInput.value = existingData[task.name].budget;
                 } else if (task.name === 'チラシ折り') {
-                    newRow.querySelector('.budget-allocation-input').value = '20000';
+                    budgetInput.value = '20000';
                 } else if (task.name === '封入') {
-                    newRow.querySelector('.budget-allocation-input').value = '30000';
+                    budgetInput.value = '30000';
                 } else if (task.name === '宛名貼り') {
-                    newRow.querySelector('.budget-allocation-input').value = '10000';
+                    budgetInput.value = '10000';
                 }
 
                 budgetTbody.appendChild(newRow);
@@ -1126,19 +1298,20 @@
          function renderAssigneeAssignmentTable() {
             const assigneeTbody = document.getElementById('assignee-assignment-table-body');
             const assigneeTemplate = document.getElementById('assignee-assignment-row-template');
-            const taskDefs = getTaskDefinitions();
+            
+            const taskDefs = getTaskDefinitions(); 
 
             if (!assigneeTbody || !assigneeTemplate) return;
             
             const existingData = {};
             assigneeTbody.querySelectorAll('tr').forEach(row => {
                 const taskName = row.querySelector('.task-name-readonly').textContent;
-                const type = row.querySelector('.assignee-type-select').value; // 修正
                 const assignee = row.querySelector('.assignee-select').value;
-                existingData[taskName] = { type, assignee };
+                existingData[taskName] = { assignee };
             });
 
             assigneeTbody.innerHTML = '';
+            const typeMap = { member: '利用者', staff: '職員', partner: '外注先', customer: '顧客' };
 
             taskDefs.forEach(task => {
                 const clone = assigneeTemplate.content.cloneNode(true);
@@ -1149,42 +1322,28 @@
                 const skillCell = newRow.querySelector('.skill-display-cell');
                 skillCell.innerHTML = task.requiredSkillsHtml; 
 
-                const taskTypeSelect = newRow.querySelector('.assignee-type-select'); // 修正
+                const assigneeType = task.assigneeType; 
+                const typeDisplayCell = newRow.querySelector('[data-field="assigneeType"]');
+                if(typeDisplayCell) typeDisplayCell.textContent = typeMap[assigneeType] || '（未設定）';
+
                 const assigneeSelect = newRow.querySelector('.assignee-select');
+                updateAssigneeOptions(assigneeType, assigneeSelect); 
                 
-                const taskData = existingData[task.name];
-                let taskType = taskData ? taskData.type : 'member'; 
-
-                if (!taskData) {
-                    if (task.name === '封入') {
-                        taskType = 'staff'; 
-                    } else if (task.name === '宛名貼り') {
-                        taskType = 'partner'; 
-                    }
-                }
-
-                taskTypeSelect.value = taskType; // 種別プルダウンの値を設定
-                updateAssigneeOptions(taskType, assigneeSelect); // オプションを更新
-                
-                if (taskData) {
-                    // taskTypeSelect.value = taskData.type; // (上で設定済み)
-                    assigneeSelect.value = taskData.assignee;
-                } else if (task.name === 'チラシ折り') {
-                    // taskTypeSelect.value = 'member'; // (デフォルト)
+                if (existingData[task.name]) {
+                    assigneeSelect.value = existingData[task.name].assignee;
+                } 
+                else if (task.name === 'チラシ折り' && assigneeType === 'member') {
                     assigneeSelect.value = 'member:A001';
-                } else if (task.name === '封入') {
-                    // taskTypeSelect.value = 'staff'; // (設定済み)
-                    assigneeSelect.value = 'staff:S002'; // 支援員 次郎
-                } else if (task.name === '宛名貼り') {
-                    // taskTypeSelect.value = 'partner'; // (設定済み)
-                    assigneeSelect.value = 'partner:P001'; // 〇〇印刷
+                } else if (task.name === '封入' && assigneeType === 'staff') {
+                    assigneeSelect.value = 'staff:S002'; 
+                } else if (task.name === '宛名貼り' && assigneeType === 'partner') {
+                    assigneeSelect.value = 'partner:P001'; 
                 }
 
                 assigneeTbody.appendChild(newRow);
             });
         }
 
-        // ▼▼▼ 修正: updateAssigneeOptions のロジック修正 ▼▼▼
         function updateAssigneeOptions(assigneeType, assigneeSelectElement) {
             assigneeSelectElement.innerHTML = '<option value="">（未割当）</option>';
             assigneeSelectElement.dataset.taskType = assigneeType; 
@@ -1218,21 +1377,24 @@
                  assigneeSelectElement.appendChild(customerOptgroup);
              }
         }
-        // ▲▲▲ 修正 ▲▲▲
 
+        // ▼▼▼ 修正: renderProgressManagementTable (ロジック全体を修正) ▼▼▼
         function renderProgressManagementTable() {
             const tableBody = document.getElementById('progress-management-table-body');
             const template = document.getElementById('progress-management-row-template');
             
             if (!tableBody || !template) return;
 
-            const assigneePlans = getAssigneePlans(); 
-            const budgetMap = getBudgetData();     
+            // 1. 必要なデータを取得
+            const assigneeData = getAssigneeData(); // {taskName: {id, name}}
+            const taskDefs = getTaskDefinitions();  // [{name, ..., assigneeType}]
+            const budgetData = getBudgetData();     // {taskName: budget}
             
+            // (ダミー) 
             const currentMonthProgressData = {
-                "チラシ折り": { progress: 100, contribution: 100 }, // 利用者
-                "封入": { progress: 50, contribution: 90 }, // 職員
-                "宛名貼り": { progress: 10, contribution: 100 } // 外注先
+                "チラシ折り": { progress: 100, contribution: 100 }, 
+                "封入": { progress: 50, contribution: 100 },
+                "宛名貼り": { progress: 10, contribution: 100 }
             };
             const lastMonthProgressData = {
                  "チラシ折り": { progress: 50 },
@@ -1242,21 +1404,30 @@
 
             tableBody.innerHTML = '';
             
-            assigneePlans.forEach(plan => {
+            // 3. タスク定義の順番でアサイン情報と予算情報を組み合わせて行を生成
+            taskDefs.forEach(task => {
+                const taskName = task.name;
+                const plan = assigneeData[taskName] || {id: '', name: '（未割当）'};
+                const taskBudget = budgetData[taskName] || 0;
+                const assigneeType = task.assigneeType; 
+
+                let displayName = plan.name;
+                const typeMap = { member: '利用者', staff: '職員', partner: '外注先', customer: '顧客' };
+                let displayType = typeMap[assigneeType] || '（未設定）';
+
                 const clone = template.content.cloneNode(true);
                 const newRow = clone.querySelector('tr');
                 
-                const taskBudget = budgetMap[plan.taskName] || 0;
-                const currentData = currentMonthProgressData[plan.taskName] || { progress: 0, contribution: 100 };
-                const lastMonthData = lastMonthProgressData[plan.taskName] || { progress: 0 };
+                const currentData = currentMonthProgressData[taskName] || { progress: 0, contribution: 100 };
+                const lastMonthData = lastMonthProgressData[taskName] || { progress: 0 };
 
-                newRow.querySelector('[data-field="taskName"]').textContent = plan.taskName;
-                newRow.querySelector('[data-field="assigneeName"]').textContent = plan.assigneeName;
-                newRow.querySelector('[data-field="assigneeType"]').textContent = `(${plan.assigneeType})`;
+                newRow.querySelector('[data-field="taskName"]').textContent = taskName;
+                newRow.querySelector('[data-field="assigneeName"]').textContent = displayName;
+                newRow.querySelector('[data-field="assigneeType"]').textContent = displayType;
                 
                 newRow.dataset.taskBudget = taskBudget;
                 newRow.dataset.lastMonthProgress = lastMonthData.progress; 
-                newRow.dataset.assigneeType = plan.assigneeType; 
+                newRow.dataset.assigneeType = assigneeType; 
 
                 const progressInput = newRow.querySelector('.progress-rate-input');
                 progressInput.value = currentData.progress;
@@ -1266,14 +1437,19 @@
                 deltaSpan.textContent = `(${delta >= 0 ? '+' : ''}${delta}%)`;
                 deltaSpan.className = delta > 0 ? 'progress-delta positive' : (delta < 0 ? 'progress-delta negative' : 'progress-delta');
 
-                const contributionInput = newRow.querySelector('.contribution-input');
-                contributionInput.value = currentData.contribution;
-
-                if (plan.assigneeType !== '利用者') {
-                    progressInput.disabled = true;
-                    contributionInput.disabled = true;
-                    deltaSpan.textContent = '-'; 
-                    deltaSpan.className = 'progress-delta';
+                const contributionCell = newRow.querySelector('[data-field="contribution-cell"]'); // セルを取得
+                
+                if (assigneeType !== 'member') { 
+                    // 貢献度セルの入力欄を削除し、ハイフンを表示
+                    if (contributionCell) {
+                        contributionCell.innerHTML = '<div class="contribution-placeholder">-</div>'; // ハイフンを表示
+                    }
+                } else {
+                    // 利用者の場合は入力欄を挿入（テンプレートから取得）
+                    const contributionInputHTML = '<input type="number" class="form-control contribution-input" placeholder="100" min="0" max="100">';
+                    contributionCell.innerHTML = contributionInputHTML;
+                    const contributionInput = contributionCell.querySelector('.contribution-input');
+                    contributionInput.value = currentData.contribution;
                 }
 
                 tableBody.appendChild(newRow);
@@ -1281,6 +1457,7 @@
             
             calculateAllIncentives();
         }
+        // ▲▲▲ 修正 ▲▲▲
 
         function calculateAllIncentives() {
             const tableBody = document.getElementById('progress-management-table-body');
@@ -1291,40 +1468,55 @@
             });
         }
         
+        // ▼▼▼ 修正: calculateIncentiveForRow (ロジック修正) ▼▼▼
         function calculateIncentiveForRow(row) {
             const assigneeType = row.dataset.assigneeType;
             const resultCell = row.querySelector('[data-field="calculatedIncentive"]');
             if (!resultCell) return;
             
             const progressRateInput = row.querySelector('.progress-rate-input');
-            const contributionInput = row.querySelector('.contribution-input');
+            const contributionCell = row.querySelector('[data-field="contribution-cell"]');
+            const contributionInput = contributionCell?.querySelector('.contribution-input'); // あれば取得
             const deltaSpan = row.querySelector('.progress-delta');
-
-            if (assigneeType !== '利用者') {
-                resultCell.textContent = '-'; 
-                if (deltaSpan) deltaSpan.textContent = '-';
-                if (progressRateInput) progressRateInput.disabled = true;
-                if (contributionInput) contributionInput.disabled = true;
-                return;
-            }
-
+            
             const budget = parseFloat(row.dataset.taskBudget) || 0;
             const lastMonthProgress = parseFloat(row.dataset.lastMonthProgress) || 0;
-            
-            if (!progressRateInput || !contributionInput || !deltaSpan) return;
+            const currentProgress = parseFloat(progressRateInput?.value) || 0;
 
-            const currentProgress = parseFloat(progressRateInput.value) || 0;
-            const contributionRate = parseFloat(contributionInput.value) || 0;
+            if (!progressRateInput || !deltaSpan) return;
 
+            // 1. 先月比は全員計算・表示
             const delta = currentProgress - lastMonthProgress;
             deltaSpan.textContent = `(${delta >= 0 ? '+' : ''}${delta}%)`;
             deltaSpan.className = delta > 0 ? 'progress-delta positive' : (delta < 0 ? 'progress-delta negative' : 'progress-delta');
 
+            let effectiveContributionRate;
+
+            // 2. 貢献度の決定
+            if (assigneeType === 'member') {
+                // 利用者: 入力欄から取得 (なければ100)
+                if (!contributionInput) {
+                     resultCell.textContent = 'エラー'; // Should not happen
+                     return;
+                }
+                const contributionRate = parseFloat(contributionInput.value);
+                effectiveContributionRate = isNaN(contributionRate) ? 100 : contributionRate;
+                
+            } else {
+                // 職員・外注先: 内部的に100%
+                effectiveContributionRate = 100;
+                if (contributionCell && !contributionInput) {
+                    contributionCell.innerHTML = '<div class="contribution-placeholder">-</div>';
+                }
+            }
+
+            // 3. インセンティブ計算 (全員)
             const progressDelta = Math.max(0, currentProgress - lastMonthProgress); 
-            const incentive = budget * (progressDelta / 100) * (contributionRate / 100);
+            const incentive = budget * (progressDelta / 100) * (effectiveContributionRate / 100);
             
             resultCell.textContent = Math.floor(incentive).toLocaleString();
         }
+        // ▲▲▲ 修正 ▲▲▲
 
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -1389,6 +1581,7 @@
              }
 
             if (window.setupTableRowAdder) {
+                setupTableRowAdder('revenue-table-body-budget-plan', 'add-revenue-row-budget-plan', 'revenue-row-template-plan'); 
                 setupTableRowAdder('task-definition-table-body', 'add-task-definition-row', 'task-definition-row-template');
                 setupTableRowAdder('expense-table-body-budget-plan', 'add-expense-row-budget-plan', 'expense-row-template-plan');
                 setupTableRowAdder('expense-table-body-actual', 'add-expense-row-actual', 'expense-row-template-actual');
@@ -1407,13 +1600,14 @@
                 observer.observe(taskDefTbody, { childList: true });
 
                  taskDefTbody.addEventListener('input', (e) => {
-                     if (e.target.classList.contains('task-name-input')) {
+                     const target = e.target;
+                     if (target.classList.contains('task-name-input') || target.classList.contains('assignee-type-select')) {
                         setTimeout(() => {
                             renderScheduleCreationTable();
                             renderBudgetAllocationTable();
                             renderAssigneeAssignmentTable();
                             renderProgressManagementTable();
-                        }, 300);
+                        }, 50); 
                     }
                  });
                  
@@ -1422,7 +1616,6 @@
                          setTimeout(() => {
                              const cell = e.target.closest('.skill-selection-cell');
                              if(cell && !cell.querySelector('.skill-tag[data-skill="dummy"]')) {
-                                 // (ダミー) モーダルで選択されたとして、タグを追加
                                  cell.querySelector('div').innerHTML = `
                                      <span class="skill-tag">Word (基本文書作成) - Lv.1</span>
                                      <span class="skill-tag">軽作業 (梱包) - Lv.1</span>
@@ -1430,7 +1623,6 @@
                              }
                              
                              renderScheduleCreationTable();
-                             renderBudgetAllocationTable();
                              renderAssigneeAssignmentTable();
                              renderProgressManagementTable();
                          }, 500); 
@@ -1438,17 +1630,32 @@
                  });
             }
             
-            const budgetTab = document.getElementById('tab-project-budget');
-            if (budgetTab) {
-                budgetTab.addEventListener('input', (e) => {
-                    if (e.target.matches('#project-revenue-input-budget, .budget-allocation-input, .expense-amount-input-plan')) {
+            const budgetAllocationTbody = document.getElementById('budget-allocation-table-body');
+            if (budgetAllocationTbody) { 
+                budgetAllocationTbody.addEventListener('input', (e) => {
+                    if (e.target.matches('.budget-allocation-input')) {
                         updateBudgetSummary();
                         renderProgressManagementTable(); 
                     }
                 });
+            }
+            
+            const budgetTab = document.getElementById('tab-project-budget');
+            if (budgetTab) {
+                budgetTab.addEventListener('input', (e) => {
+                        if (e.target.matches('.revenue-amount-input-plan, .expense-amount-input-plan')) {
+                            updateBudgetSummary();
+                            if (e.target.matches('.revenue-amount-input-plan')) {
+                                updateActualSummary();
+                            }
+                        }
+                });
                 budgetTab.addEventListener('click', (e) => {
-                     if (e.target.closest('#add-expense-row-budget-plan') || e.target.closest('#expense-table-body-budget-plan .button-danger')) {
-                         setTimeout(updateBudgetSummary, 50);
+                     if (e.target.closest('#add-revenue-row-budget-plan, #revenue-table-body-budget-plan .button-danger, #add-expense-row-budget-plan, #expense-table-body-budget-plan .button-danger')) {
+                         setTimeout(() => {
+                             updateBudgetSummary();
+                             updateActualSummary(); 
+                         }, 50);
                      }
                  });
             }
@@ -1456,17 +1663,9 @@
              const assigneeTbody = document.getElementById('assignee-assignment-table-body');
              if (assigneeTbody) {
                  assigneeTbody.addEventListener('change', (e) => {
-                     // ▼▼▼ 修正: `assignee-type-select` に変更 ▼▼▼
-                     if (e.target.classList.contains('assignee-type-select')) { 
-                         const assigneeSelect = e.target.closest('tr').querySelector('.assignee-select');
-                         if (assigneeSelect) {
-                             updateAssigneeOptions(e.target.value, assigneeSelect);
-                         }
-                         renderProgressManagementTable(); // アサインが変わったら再描画
-                     } else if (e.target.classList.contains('assignee-select')) {
-                         renderProgressManagementTable(); // アサインが変わったら再描画
+                     if (e.target.classList.contains('assignee-select')) {
+                         renderProgressManagementTable(); 
                      }
-                     // ▲▲▲ 修正 ▲▲▲
                  });
              }
 
