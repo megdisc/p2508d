@@ -626,18 +626,20 @@
                                     <thead>
                                         <tr>
                                             <th>タスク名</th>
-                                            <th>担当者</th>
                                             <th>担当者種別</th>
-                                            <th>進捗率(%)</th>
-                                            <th>先月比(%)</th>
-                                            <th>貢献度(%)</th>
+                                            <th>担当者</th>
+                                            <th>期間</th>
+                                            <th style="width: 100px;">作業開始時(%)</th>
+                                            <th style="width: 100px;">作業終了時(%)</th>
+                                            <th style="width: 100px;">増加分(%)</th>
+                                            <th style="width: 100px;">貢献度(%)</th>
                                             <th>インセンティブ(円)</th>
                                         </tr>
                                     </thead>
                                     <tbody id="progress-management-table-body">
                                         </tbody>
                                 </table>
-                            </div>
+                                </div>
                         </div>
 
                         <div class="section">
@@ -677,7 +679,6 @@
                             <button type="button" class="button button-primary">進捗管理情報を保存</button>
                         </div>
                     </div>
-
                     <div id="tab-project-delivery" class="tab-content">
                          <div class="section">
                             <h2 class="section-title">納品情報</h2>
@@ -970,24 +971,29 @@
                     <td><input type="number" class="form-control budget-allocation-input" placeholder="0"></td>
                 </tr>
             </template>
-             <template id="progress-management-row-template">
+            <template id="progress-management-row-template">
                  <tr>
                     <td class="readonly-cell" data-field="taskName">（タスク名）</td>
-                    <td class="readonly-cell" data-field="assigneeName">（担当者）</td>
                     <td class="assignee-type-cell" data-field="assigneeType">（種別）</td>
+                    <td class="readonly-cell" data-field="assigneeName">（担当者）</td>
+                    <td class="readonly-cell" data-field="period" style="font-size: var(--font-size-xs); text-align: center;">（期間）</td>
+                    
+                    <td class="readonly-cell" data-field="startProgress" style="text-align: right; padding-right: 1rem;">0</td>
+                    
                     <td class="progress-table-cell">
                         <input type="number" class="form-control progress-rate-input" placeholder="0" min="0" max="100">
                     </td>
-                    <td class="progress-delta-cell">
-                        <span class="progress-delta"></span>
+                    
+                    <td class="progress-delta-cell" data-field="deltaProgress" style="width: 100px;">
+                        <span class="progress-delta">(+0%)</span>
                     </td>
-                    <td class="progress-table-cell" data-field="contribution-cell">
+
+                    <td class="progress-table-cell" data-field="contribution-cell" style="width: 100px;">
                         </td>
                     <td class="calc-result-cell" data-field="calculatedIncentive">0</td>
                 </tr>
              </template>
-
-            <template id="revenue-row-template-plan">
+             <template id="revenue-row-template-plan">
                  <tr>
                     <td>
                         <select class="form-control" style="width: 100%; font-size: var(--font-size-sm);">
@@ -1335,7 +1341,7 @@
          }
          // ▲▲▲ 修正 ▲▲▲
 
-        // ▼▼▼ 修正: renderProgressManagementTable (ロジック修正) ▼▼▼
+        // ▼▼▼ 修正: renderProgressManagementTable を「リレー方式」と「rowspan」対応に変更 ▼▼▼
         function renderProgressManagementTable() {
             const tableBody = document.getElementById('progress-management-table-body');
             const template = document.getElementById('progress-management-row-template');
@@ -1345,70 +1351,114 @@
             const assignments = getScheduleAssignData(); 
             const budgetData = getBudgetData();     
             
-            const currentMonthProgressData = {
-                "チラシ折り-青木 誠": { progress: 100, contribution: 100 }, 
-                "チラシ折り-五十嵐 直人": { progress: 100, contribution: 100 },
+            // モックデータ: [taskName-assigneeName]: { progress: (今月入力された)作業終了時進捗率, contribution: 貢献度 }
+            const currentMonthInputData = {
+                "チラシ折り-青木 誠": { progress: 60, contribution: 100 }, 
+                "チラシ折り-五十嵐 直人": { progress: 90, contribution: 100 }, // 60からリレー
                 "封入-支援員 次郎": { progress: 50, contribution: 100 },
                 "宛名貼り-〇〇印刷": { progress: 10, contribution: 100 }
             };
+            // モックデータ: [taskName]: 先月末時点の総進捗率
             const lastMonthProgressData = {
-                 "チラシ折り-青木 誠": { progress: 50 },
-                 "チラシ折り-五十嵐 直人": { progress: 40 },
-                 "封入-支援員 次郎": { progress: 20 },
-                 "宛名貼り-〇〇印刷": { progress: 0 }
+                    "チラシ折り": 20, // 先月末時点で20%だった
+                    "封入": 0,
+                    "宛名貼り": 0
             };
 
             tableBody.innerHTML = '';
             
-            assignments.forEach(assign => {
-                const taskName = assign.taskName;
+            const tasks = getTaskDefinitions();
+
+            tasks.forEach(task => {
+                const taskName = task.name;
+                const taskId = task.id;
                 const taskBudget = budgetData[taskName] || 0; 
-                const assigneeType = assign.assigneeType; // "利用者", "職員" ...
-                const assigneeTypeKey = assign.assigneeTypeKey; // "member", "staff" ...
-
-                const clone = template.content.cloneNode(true);
-                const newRow = clone.querySelector('tr');
                 
-                const progressKey = `${taskName}-${assign.assigneeName}`;
-                const currentData = currentMonthProgressData[progressKey] || { progress: 0, contribution: 100 };
-                const lastMonthData = lastMonthProgressData[progressKey] || { progress: 0 };
+                // このタスクにアサインされている担当者を取得し、日付順にソート
+                const assignmentsForTask = assignments
+                    .filter(a => a.taskId === taskId)
+                    .sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
 
-                newRow.querySelector('[data-field="taskName"]').textContent = taskName;
-                newRow.querySelector('[data-field="assigneeName"]').textContent = assign.assigneeName;
-                newRow.querySelector('[data-field="assigneeType"]').textContent = assigneeType;
-                
-                newRow.dataset.taskBudget = taskBudget; 
-                newRow.dataset.lastMonthProgress = lastMonthData.progress; 
-                newRow.dataset.assigneeType = assigneeTypeKey; // 'member' 等のキーを保存
-
-                const progressInput = newRow.querySelector('.progress-rate-input');
-                progressInput.value = currentData.progress;
-                
-                const deltaSpan = newRow.querySelector('.progress-delta');
-                const delta = currentData.progress - lastMonthData.progress;
-                deltaSpan.textContent = `(${delta >= 0 ? '+' : ''}${delta}%)`;
-                deltaSpan.className = delta > 0 ? 'progress-delta positive' : (delta < 0 ? 'progress-delta negative' : 'progress-delta');
-
-                const contributionCell = newRow.querySelector('[data-field="contribution-cell"]'); 
-                
-                if (assigneeTypeKey !== 'member') { 
-                    if (contributionCell) {
-                        contributionCell.innerHTML = '<div class="contribution-placeholder">-</div>'; 
-                    }
-                } else {
-                    const contributionInputHTML = '<input type="number" class="form-control contribution-input" placeholder="100" min="0" max="100">';
-                    contributionCell.innerHTML = contributionInputHTML;
-                    const contributionInput = contributionCell.querySelector('.contribution-input');
-                    contributionInput.value = currentData.contribution;
+                if (assignmentsForTask.length === 0) {
+                    return; 
                 }
 
-                tableBody.appendChild(newRow);
+                // タスクの「リレー」用進捗率。まず「先月末」の値で初期化
+                let lastProgressForThisTask = lastMonthProgressData[taskName] || 0;
+                
+                assignmentsForTask.forEach((assign, index) => {
+                    const clone = template.content.cloneNode(true);
+                    const newRow = clone.querySelector('tr');
+                    
+                    const assigneeType = assign.assigneeType; // "利用者", "職員" ...
+                    const assigneeTypeKey = assign.assigneeTypeKey; // "member", "staff" ...
+
+                    // モックデータから今月の入力値を取得
+                    const progressKey = `${taskName}-${assign.assigneeName}`;
+                    const currentData = currentMonthInputData[progressKey] || { progress: lastProgressForThisTask, contribution: 100 }; // 未入力なら開始時進捗と同じ
+                    
+                    const currentEndProgress = currentData.progress; // 今月入力された作業終了時進捗率
+                    
+                    // 1. タスク名 (rowspan)
+                    const taskNameCell = newRow.querySelector('[data-field="taskName"]');
+                    if (index === 0) {
+                        taskNameCell.textContent = taskName;
+                        taskNameCell.style.verticalAlign = 'top';
+                        if (assignmentsForTask.length > 1) {
+                            taskNameCell.setAttribute('rowspan', assignmentsForTask.length);
+                        }
+                    } else {
+                        taskNameCell.remove(); // 2行目以降はセルを削除
+                    }
+
+                    // 2. 担当者情報
+                    newRow.querySelector('[data-field="assigneeType"]').textContent = assigneeType;
+                    newRow.querySelector('[data-field="assigneeName"]').textContent = assign.assigneeName;
+                    newRow.querySelector('[data-field="period"]').textContent = `${assign.startDate} ~ ${assign.endDate}`;
+                    
+                    // 3. データ属性
+                    newRow.dataset.taskName = taskName; // ★計算用にタスク名を埋め込む
+                    newRow.dataset.taskBudget = taskBudget; 
+                    newRow.dataset.assigneeType = assigneeTypeKey; // 'member' 等のキーを保存
+
+                    // 4. 作業開始時(%) (ReadOnly)
+                    const startProgressCell = newRow.querySelector('[data-field="startProgress"]');
+                    startProgressCell.textContent = lastProgressForThisTask;
+                    newRow.dataset.startProgress = lastProgressForThisTask; // JSで計算用に保持
+
+                    // 5. 作業終了時(%) (Input)
+                    const progressInput = newRow.querySelector('.progress-rate-input');
+                    progressInput.value = currentEndProgress;
+
+                    // 6. 増加分(%) (Calc)
+                    const deltaSpan = newRow.querySelector('.progress-delta');
+                    const delta = currentEndProgress - lastProgressForThisTask;
+                    deltaSpan.textContent = `(${delta >= 0 ? '+' : ''}${delta}%)`;
+                    deltaSpan.className = delta > 0 ? 'progress-delta positive' : (delta < 0 ? 'progress-delta negative' : 'progress-delta');
+
+                    // 7. 貢献度(%)
+                    const contributionCell = newRow.querySelector('[data-field="contribution-cell"]'); 
+                    if (assigneeTypeKey !== 'member') { 
+                        contributionCell.innerHTML = '<div class="contribution-placeholder">-</div>';
+                    } else {
+                        const contributionInputHTML = '<input type="number" class="form-control contribution-input" placeholder="100" min="0" max="100">';
+                        contributionCell.innerHTML = contributionInputHTML;
+                        contributionCell.querySelector('.contribution-input').value = currentData.contribution;
+                    }
+
+                    tableBody.appendChild(newRow);
+                    
+                    // 8. 次の担当者のため、進捗率をリレーする
+                    lastProgressForThisTask = currentEndProgress;
+                });
             });
             
-            calculateAllIncentives();
+            calculateAllIncentives(); // 最後に全行のインセンティブを計算
         }
         // ▲▲▲ 修正 ▲▲▲
 
+
+        // (calculateAllIncentives は変更なし)
         function calculateAllIncentives() {
             const tableBody = document.getElementById('progress-management-table-body');
             if (!tableBody) return;
@@ -1418,55 +1468,97 @@
             });
         }
         
+        // ▼▼▼ 修正: calculateIncentiveForRow を「リレー方式」対応に変更 ▼▼▼
         function calculateIncentiveForRow(row) {
             const assigneeType = row.dataset.assigneeType; // 'member', 'staff' etc.
             const resultCell = row.querySelector('[data-field="calculatedIncentive"]');
             if (!resultCell) return;
             
-            const progressRateInput = row.querySelector('.progress-rate-input');
+            const progressRateInput = row.querySelector('.progress-rate-input'); // 作業終了時
             const contributionCell = row.querySelector('[data-field="contribution-cell"]');
             const contributionInput = contributionCell?.querySelector('.contribution-input'); 
             const deltaSpan = row.querySelector('.progress-delta');
             
             const budget = parseFloat(row.dataset.taskBudget) || 0;
-            const lastMonthProgress = parseFloat(row.dataset.lastMonthProgress) || 0;
-            const currentProgress = parseFloat(progressRateInput?.value) || 0;
+            const startProgress = parseFloat(row.dataset.startProgress) || 0; // 作業開始時
+            const currentProgress = parseFloat(progressRateInput?.value) || 0; // 作業終了時
 
             if (!progressRateInput || !deltaSpan) return;
 
-            const delta = currentProgress - lastMonthProgress;
+            // 1. 「増加分」を計算・表示
+            const delta = currentProgress - startProgress;
             deltaSpan.textContent = `(${delta >= 0 ? '+' : ''}${delta}%)`;
             deltaSpan.className = delta > 0 ? 'progress-delta positive' : (delta < 0 ? 'progress-delta negative' : 'progress-delta');
 
+            // 2. 「貢献度」を取得
             let effectiveContributionRate;
-
             if (assigneeType === 'member') {
                 if (!contributionInput) {
-                     resultCell.textContent = 'エラー';
-                     return;
+                        resultCell.textContent = 'エラー';
+                        return;
                 }
                 const contributionRate = parseFloat(contributionInput.value);
                 effectiveContributionRate = isNaN(contributionRate) ? 100 : contributionRate;
-                
             } else {
-                effectiveContributionRate = 100;
+                effectiveContributionRate = 100; // 職員や外注は常に100%
                 if (contributionCell && !contributionInput) {
                     contributionCell.innerHTML = '<div class="contribution-placeholder">-</div>';
                 }
             }
             
-            const progressDelta = Math.max(0, currentProgress - lastMonthProgress); 
-            const taskName = row.querySelector('[data-field="taskName"]').textContent;
+            // 3. インセンティブ計算
+            const progressDelta = Math.max(0, delta); // マイナスの増加は0として扱う
             
-            // ▼▼▼ 修正: 担当者数のカウントロジックを修正 ▼▼▼
-            const assignmentsForTask = getScheduleAssignData().filter(a => a.taskName === taskName);
+            // dataset からタスク名を取得 (rowspan対応)
+            const taskNameStr = row.dataset.taskName; 
+            
+            const assignmentsForTask = getScheduleAssignData().filter(a => a.taskName === taskNameStr);
             const assigneeCount = assignmentsForTask.length > 0 ? assignmentsForTask.length : 1;
-            // ▲▲▲ 修正 ▲▲▲
 
             const incentive = (budget / assigneeCount) * (progressDelta / 100) * (effectiveContributionRate / 100);
             
             resultCell.textContent = Math.floor(incentive).toLocaleString();
         }
+        // ▲▲▲ 修正 ▲▲▲
+
+        // ▼▼▼ 新規追加: updateProgressRelay 関数 ▼▼▼
+        /**
+         * 変更された行以降の進捗リレーを更新し、再計算する
+         * @param {HTMLTableRowElement} changedRow - ユーザーが「作業終了時」を変更した行
+         */
+        function updateProgressRelay(changedRow) {
+            const tableBody = changedRow.closest('tbody');
+            if (!tableBody) return;
+
+            // 1. 変更された行のタスク名を取得
+            const taskName = changedRow.dataset.taskName;
+            if (!taskName) return;
+
+            // 2. このタスクの全行 (DOM) を取得
+            const taskRows = Array.from(tableBody.querySelectorAll(`tr[data-task-name="${taskName}"]`));
+            
+            // 3. リレー計算を実行
+            // 最初の行の「作業開始時」を取得
+            let lastProgress = parseFloat(taskRows[0].dataset.startProgress) || 0; 
+            
+            taskRows.forEach(row => {
+                const startProgressCell = row.querySelector('[data-field="startProgress"]');
+                const progressInput = row.querySelector('.progress-rate-input');
+                
+                // 「作業開始時」を更新
+                if (startProgressCell) {
+                        startProgressCell.textContent = lastProgress;
+                        row.dataset.startProgress = lastProgress; // datasetも更新
+                }
+                
+                // この行の計算（増加分＆インセンティブ）を実行
+                calculateIncentiveForRow(row); 
+                
+                // 次の行のために「作業終了時」の値を渡す
+                lastProgress = parseFloat(progressInput.value) || lastProgress;
+            });
+        }
+        // ▲▲▲ 新規追加 ▲▲▲
 
         // ▼▼▼ 修正: renderScheduleAssignTab (担当者種別セルを ul に変更) ▼▼▼
         function renderScheduleAssignTab() {
@@ -1884,6 +1976,7 @@
             }
             // ▲▲▲ 修正 ▲▲▲
 
+            // ▼▼▼ 修正: 進捗管理タブのイベントリスナーを「リレー方式」対応に変更 ▼▼▼
             const progressTab = document.getElementById('tab-project-progress');
             if (progressTab) {
                 progressTab.addEventListener('input', (e) => {
@@ -1900,22 +1993,32 @@
                 const progressTableBody = document.getElementById('progress-management-table-body');
                 if (progressTableBody) {
                     progressTableBody.addEventListener('input', (e) => {
+                        const row = e.target.closest('tr');
+                        if (!row) return;
+
+                        // 「作業終了時」または「貢献度」が変更された
                         if (e.target.classList.contains('progress-rate-input') || e.target.classList.contains('contribution-input')) {
-                            const row = e.target.closest('tr');
-                            if (row) {
-                                calculateIncentiveForRow(row);
+                            
+                            // 「作業終了時」が変更された場合のみリレー処理を実行
+                            if (e.target.classList.contains('progress-rate-input')) {
+                                updateProgressRelay(row); // リレー計算を実行
+                            } else {
+                                calculateIncentiveForRow(row); // 貢献度だけならその行だけ計算
                             }
                         }
                     });
                 }
 
+                // 対象月セレクタのイベントリスナー
                 const monthSelector = document.getElementById('progress-month-select-progress');
                 if (monthSelector) {
                     monthSelector.addEventListener('change', () => {
+                         // 月が変わったらテーブルを再描画（モックデータは変わりませんが、本番ではDBから再取得）
                          renderProgressManagementTable();
                     });
                 }
             }
+            // ▲▲▲ 修正 ▲▲▲
              
              updateBudgetSummary();
              updateActualSummary(); 
