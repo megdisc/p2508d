@@ -91,32 +91,64 @@
             width: 80px; /* 入力欄の幅を固定 */
             display: inline-block;
         }
-        #progress-management-table .progress-delta-cell {
-            font-size: var(--font-size-xs);
-            color: var(--color-text-secondary);
-            text-align: right;
-            padding-right: 1rem;
-            width: 100px;
-            vertical-align: middle; /* 垂直中央揃え */
-        }
-        #progress-management-table .progress-delta.positive {
-            color: green;
-        }
-         #progress-management-table .progress-delta.negative {
-            color: red;
-        }
-        #progress-management-table .assignee-type-cell {
-             font-size: var(--font-size-sm);
-             color: var(--color-text-primary);
-             padding: 0.5rem 0.75rem;
-             vertical-align: middle;
-             text-align: left;
-        }
+        
         /* 貢献度セルのハイフン（-）のスタイル */
         #progress-management-table .contribution-placeholder {
             text-align: center;
             color: var(--color-text-secondary);
         }
+        
+        /* ▼▼▼ 修正: 担当者セル（統合版） ▼▼▼ */
+        .assignee-combined-cell {
+            vertical-align: middle !important;
+            text-align: left;
+            line-height: 1.4;
+            padding: 0.5rem 0.75rem;
+            font-size: var(--font-size-sm);
+            /* ▼▼▼ 追加: 折り返し防止 ▼▼▼ */
+            white-space: nowrap; 
+        }
+        .assignee-combined-cell small {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-secondary);
+            display: block; /* 2行目に改行 */
+        }
+        
+        /* ▼▼▼ 修正: 進捗率セル（統合版） ▼▼▼ */
+        .progress-relay-cell {
+            vertical-align: middle !important;
+            text-align: right;
+            line-height: 1.4;
+            padding: 0.5rem 0.75rem;
+            width: 130px; 
+            white-space: nowrap; /* ▼▼▼ 追加: 1行目（=>）の折り返し防止 ▼▼▼ */
+        }
+        .progress-relay-cell .start-progress {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            display: inline;
+        }
+        .progress-relay-cell .end-progress-input {
+            width: 50px; 
+            font-size: var(--font-size-sm);
+            font-weight: bold;
+            text-align: right;
+            padding: 0.25rem;
+            margin: 0 0.25rem;
+        }
+        .progress-relay-cell .progress-delta-display {
+            font-size: var(--font-size-xs);
+            font-weight: bold;
+            color: green; 
+            display: block; /* 改行 */
+            margin-top: 0.1rem;
+            white-space: normal; /* デルタ表示は改行許可（通常不要だが念のため） */
+        }
+        .progress-relay-cell .progress-delta-display.negative {
+            color: red; 
+        }
+        /* ▲▲▲ スタイル修正ここまで ▲▲▲ */
+
 
         #select-skill-modal .modal-content {
             max-width: 800px;
@@ -200,7 +232,7 @@
         .assign-display-cell,
         .period-display-cell,
         .assignee-display-cell,
-        .assignee-type-display-cell { /* 修正: .assignee-type-display-cell を追加 */
+        .assignee-type-display-cell { 
             vertical-align: middle !important;
             text-align: left;
         }
@@ -226,25 +258,23 @@
         #edit-schedule-assign-modal .modal-content {
             max-width: 800px;
         }
-        /* ▼▼▼ 修正: モーダル内テーブルの幅指定を変更 ▼▼▼ */
-        #schedule-assign-modal-table th:nth-child(1), /* 担当者種別 */
+        #schedule-assign-modal-table th:nth-child(1), 
         #schedule-assign-modal-table td:nth-child(1) {
             width: 120px;
         }
-        #schedule-assign-modal-table th:nth-child(2), /* 担当者 */
+        #schedule-assign-modal-table th:nth-child(2), 
         #schedule-assign-modal-table td:nth-child(2) {
             width: 180px;
         }
-        #schedule-assign-modal-table th:nth-child(3), /* 開始日 */
+        #schedule-assign-modal-table th:nth-child(3), 
         #schedule-assign-modal-table td:nth-child(3) {
             width: 130px;
         }
-        #schedule-assign-modal-table th:nth-child(4), /* 終了日 */
+        #schedule-assign-modal-table th:nth-child(4), 
         #schedule-assign-modal-table td:nth-child(4) {
             width: 130px;
         }
-        /* ▲▲▲ 修正 ▲▲▲ */
-        #schedule-assign-modal-table .col-actions { /* 操作 */
+        #schedule-assign-modal-table .col-actions { 
             width: 80px;
         }
         /* ▲▲▲ スタイル追加ここまで ▲▲▲ */
@@ -626,12 +656,9 @@
                                     <thead>
                                         <tr>
                                             <th>タスク名</th>
-                                            <th>担当者種別</th>
                                             <th>担当者</th>
-                                            <th>期間</th>
-                                            <th style="width: 100px;">作業開始時(%)</th>
-                                            <th style="width: 100px;">作業終了時(%)</th>
-                                            <th style="width: 100px;">増加分(%)</th>
+                                            <th style="width: 100px;">期間</th>
+                                            <th style="width: 130px;">進捗率(%)</th>
                                             <th style="width: 100px;">貢献度(%)</th>
                                             <th>インセンティブ(円)</th>
                                         </tr>
@@ -971,25 +998,28 @@
                     <td><input type="number" class="form-control budget-allocation-input" placeholder="0"></td>
                 </tr>
             </template>
+            
             <template id="progress-management-row-template">
                  <tr>
                     <td class="readonly-cell" data-field="taskName">（タスク名）</td>
-                    <td class="assignee-type-cell" data-field="assigneeType">（種別）</td>
-                    <td class="readonly-cell" data-field="assigneeName">（担当者）</td>
-                    <td class="readonly-cell" data-field="period" style="font-size: var(--font-size-xs); text-align: center;">（期間）</td>
                     
-                    <td class="readonly-cell" data-field="startProgress" style="text-align: right; padding-right: 1rem;">0</td>
-                    
-                    <td class="progress-table-cell">
-                        <input type="number" class="form-control progress-rate-input" placeholder="0" min="0" max="100">
+                    <td class="assignee-combined-cell" data-field="assigneeCombined">
+                        （担当者）<br><small>（種別）</small>
+                    </td>
+
+                    <td class="readonly-cell" data-field="periodSimple" style="font-size: var(--font-size-sm); text-align: center; width: 100px;">
+                        （期間）
                     </td>
                     
-                    <td class="progress-delta-cell" data-field="deltaProgress" style="width: 100px;">
-                        <span class="progress-delta">(+0%)</span>
+                    <td class="progress-relay-cell" data-field="progressRelay">
+                        <span class="start-progress">0%</span> =&gt;
+                        <input type="number" class="form-control end-progress-input" placeholder="0" min="0" max="100">
+                        <span class="progress-delta-display">(+0%)</span>
                     </td>
 
                     <td class="progress-table-cell" data-field="contribution-cell" style="width: 100px;">
                         </td>
+                    
                     <td class="calc-result-cell" data-field="calculatedIncentive">0</td>
                 </tr>
              </template>
@@ -1070,7 +1100,6 @@
     <script src="script.js"></script>
 
     <script>
-        // ▼▼▼ 修正: mockScheduleData の type を 'member' 'staff' 等のキーに変更 ▼▼▼
         let mockScheduleData = {
             "task-static-1": [ // チラシ折り
                 { id: "assign-1a", assigneeId: "member:A001", assigneeName: "青木 誠", type: "member", startDate: "2025-10-01", endDate: "2025-10-05" },
@@ -1085,7 +1114,31 @@
         };
         const typeMap = { 'member': '利用者', 'staff': '職員', 'partner': '外注先', 'customer': '顧客' };
         const reverseTypeMap = { '利用者': 'member', '職員': 'staff', '外注先': 'partner', '顧客': 'customer' };
-        // ▲▲▲ 修正 ▲▲▲
+
+        /**
+         * YYYY-MM-DD の日付文字列を簡潔な日付（例: 1日）に変換
+         */
+        function formatSimpleDate(dateStr) {
+            if (!dateStr) return '';
+            try {
+                // getUTCDate を使い、タイムゾーンの影響を避ける
+                const date = new Date(dateStr);
+                const day = date.getUTCDate(); 
+                return `${day}日`;
+            } catch (e) {
+                return dateStr; // パース失敗時はそのまま
+            }
+        }
+        /**
+         * 期間の文字列を簡潔（例: 1日～5日）に変換
+         */
+        function formatSimpleDateRange(startStr, endStr) {
+            if (!startStr || !endStr) return '（未設定）';
+            // ここでは月またぎを考慮せず、日付のみを抽出
+            const startDay = formatSimpleDate(startStr);
+            const endDay = formatSimpleDate(endStr);
+            return `${startDay}～${endDay}`;
+        }
 
         function filterProjects() {
             const nameInput = document.getElementById('search-project-name');
@@ -1193,7 +1246,6 @@
             summaryActualProfit.textContent = actualProfit.toLocaleString() + ' 円';
         }
 
-        // ▼▼▼ 修正: getTaskDefinitions (assigneeType 削除) ▼▼▼
         function getTaskDefinitions() {
             const definitionTbody = document.getElementById('task-definition-table-body');
             if (!definitionTbody) return [];
@@ -1220,7 +1272,6 @@
             });
             return tasks;
         }
-        // ▲▲▲ 修正 ▲▲▲
         
         function getBudgetData() {
             const budgetTbody = document.getElementById('budget-allocation-table-body');
@@ -1237,7 +1288,6 @@
             return budgetMap;
         }
 
-        // ▼▼▼ 修正: getScheduleAssignData (typeMap を使用) ▼▼▼
         function getScheduleAssignData() {
             const assignments = [];
             
@@ -1263,9 +1313,7 @@
             }
             return assignments;
         }
-        // ▲▲▲ 修正 ▲▲▲
 
-        // ▼▼▼ 修正: renderBudgetAllocationTable (担当者種別削除) ▼▼▼
         function renderBudgetAllocationTable() {
             const budgetTbody = document.getElementById('budget-allocation-table-body');
             const budgetTemplate = document.getElementById('budget-allocation-row-template');
@@ -1303,9 +1351,7 @@
             });
             updateBudgetSummary();
         }
-        // ▲▲▲ 修正 ▲▲▲
 
-         // ▼▼▼ 修正: updateAssigneeOptions (assigneeType を引数に取り、選択肢をフィルタリング) ▼▼▼
          function updateAssigneeOptions(assigneeSelectElement, assigneeType = 'member') {
             assigneeSelectElement.innerHTML = '<option value="">（未割当）</option>';
             assigneeSelectElement.dataset.taskType = assigneeType; 
@@ -1339,9 +1385,8 @@
                  assigneeSelectElement.appendChild(customerOptgroup);
              }
          }
-         // ▲▲▲ 修正 ▲▲▲
 
-        // ▼▼▼ 修正: renderProgressManagementTable を「リレー方式」と「rowspan」対応に変更 ▼▼▼
+        // ▼▼▼ 修正: renderProgressManagementTable を「6列スリム化」対応に変更 ▼▼▼
         function renderProgressManagementTable() {
             const tableBody = document.getElementById('progress-management-table-body');
             const template = document.getElementById('progress-management-row-template');
@@ -1411,32 +1456,34 @@
                         taskNameCell.remove(); // 2行目以降はセルを削除
                     }
 
-                    // 2. 担当者情報
-                    newRow.querySelector('[data-field="assigneeType"]').textContent = assigneeType;
-                    newRow.querySelector('[data-field="assigneeName"]').textContent = assign.assigneeName;
-                    newRow.querySelector('[data-field="period"]').textContent = `${assign.startDate} ~ ${assign.endDate}`;
+                    // 2. 担当者 (統合セル)
+                    const assigneeCell = newRow.querySelector('[data-field="assigneeCombined"]');
+                    assigneeCell.innerHTML = `${assign.assigneeName} <br><small>(${assigneeType})</small>`;
                     
-                    // 3. データ属性
+                    // 3. 期間 (日付のみ)
+                    newRow.querySelector('[data-field="periodSimple"]').textContent = formatSimpleDateRange(assign.startDate, assign.endDate);
+                    
+                    // 4. データ属性
                     newRow.dataset.taskName = taskName; // ★計算用にタスク名を埋め込む
                     newRow.dataset.taskBudget = taskBudget; 
                     newRow.dataset.assigneeType = assigneeTypeKey; // 'member' 等のキーを保存
-
-                    // 4. 作業開始時(%) (ReadOnly)
-                    const startProgressCell = newRow.querySelector('[data-field="startProgress"]');
-                    startProgressCell.textContent = lastProgressForThisTask;
                     newRow.dataset.startProgress = lastProgressForThisTask; // JSで計算用に保持
 
-                    // 5. 作業終了時(%) (Input)
-                    const progressInput = newRow.querySelector('.progress-rate-input');
+                    // 5. 進捗率 (統合セル)
+                    const progressCell = newRow.querySelector('[data-field="progressRelay"]');
+                    const startProgressSpan = progressCell.querySelector('.start-progress');
+                    const progressInput = progressCell.querySelector('.end-progress-input');
+                    const deltaSpan = progressCell.querySelector('.progress-delta-display');
+                    
+                    startProgressSpan.textContent = `${lastProgressForThisTask}%`;
                     progressInput.value = currentEndProgress;
 
-                    // 6. 増加分(%) (Calc)
-                    const deltaSpan = newRow.querySelector('.progress-delta');
                     const delta = currentEndProgress - lastProgressForThisTask;
                     deltaSpan.textContent = `(${delta >= 0 ? '+' : ''}${delta}%)`;
-                    deltaSpan.className = delta > 0 ? 'progress-delta positive' : (delta < 0 ? 'progress-delta negative' : 'progress-delta');
+                    deltaSpan.className = delta >= 0 ? 'progress-delta-display' : 'progress-delta-display negative';
 
-                    // 7. 貢献度(%)
+
+                    // 6. 貢献度(%)
                     const contributionCell = newRow.querySelector('[data-field="contribution-cell"]'); 
                     if (assigneeTypeKey !== 'member') { 
                         contributionCell.innerHTML = '<div class="contribution-placeholder">-</div>';
@@ -1448,7 +1495,7 @@
 
                     tableBody.appendChild(newRow);
                     
-                    // 8. 次の担当者のため、進捗率をリレーする
+                    // 7. 次の担当者のため、進捗率をリレーする
                     lastProgressForThisTask = currentEndProgress;
                 });
             });
@@ -1468,16 +1515,19 @@
             });
         }
         
-        // ▼▼▼ 修正: calculateIncentiveForRow を「リレー方式」対応に変更 ▼▼▼
+        // ▼▼▼ 修正: calculateIncentiveForRow を「6列スリム化」対応に変更 ▼▼▼
         function calculateIncentiveForRow(row) {
             const assigneeType = row.dataset.assigneeType; // 'member', 'staff' etc.
             const resultCell = row.querySelector('[data-field="calculatedIncentive"]');
             if (!resultCell) return;
             
-            const progressRateInput = row.querySelector('.progress-rate-input'); // 作業終了時
+            // 統合セルから要素を取得
+            const progressCell = row.querySelector('[data-field="progressRelay"]');
+            const progressRateInput = progressCell?.querySelector('.end-progress-input'); // 作業終了時
+            const deltaSpan = progressCell?.querySelector('.progress-delta-display');
+            
             const contributionCell = row.querySelector('[data-field="contribution-cell"]');
             const contributionInput = contributionCell?.querySelector('.contribution-input'); 
-            const deltaSpan = row.querySelector('.progress-delta');
             
             const budget = parseFloat(row.dataset.taskBudget) || 0;
             const startProgress = parseFloat(row.dataset.startProgress) || 0; // 作業開始時
@@ -1488,7 +1538,7 @@
             // 1. 「増加分」を計算・表示
             const delta = currentProgress - startProgress;
             deltaSpan.textContent = `(${delta >= 0 ? '+' : ''}${delta}%)`;
-            deltaSpan.className = delta > 0 ? 'progress-delta positive' : (delta < 0 ? 'progress-delta negative' : 'progress-delta');
+            deltaSpan.className = delta >= 0 ? 'progress-delta-display' : 'progress-delta-display negative';
 
             // 2. 「貢献度」を取得
             let effectiveContributionRate;
@@ -1521,11 +1571,7 @@
         }
         // ▲▲▲ 修正 ▲▲▲
 
-        // ▼▼▼ 新規追加: updateProgressRelay 関数 ▼▼▼
-        /**
-         * 変更された行以降の進捗リレーを更新し、再計算する
-         * @param {HTMLTableRowElement} changedRow - ユーザーが「作業終了時」を変更した行
-         */
+        // ▼▼▼ 修正: updateProgressRelay を「6列スリム化」対応に変更 ▼▼▼
         function updateProgressRelay(changedRow) {
             const tableBody = changedRow.closest('tbody');
             if (!tableBody) return;
@@ -1542,12 +1588,13 @@
             let lastProgress = parseFloat(taskRows[0].dataset.startProgress) || 0; 
             
             taskRows.forEach(row => {
-                const startProgressCell = row.querySelector('[data-field="startProgress"]');
-                const progressInput = row.querySelector('.progress-rate-input');
+                const progressCell = row.querySelector('[data-field="progressRelay"]');
+                const startProgressSpan = progressCell?.querySelector('.start-progress');
+                const progressInput = progressCell?.querySelector('.end-progress-input');
                 
                 // 「作業開始時」を更新
-                if (startProgressCell) {
-                        startProgressCell.textContent = lastProgress;
+                if (startProgressSpan) {
+                        startProgressSpan.textContent = `${lastProgress}%`;
                         row.dataset.startProgress = lastProgress; // datasetも更新
                 }
                 
@@ -1558,9 +1605,8 @@
                 lastProgress = parseFloat(progressInput.value) || lastProgress;
             });
         }
-        // ▲▲▲ 新規追加 ▲▲▲
+        // ▲▲▲ 修正 ▲▲▲
 
-        // ▼▼▼ 修正: renderScheduleAssignTab (担当者種別セルを ul に変更) ▼▼▼
         function renderScheduleAssignTab() {
             const scheduleTbody = document.getElementById('schedule-assign-table-body');
             const template = document.getElementById('schedule-assign-task-row-template');
@@ -1577,7 +1623,7 @@
                 
                 const periodListUl = newRow.querySelector('.period-display-cell > .assign-display-list');
                 const assigneeListUl = newRow.querySelector('.assignee-display-cell > .assign-display-list');
-                const assigneeTypeListUl = newRow.querySelector('.assignee-type-display-cell > .assign-display-list'); // 修正: ul を取得
+                const assigneeTypeListUl = newRow.querySelector('.assignee-type-display-cell > .assign-display-list'); 
             
                 const assignments = mockScheduleData[task.id] || [];
                 
@@ -1593,14 +1639,14 @@
                         assigneeLi.textContent = assign.assigneeName;
                         assigneeListUl.appendChild(assigneeLi);
 
-                        const typeLi = document.createElement('li'); // 種別もliで追加
+                        const typeLi = document.createElement('li'); 
                         typeLi.textContent = typeText;
-                        assigneeTypeListUl.appendChild(typeLi); // 修正: ul に追加
+                        assigneeTypeListUl.appendChild(typeLi); 
                     });
                 } else {
                     periodListUl.innerHTML = '<li>（未設定）</li>';
                     assigneeListUl.innerHTML = '<li>（未割当）</li>';
-                    assigneeTypeListUl.innerHTML = '<li>（未設定）</li>'; // 修正: ul に追加
+                    assigneeTypeListUl.innerHTML = '<li>（未設定）</li>'; 
                 }
 
                 newRow.dataset.taskId = task.id;
@@ -1609,12 +1655,7 @@
                 scheduleTbody.appendChild(newRow);
             });
         }
-        // ▲▲▲ 修正 ▲▲▲
         
-        /**
-         * スケジュール・アサイン編集モーダルを開く
-         */
-        // ▼▼▼ 修正: openScheduleAssignModal (assigneeType 削除し、ロジック変更) ▼▼▼
         function openScheduleAssignModal(taskId, taskName) {
             const modal = document.getElementById('edit-schedule-assign-modal');
             if (!modal) return;
@@ -1637,16 +1678,16 @@
                     
                     newRow.dataset.assignmentId = assign.id;
                     
-                    const assigneeTypeSelect = newRow.querySelector('.modal-assignee-type-select-edit'); // 種別Select
-                    const assigneeSelect = newRow.querySelector('.modal-assignee-select-edit'); // 担当者Select
+                    const assigneeTypeSelect = newRow.querySelector('.modal-assignee-type-select-edit'); 
+                    const assigneeSelect = newRow.querySelector('.modal-assignee-select-edit'); 
                     const startDateInput = newRow.querySelector('.modal-start-date-edit');
                     const endDateInput = newRow.querySelector('.modal-end-date-edit');
 
-                    const assigneeTypeKey = assign.type; // 'member', 'staff' etc.
-                    assigneeTypeSelect.value = assigneeTypeKey; // 種別をセット
+                    const assigneeTypeKey = assign.type; 
+                    assigneeTypeSelect.value = assigneeTypeKey; 
 
-                    updateAssigneeOptions(assigneeSelect, assigneeTypeKey); // 種別キーを渡す
-                    assigneeSelect.value = assign.assigneeId; // 担当者をセット
+                    updateAssigneeOptions(assigneeSelect, assigneeTypeKey); 
+                    assigneeSelect.value = assign.assigneeId; 
 
                     startDateInput.value = assign.startDate;
                     endDateInput.value = assign.endDate;
@@ -1657,11 +1698,7 @@
 
             window.openModal('edit-schedule-assign-modal');
         }
-        // ▲▲▲ 修正 ▲▲▲
 
-        /**
-         * 期間の重複チェック (モーダル内テーブル用)
-         */
         function checkDateOverlap(newStart, newEnd, tbody, currentRow) {
             const rows = tbody.querySelectorAll('tr');
             if (!newStart || !newEnd) return false; 
@@ -1694,7 +1731,6 @@
             return false; 
         }
 
-        // ▼▼▼ 修正: モーダル内の「アサイン追加」ボタン処理 (種別プルダウン基準) ▼▼▼
         document.getElementById('modal-schedule-assign-add-row-button')?.addEventListener('click', (e) => {
             const modalTbody = document.getElementById('schedule-assign-modal-table-body');
             const rowTemplate = document.getElementById('schedule-assign-modal-row-template');
@@ -1709,18 +1745,16 @@
             const assigneeTypeSelect = newRow.querySelector('.modal-assignee-type-select-edit');
             const assigneeSelect = newRow.querySelector('.modal-assignee-select-edit');
             
-            const defaultType = 'member'; // デフォルトは利用者を設定
+            const defaultType = 'member'; 
             assigneeTypeSelect.value = defaultType;
-            updateAssigneeOptions(assigneeSelect, defaultType); // デフォルトの種別で担当者リストを更新
+            updateAssigneeOptions(assigneeSelect, defaultType); 
             
             newRow.querySelector('.modal-start-date-edit').value = '';
             newRow.querySelector('.modal-end-date-edit').value = '';
 
             modalTbody.appendChild(newRow);
         });
-        // ▲▲▲ 修正 ▲▲▲
 
-        // ▼▼▼ 修正: モーダル内のイベント委任 (種別変更と削除) ▼▼▼
         document.getElementById('schedule-assign-modal-table-body')?.addEventListener('click', (e) => {
              const deleteButton = e.target.closest('.modal-assign-delete-button');
              if (deleteButton) {
@@ -1733,12 +1767,10 @@
                  const row = typeSelect.closest('tr');
                  const assigneeSelect = row.querySelector('.modal-assignee-select-edit');
                  const newType = typeSelect.value;
-                 updateAssigneeOptions(assigneeSelect, newType); // 担当者リストを更新
+                 updateAssigneeOptions(assigneeSelect, newType); 
              }
         });
-        // ▲▲▲ 修正 ▲▲▲
         
-        // ▼▼▼ 修正: モーダル内の「保存」ボタン処理 (種別プルダウンから値を取得) ▼▼▼
         document.getElementById('modal-schedule-assign-save-button')?.addEventListener('click', (e) => {
             const taskId = e.target.dataset.taskId;
             if (!taskId) {
@@ -1752,12 +1784,12 @@
             let hasError = false;
 
             for (const row of rows) {
-                const assigneeTypeSelect = row.querySelector('.modal-assignee-type-select-edit'); // 種別Select
-                const assigneeSelect = row.querySelector('.modal-assignee-select-edit'); // 担当者Select
+                const assigneeTypeSelect = row.querySelector('.modal-assignee-type-select-edit'); 
+                const assigneeSelect = row.querySelector('.modal-assignee-select-edit'); 
                 const startDateInput = row.querySelector('.modal-start-date-edit');
                 const endDateInput = row.querySelector('.modal-end-date-edit');
 
-                const assigneeTypeKey = assigneeTypeSelect.value; // 'member', 'staff' etc.
+                const assigneeTypeKey = assigneeTypeSelect.value; 
                 const assigneeId = assigneeSelect.value;
                 const assigneeName = assigneeSelect.options[assigneeSelect.selectedIndex]?.text || '';
                 const startDate = startDateInput.value;
@@ -1779,7 +1811,7 @@
                     id: row.dataset.assignmentId.startsWith('new-') ? `assign-${Date.now()}-${Math.random()}` : row.dataset.assignmentId,
                     assigneeId: assigneeId,
                     assigneeName: assigneeName,
-                    type: assigneeTypeKey, // 'member', 'staff' etc.
+                    type: assigneeTypeKey, 
                     startDate: startDate,
                     endDate: endDate
                 });
@@ -1796,7 +1828,6 @@
 
             closeModal('edit-schedule-assign-modal');
         });
-        // ▲▲▲ 修正 ▲▲▲
 
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -1893,9 +1924,7 @@
 
                  taskDefTbody.addEventListener('input', (e) => {
                      const target = e.target;
-                     // ▼▼▼ 修正: assignee-type-select 削除 ▼▼▼
                      if (target.classList.contains('task-name-input')) {
-                     // ▲▲▲ 修正 ▲▲▲
                         setTimeout(() => {
                             renderBudgetAllocationTable();
                             renderScheduleAssignTab(); 
@@ -1952,7 +1981,6 @@
                  });
             }
             
-             // ▼▼▼ 修正: スケジュール・アサインタブの行クリックイベントリスナー (assigneeType削除) ▼▼▼
             const scheduleAssignTbody = document.getElementById('schedule-assign-table-body');
             if (scheduleAssignTbody) { 
                 scheduleAssignTbody.addEventListener('click', (e) => {
@@ -1966,17 +1994,15 @@
                         const taskId = clickedRow.dataset.taskId;
                         const taskName = clickedRow.dataset.taskName;
 
-                        if (taskId && taskName != null) { // 修正
-                            openScheduleAssignModal(taskId, taskName); // 修正
+                        if (taskId && taskName != null) { 
+                            openScheduleAssignModal(taskId, taskName); 
                         } else {
                             console.warn('Task data missing on clicked row for schedule/assign modal.', clickedRow.dataset);
                         }
                     }
                 });
             }
-            // ▲▲▲ 修正 ▲▲▲
 
-            // ▼▼▼ 修正: 進捗管理タブのイベントリスナーを「リレー方式」対応に変更 ▼▼▼
             const progressTab = document.getElementById('tab-project-progress');
             if (progressTab) {
                 progressTab.addEventListener('input', (e) => {
@@ -1996,29 +2022,27 @@
                         const row = e.target.closest('tr');
                         if (!row) return;
 
-                        // 「作業終了時」または「貢献度」が変更された
-                        if (e.target.classList.contains('progress-rate-input') || e.target.classList.contains('contribution-input')) {
+                        // ▼▼▼ 修正: input検知を .end-progress-input に変更 ▼▼▼
+                        if (e.target.classList.contains('end-progress-input') || e.target.classList.contains('contribution-input')) {
                             
                             // 「作業終了時」が変更された場合のみリレー処理を実行
-                            if (e.target.classList.contains('progress-rate-input')) {
+                            if (e.target.classList.contains('end-progress-input')) {
                                 updateProgressRelay(row); // リレー計算を実行
                             } else {
                                 calculateIncentiveForRow(row); // 貢献度だけならその行だけ計算
                             }
                         }
+                        // ▲▲▲ 修正 ▲▲▲
                     });
                 }
 
-                // 対象月セレクタのイベントリスナー
                 const monthSelector = document.getElementById('progress-month-select-progress');
                 if (monthSelector) {
                     monthSelector.addEventListener('change', () => {
-                         // 月が変わったらテーブルを再描画（モックデータは変わりませんが、本番ではDBから再取得）
                          renderProgressManagementTable();
                     });
                 }
             }
-            // ▲▲▲ 修正 ▲▲▲
              
              updateBudgetSummary();
              updateActualSummary(); 
@@ -2058,7 +2082,7 @@
 
              // 初期描画
              renderBudgetAllocationTable();
-             renderScheduleAssignTab(); // 修正
+             renderScheduleAssignTab(); 
              renderProgressManagementTable(); 
 
         });
