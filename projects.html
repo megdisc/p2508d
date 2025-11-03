@@ -197,7 +197,9 @@
         }
 
         /* ▼▼▼ スケジュール・アサインタブ用 ▼▼▼ */
-        .assign-display-cell {
+        .assign-display-cell,
+        .period-display-cell,
+        .assignee-display-cell {
             vertical-align: middle !important;
             text-align: left;
         }
@@ -205,20 +207,20 @@
             list-style-type: none;
             padding: 0;
             margin: 0;
-            font-size: var(--font-size-xs);
+            /* ▼▼▼ 修正: フォントサイズをxsからsmに変更 ▼▼▼ */
+            font-size: var(--font-size-sm);
+            /* ▲▲▲ 修正 ▲▲▲ */
         }
         .assign-display-list li {
             margin-bottom: 0.25rem;
         }
-        .assign-display-list .assign-period {
-            font-weight: 600;
-            margin-left: 0.5rem;
-            color: var(--color-text-secondary);
+        
+        #schedule-assign-table-body tr {
+             cursor: pointer;
+             transition: background-color 0.2s;
         }
-        .assign-edit-cell {
-            vertical-align: middle !important;
-            text-align: center;
-            width: 80px;
+        #schedule-assign-table-body tr:hover {
+             background-color: var(--color-hover-bg);
         }
         
         /* アサイン編集モーダル */
@@ -239,26 +241,6 @@
         }
         #schedule-assign-modal-table .col-actions { /* 操作 */
             width: 80px;
-        }
-        .schedule-assign-modal-add-form {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px dashed var(--color-border);
-            display: flex;
-            gap: 1rem;
-            align-items: flex-end;
-        }
-        .schedule-assign-modal-add-form .form-group {
-            margin-bottom: 0;
-            flex-grow: 1;
-        }
-        .schedule-assign-modal-add-form .form-group:nth-child(1) { flex-basis: 200px; } /* 担当者 */
-        .schedule-assign-modal-add-form .form-group:nth-child(2) { flex-basis: 140px; } /* 開始日 */
-        .schedule-assign-modal-add-form .form-group:nth-child(3) { flex-basis: 140px; } /* 終了日 */
-        
-        .schedule-assign-modal-add-form .button-primary {
-             flex-shrink: 0;
-             height: calc(1.5em + 1rem + 2px); /* フォーム入力欄の高さに合わせる */
         }
         /* ▲▲▲ スタイル追加ここまで ▲▲▲ */
 
@@ -631,26 +613,28 @@
                         <div class="section">
                             <div class="list-page-header" style="margin-bottom: 1rem;">
                                 <h2 class="section-title" style="margin: 0; border: none;">スケジュール・アサイン</h2>
+                                <span style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">※行をクリックして編集</span>
                             </div>
                             <div class="table-wrapper">
                                 <table class="table" id="schedule-assign-table">
                                     <thead>
                                         <tr>
                                             <th>タスク名</th>
-                                            <th style="width: 250px;">必要スキル</th>
                                             <th style="width: 120px;">担当者種別</th>
-                                            <th>担当者・期間</th>
-                                            <th class="col-actions">操作</th>
+                                            <th>担当者</th>
+                                            <th style="width: 220px;">期間</th>
                                         </tr>
                                     </thead>
                                     <tbody id="schedule-assign-table-body">
                                         </tbody>
                                 </table>
-                            </div>
-                             <div class="section-footer">
                                 </div>
-                        </div>
+                             <div class="section-footer">
+                            </div>
+                            </div>
                     </div>
+
+
                     <div id="tab-project-progress" class="tab-content">
                          <div class="section">
                             <h2 class="section-title">進捗管理</h2>
@@ -933,16 +917,18 @@
                     </div>
                 </div>
             </div>
-            
+
             <div id="edit-schedule-assign-modal" class="modal">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="modal-title" id="schedule-assign-modal-title">スケジュール・アサイン編集</h2>
+                        <h2 class="modal-title">スケジュール・アサイン編集 (<span id="modal-task-name-display">タスク名</span>)</h2>
                         <span class="modal-close" onclick="closeModal('edit-schedule-assign-modal')">&times;</span>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" id="modal-schedule-assign-task-id">
-                        
+                        <div class="list-page-header" style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px dashed var(--color-border);">
+                            <h3 class="section-title" style="margin: 0; border: none; font-size: 1.1rem;">担当と期間</h3>
+                            <button type="button" class="button button-primary" id="modal-schedule-assign-add-row-button">＋ アサイン追加</button>
+                        </div>
                         <div class="table-wrapper">
                             <table class="table" id="schedule-assign-modal-table">
                                 <thead>
@@ -957,32 +943,15 @@
                                     </tbody>
                             </table>
                         </div>
-                        
-                        <div class="schedule-assign-modal-add-form">
-                            <div class="form-group">
-                                <label for="modal-schedule-assign-new-assignee" class="form-label">担当者</label>
-                                <select id="modal-schedule-assign-new-assignee" class="form-control">
-                                    <option value="">（未割当）</option>
-                                </select>
-                            </div>
-                             <div class="form-group">
-                                <label for="modal-schedule-assign-new-start" class="form-label">開始日</label>
-                                <input type="date" id="modal-schedule-assign-new-start" class="form-control">
-                            </div>
-                             <div class="form-group">
-                                <label for="modal-schedule-assign-new-end" class="form-label">終了日</label>
-                                <input type="date" id="modal-schedule-assign-new-end" class="form-control">
-                            </div>
-                            <button type="button" class="button button-primary" id="modal-schedule-assign-add-button">追加</button>
-                        </div>
-                        
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="button button-secondary" onclick="closeModal('edit-schedule-assign-modal')">キャンセル</button>
-                        <button type="button" class="button button-primary" id="modal-schedule-assign-save-button">保存</button>
+                        <button type="button" class="button button-primary" id="modal-schedule-assign-save-button" data-task-id="">保存</button>
                     </div>
                 </div>
             </div>
+
+
             <template id="task-definition-row-template">
                 <tr data-task-id=""> <td><input type="text" class="form-control task-name-input" placeholder="新規タスク名"></td>
                     <td><input type="text" class="form-control" placeholder="作業指示や備考を入力"></td>
@@ -1007,37 +976,22 @@
             </template>
             
             <template id="schedule-assign-task-row-template">
-                 <tr>
+                 <tr> 
                     <td class="task-name-readonly" style="text-align: left; padding-left: 0.75rem; font-weight: 500;">（タスク名）</td>
-                    <td class="skill-display-cell">
-                         </td>
                     <td class="assignee-type-display-cell" style="font-size: var(--font-size-sm); text-align: left; padding-left: 1rem;">
                         （種別）
                     </td>
-                    <td class="assign-display-cell">
+                    <td class="assignee-display-cell">
                         <ul class="assign-display-list">
                             </ul>
                     </td>
-                    <td class="assign-edit-cell">
-                        <button type="button" class="button button-secondary" style="font-size: var(--font-size-xs); padding: 0.2rem 0.5rem;" onclick="openScheduleAssignModal('task-id', 'task-name')">編集</button>
+                    <td class="period-display-cell">
+                        <ul class="assign-display-list">
+                            </ul>
                     </td>
                 </tr>
              </template>
-            <template id="schedule-assign-modal-row-template">
-                <tr data-assignment-id=""> <td>
-                        <select class_disabled="form-control" disabled style="width: 100%; font-size: var(--font-size-sm); background-color: #eee; border: none;">
-                            </select>
-                    </td>
-                    <td><input type="date" class="form-control" value=""></td>
-                    <td><input type="date" class="form-control" value=""></td>
-                    <td class="col-actions">
-                        <div class="table-button-group">
-                            <button type="button" class="button button-danger">削除</button>
-                        </div>
-                    </td>
-                </tr>
-            </template>
-            <template id="budget-allocation-row-template">
+             <template id="budget-allocation-row-template">
                  <tr>
                     <td style="text-align: left;" class="task-name-readonly">（タスク名）</td>
                     <td class="assignee-type-display-cell">
@@ -1107,6 +1061,26 @@
                     <td class="col-actions"><div class="table-button-group"><button type="button" class="button button-danger">削除</button></div></td>
                 </tr>
             </template>
+            
+            <template id="schedule-assign-modal-row-template">
+                <tr data-assignment-id="">
+                    <td>
+                        <select class="form-control modal-assignee-select-edit" style="width: 100%; font-size: var(--font-size-sm);">
+                            </select>
+                    </td>
+                    <td>
+                        <input type="date" class="form-control modal-start-date-edit" style="width: 100%; font-size: var(--font-size-sm);">
+                    </td>
+                    <td>
+                        <input type="date" class="form-control modal-end-date-edit" style="width: 100%; font-size: var(--font-size-sm);">
+                    </td>
+                    <td class="col-actions">
+                        <div class="table-button-group">
+                            <button type="button" class="button button-danger modal-assign-delete-button">削除</button>
+                        </div>
+                    </td>
+                </tr>
+            </template>
 
         </main>
     </div>
@@ -1114,11 +1088,11 @@
     <script src="script.js"></script>
 
     <script>
-        // ▼▼▼ 追加: スケジュール・アサイン用のモックデータストア ▼▼▼
-        // (進捗管理タブなど、他のタブからも参照できるようにグローバルスコープ（のモック）に配置)
+        // ▼▼▼ 修正: モックデータ（複数アサイン） ▼▼▼
         let mockScheduleData = {
             "task-static-1": [ // チラシ折り
-                { id: "assign-1", assigneeId: "member:A001", assigneeName: "青木 誠", type: "利用者", startDate: "2025-10-01", endDate: "2025-10-10" }
+                { id: "assign-1a", assigneeId: "member:A001", assigneeName: "青木 誠", type: "利用者", startDate: "2025-10-01", endDate: "2025-10-05" },
+                { id: "assign-1b", assigneeId: "member:A002", assigneeName: "五十嵐 直人", type: "利用者", startDate: "2025-10-06", endDate: "2025-10-10" }
             ],
             "task-static-2": [ // 封入
                 { id: "assign-2", assigneeId: "staff:S002", assigneeName: "支援員 次郎", type: "職員", startDate: "2025-10-11", endDate: "2025-10-25" }
@@ -1127,7 +1101,7 @@
                 { id: "assign-3", assigneeId: "partner:P001", assigneeName: "〇〇印刷", type: "外注先", startDate: "2025-10-26", endDate: "2025-10-31" }
             ]
         };
-        // ▲▲▲ 追加 ▲▲▲
+        // ▲▲▲ 修正 ▲▲▲
 
         function filterProjects() {
             const nameInput = document.getElementById('search-project-name');
@@ -1235,7 +1209,6 @@
             summaryActualProfit.textContent = actualProfit.toLocaleString() + ' 円';
         }
 
-
         function getTaskDefinitions() {
             const definitionTbody = document.getElementById('task-definition-table-body');
             if (!definitionTbody) return [];
@@ -1243,10 +1216,10 @@
             const tasks = [];
             const rows = definitionTbody.querySelectorAll('tr');
             rows.forEach((row, index) => {
-                let taskId = row.dataset.taskId;
-                if (!taskId) {
-                    taskId = `task-${Date.now()}-${index}`; // モック用の簡易ユニークID
-                    row.dataset.taskId = taskId;
+                let taskId = row.dataset.taskId; 
+                if (!taskId) { 
+                    taskId = `task-${Date.now()}-${index}`; 
+                    row.dataset.taskId = taskId; 
                 }
                 
                 const nameInput = row.querySelector('.task-name-input');
@@ -1257,7 +1230,7 @@
                 const assigneeType = typeSelect ? typeSelect.value : 'member'; 
 
                 tasks.push({
-                    id: taskId,
+                    id: taskId, 
                     name: nameInput ? nameInput.value : `タスク ${index + 1}`,
                     requiredSkillsHtml: skillsHtml,
                     assigneeType: assigneeType 
@@ -1281,11 +1254,9 @@
             return budgetMap;
         }
 
-        // ▼▼▼ 修正: getScheduleAssignData() をモックデータストアから読むように変更 ▼▼▼
         function getScheduleAssignData() {
             const assignments = [];
             
-            // mockScheduleData (グローバル) からデータを読み出す
             for (const taskId in mockScheduleData) {
                 const taskAssignments = mockScheduleData[taskId];
                 const tasks = getTaskDefinitions();
@@ -1294,6 +1265,7 @@
                 if (task && taskAssignments) {
                     taskAssignments.forEach(assign => {
                         assignments.push({
+                            taskId: task.id,
                             taskName: task.name,
                             assigneeId: assign.assigneeId,
                             assigneeName: assign.assigneeName,
@@ -1306,7 +1278,6 @@
             }
             return assignments;
         }
-        // ▲▲▲ 修正 ▲▲▲
 
         function renderBudgetAllocationTable() {
             const budgetTbody = document.getElementById('budget-allocation-table-body');
@@ -1396,23 +1367,27 @@
             const assignments = getScheduleAssignData(); 
             const budgetData = getBudgetData();     
             
+            // ▼▼▼ 修正: モックデータ（複数アサイン） ▼▼▼
             const currentMonthProgressData = {
                 "チラシ折り-青木 誠": { progress: 100, contribution: 100 }, 
+                "チラシ折り-五十嵐 直人": { progress: 100, contribution: 100 },
                 "封入-支援員 次郎": { progress: 50, contribution: 100 },
                 "宛名貼り-〇〇印刷": { progress: 10, contribution: 100 }
             };
             const lastMonthProgressData = {
                  "チラシ折り-青木 誠": { progress: 50 },
+                 "チラシ折り-五十嵐 直人": { progress: 40 },
                  "封入-支援員 次郎": { progress: 20 },
                  "宛名貼り-〇〇印刷": { progress: 0 }
             };
+            // ▲▲▲ 修正 ▲▲▲
 
             tableBody.innerHTML = '';
             
             assignments.forEach(assign => {
                 const taskName = assign.taskName;
                 const taskBudget = budgetData[taskName] || 0; 
-                const assigneeType = assign.assigneeType.trim();
+                const assigneeType = assign.assigneeType.trim(); 
                 const typeMap = { '利用者': 'member', '職員': 'staff', '外注先': 'partner', '顧客': 'customer' };
                 const assigneeTypeKey = typeMap[assigneeType] || 'unknown'; 
 
@@ -1504,24 +1479,26 @@
                 }
             }
             
-            // TODO: 1タスク複数アサインの場合のインセンティブ計算ロジックの見直しが必要
-            //       （現状はタスク予算全体 * 進捗差分 * 貢献度）
             const progressDelta = Math.max(0, currentProgress - lastMonthProgress); 
-            const incentive = budget * (progressDelta / 100) * (effectiveContributionRate / 100);
+            // ▼▼▼ 修正: 複数アサインの場合の按分（仮：担当者数で均等割） ▼▼▼
+            const taskName = row.querySelector('[data-field="taskName"]').textContent;
+            const assignmentsForTask = getScheduleAssignData().filter(a => a.taskName === taskName);
+            const assigneeCount = assignmentsForTask.length > 0 ? assignmentsForTask.length : 1;
+            const incentive = (budget / assigneeCount) * (progressDelta / 100) * (effectiveContributionRate / 100);
+            // ▲▲▲ 修正 ▲▲▲
             
             resultCell.textContent = Math.floor(incentive).toLocaleString();
         }
 
-        // ▼▼▼ 修正: スケジュール・アサイン関連の関数群 ▼▼▼
+        // ▼▼▼ 修正: スケジュール・アサイン関連の関数群（表示スタイル変更） ▼▼▼
 
-        // スケジュール・アサインタブのテーブルをタスク定義に基づいて描画する
         function renderScheduleAssignTab() {
             const scheduleTbody = document.getElementById('schedule-assign-table-body');
             const template = document.getElementById('schedule-assign-task-row-template');
             if (!scheduleTbody || !template) return;
 
             scheduleTbody.innerHTML = '';
-            const tasks = getTaskDefinitions(); // [{id, name, requiredSkillsHtml, assigneeType}, ...]
+            const tasks = getTaskDefinitions(); 
             const typeMap = { member: '利用者', staff: '職員', partner: '外注先', customer: '顧客' };
 
             tasks.forEach(task => {
@@ -1529,178 +1506,207 @@
                 const newRow = clone.querySelector('tr');
                 
                 newRow.querySelector('.task-name-readonly').textContent = task.name;
-                newRow.querySelector('.skill-display-cell').innerHTML = task.requiredSkillsHtml;
+                // ▼▼▼ 修正: 「必要スキル」セルを削除 ▼▼▼
+                // newRow.querySelector('.skill-display-cell').innerHTML = task.requiredSkillsHtml;
+                // ▲▲▲ 修正 ▲▲▲
                 newRow.querySelector('.assignee-type-display-cell').textContent = typeMap[task.assigneeType] || '（未設定）';
                 
-                // 担当者・期間リストの描画
-                const assignListUl = newRow.querySelector('.assign-display-list');
+                const periodListUl = newRow.querySelector('.period-display-cell > .assign-display-list');
+                const assigneeListUl = newRow.querySelector('.assignee-display-cell > .assign-display-list');
+            
                 const assignments = mockScheduleData[task.id] || [];
+                
                 if (assignments.length > 0) {
                     assignments.forEach(assign => {
-                        const li = document.createElement('li');
-                        li.textContent = assign.assigneeName;
-                        const span = document.createElement('span');
-                        span.className = 'assign-period';
-                        span.textContent = `(${assign.startDate} ~ ${assign.endDate})`;
-                        li.appendChild(span);
-                        assignListUl.appendChild(li);
+                        // ▼▼▼ 修正: 期間表示（括弧なし） ▼▼▼
+                        const periodLi = document.createElement('li');
+                        periodLi.textContent = `${assign.startDate} ~ ${assign.endDate}`;
+                        periodListUl.appendChild(periodLi);
+                        // ▲▲▲ 修正 ▲▲▲
+                        
+                        const assigneeLi = document.createElement('li');
+                        assigneeLi.textContent = assign.assigneeName;
+                        assigneeListUl.appendChild(assigneeLi);
                     });
                 } else {
-                    assignListUl.innerHTML = '<li>（未割当）</li>';
+                    periodListUl.innerHTML = '<li>（未設定）</li>';
+                    assigneeListUl.innerHTML = '<li>（未割当）</li>';
                 }
 
-                // 編集ボタンに関数呼び出しを設定
-                const editButton = newRow.querySelector('.button-secondary');
-                if (editButton) {
-                    // JSON文字列として渡すのを避けるため、IDとNameを渡す
-                    editButton.setAttribute('onclick', `openScheduleAssignModal('${task.id}', '${task.name}', '${task.assigneeType}')`);
-                }
+                newRow.dataset.taskId = task.id;
+                newRow.dataset.taskName = task.name;
+                newRow.dataset.assigneeType = task.assigneeType;
                 
                 scheduleTbody.appendChild(newRow);
             });
         }
-
-        // スケジュール・アサイン編集モーダルを開く
+        
+        /**
+         * スケジュール・アサイン編集モーダルを開く
+         */
         function openScheduleAssignModal(taskId, taskName, assigneeType) {
             const modal = document.getElementById('edit-schedule-assign-modal');
             if (!modal) return;
-            
-            // 1. モーダルタイトルと非表示フィールド設定
-            modal.querySelector('#schedule-assign-modal-title').textContent = `スケジュール・アサイン編集 (タスク: ${taskName})`;
-            modal.querySelector('#modal-schedule-assign-task-id').value = taskId;
 
-            // 2. 「新規追加」フォームの担当者プルダウンを更新
-            const newAssigneeSelect = modal.querySelector('#modal-schedule-assign-new-assignee');
-            updateAssigneeOptions(assigneeType, newAssigneeSelect);
+            document.getElementById('modal-task-name-display').textContent = taskName || 'タスク名不明';
             
-            // 3. 既存のアサイン一覧テーブルを構築
-            const modalTbody = modal.querySelector('#schedule-assign-modal-table-body');
+            const saveButton = document.getElementById('modal-schedule-assign-save-button');
+            saveButton.dataset.taskId = taskId;
+            const addRowButton = document.getElementById('modal-schedule-assign-add-row-button');
+            addRowButton.dataset.assigneeType = assigneeType;
+
+            const modalTbody = document.getElementById('schedule-assign-modal-table-body');
             const rowTemplate = document.getElementById('schedule-assign-modal-row-template');
-            modalTbody.innerHTML = '';
+            modalTbody.innerHTML = ''; 
             
-            const assignments = mockScheduleData[taskId] || [];
-            
-            assignments.forEach(assign => {
-                const clone = rowTemplate.content.cloneNode(true);
-                const newRow = clone.querySelector('tr');
-                newRow.dataset.assignmentId = assign.id;
-                
-                const assigneeSelect = newRow.querySelector('select');
-                const startDateInput = newRow.querySelector('input[type="date"]:nth-of-type(1)');
-                const endDateInput = newRow.querySelector('input[type="date"]:nth-of-type(2)');
+            const existingAssignments = mockScheduleData[taskId] || [];
 
-                // 担当者プルダウンを作成・選択
-                updateAssigneeOptions(assigneeType, assigneeSelect);
-                assigneeSelect.value = assign.assigneeId;
-                // 既存行は編集不可 (disabled) にする (仕様変更：編集可能にする場合は disabled を外す)
-                // assigneeSelect.disabled = true; 
-                
-                startDateInput.value = assign.startDate;
-                endDateInput.value = assign.endDate;
-                
-                modalTbody.appendChild(newRow);
-            });
+            if (existingAssignments.length > 0) {
+                existingAssignments.forEach(assign => {
+                    const clone = rowTemplate.content.cloneNode(true);
+                    const newRow = clone.querySelector('tr');
+                    
+                    newRow.dataset.assignmentId = assign.id;
+                    
+                    const assigneeSelect = newRow.querySelector('.modal-assignee-select-edit');
+                    const startDateInput = newRow.querySelector('.modal-start-date-edit');
+                    const endDateInput = newRow.querySelector('.modal-end-date-edit');
 
-            openModal('edit-schedule-assign-modal');
+                    updateAssigneeOptions(assigneeType, assigneeSelect);
+                    assigneeSelect.value = assign.assigneeId;
+
+                    startDateInput.value = assign.startDate;
+                    endDateInput.value = assign.endDate;
+
+                    modalTbody.appendChild(newRow);
+                });
+            }
+
+            window.openModal('edit-schedule-assign-modal');
         }
 
-        // モーダル内の「追加」ボタン処理
-        document.getElementById('modal-schedule-assign-add-button')?.addEventListener('click', () => {
-            const modal = document.getElementById('edit-schedule-assign-modal');
-            const taskId = modal.querySelector('#modal-schedule-assign-task-id').value;
-            const tasks = getTaskDefinitions();
-            const task = tasks.find(t => t.id === taskId);
-            
-            if (!task) return;
+        /**
+         * 期間の重複チェック (モーダル内テーブル用)
+         */
+        function checkDateOverlap(newStart, newEnd, tbody, currentRow) {
+            const rows = tbody.querySelectorAll('tr');
+            if (!newStart || !newEnd) return false; 
 
-            const newAssigneeSelect = modal.querySelector('#modal-schedule-assign-new-assignee');
-            const newStartDateInput = modal.querySelector('#modal-schedule-assign-new-start');
-            const newEndDateInput = modal.querySelector('#modal-schedule-assign-new-end');
-            
-            const assigneeId = newAssigneeSelect.value;
-            const assigneeName = newAssigneeSelect.options[newAssigneeSelect.selectedIndex].text;
-            const startDate = newStartDateInput.value;
-            const endDate = newEndDateInput.value;
-            
-            if (!assigneeId || !startDate || !endDate) {
-                alert('担当者、開始日、終了日をすべて入力してください。');
-                return;
+            const newStartDate = new Date(newStart);
+            const newEndDate = new Date(newEnd);
+
+            if (newStartDate > newEndDate) {
+                alert('開始日が終了日より後になっています。');
+                return true; 
             }
-            if (startDate > endDate) {
-                alert('開始日は終了日より前の日付にしてください。');
-                return;
+
+            for (const row of rows) {
+                if (row === currentRow) {
+                    continue; 
+                }
+                
+                const existingStart = row.querySelector('.modal-start-date-edit')?.value;
+                const existingEnd = row.querySelector('.modal-end-date-edit')?.value;
+                
+                if (existingStart && existingEnd) {
+                    const existingStartDate = new Date(existingStart);
+                    const existingEndDate = new Date(existingEnd);
+                    
+                    if (newStartDate <= existingEndDate && newEndDate >= existingStartDate) {
+                        return true; 
+                    }
+                }
             }
-            
-            // TODO: 期間の重複チェック
-            
-            const modalTbody = modal.querySelector('#schedule-assign-modal-table-body');
+            return false; 
+        }
+
+        // モーダル内の「アサイン追加」ボタン処理
+        document.getElementById('modal-schedule-assign-add-row-button')?.addEventListener('click', (e) => {
+            const assigneeType = e.target.dataset.assigneeType;
+            const modalTbody = document.getElementById('schedule-assign-modal-table-body');
             const rowTemplate = document.getElementById('schedule-assign-modal-row-template');
+            
+            if (!assigneeType || !modalTbody || !rowTemplate) return;
 
             const clone = rowTemplate.content.cloneNode(true);
             const newRow = clone.querySelector('tr');
-            newRow.dataset.assignmentId = `assign-new-${Date.now()}`; // 仮ID
             
-            const assigneeSelect = newRow.querySelector('select');
-            const startDateInput = newRow.querySelector('input[type="date"]:nth-of-type(1)');
-            const endDateInput = newRow.querySelector('input[type="date"]:nth-of-type(2)');
+            newRow.dataset.assignmentId = `new-${Date.now()}`; 
             
-            updateAssigneeOptions(task.assigneeType, assigneeSelect);
-            assigneeSelect.value = assigneeId;
-            // assigneeSelect.disabled = true; // 新規追加行も即時 disabled にする場合
-            startDateInput.value = startDate;
-            endDateInput.value = endDate;
+            const assigneeSelect = newRow.querySelector('.modal-assignee-select-edit');
+            updateAssigneeOptions(assigneeType, assigneeSelect);
             
-            modalTbody.appendChild(newRow);
+            newRow.querySelector('.modal-start-date-edit').value = '';
+            newRow.querySelector('.modal-end-date-edit').value = '';
 
-            // 入力フォームをクリア
-            newAssigneeSelect.value = '';
-            newStartDateInput.value = '';
-            newEndDateInput.value = '';
+            modalTbody.appendChild(newRow);
         });
 
         // モーダル内の「削除」ボタン処理 (イベント委任)
         document.getElementById('schedule-assign-modal-table-body')?.addEventListener('click', (e) => {
-             const deleteButton = e.target.closest('.button-danger');
-             if(deleteButton) {
+             const deleteButton = e.target.closest('.modal-assign-delete-button');
+             if (deleteButton) {
                  deleteButton.closest('tr').remove();
              }
         });
         
         // モーダル内の「保存」ボタン処理
-        document.getElementById('modal-schedule-assign-save-button')?.addEventListener('click', () => {
-            const modal = document.getElementById('edit-schedule-assign-modal');
-            const taskId = modal.querySelector('#modal-schedule-assign-task-id').value;
-            const modalTbody = modal.querySelector('#schedule-assign-modal-table-body');
+        document.getElementById('modal-schedule-assign-save-button')?.addEventListener('click', (e) => {
+            const taskId = e.target.dataset.taskId;
+            if (!taskId) {
+                console.error('保存ボタンにタスクIDがありません。');
+                return;
+            }
             
+            const modalTbody = document.getElementById('schedule-assign-modal-table-body');
+            const rows = modalTbody.querySelectorAll('tr');
             const newAssignments = [];
-            const typeMap = { member: '利用者', staff: '職員', partner: '外注先', customer: '顧客' };
-            const tasks = getTaskDefinitions();
-            const task = tasks.find(t => t.id === taskId);
-            const assigneeType = task ? typeMap[task.assigneeType] : '（不明）';
-            
-            modalTbody.querySelectorAll('tr').forEach(row => {
-                const assigneeSelect = row.querySelector('select');
-                const startDate = row.querySelector('input[type="date"]:nth-of-type(1)').value;
-                const endDate = row.querySelector('input[type="date"]:nth-of-type(2)').value;
+            const typeMap = { 'member': '利用者', 'staff': '職員', 'partner': '外注先', 'customer': '顧客' };
+            let hasError = false;
+
+            for (const row of rows) {
+                const assigneeSelect = row.querySelector('.modal-assignee-select-edit');
+                const startDateInput = row.querySelector('.modal-start-date-edit');
+                const endDateInput = row.querySelector('.modal-end-date-edit');
+
+                const assigneeId = assigneeSelect.value;
+                const assigneeName = assigneeSelect.options[assigneeSelect.selectedIndex]?.text || '';
+                const startDate = startDateInput.value;
+                const endDate = endDateInput.value;
+
+                if (!assigneeId || !startDate || !endDate) {
+                    alert('担当者、開始日、終了日をすべて入力してください。');
+                    hasError = true;
+                    break;
+                }
+                
+                if (checkDateOverlap(startDate, endDate, modalTbody, row)) {
+                    alert(`期間が重複しています。\n担当者: ${assigneeName}\n期間: ${startDate} ~ ${endDate}`);
+                    hasError = true;
+                    break;
+                }
+
+                const assigneeTypeKey = assigneeId.split(':')[0]; 
                 
                 newAssignments.push({
-                    id: row.dataset.assignmentId,
-                    assigneeId: assigneeSelect.value,
-                    assigneeName: assigneeSelect.options[assigneeSelect.selectedIndex].text,
-                    type: assigneeType,
+                    id: row.dataset.assignmentId.startsWith('new-') ? `assign-${Date.now()}-${Math.random()}` : row.dataset.assignmentId,
+                    assigneeId: assigneeId,
+                    assigneeName: assigneeName,
+                    type: typeMap[assigneeTypeKey] || '不明',
                     startDate: startDate,
                     endDate: endDate
                 });
-            });
-            
-            // グローバルモックデータを更新
+            };
+
+            if (hasError) {
+                return; 
+            }
+
             mockScheduleData[taskId] = newAssignments;
             
-            // スケジュール・アサインタブのメインテーブルを再描画
             renderScheduleAssignTab();
-            // 進捗管理タブも再描画
             renderProgressManagementTable();
-            
+
             closeModal('edit-schedule-assign-modal');
         });
 
@@ -1720,7 +1726,9 @@
                     subNavContainer.querySelectorAll('.sub-nav-item').forEach(item => item.classList.remove('active'));
                     navItem.classList.add('active');
                     tabContents.forEach(content => {
-                        content.classList.toggle('active', content.id === targetTabId);
+                        const isActive = content.id === targetTabId;
+                        content.classList.toggle('active', isActive);
+                        content.style.display = isActive ? 'block' : 'none'; 
                     });
                     
                     if (targetTabId === 'tab-project-progress') {
@@ -1729,10 +1737,18 @@
                     if (targetTabId === 'tab-project-budget') {
                         renderBudgetAllocationTable();
                     }
-                    if (targetTabId === 'tab-project-schedule-assign') {
+                    if (targetTabId === 'tab-project-schedule-assign') { 
                         renderScheduleAssignTab();
                     }
                 });
+                
+                const initialActiveNavItem = subNavContainer.querySelector('.sub-nav-item.active');
+                const initialTargetTabId = initialActiveNavItem?.dataset.tab;
+                 tabContents.forEach(content => {
+                    const isActive = initialTargetTabId && content.id === initialTargetTabId;
+                     content.classList.toggle('active', isActive);
+                     content.style.display = isActive ? 'block' : 'none';
+                 });
             }
 
             if (typeof window.filterProjects === 'function') {
@@ -1765,25 +1781,20 @@
                  });
              }
 
-            // ▼▼▼ 修正: schedule-assign-table-body の setupTableRowAdder 呼び出しを削除 ▼▼▼
             if (window.setupTableRowAdder) {
                 setupTableRowAdder('revenue-table-body-budget-plan', 'add-revenue-row-budget-plan', 'revenue-row-template-plan'); 
                 setupTableRowAdder('task-definition-table-body', 'add-task-definition-row', 'task-definition-row-template');
                 setupTableRowAdder('expense-table-body-budget-plan', 'add-expense-row-budget-plan', 'expense-row-template-plan');
                 setupTableRowAdder('expense-table-body-actual', 'add-expense-row-actual', 'expense-row-template-actual');
-                // setupTableRowAdder('schedule-assign-table-body', 'add-schedule-assign-row', 'schedule-assign-row-template'); // 削除
             }
-            // ▲▲▲ 修正 ▲▲▲
 
             const taskDefTbody = document.getElementById('task-definition-table-body');
             if (taskDefTbody) {
-                // 既存のタスクに行IDを付与（モック用）
                 taskDefTbody.querySelectorAll('tr').forEach((row, index) => {
                     if (!row.dataset.taskId) {
                          row.dataset.taskId = `task-static-${index + 1}`;
                     }
                 });
-
 
                 const observer = new MutationObserver((mutations) => {
                     if (mutations.some(m => m.type === 'childList')) {
@@ -1799,7 +1810,7 @@
                      if (target.classList.contains('task-name-input') || target.classList.contains('assignee-type-select')) {
                         setTimeout(() => {
                             renderBudgetAllocationTable();
-                            renderScheduleAssignTab();
+                            renderScheduleAssignTab(); 
                             renderProgressManagementTable();
                         }, 50); 
                     }
@@ -1816,8 +1827,8 @@
                                  `;
                              }
                              
-                            renderScheduleAssignTab();
-                            renderProgressManagementTable();
+                             renderScheduleAssignTab(); 
+                             renderProgressManagementTable();
                          }, 500); 
                      }
                  });
@@ -1853,9 +1864,28 @@
                  });
             }
             
-             // ▼▼▼ 修正: schedule-assign-table-body のリスナー削除 ▼▼▼
-             // const scheduleAssignTbody = document.getElementById('schedule-assign-table-body'); ...
-             // ▲▲▲ 修正 ▲▲▲
+            const scheduleAssignTbody = document.getElementById('schedule-assign-table-body');
+            if (scheduleAssignTbody) { 
+                scheduleAssignTbody.addEventListener('click', (e) => {
+                    if (e.target.closest('button, input, select, textarea, a')) {
+                        return; 
+                    }
+
+                    const clickedRow = e.target.closest('tr');
+                    
+                    if (clickedRow) {
+                        const taskId = clickedRow.dataset.taskId;
+                        const taskName = clickedRow.dataset.taskName;
+                        const assigneeType = clickedRow.dataset.assigneeType;
+
+                        if (taskId && taskName != null && assigneeType != null) { 
+                            openScheduleAssignModal(taskId, taskName, assigneeType);
+                        } else {
+                            console.warn('Task data missing on clicked row for schedule/assign modal.', clickedRow.dataset);
+                        }
+                    }
+                });
+            }
 
             const progressTab = document.getElementById('tab-project-progress');
             if (progressTab) {
@@ -1928,7 +1958,7 @@
 
              // 初期描画
              renderBudgetAllocationTable();
-             renderScheduleAssignTab();
+             renderScheduleAssignTab(); // 修正
              renderProgressManagementTable(); 
 
         });
