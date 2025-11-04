@@ -156,7 +156,7 @@
                                <button class="button button-secondary period-prev-button">‹</button>
                            </div>
                            <div class="period-display">
-                               <p class="period-display-label">事業年度</p>
+                               <p class="period-display-label">会計年度</p>
                                <p class="period-display-main" id="welfare-service-period-display-main">2025年度</p>
                                <p class="period-display-sub" id="welfare-service-period-display-sub">2025年4月1日～2026年3月31日</p>
                            </div>
@@ -402,7 +402,7 @@
                         const { start, end } = getPeriodStartEnd(yearValue);
                         displaySub = `${start}～${end}`;
                         displaySpan = displayMain;
-                        displayLabelText = '事業年度';
+                        displayLabelText = '会計年度';
                     } else if (unit === 'all') {
                         displayMain = '全期間';
                         displaySub = '';
